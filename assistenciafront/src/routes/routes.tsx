@@ -1,17 +1,16 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
-import { Login } from "../pages/login";
+import { Outlet, createBrowserRouter } from 'react-router-dom'
 
+import LoginPage from '../pages/login'
 
 export const routes = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Outlet />,
     children: [
       {
-        path: "/login",
-        element: <Login/>
-      }
-     
+        path: '/login',
+        element: <LoginPage />,
+      },
     ],
   },
-]);
+])

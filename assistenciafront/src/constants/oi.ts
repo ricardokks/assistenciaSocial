@@ -1,3 +1,3 @@
 export const obj = {
-    nome: "Olá Felipe Lima"
+  nome: 'Olá Felipe Lima',
 }

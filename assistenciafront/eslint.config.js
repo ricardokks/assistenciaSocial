@@ -1,23 +1,57 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import react from 'eslint-plugin-react'
 
-export default defineConfig([
-  globalIgnores(['dist']),
+import js from '@eslint/js'
+import tailwindcss from 'eslint-plugin-tailwindcss'
+import globals from 'globals'
+
+export default [
+  js.configs.recommended,
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    ignores: ['dist'],
+  },
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      parser: await import('@typescript-eslint/parser'),
+    },
+    plugins: {
+      react,
+      tailwindcss,
+    },
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-sort-props': [
+        'error',
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          multiline: 'last',
+          ignoreCase: true,
+          reservedFirst: true,
+        },
+      ],
+
+      'tailwindcss/classnames-order': 'warn',
+      'tailwindcss/no-custom-classname': 'warn',
+      'tailwindcss/enforces-negative-arbitrary-values': 'warn',
+      'tailwindcss/enforces-shorthand': 'warn',
+      'tailwindcss/migration-from-tailwind-2': 'warn',
+      'tailwindcss/no-contradicting-classname': 'error',
+
+      'no-unused-vars': 'warn',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'max-len': 'off',
     },
   },
-])
+]
