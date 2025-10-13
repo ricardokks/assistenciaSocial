@@ -1,24 +1,21 @@
 @import 'tailwindcss';
 
-
-/*
-
- 1- Color Primaria é o Azul
- 2- Color Secundaria é o Vermelho
-*/
-
 @theme {
-  --color-primary-800: #194a99;
+  --color-primary-20: rgba(0, 85, 221, 0.2);
+  --color-primary-50: rgba(51, 102, 178, 0.5);
   --color-primary-100: #70a6ff;
-  --color-primary-50: rgba(51, 102, 178, 0.50);
-  --color-secundary-100: #ffcb1c;
-  --color-secundary-200: #FF5353;
-  --color-negative: #FF5353;
-  --color
+  --color-primary-800: #194a99;
+
+  --color-secondary-100: #ffcb1c;
+
+  --color-negative: #ff5353;
+
   --color-dark: #262626;
   --color-white: #ffffff;
-  --font--Satoshi: 'Satoshi', sans-serif;
-  --backgroud-gradient: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
+
+  --font-satoshi: 'Satoshi', sans-serif;
+
+  --background-gradient: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
 }
 
 @font-face {
