@@ -1,49 +1,41 @@
 @import 'tailwindcss';
 
 @theme {
-    --blue-primary: #194A99;
-    --blue-secondary: #70A6FF;
-    --color-dark: #262626;
-    --color-white: #FFFFFF;
-    --yellow-primary: #FFCB1C;
-    --blue-prima
-    --font--Satoshi: 'Satoshi', sans-serif;
+  --blue-primary: #194a99;
+  --blue-secondary: #70a6ff;
+  --color-dark: #262626;
+  --color-white: #ffffff;
+  --yellow-primary: #ffcb1c;
+  --font--Satoshi: 'Satoshi', sans-serif;
+  --backgroud-gradient: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
 }
 
 @font-face {
-    font-family: "Satoshi";
-    src: url("../assets/fonts/Satoshi-Regular.otf") format("opentype");
-
+  font-family: 'Satoshi';
+  src: url('../assets/fonts/Satoshi-Regular.otf') format('opentype');
 }
 
 @font-face {
-    font-family: "Satoshi-Bold";
-    src: url("../assets/fonts/Satoshi-Bold.otf") format("opentype");
-    
+  font-family: 'Satoshi-Bold';
+  src: url('../assets/fonts/Satoshi-Bold.otf') format('opentype');
 }
 
 @font-face {
-    font-family: "Satoshi-Black";
-    src: url("../assets/fonts/Satoshi-Black.otf") format("opentype");
-    
+  font-family: 'Satoshi-Black';
+  src: url('../assets/fonts/Satoshi-Black.otf') format('opentype');
 }
 
 @font-face {
-    font-family: "Outfit";
-    src: url("../assets/fonts/Outfit-Regular.otf") format("opentype");
-
+  font-family: 'Outfit';
+  src: url('../assets/fonts/Outfit-Regular.otf') format('opentype');
 }
 
-
 @font-face {
-    font-family: "Outfit-Bold";
-    src: url("../assets/fonts/Outfit-Bold.otf") format("opentype");
-
+  font-family: 'Outfit-Bold';
+  src: url('../assets/fonts/Outfit-Bold.otf') format('opentype');
 }
 
-
 @font-face {
-    font-family: "Outfit-Black";
-    src: url("../assets/fonts/Outfit-Black.otf") format("opentype");
-
+  font-family: 'Outfit-Black';
+  src: url('../assets/fonts/Outfit-Black.otf') format('opentype');
 }
