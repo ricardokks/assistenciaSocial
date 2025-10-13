@@ -1,1 +1,45 @@
 @import 'tailwindcss';
+
+@theme {
+
+    --font--Satoshi: 'Satoshi', sans-serif;
+
+}
+
+@font-face {
+    font-family: "Satoshi";
+    src: url("../assets/fonts/Satoshi-Regular.otf") format("opentype");
+
+}
+
+@font-face {
+    font-family: "Satoshi-Bold";
+    src: url("../assets/fonts/Satoshi-Bold.otf") format("opentype");
+    
+}
+
+@font-face {
+    font-family: "Satoshi-Black";
+    src: url("../assets/fonts/Satoshi-Black.otf") format("opentype");
+    
+}
+
+@font-face {
+    font-family: "Outfit";
+    src: url("../assets/fonts/Outfit-Regular.otf") format("opentype");
+
+}
+
+
+@font-face {
+    font-family: "Outfit-Bold";
+    src: url("../assets/fonts/Outfit-Bold.otf") format("opentype");
+
+}
+
+
+@font-face {
+    font-family: "Outfit-Black";
+    src: url("../assets/fonts/Outfit-Black.otf") format("opentype");
+
+}
