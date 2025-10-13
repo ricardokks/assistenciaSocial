@@ -14,6 +14,12 @@
   --color-white: #ffffff;
 
   --font-satoshi: 'Satoshi', sans-serif;
+  --font-satoshi-bold: 'Satoshi-Bold', sans-serif;
+  --font-satoshi-black: 'Satoshi-Black', sans-serif;
+
+  --font-outfit: 'Outfit', sans-serif;
+  --font-outfit-bold: 'Outfit-Bold', sans-serif;
+  --font-outfit-black: 'Outfit-Black', sans-serif;
 
   --background-gradient: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
 }
