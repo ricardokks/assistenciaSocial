@@ -22,8 +22,8 @@
   --font-outfit-black: 'Outfit-Black', sans-serif;
 }
 
-.background-gradient{
-    background: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
+.background-gradient {
+  background: linear-gradient(135deg, #4f9bff 0%, #3b6cf5 50%, #2d44d0 100%);
 }
 
 @font-face {
