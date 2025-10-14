@@ -25,7 +25,7 @@ export function SectionHero() {
         </div>
 
         {/* container botões */}
-        <div className="flex w-full items-center flex-col justify-center gap-4 max-md:justify-start max-md:items-center">
+        <div className="flex w-full items-center justify-center gap-4 max-md:flex-col max-md:items-center max-md:justify-start">
           <button className="text-primary-800 cursor-pointer rounded-3xl bg-white px-6 py-3 font-extrabold duration-500 ease-in-out hover:bg-white/90 max-sm:w-[80%]">
             Agendar agora
           </button>
@@ -44,7 +44,7 @@ export function SectionHero() {
           <img alt="" className="max-md:hidden" src={browserDesktop} />
 
           {/* Imagem browser mobile  */}
-          <img alt="" className="hidden max-md:block w-[120rem]" src={browserMobile} />
+          <img alt="" className="hidden w-[120rem] max-md:block" src={browserMobile} />
           {/* degradê  */}
         </div>
       </div>

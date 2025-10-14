@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 
-import { HomePage } from '../pages/home-page'
+import { HomePage } from '../pages/lading-apge'
 import LoginPage from '../pages/login'
 
 export const routes = createBrowserRouter([
