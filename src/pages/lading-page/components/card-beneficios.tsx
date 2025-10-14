@@ -1,8 +1,8 @@
-import type { CardBeneficiosProps } from "../../../types/type-card-beneficio";
+import type { CardBeneficiosProps } from '../../../types/type-card-beneficio'
 
 export function CardBeneficios(props: CardBeneficiosProps) {
   return (
-    <article className="shadow-card-beneficio p-5 rounded-[17.2px]">
+    <article className="shadow-card-beneficio rounded-[17.2px] p-5">
       {/* Container de Relogio  */}
       <div>{<props.icone />}</div>
 

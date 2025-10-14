@@ -14,12 +14,11 @@ export function SectionBeneficios() {
           Quais são os benefícios de agendar pelo <br /> SEPAD?
         </h1>
 
-        <div>
-          
+        <div className="flex w-full items-center justify-between">
+          {TextosCardsBeneficios.map((card, index) => (
+            <CardBeneficios {...card} key={index} />
+          ))}
         </div>
-        {TextosCardsBeneficios.map((card, index) => (
-          <CardBeneficios {...card} key={index} />
-        ))}
       </div>
     </section>
   )

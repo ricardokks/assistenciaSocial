@@ -1,6 +1,6 @@
-import type { TypeClassIcon } from "../../types/type-class-icon";
+import type { TypeClassIcon } from '../../types/type-class-icon'
 
-export function IconeTelefone({className}: TypeClassIcon) {
+export function IconeTelefone({ className }: TypeClassIcon) {
   return (
     <svg fill="none" height="98" viewBox="0 0 59 98" width="59" xmlns="http://www.w3.org/2000/svg">
       <path

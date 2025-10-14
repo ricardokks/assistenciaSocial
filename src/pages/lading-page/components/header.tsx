@@ -1,4 +1,3 @@
-
 import { logoMonocramaticaSEPAD } from '../../../assets/image'
 import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
 

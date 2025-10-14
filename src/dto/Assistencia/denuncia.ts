@@ -1,18 +1,18 @@
-import type { AssistenciaDTO } from "./assistenciaDTO";
+import type { AssistenciaDTO } from './assistenciaDTO'
 
 export type Denuncia = {
-    id: string;
-    descricao: string;
-    documentoURLs: DocumentoDenuncia[];
-    assistenciaId: string;
-    assistencia: AssistenciaDTO;
-    createdAt: Date;
+  id: string
+  descricao: string
+  documentoURLs: DocumentoDenuncia[]
+  assistenciaId: string
+  assistencia: AssistenciaDTO
+  createdAt: Date
 }
 
 export type DocumentoDenuncia = {
-    id: string;
-    documentoURL: string;
-    denunciaId: string;
-    denuncia: Denuncia;
-    nomeArquivo: string;
+  id: string
+  documentoURL: string
+  denunciaId: string
+  denuncia: Denuncia
+  nomeArquivo: string
 }

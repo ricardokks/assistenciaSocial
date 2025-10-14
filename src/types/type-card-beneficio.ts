@@ -1,4 +1,4 @@
-import type { TypeIcon } from "./type-icon"
+import type { TypeIcon } from './type-icon'
 
 export interface CardBeneficiosProps {
   icone: TypeIcon
