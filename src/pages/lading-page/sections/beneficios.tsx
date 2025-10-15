@@ -21,7 +21,6 @@ export function SectionBeneficios() {
           <h1 className="titulo-inner font-outfit-bold text-[1rem]" data-aos="fade-left">
             Quais são os benefícios de agendar pelo <br className="max-md:hidden" /> SEPAD?
           </h1>
-          
 
           {/* renderização dos cards beneficios  */}
           <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-10 max-md:grid-cols-1">
@@ -29,7 +28,6 @@ export function SectionBeneficios() {
               <CardBeneficios {...card} key={index} />
             ))}
           </div>
-          
         </div>
       </div>
     </section>

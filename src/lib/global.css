@@ -44,12 +44,28 @@
   box-shadow: 0 3.445px 8.612px 1.722px rgba(25, 74, 153, 0.2);
 }
 
-
 .color-text {
   background: linear-gradient(103deg, #70a6ff 12.2%, #194a99 138.04%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.botao-contato {
+  background: linear-gradient(135deg, #6ea1ff, #3b6edb);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.botao-contato:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 @font-face {
