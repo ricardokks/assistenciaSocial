@@ -20,6 +20,7 @@
   --font-outfit: 'Outfit', sans-serif;
   --font-outfit-bold: 'Outfit-Bold', sans-serif;
   --font-outfit-black: 'Outfit-Black', sans-serif;
+  --font-outfit-light: 'Outifit-Light', sans-serif;
 }
 
 .background-gradient {
@@ -42,6 +43,7 @@
 .shadow-card-beneficio {
   box-shadow: 0 3.445px 8.612px 1.722px rgba(25, 74, 153, 0.2);
 }
+
 
 .color-text {
   background: linear-gradient(103deg, #70a6ff 12.2%, #194a99 138.04%);
@@ -68,6 +70,11 @@
 @font-face {
   font-family: 'Outfit';
   src: url('../assets/fonts/Outfit-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Outfit-Light';
+  src: url('../assets/fonts/Outfit-Light.otf') format('opentype');
 }
 
 @font-face {
