@@ -3,7 +3,10 @@ import { CardProjeto } from '../components/card-projeto'
 
 export function SectionProjetosSociais() {
   return (
-    <section className="relative flex w-full items-start justify-center overflow-hidden px-8">
+    <section
+      className="relative flex w-full items-start justify-center overflow-hidden px-8"
+      id="projetos"
+    >
       {/* container de informações principais  */}
       <div className="relative m-0 flex size-[100%] min-h-[100vh] max-w-[1280px] flex-col items-center justify-center gap-12 py-10">
         {/* texto  */}

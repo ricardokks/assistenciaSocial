@@ -4,7 +4,10 @@ import { CardBeneficios } from '../components/card-beneficios'
 
 export function SectionBeneficios() {
   return (
-    <section className="relative flex w-full items-center justify-center overflow-hidden px-8 max-md:py-14">
+    <section
+      className="relative flex w-full items-center justify-center overflow-hidden px-8 max-md:py-14"
+      id="sobre-sistema"
+    >
       {/* Imagem fundo onda */}
       <div className="absolute inset-0 size-full">
         <img

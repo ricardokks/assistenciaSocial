@@ -4,7 +4,10 @@ import { HeaderMobile } from '../components/header-mobile'
 
 export function SectionHero() {
   return (
-    <section className="font-outfit m-0 flex size-[100%] min-h-[100vh] max-w-[1280px] flex-col justify-center bg-transparent p-4 px-5">
+    <section
+      className="font-outfit m-0 flex size-[100%] min-h-[100vh] max-w-[1280px] flex-col justify-center bg-transparent p-4 px-5"
+      id="inicio"
+    >
       <Header />
       <HeaderMobile />
 
@@ -12,7 +15,7 @@ export function SectionHero() {
       <div className=" relative flex w-full flex-col items-center justify-center gap-4 pt-20 text-center max-md:gap-8">
         {/* container de textos  */}
         <div className="flex w-full flex-col items-center justify-center gap-2 max-md:text-center">
-          <h1 className="text-5xl font-bold text-white">
+          <h1 className="text-5xl  font-bold text-white">
             Tudo que você precisa para realizar os <br className="max-md:hidden" />
             seus agendamentos
           </h1>

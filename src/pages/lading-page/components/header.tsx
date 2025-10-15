@@ -1,5 +1,6 @@
 import { logoMonocramaticaSEPAD } from '../../../assets/image'
 import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
+import { scrollParaIrSecao } from '../../../utils/function-scroll'
 
 export function Header() {
   return (
@@ -14,8 +15,8 @@ export function Header() {
         {LinksNavBarHomePage.map((link) => (
           <a
             key={link.id}
-            className="font-outfit-bold relative text-[1rem] font-bold text-white after:absolute after:bottom-[0.5px] after:left-0 after:h-[2px] after:w-0  after:bg-white  after:transition-all after:duration-300 hover:after:w-full"
-            href=""
+            className="font-outfit-bold relative cursor-pointer text-[1rem] font-bold text-white after:absolute after:bottom-[0.5px] after:left-0 after:h-[2px] after:w-0  after:bg-white  after:transition-all after:duration-300 hover:after:w-full"
+            onClick={() => scrollParaIrSecao(link.id)}
           >
             {link.name}
           </a>

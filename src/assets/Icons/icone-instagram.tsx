@@ -2,7 +2,7 @@ import type { TypeClassIcon } from '../../types/type-class-icon'
 
 export function IconeInstagram({ className }: TypeClassIcon) {
   return (
-    <svg fill="none" height="27" viewBox="0 0 26 27" width="26" xmlns="http://www.w3.org/2000/svg">
+    <svg fill="none" viewBox="0 0 26 27" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_247_107)">
         <path
           className={className}
