@@ -8,8 +8,7 @@ import { logoMassapeAzul } from '../../assets/image'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
 
 export default function LoginPage() {
-  const [visiblePassword, setVisiblePassword] = useState(false)
-
+   const [visiblePassword, setVisiblePassword] = useState(false)
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white">
       {/* Tela principal */}
