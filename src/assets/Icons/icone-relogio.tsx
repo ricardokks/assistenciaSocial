@@ -1,6 +1,6 @@
-import type { TypeClassIcon } from "../../types/type-class-icon";
+import type { TypeClassIcon } from '../../types/type-class-icon'
 
-export function IconeRelogio({className}: TypeClassIcon) {
+export function IconeRelogio({ className }: TypeClassIcon) {
   return (
     <svg fill="none" height="85" viewBox="0 0 85 85" width="85" xmlns="http://www.w3.org/2000/svg">
       <path

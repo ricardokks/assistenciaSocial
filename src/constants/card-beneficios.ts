@@ -8,7 +8,7 @@ export const TextosCardsBeneficios: CardBeneficiosProps[] = [
     icone: IconeRelogio,
     descricao:
       'Chega de perder tempo esperando no local de atendimento. Agora você escolhe o melhor horário para ser atendido de forma rápida e organizada.',
-    titulo: 'Agende sem precisar enfrentar filasX',
+    titulo: 'Agende sem precisar enfrentar filas',
   },
   {
     icone: IconePessoaFeliz,

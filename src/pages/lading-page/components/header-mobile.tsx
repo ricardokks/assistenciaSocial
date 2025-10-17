@@ -13,8 +13,17 @@ export function HeaderMobile() {
   function HandleToggleIcon() {
     setIsOpen((prev) => !prev)
   }
+
+  function scrollParaIrSecao(id: string) {
+    const section = document.getElementById(id)
+
+    HandleToggleIcon()
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
   return (
-    <header className="hidden h-auto w-full items-center justify-between bg-transparent max-md:flex">
+    <header className="relative z-[10000] hidden h-auto w-full items-center justify-between bg-transparent max-md:flex">
       {/* logo SEPAD  */}
       <div className="cursor-pointer">
         <img alt="logo SEPAD" src={logoMonocramaticaSEPAD} />
@@ -34,14 +43,18 @@ export function HeaderMobile() {
 
       {/* links de navegação header mobile  */}
       <div
-        className={`fixed ${isOpen ? 'translate-x-0' : 'translate-x-full'} top-0 z-40  flex h-screen w-[100%] justify-end duration-500 ease-in-out`}
+        className={`fixed ${isOpen ? '-translate-x-0' : '-translate-x-full'} left-0 top-0 z-40 flex  h-screen w-full justify-end bg-black/50 duration-500 ease-in-out`}
+        onClick={HandleToggleIcon}
       >
-        <div className="relative flex h-screen w-[65%] flex-col items-center justify-center gap-4 bg-white text-left">
+        <div
+          className="relative flex h-screen w-[65%] flex-col items-center justify-center gap-4 bg-white text-left"
+          onClick={(e) => e.stopPropagation()}
+        >
           {LinksNavBarHomePage.map((link) => (
             <a
               key={link.id}
-              className="font-outfit-bold text-primary-800 after:bg-primary-800 relative text-[1rem] font-bold after:absolute after:bottom-[0.5px] after:left-0 after:h-[2px]  after:w-0  after:transition-all after:duration-300 hover:after:w-full"
-              href=""
+              className="font-outfit-bold  text-primary-800 after:bg-primary-800 relative cursor-pointer text-[1.3rem] font-bold after:absolute after:bottom-[0.5px] after:left-0 after:h-[2px] after:w-0  after:transition-all after:duration-300 hover:after:w-full"
+              onClick={() => scrollParaIrSecao(link.id)}
             >
               {link.name}
             </a>
