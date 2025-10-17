@@ -1,29 +1,10 @@
 import type { TypeClassIcon } from '../../types/type-class-icon'
 
-export function IconeEmail({ className }: TypeClassIcon) {
+export function IconeCPF({ className }: TypeClassIcon) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      height="20"
-      viewBox="0 0 25 24"
-      width="20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4.75 4H20.75C21.85 4 22.75 4.9 22.75 6V18C22.75 19.1 21.85 20 20.75 20H4.75C3.65 20 2.75 19.1 2.75 18V6C2.75 4.9 3.65 4 4.75 4Z"
-        stroke="#194A99"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-      />
-      <path
-        d="M22.75 6L12.75 13L2.75 6"
-        stroke="#194A99"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-      />
+    <svg className={className} width="24" height="24" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.375 11.75H23.625M7.875 17.375H9M13.5 17.375H14.625M6.75 21.875H20.25C21.1451 21.875 22.0036 21.5194 22.6365 20.8865C23.2694 20.2536 23.625 19.3951 23.625 18.5V9.5C23.625 8.60489 23.2694 7.74645 22.6365 7.11351C22.0036 6.48058 21.1451 6.125 20.25 6.125H6.75C5.85489 6.125 4.99645 6.48058 4.36351 7.11351C3.73058 7.74645 3.375 8.60489 3.375 9.5V18.5C3.375 19.3951 3.73058 20.2536 4.36351 20.8865C4.99645 21.5194 5.85489 21.875 6.75 21.875Z" stroke="#194A99" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
+
   )
 }
