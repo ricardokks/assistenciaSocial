@@ -1,4 +1,4 @@
-import type { TypeComponenteFAQ } from '../types/type-componente-faq'
+import type { TypeComponenteFAQ } from '../types/interface-componente-faq'
 
 export const PerguntasLadingPage: TypeComponenteFAQ[] = [
   {

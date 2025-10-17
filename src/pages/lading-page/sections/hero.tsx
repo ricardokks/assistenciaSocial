@@ -5,7 +5,7 @@ import { HeaderMobile } from '../components/header-mobile'
 export function SectionHero() {
   return (
     <section
-      className="font-outfit m-0 flex size-[100%] min-h-[100vh] max-w-[1280px] flex-col justify-center bg-transparent p-4 px-5"
+      className="font-outfit m-0 flex size-[100%] h-auto max-w-[1280px] flex-col justify-start bg-transparent p-4 px-5"
       id="inicio"
     >
       <Header />

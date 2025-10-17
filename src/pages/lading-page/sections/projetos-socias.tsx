@@ -8,7 +8,7 @@ export function SectionProjetosSociais() {
       id="projetos"
     >
       {/* container de informações principais  */}
-      <div className="relative m-0 flex size-[100%] min-h-[100vh] max-w-[1280px] flex-col items-center justify-center gap-12 py-10">
+      <div className="relative m-0 flex size-[100%] h-auto max-w-[1280px] flex-col items-center justify-center gap-12 py-10">
         {/* texto  */}
         <h1
           className="font-outfit-bold text-center text-4xl text-white max-md:text-left"
