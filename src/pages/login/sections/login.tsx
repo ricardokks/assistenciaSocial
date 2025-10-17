@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import logoMassapeAzul from '../../../assets/image/logo de massape azul.svg'
 import imagemMassape from '../../../assets/image/imagemMasspae.png'
+import imagemMassapeMobile from '../../../assets/image/loginMobile.png'
 import { IconEyeOpen } from '../../../assets/Icons/closeEyeOpen'
 import { IconEyeClose } from '../../../assets/Icons/IconEyeClose'
 import { IconeCPF } from '../../../assets/Icons/iconeEmail'
@@ -28,9 +29,9 @@ export function Login() {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-between items-center bg-white overflow-hidden">
+    <div className="w-screen h-screen flex justify-between items-center bg-white overflow-hidden max-lg:flex-col-reverse">
       {/* Tela principal */}
-      <div className="w-[55%] h-[90%] flex flex-col items-center mt-6 py-4 space-y-16">
+      <div className="w-[55%] h-[90%] flex flex-col items-center mt-6 py-4 lg:space-y-16 max-lg:w-full max-lg:h-[50%] ">
         {/* Conteiner da imagem e textos */}
         <div className='w-full flex flex-col space-y-5 items-center justify-center'>
           <img width={300} height={300} className='-translate-x-1' src={logoMassapeAzul} alt="" />
@@ -93,7 +94,8 @@ export function Login() {
           <h1 className='text-center font-outfit text-primary-800'>Esqueceu sua senha? <a className='font-outfit-bold cursor-pointer'>Entre em contato com um <br />administrador</a></h1>
         </form>
       </div>
-      <div style={{ backgroundImage: `url(${imagemMassape})`, backgroundSize: "cover", }} className="w-1/2 h-full relative" />
+      <div style={{ backgroundImage: `url(${imagemMassape})`, backgroundSize: "cover", }} className="w-1/2 h-full relative max-lg:hidden" />
+      <div style={{ backgroundImage: `url(${imagemMassapeMobile})`, backgroundSize: "cover", }} className="w-full h-full absolute xl:hidden z-40" />
     </div>
   )
 }
