@@ -1,4 +1,4 @@
-import type { CardBeneficiosProps } from '../../../types/type-card-beneficio'
+import type { CardBeneficiosProps } from '../../../types/interface-card-beneficio'
 
 export function CardBeneficios(props: CardBeneficiosProps) {
   return (

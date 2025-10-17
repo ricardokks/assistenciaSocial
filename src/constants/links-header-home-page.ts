@@ -1,4 +1,4 @@
-import type { TypeLinksHeader } from '../types/type-links-header-home-page'
+import type { TypeLinksHeader } from '../types/interface-links-header-home-page'
 
 export const LinksNavBarHomePage: TypeLinksHeader[] = [
   {

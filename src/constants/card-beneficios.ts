@@ -1,7 +1,7 @@
 import { IconePessoaFeliz } from '../assets/Icons/icone-pessoa-feliz'
 import { IconeRelogio } from '../assets/Icons/icone-relogio'
 import { IconeTelefone } from '../assets/Icons/icone-telefone'
-import type { CardBeneficiosProps } from '../types/type-card-beneficio'
+import type { CardBeneficiosProps } from '../types/interface-card-beneficio'
 
 export const TextosCardsBeneficios: CardBeneficiosProps[] = [
   {

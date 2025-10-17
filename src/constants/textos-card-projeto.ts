@@ -1,4 +1,4 @@
-import type { TypeCardProjetoProps } from '../types/tyoe-card-projeto'
+import type { TypeCardProjetoProps } from '../types/interface-card-projeto'
 
 export const TextoscardsProjeto: TypeCardProjetoProps[] = [
   {

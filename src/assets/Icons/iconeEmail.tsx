@@ -1,4 +1,4 @@
-import type { TypeClassIcon } from '../../types/type-class-icon'
+import type { TypeClassIcon } from '../../types/interface-class-icon'
 
 export function IconeEmail({ className }: TypeClassIcon) {
   return (

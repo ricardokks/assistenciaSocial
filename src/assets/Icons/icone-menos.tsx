@@ -1,4 +1,4 @@
-import type { TypeClassIcon } from '../../types/type-class-icon'
+import type { TypeClassIcon } from '../../types/interface-class-icon'
 
 export function IconeMenos({ className }: TypeClassIcon) {
   return (

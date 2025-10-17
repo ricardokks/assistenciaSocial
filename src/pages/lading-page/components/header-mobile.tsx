@@ -43,7 +43,7 @@ export function HeaderMobile() {
 
       {/* links de navegação header mobile  */}
       <div
-        className={`fixed ${isOpen ? '-translate-x-0' : '-translate-x-full'} left-0 top-0 z-40 flex  h-screen w-full justify-end bg-black/50 duration-500 ease-in-out`}
+        className={`fixed ${isOpen ? 'translate-x-0' : 'translate-x-full'} left-0 top-0 z-40 flex  h-screen w-full justify-end bg-black/50 duration-500 ease-in-out`}
         onClick={HandleToggleIcon}
       >
         <div
