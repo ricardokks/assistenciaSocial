@@ -106,7 +106,7 @@ export default function LoginPage() {
             </div>
           </div>
           {/* botão de entrar */}
-          <button className="bg-primary-800 px-4 py-1 w-1/2 rounded-2xl  text-white  mt-16 hover:bg-primary-100 hover:text-[#262626] duration-500 cursor-pointer text-lg font-satoshi-bold">
+          <button className="bg-primary-800 px-4 py-1 w-1/2 rounded-2xl  text-white  mt-16 hover:bg-primary-100 hover:text-dark-100 duration-500 cursor-pointer text-lg font-satoshi-bold">
             {' '}
             ENTRAR{' '}
           </button>
