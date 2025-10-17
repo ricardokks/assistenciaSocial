@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import logoMassapeAzul from '../../../assets/image/logo de massape azul.svg'
+
 import imagemMassape from '../../../assets/image/imagemMasspae.png'
 import imagemMassapeMobile from '../../../assets/image/image-mobile-login.png'
+import logomassape from "../../../assets/image/logo-branca-massape.png"
+
+
 import { IconEyeOpen } from '../../../assets/Icons/closeEyeOpen'
 import { IconEyeClose } from '../../../assets/Icons/IconEyeClose'
 import { IconeCPF } from '../../../assets/Icons/iconeEmail'
@@ -33,7 +37,7 @@ export function Login() {
   return (
     <div className="w-screen h-screen flex justify-between items-center bg-white overflow-hidden max-lg:flex-col-reverse">
       {/* Tela principal */}
-      <div className='w-full h-32 z-10 absolute top-43 lg:hidden'> <BarsLoginMobile/> </div>
+      <div className='w-full h-32 z-10 absolute top-51 lg:hidden'> <BarsLoginMobile/> </div>
       <div className="w-[55%] h-[90%] flex flex-col items-center mt-6 py-4 lg:space-y-16 max-lg:w-full max-lg:h-[50%] ">
         {/* Conteiner da imagem e textos */}
         <div className='w-full flex flex-col space-y-5 items-center justify-center'>
@@ -98,7 +102,7 @@ export function Login() {
         </form>
       </div>
       <div style={{ backgroundImage: `url(${imagemMassape})`, backgroundSize: "cover", }} className="w-1/2 h-full relative max-lg:hidden" />
-      <div style={{ backgroundImage: `url(${imagemMassapeMobile})`, backgroundSize: "cover", }} className="w-full h-64 absolute top-0 lg:hidden z-0" />
+      <div style={{ backgroundImage: `url(${imagemMassapeMobile})`, backgroundSize: "cover", }} className="w-full flex justify-center items-center h-72 absolute top-0 lg:hidden z-0" > <img className='max-w-72 min-w-72' src={logomassape} alt="" /></div>
     </div>
   )
 }
