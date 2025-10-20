@@ -3,8 +3,6 @@ import { IMaskInput } from 'react-imask'
 
 import { IconEyeClose } from '../../assets/Icons/IconEyeClose'
 import { IconEyeOpen } from '../../assets/Icons/closeEyeOpen'
-import { IconeEmail } from '../../assets/Icons/iconeEmail'
-import { IconeSenha } from '../../assets/Icons/iconeSenha'
 import { logoMassapeAzul } from '../../assets/image'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
 
@@ -54,11 +52,10 @@ export default function LoginPage() {
                 </svg>
                 <IMaskInput
                   ref={cpfRef}
-                  className="font-outfit w-full placeholder:text-primary-50 rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
-                  placeholder="000.000.000-00"
+                  className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
                   mask="000.000.000-00"
+                  placeholder="000.000.000-00"
                 />
-
               </div>
             </div>
 
@@ -86,7 +83,7 @@ export default function LoginPage() {
                 </svg>
                 <input
                   ref={passwordRef}
-                  className="font-outfit w-full placeholder:text-primary-50 rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
+                  className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
                   placeholder="Digite sua senha"
                   type={visiblePassword ? 'text' : 'password'}
                 />
@@ -106,7 +103,7 @@ export default function LoginPage() {
             </div>
           </div>
           {/* botão de entrar */}
-          <button className="bg-primary-800 px-4 py-1 w-1/2 rounded-2xl  text-white  mt-16 hover:bg-primary-100 hover:text-dark-100 duration-500 cursor-pointer text-lg font-satoshi-bold">
+          <button className="bg-primary-800 hover:bg-primary-100 hover:text-dark-100 font-satoshi-bold mt-16  w-1/2  cursor-pointer rounded-2xl px-4 py-1 text-lg text-white duration-500">
             {' '}
             ENTRAR{' '}
           </button>
