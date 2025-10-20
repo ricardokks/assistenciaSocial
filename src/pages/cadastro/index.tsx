@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 
 import { IconEyeClose } from '../../assets/Icons/IconEyeClose'
@@ -91,3 +92,5 @@ export default function CadastroPage() {
     </div>
   )
 }
+=======
+>>>>>>> cde42be50604039667e5a0260b1f95c8d897266c
