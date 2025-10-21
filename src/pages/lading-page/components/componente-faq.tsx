@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeMenos } from '../../../assets/Icons/icone-menos'
 import type { TypeComponenteFAQ } from '../../../types/interface-componente-faq'

@@ -1,21 +1,21 @@
 import type { TypeClassIcon } from '../../types/interface-class-icon'
 
-export function IconeCPF({ className }: TypeClassIcon) {
+export function IconeEmail({ className }: TypeClassIcon) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      height="24"
-      viewBox="0 0 27 28"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg fill="none" height="18" viewBox="0 0 23 18" width="23" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M3.375 11.75H23.625M7.875 17.375H9M13.5 17.375H14.625M6.75 21.875H20.25C21.1451 21.875 22.0036 21.5194 22.6365 20.8865C23.2694 20.2536 23.625 19.3951 23.625 18.5V9.5C23.625 8.60489 23.2694 7.74645 22.6365 7.11351C22.0036 6.48058 21.1451 6.125 20.25 6.125H6.75C5.85489 6.125 4.99645 6.48058 4.36351 7.11351C3.73058 7.74645 3.375 8.60489 3.375 9.5V18.5C3.375 19.3951 3.73058 20.2536 4.36351 20.8865C4.99645 21.5194 5.85489 21.875 6.75 21.875Z"
+        d="M3.75 1H19.75C20.85 1 21.75 1.9 21.75 3V15C21.75 16.1 20.85 17 19.75 17H3.75C2.65 17 1.75 16.1 1.75 15V3C1.75 1.9 2.65 1 3.75 1Z"
         stroke="#194A99"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2.25"
+        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21.75 3L11.75 10L1.75 3"
+        stroke="#194A99"
+        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )

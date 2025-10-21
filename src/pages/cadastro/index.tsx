@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 import { useState } from 'react'
 
 import { IconEyeClose } from '../../assets/Icons/IconEyeClose'
 import { IconEyeOpen } from '../../assets/Icons/closeEyeOpen'
-import { IconeEmail } from '../../assets/Icons/iconeEmail'
 import { IconeSenha } from '../../assets/Icons/iconeSenha'
 import { logoMassapeAzul } from '../../assets/image'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
@@ -35,7 +33,6 @@ export default function CadastroPage() {
                 Email:{' '}
               </label>
               <div className="relative flex">
-                <IconeEmail className="absolute left-1.5 top-2.5" />
                 <input
                   className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-[#194A99]"
                   placeholder="Digite seu Email"
@@ -92,5 +89,3 @@ export default function CadastroPage() {
     </div>
   )
 }
-=======
->>>>>>> cde42be50604039667e5a0260b1f95c8d897266c
