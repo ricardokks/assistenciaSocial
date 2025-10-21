@@ -1,10 +1,10 @@
 export const BarsLoginMobile = () => (
   <svg
-    className="w-full h-full"
-    viewBox="0 0 412 200"
+    className="size-full"
     fill="none"
-    xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="none"
+    viewBox="0 0 412 200"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       className="w-full"

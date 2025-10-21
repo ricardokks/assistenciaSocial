@@ -42,7 +42,12 @@ export function SectionFAQ() {
         {/* container de rederização das perguntas  */}
         <div className="flex flex-col gap-6">
           {PerguntasLadingPage.map((card, index) => (
-            <ComponenteFAQ {...card} key={index} isOpen={isOpenFAQ === card.id} onToggle={() => HandleIsOpen(card.id)} />
+            <ComponenteFAQ
+              {...card}
+              key={index}
+              isOpen={isOpenFAQ === card.id}
+              onToggle={() => HandleIsOpen(card.id)}
+            />
           ))}
         </div>
       </div>
