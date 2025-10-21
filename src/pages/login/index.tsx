@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useRef, useState } from 'react'
 import { IMaskInput } from 'react-imask'
 
@@ -10,8 +11,12 @@ export default function LoginPage() {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const cpfRef = useRef(null)
   const passwordRef = useRef(null)
+=======
+import { Login } from "./sections/login";
+>>>>>>> a882cc194ccaf0ffeda861fd7aa4e760ed383d0d
 
   return (
+<<<<<<< HEAD
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white">
       {/* Tela principal */}
       <div className="h-[90%] w-[55%] flex-col items-center justify-between space-y-10 py-4 ">
@@ -122,5 +127,8 @@ export default function LoginPage() {
         style={{ backgroundImage: `url(${imagemMassape})`, backgroundSize: 'cover' }}
       />
     </div>
+=======
+    <Login />
+>>>>>>> a882cc194ccaf0ffeda861fd7aa4e760ed383d0d
   )
 }
