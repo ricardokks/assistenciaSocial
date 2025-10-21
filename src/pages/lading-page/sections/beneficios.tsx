@@ -18,7 +18,7 @@ export function SectionBeneficios() {
       </div>
 
       {/* container de informações principais  */}
-      <div className="relative m-0 flex size-[100%] h-auto max-w-[1280px] items-start py-32 justify-center">
+      <div className="relative m-0 flex size-[100%] h-auto max-w-[1280px] items-start justify-center py-32">
         <div className="z-50 flex flex-col items-center gap-12">
           {/*   texto  */}
           <h1 className="titulo-inner font-outfit-bold text-[1rem]" data-aos="fade-left">

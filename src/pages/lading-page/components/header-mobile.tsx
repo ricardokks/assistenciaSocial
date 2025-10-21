@@ -17,7 +17,9 @@ export function HeaderMobile() {
   function scrollParaIrSecao(id: string) {
     const section = document.getElementById(id)
 
+    // Função de Alterar Icon
     HandleToggleIcon()
+
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
     }

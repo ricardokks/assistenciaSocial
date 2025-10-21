@@ -3,7 +3,7 @@ import type { CardBeneficiosProps } from '../../../types/interface-card-benefici
 export function CardBeneficios(props: CardBeneficiosProps) {
   return (
     <div className="flex items-center justify-center" data-aos="fade-left">
-      <article className="shadow-card-beneficio font-outfit h-full flex w-auto flex-col items-center justify-center gap-6 rounded-[17.2px] p-5 transition-all duration-500 ease-in-out hover:scale-110">
+      <article className="shadow-card-beneficio font-outfit flex h-full w-auto flex-col items-center justify-center gap-6 rounded-[17.2px] p-5 transition-all duration-500 ease-in-out hover:scale-110">
         {/* Container dos icones  */}
         <div className="">{<props.icone />}</div>
 

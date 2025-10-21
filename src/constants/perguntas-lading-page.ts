@@ -2,12 +2,14 @@ import type { TypeComponenteFAQ } from '../types/interface-componente-faq'
 
 export const PerguntasLadingPage: TypeComponenteFAQ[] = [
   {
+    id: 1,
     pergunta: 'Como eu solicito ajuda?',
     resposta:
       'Entre em contato com a unidade desejada (CRAS, CREAS ou outra agência social), forneça suas informações pessoais e explique qual tipo de assistência você precisa. Seja claro sobre sua situação e objetivos.',
     direcao: false,
   },
   {
+    id: 2,
     pergunta: 'Quais informações preciso fornecer ao solicitar ajuda?',
     resposta:
       'Dependendo do serviço que você solicitar você irá precisar de informações diferentes, pois, cada serviço precis de informações distintas',
