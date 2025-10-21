@@ -1,3 +1,15 @@
+
+
 export function InstituicaoPage() {
-  return <div className="size-full"></div>
+
+
+
+
+    return(
+
+        <div className="w-full h-full">
+
+            
+        </div>
+    )
 }
