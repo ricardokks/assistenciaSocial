@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { IMaskInput } from 'react-imask'
 
 import { IconEyeClose } from '../../assets/Icons/IconEyeClose'
 import { IconEyeOpen } from '../../assets/Icons/closeEyeOpen'
@@ -10,18 +10,19 @@ import imagemMassape from '../../assets/image/imagemMasspae.png'
 
 export default function CadastroPage() {
   const [visiblePassword, setVisiblePassword] = useState(false)
+  const cpfRef = useRef(null)
 
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white">
       {/* Tela principal */}
-      <div className="mt-6 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4">
+      <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4">
         {/* Conteiner da imagem e textos */}
-        <div className="flex w-full flex-col items-center justify-center space-y-5">
+        <div className="flex w-full flex-col items-center justify-center space-y-5 mb-9">
           <img alt="" className="-translate-x-1" height={300} src={logoMassapeAzul} width={300} />
-          <div className="mt-6 flex w-2/4 flex-col items-center -space-y-2">
+          <div className="mt-5 flex w-2/4 flex-col items-center -space-y-2">
             <h1 className="text-primary-800 font-outfit-bold text-[30px]">SEJA BEM-VINDO(A)</h1>
             <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium">
-              Assistência social na palma da mão
+              Preencha os campos a seguir com suas informações
             </h2>
           </div>
         </div>
@@ -29,20 +30,52 @@ export default function CadastroPage() {
         <form className="flex w-full flex-col items-center justify-center space-y-3">
           {/* conteiner dos inputs */}
           <div className="flex h-[70%] w-full flex-col items-center justify-center">
-            {/* Email */}
+            {/* Nome */}
             <div className="w-3/5 flex-col items-center rounded-2xl p-2">
               <label className="text-primary-800 font-outfit text-[16px] font-medium">
-                Email:{' '}
+                Nome Completo:{' '}
               </label>
               <div className="relative flex">
-                <IconeEmail className="absolute left-1.5 top-2.5" />
+                <IconeEmail className="absolute size-4 left-2 top-3" />
                 <input
                   className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-[#194A99]"
-                  placeholder="Digite seu Email"
+                  placeholder="Digite seu nome"
                   type="text"
                 />
               </div>
             </div>
+
+            {/* CPF */}
+            <div className="w-3/5 flex-col items-center rounded-2xl p-2">
+              <label className="text-primary-800 placeholder:text-primary-50 font-outfit text-[16px] font-medium">
+                CPF:{' '}
+              </label>
+              <div className="relative flex">
+                <svg
+                  className="absolute left-1 top-2"
+                  fill="none"
+                  height="22"
+                  viewBox="0 0 27 28"
+                  width="22"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.375 11.75H23.625M7.875 17.375H9M13.5 17.375H14.625M6.75 21.875H20.25C21.1451 21.875 22.0036 21.5194 22.6365 20.8865C23.2694 20.2536 23.625 19.3951 23.625 18.5V9.5C23.625 8.60489 23.2694 7.74645 22.6365 7.11351C22.0036 6.48058 21.1451 6.125 20.25 6.125H6.75C5.85489 6.125 4.99645 6.48058 4.36351 7.11351C3.73058 7.74645 3.375 8.60489 3.375 9.5V18.5C3.375 19.3951 3.73058 20.2536 4.36351 20.8865C4.99645 21.5194 5.85489 21.875 6.75 21.875Z"
+                    stroke="#194A99"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.25"
+                  />
+                </svg>
+                <IMaskInput
+                  ref={cpfRef}
+                  className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
+                  mask="000.000.000-00"
+                  placeholder="000.000.000-00"
+                />
+              </div>
+            </div>
+
             {/* senha */}
             <div className="w-3/5 flex-col items-center rounded-2xl p-2">
               <label className="text-primary-800 font-outfit text-[16px] font-medium">
@@ -70,19 +103,11 @@ export default function CadastroPage() {
               </div>
             </div>
           </div>
-          {/* botão de entrar */}
-          <button className="bg-primary-800 font-satoshi mt-16 w-1/2 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900">
+          {/* botão de prosseguir */}
+          <button className="bg-primary-800 font-satoshi mt-8 w-1/2 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900">
             {' '}
-            ENTRAR{' '}
+            Prosseguir{' '}
           </button>
-          {/* esqueci a senha */}
-          <h1 className="font-outfit text-primary-800 text-center">
-            Esqueceu sua senha?{' '}
-            <a className="font-outfit-bold cursor-pointer">
-              Entre em contato com um <br />
-              administrador
-            </a>
-          </h1>
         </form>
       </div>
       <div
@@ -92,5 +117,3 @@ export default function CadastroPage() {
     </div>
   )
 }
-=======
->>>>>>> cde42be50604039667e5a0260b1f95c8d897266c
