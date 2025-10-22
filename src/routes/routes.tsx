@@ -21,7 +21,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: '/sepad-massape/projeto/k',
-        element: <Projeto />,
+        element: <Projeto id='2'/>,
       },
       {
         path: '/cadastro',

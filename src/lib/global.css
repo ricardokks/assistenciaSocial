@@ -119,3 +119,20 @@
   font-family: 'Outfit-Black';
   src: url('../assets/fonts/Outfit-Black.otf') format('opentype');
 }
+
+
+@keyframes rotateFull{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.animation-rotateFull{
+  animation-duration: 2s;
+  animation-name: rotateFull;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
