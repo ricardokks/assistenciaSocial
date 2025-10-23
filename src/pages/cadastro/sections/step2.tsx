@@ -8,9 +8,9 @@ import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 export function Step2({section, setSection}: {section:number, setSection: (section:number) => void}) {
   const cpfRef = useRef(null)
   return (
-    <div className='flex w-full h-full justify-center items-center flex-col'>
+    <div className='flex size-full flex-col items-center justify-center'>
                       <div className="mt-5 flex w-2/4 flex-col items-center -space-y-2">
-            <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium mb-5">
+            <h2 className="text-primary-800 font-satoshi mb-5 text-center text-[25px] font-medium">
               Estamos quase lá! Continue preenchendo os campos
             </h2>
           </div>
@@ -21,9 +21,9 @@ export function Step2({section, setSection}: {section:number, setSection: (secti
           Nome da mãe:{' '}
         </label>
         <div className="relative flex">
-          <IconePessoa className="absolute size-4 left-2 top-3" />
+          <IconePessoa className="absolute left-2 top-3 size-4" />
           <input
-            className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-primary-50"
+            className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
             placeholder="Nome da mãe completo"
             type="text"
           />
@@ -72,24 +72,24 @@ export function Step2({section, setSection}: {section:number, setSection: (secti
         <IconeData className="absolute left-1 top-2 h-5 w-6" />
         
         <IMaskInput
+          className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
           mask="00-00-0000"
           placeholder="dd-mm-aaaa"
-          className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-primary-50"
         />
       </div>
       
     </div>
                           {/* botão de retornar */}
           <button
-          onClick={() => setSection(section - 1)}
-          className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400">
+          className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
+          onClick={() => setSection(section - 1)}>
             {' '}
             Retornar{' '}
           </button>
                       {/* botão de prosseguir */}
           <button
-          onClick={() => setSection(section + 1)}
-          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900">
+          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
+          onClick={() => setSection(section + 1)}>
             {' '}
             Prosseguir{' '}
           </button>

@@ -4,7 +4,7 @@ import { scrollParaIrSecao } from "../../../utils/function-scroll";
 
 export function HeaderProjeto() {
   return (
-    <header className="font-outfit relative flex items-center justify-between bg-transparent max-md:hidden w-full max-w-[1280px] px-6">
+    <header className="font-outfit relative flex w-full max-w-[1280px] items-center justify-between bg-transparent px-6 max-md:hidden">
       {/* Logo SEPAD */}
       <div className="cursor-pointer">
         <IconeSPD />
