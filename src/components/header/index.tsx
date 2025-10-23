@@ -1,11 +1,9 @@
-import { HeaderButtonSair } from './HeaderButtonSair'
-import { HeaderLinks } from './HeaderLinks'
-import { HeaderLogo } from './HeaderLogo'
-import { HeaderRoot } from './HeaderRoot'
+import { HeaderDashboardNotificacao } from './HeaderNotificacao'
+import { HeaderDashboardPerfil } from './HeaderPerfil'
+import { HeaderDashbordRoot } from './HeaderRoot'
 
 export const HeaderDashboards = {
-  root: HeaderRoot,
-  logo: HeaderLogo,
-  Links: HeaderLinks,
-  botao: HeaderButtonSair,
+  root: HeaderDashbordRoot,
+  perfil: HeaderDashboardPerfil,
+  notificacao: HeaderDashboardNotificacao,
 }
