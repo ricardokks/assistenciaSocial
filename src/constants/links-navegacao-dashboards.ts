@@ -55,7 +55,7 @@ export const LinksDashboardUsuario: LinksDashboardCidadaoProps[] = [
   {
     id: 'Inicio',
     icone: IconHome,
-    nomeLink: 'Home',
+    nomeLink: 'Inicio',
   },
   {
     id: 'ContatarAtendimento',
