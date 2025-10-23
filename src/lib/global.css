@@ -67,6 +67,22 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Scrollbar personalizada */
+.scrollbar-thin-personalizada::-webkit-scrollbar {
+  width: 5px;
+  margin-right: 2px;
+}
+
+.scrollbar-thin-personalizada::-webkit-scrollbar-thumb {
+  background-color: #6ea1ff; 
+  border-radius: 50px;
+}
+
+.scrollbar-thin-personalizada::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
 @font-face {
   font-family: 'Satoshi';
   src: url('../assets/fonts/Satoshi-Regular.otf') format('opentype');
@@ -100,4 +116,21 @@
 @font-face {
   font-family: 'Outfit-Black';
   src: url('../assets/fonts/Outfit-Black.otf') format('opentype');
+}
+
+
+@keyframes rotateFull{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.animation-rotateFull{
+  animation-duration: 2s;
+  animation-name: rotateFull;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
 }

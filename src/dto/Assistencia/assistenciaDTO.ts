@@ -1,3 +1,4 @@
+import type { TypeIcon } from '../../types/type-icon'
 import type { UsuarioDTO } from '../Usuario/usuarioDTO'
 import type { Denuncia } from './denuncia'
 import type { Ouvidoria } from './ouvidoria'
@@ -15,4 +16,21 @@ export type AssistenciaDTO = {
   usuarios: UsuarioDTO[]
   denuncias: Denuncia[]
   ouvidorias: Ouvidoria[]
+}
+
+export type AssistenciaNOVODTO = {
+  id: string
+  unidade: string
+  subNome: string
+  icone: TypeIcon
+  descricao: string
+  localizacao: string,
+  telefone: string
+  horarioFuncionamento: string
+  servicos: Servico[]
+  solicitacoes: Solicitacoes[]
+  usuarios: UsuarioDTO[]
+  denuncias: Denuncia[]
+  ouvidorias: Ouvidoria[]
+  abrange: string[]
 }
