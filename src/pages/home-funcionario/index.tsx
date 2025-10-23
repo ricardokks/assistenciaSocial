@@ -1,9 +1,11 @@
-import React, { type ReactNode, useState } from 'react'
+import { type ReactNode, useState } from 'react'
 
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
-import { Inicio } from './sections/inicio'
+import { HeaderDashboards } from './components/header'
 import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
+import { Inicio } from './sections/inicio'
+import { Usuario } from './sections/usuario'
 
 export function HomeFuncionario() {
   // variaveis e estados utilizados
@@ -12,11 +14,18 @@ export function HomeFuncionario() {
     Inicio: <Inicio />,
     Atendimento: <Atendimento />,
     Dados: <Dados />,
-    Usuário: <Atendimento />
+    Usuarios: <Usuario />,
   }
+
   return (
-    <section className="h-screen w-full bg-bright-100">
-      <h1>oi</h1>
-    </section>
+    <main className="bg-bright-100 flex h-screen w-full">
+      <HeaderDashboards.root>
+        <HeaderDashboards.logo />
+        <HeaderDashboards.Links sectionSelecionada={selecionarSection} selecionarSection={setSelecionarSection} typeUser='PROFISSIONAL' />
+        <HeaderDashboards.botao />
+      </HeaderDashboards.root>
+
+      {sectionsDashboard[selecionarSection]}
+    </main>
   )
 }
