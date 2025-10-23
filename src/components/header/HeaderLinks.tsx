@@ -2,10 +2,12 @@ import {
   LinksDashboardAdministrador,
   LinksDashboardFuncionario,
   LinksDashboardUsuario,
-} from '../../../../constants/links-navegacao-dashboards'
-import type { HeaderLinksProps } from '../../../../types/interface-header-dashboard'
-import type { TypeDashboardFuncionario } from '../../../../types/type-dashboard-funcionario'
-import type { TypeUsario } from '../../../../types/type-usuarios'
+} from '../../constants/links-navegacao-dashboards'
+
+import type { HeaderLinksProps } from '../../types/interface-header-dashboard'
+import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
+import type { TypeUsario } from '../../types/type-usuarios'
+
 
 // Criando uma tipagem que irá associar cada usuario a um link
 const userLink: Record<

@@ -1,4 +1,4 @@
-import { logoMassape } from '../../../../assets/image'
+import { logoMassape } from '../../assets/image'
 
 export function HeaderLogo() {
   return (

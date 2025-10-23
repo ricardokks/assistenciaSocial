@@ -1,11 +1,11 @@
 import { type ReactNode, useState } from 'react'
 
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
-import { HeaderDashboards } from './components/header'
 import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
 import { Inicio } from './sections/inicio'
 import { Usuario } from './sections/usuario'
+import { HeaderDashboards } from '../../components/header'
 
 export function HomeFuncionario() {
   // variaveis e estados utilizados

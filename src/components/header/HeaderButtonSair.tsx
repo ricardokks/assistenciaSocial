@@ -1,4 +1,4 @@
-import { IconeSair } from '../../../../assets/Icons/iconeSair'
+import { IconeSair } from '../../assets/Icons/iconeSair'
 
 export function HeaderButtonSair() {
   return (

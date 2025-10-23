@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-export function Projeto() {
-  return (
-    <main className="background-gradient flex h-screen w-full items-center justify-center">
-      <section className="m-0 flex h-full w-[100%] max-w-[1280px] items-start py-10"></section>
-=======
 import { useEffect, useState } from "react";
 import { getAssistencia } from "../../api/assistencia/getAssistencia";
 import { HeaderMobile } from "./components/headerMobileProjeto";
@@ -68,7 +62,6 @@ export function Projeto(data: { id: string }) {
 
       {/* Mapa */}
      <MapaAssistencia localizacao={assistencia.localizacao}/>
->>>>>>> 9372b90750718ea6e2c20ff1e67643d0a24cf263
     </main>
   )
 }
