@@ -22,7 +22,7 @@ const userLink: Record<
   PROFISSIONAL: LinksDashboardFuncionario,
 }
 
-export function HeaderLinks(props: HeaderLinksProps) {
+export function SideBarLinks(props: HeaderLinksProps) {
   //   variaveis e estados utilizadas no componente
   const links = userLink[props.typeUser]
 

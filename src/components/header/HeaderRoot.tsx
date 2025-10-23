@@ -1,9 +1,5 @@
-import type { ReactNode } from 'react'
+import type { InterfaceChildren } from '../../types/interface-children'
 
-interface HeaderRootProps {
-  children: ReactNode
-}
-
-export function HeaderRoot({ children }: HeaderRootProps) {
-  return <div className='bg-primary-800 flex w-[20%] flex-col items-center justify-between py-2'>{children}</div>
+export function HeaderDashbordRoot({ children }: InterfaceChildren) {
+  return <header className='py-4 flex w-full items-center justify-between border-b-2 border-dark-100/10'>{children}</header>
 }

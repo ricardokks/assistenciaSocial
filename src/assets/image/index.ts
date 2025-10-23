@@ -1,5 +1,6 @@
 import browserDesktop from './Browser.svg'
 import browserMobile from './browser-mobile.svg'
+import imagemAvatar from './image-avatar.svg'
 import logoMassapeAzul from './logo de massape azul.svg'
 import logoMassape from './logo-massape.svg'
 import logoMonocramaticaSEPAD from './logo-monocramatica-sepad.webp'
@@ -14,4 +15,5 @@ export {
   logoMassapeAzul,
   browserMobile,
   logoMassape,
+  imagemAvatar,
 }

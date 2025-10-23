@@ -5,7 +5,7 @@ import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
 import { Inicio } from './sections/inicio'
 import { Usuario } from './sections/usuario'
-import { HeaderDashboards } from '../../components/header'
+import { SideBarDashboard } from '../../components/SideBar'
 
 export function HomeFuncionario() {
   // variaveis e estados utilizados
@@ -18,12 +18,12 @@ export function HomeFuncionario() {
   }
 
   return (
-    <main className="bg-bright-100 flex h-screen w-full">
-      <HeaderDashboards.root>
-        <HeaderDashboards.logo />
-        <HeaderDashboards.Links sectionSelecionada={selecionarSection} selecionarSection={setSelecionarSection} typeUser='PROFISSIONAL' />
-        <HeaderDashboards.botao />
-      </HeaderDashboards.root>
+    <main className="bg-bright-100 flex justify-between h-screen w-full">
+      <SideBarDashboard.root>
+        <SideBarDashboard.logo />
+        <SideBarDashboard.Links sectionSelecionada={selecionarSection} selecionarSection={setSelecionarSection} typeUser='PROFISSIONAL' />
+        <SideBarDashboard.botao />
+      </SideBarDashboard.root>
 
       {sectionsDashboard[selecionarSection]}
     </main>
