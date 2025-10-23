@@ -10,7 +10,7 @@ export function Step1({section, setSection}: {section:number, setSection: (secti
   const [visiblePassword, setVisiblePassword] = useState(false)
   const cpfRef = useRef(null)
   return (
-    <div className="flex w-full h-full justify-center items-center flex-col">
+    <div className="flex size-full flex-col items-center justify-center">
       <div className="mt-5 flex w-2/4 flex-col items-center -space-y-2">
         <h1 className="text-primary-800 font-outfit-bold text-[30px]">SEJA BEM-VINDO(A)</h1>
         <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium">
@@ -25,9 +25,9 @@ export function Step1({section, setSection}: {section:number, setSection: (secti
             Nome Completo:{' '}
           </label>
           <div className="relative flex">
-            <IconePessoa className="absolute size-4 left-2 top-3" />
+            <IconePessoa className="absolute left-2 top-3 size-4" />
             <input
-              className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-primary-50"
+              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               placeholder="Digite seu nome"
               type="text"
             />
@@ -71,7 +71,7 @@ export function Step1({section, setSection}: {section:number, setSection: (secti
           <div className="relative flex">
             <IconeSenha className="absolute left-1 top-2" />
             <input
-              className="font-outfit w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none placeholder:text-primary-50"
+              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               placeholder="Digite sua senha"
               type={visiblePassword ? 'text' : 'password'}
             />
@@ -93,8 +93,8 @@ export function Step1({section, setSection}: {section:number, setSection: (secti
           </div>
                    {/* botão de prosseguir */}
           <button
-          onClick={() => setSection(section + 1)}
-          className="w-full bg-primary-800 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900">
+          className="bg-primary-800 font-satoshi mt-8 w-full cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
+          onClick={() => setSection(section + 1)}>
             {' '}
             Prosseguir{' '}
           </button>

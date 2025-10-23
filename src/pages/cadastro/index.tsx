@@ -25,14 +25,14 @@ export default function CadastroPage() {
       {/* Tela principal */}
       <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4">
         {/* Conteiner da imagem e textos */}
-        <div className="flex w-full flex-col items-center justify-center space-y-5 mb-9">
+        <div className="mb-9 flex w-full flex-col items-center justify-center space-y-5">
           <img alt="" className="-translate-x-1" height={300} src={logoMassapeAzul} width={300} />
 
         </div>
         {/* formulário */}
         <form
-        onClick={(e) => e.preventDefault()}
-        className="flex w-full flex-col items-center justify-center space-y-3">
+        className="flex w-full flex-col items-center justify-center space-y-3"
+        onClick={(e) => e.preventDefault()}>
           {RenderSection(section)}
 
         </form>

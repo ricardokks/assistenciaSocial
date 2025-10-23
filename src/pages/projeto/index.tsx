@@ -7,11 +7,12 @@ import { InfoAssistencia } from "./section/infoAssistencia";
 import { type AssistenciaNOVODTO } from "../../dto/Assistencia/assistenciaDTO";
 import { MapaAssistencia } from "./section/mapaAssistencia";
 import { IconeLoading } from "../../assets/Icons/icone-loading";
+import { useParams } from "react-router-dom";
 
-export function Projeto(data: { id: string }) {
-  const { id } = data
+export function Projeto() {
   const [assistencia, setAssistencia] = useState<AssistenciaNOVODTO>()
-
+  const { id } = useParams()
+  
   async function pegarDadosAssistencia() {
     try {
       const { data } = await getAssistencia(id)
@@ -29,9 +30,9 @@ export function Projeto(data: { id: string }) {
 
   if (!assistencia) {
   return (
-    <main className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-50 to-white text-primary-800">
+    <main className="text-primary-800 flex h-screen flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white">
       <div
-        className="relative w-40 h-40 mb-6"
+        className="relative mb-6 size-40"
       >
         {/* Círculo girando */}
         
@@ -40,7 +41,7 @@ export function Projeto(data: { id: string }) {
       </div>
 
       {/* Texto */}
-      <p className="font-satoshi-bold text-lg font-medium text-center text-primary-800">
+      <p className="font-satoshi-bold text-primary-800 text-center text-lg font-medium">
         Carregando informações, aguarde...
       </p>
     </main>
@@ -48,16 +49,16 @@ export function Projeto(data: { id: string }) {
 }
 
   return (
-    <main className="background-gradient flex-col flex max-md:gap-6 h-screen max-md:h-auto w-screen items-center p-4 overflow-x-hidden">
+    <main className="background-gradient flex h-screen w-screen flex-col items-center overflow-x-hidden p-4 max-md:h-auto max-md:gap-6">
       <HeaderProjeto />
       <HeaderMobile />
       {/* Section */}
       <InfoAssistencia
+        abrange={assistencia.abrange}
+        descrição={assistencia.descricao}
+        icone={assistencia.icone}
         nome={assistencia.unidade}
         subNome={assistencia.subNome}
-        icone={assistencia.icone}
-        descrição={assistencia.descricao}
-        abrange={assistencia.abrange}
       />
 
       {/* Mapa */}
