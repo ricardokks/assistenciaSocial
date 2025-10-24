@@ -18,7 +18,7 @@ export function HomeFuncionario() {
   }
 
   return (
-    <main className="bg-bright-100 flex justify-between h-screen w-full">
+    <main className="flex h-screen w-full justify-between bg-[#f5f7fa]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links sectionSelecionada={selecionarSection} selecionarSection={setSelecionarSection} typeUser='PROFISSIONAL' />
