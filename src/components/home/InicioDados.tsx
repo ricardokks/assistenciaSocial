@@ -1,7 +1,7 @@
 import { IconeCalendario } from "../../assets/Icons/Icone-calendario";
 import { dadosHome } from "../../constants/dados-home";
 
-export function Dados() {
+export function InicioDados() {
     return (
         <div className="flex w-full h-full justify-between pt-2 space-x-6">
             {dadosHome.map(item => (

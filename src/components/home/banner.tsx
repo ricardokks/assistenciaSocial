@@ -1,6 +1,6 @@
 import { IconeBanner } from "../../assets/Icons/icone-banner";
 
-export function Banner() {
+export function InicioBanner() {
     return (
         <div className="w-[90%] background-gradient-banner h-[28%] md:py-14 rounded-2xl mt-2 flex justify-between items-center px-8 relative max-md:flex-col max-md:h-[35%] max-md:pt-4 max-md:px-4 max-md:max-h-[380px] ">
             <div className="text-white flex flex-col w-[55%] max-md:w-full">

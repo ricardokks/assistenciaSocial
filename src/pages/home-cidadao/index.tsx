@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import type { TypeDashboardCidadao } from "../../types/type-dashboard-cidadao";
-import { Inicio } from "./section/inicio";
 import { SideBarDashboard } from "../../components/SideBar";
+import { Inicio } from "../../components/home/Inicio";
 
 export function HomeCidadao() {
     const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')

@@ -1,6 +1,6 @@
 import { IconeNotificacao } from "../../assets/Icons/icone-notificacao";
 
-export function Notificacao() {
+export function InicioNotificacao() {
     return (
         <div className="flex flex-col space-y-2 w-full h-full overflow-y-auto mt-2">
             {/* Componente de notificação */}
