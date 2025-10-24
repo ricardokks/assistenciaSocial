@@ -6,7 +6,7 @@ import { SideBarDashboard } from "../../components/SideBar";
 export function HomeCidadao() {
     const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
     const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
-        Inicio: <Inicio user="PROFISSIONAL"/>,
+        Inicio: <Inicio user="CIDADAO"/>,
         ContatarAtendimento: <div>  </div>,
         ProcurarServico: <div> rolinha </div>,
     }

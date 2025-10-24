@@ -2,6 +2,8 @@ import { IconeCalendario } from "../../../assets/Icons/Icone-calendario";
 import { IconeNotificacao } from "../../../assets/Icons/icone-notificacao";
 import { HeaderDashboards } from "../../../components/header";
 import { Banner } from "../../../components/home/banner";
+import { Dados } from "../../../components/home/dados";
+import { Notificacao } from "../../../components/home/notificacao";
 import type { IHomeProps } from "../../../types/interface-home-props";
 
 export function Inicio(data: IHomeProps) {
@@ -15,9 +17,8 @@ export function Inicio(data: IHomeProps) {
             <Banner />
             <div className="h-full mt-2 w-[90%] py-0 px-4">
                 <h1 className="font-satoshi-black text-2xl text-primary-800">{data.user === 'CIDADAO' ? 'Notificações' : 'Informações Gerais'}</h1>
-                <div className="flex w-full h-full justify-between pt-2 space-x-6">
-                    
-                </div>
+                
+                {data.user === 'CIDADAO' ? (<Notificacao />) : (<Dados />)}
             </div>
         </main>
     )
