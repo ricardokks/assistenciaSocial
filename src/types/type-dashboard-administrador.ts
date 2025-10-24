@@ -1,3 +1,3 @@
-export type TypeDashboardAdministrador = 'Inicio' | 'Instituicao' | 'Usuarios'
+export type TypeDashboardAdministrador = 'Inicio' | 'Usuarios' | 'Instituicao'
  
  

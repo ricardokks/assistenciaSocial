@@ -5,6 +5,7 @@ import { HomeFuncionario } from '../pages/home-funcionario'
 import { HomePage } from '../pages/lading-page'
 import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
+import { HomeCidadao } from '../pages/home-cidadao'
 
 export const routes = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const routes = createBrowserRouter([
         path: '/dashboard-funcionario',
         element: <HomeFuncionario />,
       },
+      {
+        path: '/dashboard-cidadao',
+        element: <HomeCidadao />
+      }
     ],
   },
 ])
