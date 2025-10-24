@@ -1,4 +1,4 @@
-import { HeaderDashboards } from '../../../components/Header'
+import { HeaderDashboards } from "../../../components/header"
 
 export function Inicio() {
   return (
