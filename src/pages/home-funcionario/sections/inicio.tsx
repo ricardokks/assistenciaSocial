@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { HeaderDashboards } from '../../../components/Header'
-import { Banner } from '../../../components/home/banner'
-=======
-import { HeaderDashboards } from "../../../components/header"
->>>>>>> 5564bf44e68bf9cbfa42775b2c25d9778e2ae2c1
+import { InicioBanner } from '../../../components/home/banner'
 
 export function Inicio() {
   return (
@@ -13,7 +9,7 @@ export function Inicio() {
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
-      <Banner />
+      <InicioBanner />
     </section>
   )
 }
