@@ -13,7 +13,7 @@ export function HomeCidadao() {
   }
 
   return (
-    <main className="bg-[#f5f7fa] flex justify-between h-screen w-full">
+    <main className="flex h-screen w-full justify-between bg-[#f5f7fa]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links

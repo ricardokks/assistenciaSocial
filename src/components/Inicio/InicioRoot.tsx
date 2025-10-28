@@ -2,7 +2,7 @@ import type { InterfaceChildren } from "../../types/interface-children";
 
 export function InicioRoot({ children }: InterfaceChildren){
     return (
-        <div className="h-full mt-2 w-[90%] py-0 px-4">
+        <div className="mt-2 h-full w-[95%] px-4 py-0 max-md:w-full">
             {children}
         </div>
     )

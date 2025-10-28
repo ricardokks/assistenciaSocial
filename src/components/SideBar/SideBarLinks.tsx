@@ -3,11 +3,9 @@ import {
   LinksDashboardFuncionario,
   LinksDashboardUsuario,
 } from '../../constants/links-navegacao-dashboards'
-
 import type { HeaderLinksProps } from '../../types/interface-header-dashboard'
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
 import type { TypeUsario } from '../../types/type-usuarios'
-
 
 // Criando uma tipagem que irá associar cada usuario a um link
 const userLink: Record<
@@ -32,7 +30,7 @@ export function SideBarLinks(props: HeaderLinksProps) {
       {links.map((link, index) => (
         <button
           key={index}
-          className={`${props.sectionSelecionada === link.id ? 'text-primary-800 bg-white' : 'bg-transparent text-white'} hover:text-primary-800  font-outfit-bold font-outfit hover:bg-white-100 group flex w-full cursor-pointer items-center justify-start gap-4 rounded-2xl p-3 text-[1.1rem] transition-all duration-500 ease-in-out  line-clamp-1`}
+          className={`${props.sectionSelecionada === link.id ? 'text-primary-800 bg-white' : 'bg-transparent text-white'} hover:text-primary-800  font-outfit-bold font-outfit hover:bg-white-100 group line-clamp-1 flex w-full cursor-pointer items-center justify-start gap-4 rounded-2xl p-3 text-[1.1rem] transition-all duration-500  ease-in-out`}
           onClick={() => props.selecionarSection(link.id as TypeDashboardFuncionario)}
         >
           {/* parte do icone */}

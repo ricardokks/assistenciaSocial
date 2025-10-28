@@ -48,7 +48,7 @@ export function Step3({ section, setSection }: { section: number, setSection: (s
             Número da casa:{' '}
           </label>
           <div className="relative flex">
-            <IconeCasa className="absolute size-5 left-1.5 top-2.5" />
+            <IconeCasa className="absolute left-1.5 top-2.5 size-5" />
             <input
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               placeholder="Nº00"
@@ -62,7 +62,7 @@ export function Step3({ section, setSection }: { section: number, setSection: (s
             Complemento:{' '}
           </label>
           <div className="relative flex">
-            <IconeCasa className="absolute size-5 left-1.5 top-2.5" />
+            <IconeCasa className="absolute left-1.5 top-2.5 size-5" />
             <input
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               placeholder="Mais sobre a localização..."

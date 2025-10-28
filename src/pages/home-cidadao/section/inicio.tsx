@@ -1,5 +1,5 @@
+import { InicioBanner } from '../../../components/banner'
 import { HeaderDashboards } from '../../../components/Header'
-import { InicioBanner } from '../../../components/home/banner'
 import type { IHomeProps } from '../../../types/interface-home-props'
 
 export function Inicio(data: IHomeProps) {
@@ -10,8 +10,8 @@ export function Inicio(data: IHomeProps) {
       </HeaderDashboards.root>
       {/* Banner */}
       <InicioBanner />
-      <div className="h-full mt-2 w-[90%] py-0 px-4">
-        <h1 className="font-satoshi-black text-2xl text-primary-800">
+      <div className="mt-2 h-full w-[90%] px-4 py-0">
+        <h1 className="font-satoshi-black text-primary-800 text-2xl">
           {data.user === 'CIDADAO' ? 'Notificações' : 'Informações Gerais'}
         </h1>
         <div className=""></div>

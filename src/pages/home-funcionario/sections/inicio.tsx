@@ -1,5 +1,5 @@
+import { InicioBanner } from '../../../components/banner'
 import { HeaderDashboards } from '../../../components/Header'
-import { InicioBanner } from '../../../components/home/banner'
 
 export function Inicio() {
   return (
