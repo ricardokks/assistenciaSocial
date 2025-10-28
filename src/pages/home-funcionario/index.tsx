@@ -4,14 +4,14 @@ import { SideBarDashboard } from '../../components/SideBar'
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
 import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
-import { Inicio } from './sections/inicio'
 import { Usuario } from './sections/usuario'
+import { Inicio } from '../../components/home/Inicio'
 
 export function HomeFuncionario() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Inicio')
 
   const sectionsDashboard: Record<TypeDashboardFuncionario, ReactNode> = {
-    Inicio: <Inicio />,
+    Inicio: <Inicio user='PROFISSIONAL' />,
     Atendimento: <Atendimento />,
     Dados: <Dados />,
     Usuarios: <Usuario />,
