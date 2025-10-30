@@ -2,7 +2,7 @@ import { IconeNotificacao } from '../../assets/Icons/icone-notificacao'
 
 export function InicioNotificacao() {
   return (
-    <div className="mt-2 flex size-full flex-col space-y-2 overflow-y-auto">
+    <div className="mt-2 flex size-full flex-col space-y-2 overflow-y-auto max-md:pb-[8rem]">
       {/* Componente de notificação */}
       <div className="relative flex h-auto w-full items-center space-x-3 rounded-2xl bg-[#476CFF1A] px-4 py-6 shadow shadow-blue-950/25">
         {/* Icone de notificação */}

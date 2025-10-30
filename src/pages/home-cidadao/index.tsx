@@ -4,6 +4,7 @@ import { SideBarDashboard } from '../../components/SideBar'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Servicos } from './section/servicos'
 import { Inicio } from '../../components/Inicio/Inicio'
+import { SideBarMobile } from '../../components/SideBarMobile'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
@@ -14,7 +15,7 @@ export function HomeCidadao() {
   }
 
   return (
-    <main className="flex h-screen w-full gap-6 justify-between bg-[#f5f7fa]">
+    <main className="flex h-screen w-full gap-6 justify-between bg-[#f5f7fa] max-md:flex-col">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
@@ -24,6 +25,13 @@ export function HomeCidadao() {
         />
         <SideBarDashboard.botao />
       </SideBarDashboard.root>
+        <SideBarMobile.root>
+              <SideBarMobile.links
+                sectionSelecionada={selecionarSection}
+                selecionarSection={(section) => setSelecionarSection(section as TypeDashboardCidadao)}
+                typeUser="CIDADAO"
+              />
+            </SideBarMobile.root>
 
       {sectionsDashboard[selecionarSection]}
     </main>
