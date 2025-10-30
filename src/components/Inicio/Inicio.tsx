@@ -1,9 +1,9 @@
 import type { IHomeProps } from '../../types/interface-home-props'
 import { InicioBanner } from '../banner'
-import { HeaderDashboards } from '../header'
 import { InicioDados } from './InicioDados'
 import { InicioNotificacao } from './InicioNotificacao'
 import { InicioDashBoard } from './InicioDashBoard'
+import { HeaderDashboards } from '../Header'
 
 export function Inicio({ user }: IHomeProps) {
   return (
