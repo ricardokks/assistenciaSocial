@@ -4,9 +4,16 @@ import imagemMassape from '../../assets/image/imagemMasspae.png'
 import { Step1 } from './sections/step1';
 import { Step2 } from './sections/step2';
 import { Step3 } from './sections/step3';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { userCadastroSchema, type userCadastroDTO } from '../../schemas/userCadastroSchema';
+
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0);
+
+   {const {  } = useForm<userCadastroDTO>({ resolver: zodResolver(userCadastroSchema) })  
+  
 
   function RenderSection(section: number) {
     switch (section) {
@@ -37,4 +44,4 @@ export default function CadastroPage() {
       />
     </div>
   )
-}
+}}

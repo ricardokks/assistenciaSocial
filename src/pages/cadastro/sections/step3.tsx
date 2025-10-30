@@ -80,13 +80,6 @@ export function Step3({ section, setSection }: { section: number, setSection: (s
           {' '}
           Retornar{' '}
         </button>
-        {/* botão de prosseguir */}
-        <button
-          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
-          onClick={() => setSection(section + 1)}>
-          {' '}
-          Prosseguir{' '}
-        </button>
       </div>
     </div>
   )
