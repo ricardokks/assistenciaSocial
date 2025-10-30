@@ -3,11 +3,11 @@ import { InicioBanner } from '../banner'
 import { InicioDados } from './InicioDados'
 import { InicioNotificacao } from './InicioNotificacao'
 import { InicioDashBoard } from './InicioDashBoard'
-import { HeaderDashboards } from '../Header'
+import { HeaderDashboards } from '../header'
 
 export function Inicio({ user }: IHomeProps) {
   return (
-    <main className="flex h-full w-[calc(100%-20%)] pr-4 flex-col items-start space-y-6 max-md:px-4 max-md:w-full">
+    <main className="main">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user={user} />

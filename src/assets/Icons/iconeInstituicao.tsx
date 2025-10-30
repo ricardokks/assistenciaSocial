@@ -12,7 +12,7 @@ export function IconeInstituicao({ className }: TypeClassIcon) {
     >
       <path
         d="M8.25 21V16.125C8.25 15.504 8.754 15 9.375 15H11.625C12.246 15 12.75 15.504 12.75 16.125V21M12.75 21H17.25V3.545M12.75 21H20.25V10.75M17.25 3.545L18.75 3M17.25 3.545L6.75 7.364M20.25 10.75L17.25 9.75M20.25 10.75L21.75 11.25M2.25 21H3.75M3.75 21H21.75M3.75 21V3H6.75V7.364M2.25 9L6.75 7.364"
-        stroke="white"
+        stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"

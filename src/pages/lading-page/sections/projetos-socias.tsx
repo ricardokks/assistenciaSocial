@@ -21,7 +21,7 @@ export function SectionProjetosSociais() {
         {/* container rederização dos cards  */}
         <div className="gap-y-15 grid w-full grid-cols-2 gap-20 max-md:grid-cols-1 max-sm:gap-8">
           {TextoscardsProjeto.map((card, index) => (
-            <CardProjeto key={index} {...card} />
+            <CardProjeto animation={true} key={index} {...card} />
           ))}
         </div>
       </div>

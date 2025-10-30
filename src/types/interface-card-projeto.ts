@@ -3,4 +3,5 @@ export interface TypeCardProjetoProps {
   titulo: string
   subtitutlo: string
   descricao: string
+  animation?: boolean
 }
