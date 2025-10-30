@@ -3,7 +3,7 @@ import { InicioBanner } from '../banner'
 import { InicioDados } from './InicioDados'
 import { InicioNotificacao } from './InicioNotificacao'
 import { InicioDashBoard } from './InicioDashBoard'
-import { HeaderDashboards } from '../Header'
+import { HeaderDashboards } from '../header'
 
 export function Inicio({ user }: IHomeProps) {
   return (
