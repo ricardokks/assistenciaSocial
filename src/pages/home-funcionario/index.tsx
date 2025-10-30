@@ -19,7 +19,7 @@ export function HomeFuncionario() {
   }
 
   return (
-    <main className="flex h-screen w-full justify-between bg-[#f5f7fa]">
+    <main className="flex h-screen w-full gap-6 justify-between bg-[#f5f7fa]">
       {/* SideBar tela maiores  */}
       <SideBarDashboard.root>
         <SideBarDashboard.logo />

@@ -20,7 +20,7 @@ export function Dados() {
   }
 
   return (
-    <main className="flex h-screen w-[calc(100%-20%)] flex-col items-center space-y-6 overflow-y-auto px-4 max-md:w-full max-md:px-0">
+    <main className="flex h-full w-[calc(100%-20%)] max-md:px-4 pr-4 flex-col items-start overflow-y-auto space-y-6 max-md:w-full">
       {/* componente header  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user="PROFISSIONAL" />
@@ -28,7 +28,7 @@ export function Dados() {
       </HeaderDashboards.root>
 
       {/* container de informações principais  */}
-      <form className="font-outfit flex size-full flex-col gap-4 px-7 max-md:pb-40">
+      <form className="font-outfit  flex size-full flex-col gap-4 max-md:pb-42">
         {/* container de informações foto, nome, subnome */}
         <div className="flex w-full items-center justify-start gap-4 rounded-2xl p-4 shadow-md outline-2 outline-[#262626]/10">
           {/* foto  */}
@@ -45,7 +45,10 @@ export function Dados() {
             {/* nome  */}
             <div className="relative flex w-full items-center gap-2">
               {editarNome ? (
-                <input className="color-text font-outfit-bold border-primary-100 mb-1 rounded-[5.97px] border p-1 text-[1.4rem] outline" />
+                <input
+                  className="color-text font-outfit-bold placeholder:text-primary-800/40 border-b-primary-100 mb-1 border-b-2 p-1 text-[1.4rem] outline-0"
+                  placeholder="Sala Lilas"
+                />
               ) : (
                 <h1 className="color-text font-outfit-bold text-[1.4rem]">Sala Lilas</h1>
               )}
@@ -59,7 +62,10 @@ export function Dados() {
             {/* subnome */}
             <div className="flex items-center gap-2">
               {editarSubNome ? (
-                <input className="color-text font-outfit-bold border-primary-100 mb-1 rounded-[5.97px] border p-1 outline " />
+                <input
+                  className="color-text font-outfit-bold placeholder:text-primary-800/40 border-b-primary-100 mb-1 border-b-2 p-1 text-[1rem] outline-0"
+                  placeholder="Centro de Apoio Feminino"
+                />
               ) : (
                 <p className="color-text">Centro de Apoio Feminino</p>
               )}
@@ -99,8 +105,7 @@ export function Dados() {
 
             <textarea
               className="font-outfit text-primary-800 focus:border-primary-800 w-full rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out"
-            cols={3}
-
+              cols={3}
             />
           </div>
 
@@ -110,8 +115,7 @@ export function Dados() {
 
             <textarea
               className="font-outfit text-primary-800 focus:border-primary-800 w-full rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out"
-            cols={1}
-
+              cols={1}
             />
 
             <iframe
