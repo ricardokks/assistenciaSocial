@@ -1,5 +1,5 @@
 import { IconeMais } from '../../../assets/Icons/icone-mais'
-import { HeaderDashboards } from '../../../components/Header'
+import { HeaderDashboards } from '../../../components/header'
 import { CardAgendamento } from '../components/card-agendamento'
 
 export function Usuario() {
