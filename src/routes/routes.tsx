@@ -6,6 +6,7 @@ import { HomePage } from '../pages/lading-page'
 import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
 import { HomeCidadao } from '../pages/home-cidadao'
+import { HomeAdmin } from '../pages/home-adm'
 
 export const routes = createBrowserRouter([
   {
@@ -29,12 +30,16 @@ export const routes = createBrowserRouter([
         element: <CadastroPage />,
       },
       {
-        path: '/dashboard-funcionario',
+        path: '/dashboard/funcionario',
         element: <HomeFuncionario />,
       },
       {
-        path: '/dashboard-cidadao',
+        path: '/dashboard/cidadao',
         element: <HomeCidadao />
+      },
+            {
+        path: '/dashboard/administrador',
+        element: <HomeAdmin />
       }
     ],
   },

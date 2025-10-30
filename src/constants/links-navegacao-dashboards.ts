@@ -60,11 +60,11 @@ export const LinksDashboardUsuario: LinksDashboardCidadaoProps[] = [
   {
     id: 'ContatarAtendimento',
     icone: IconeAtendimento,
-    nomeLink: 'Contatar Atendimento',
+    nomeLink: 'Atendimentos',
   },
   {
     id: 'ProcurarServico',
     icone: IconeLupa,
-    nomeLink: 'Procurar Serviços',
+    nomeLink: 'Serviços',
   },
 ]
