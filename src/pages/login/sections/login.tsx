@@ -82,6 +82,7 @@ export function Login() {
                   placeholder="Digite sua senha"
                   type={visiblePassword ? 'text' : 'password'}
                   {...register('password')}
+                  
                 />
                 {/* Botão de visualizar a senha */}
                 <button
