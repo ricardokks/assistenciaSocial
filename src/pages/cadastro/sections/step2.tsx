@@ -53,7 +53,7 @@ export function Step2({ section, setSection }: { section: number, setSection: (s
             NIS:{' '}
           </label>
           <div className="relative flex">
-            <IconeNis className="absolute h-5 left-1 top-2.5" />
+            <IconeNis className="absolute left-1 top-2.5 h-5" />
             <IMaskInput
               ref={NisRef}
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"

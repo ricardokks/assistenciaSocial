@@ -3,17 +3,18 @@ import { type ReactNode, useState } from 'react'
 import { SideBarDashboard } from '../../components/SideBar'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Inicio } from './section/inicio'
+import { Servicos } from './section/servicos'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
-    Inicio: <Inicio />,
+    Inicio: <Inicio user='CIDADAO' />,
     ContatarAtendimento: <div> </div>,
-    ProcurarServico: <div> rolinha </div>,
+    ProcurarServico: <Servicos />,
   }
 
   return (
-    <main className="bg-[#f5f7fa] flex justify-between h-screen w-full">
+    <main className="flex h-screen w-full justify-between bg-[#f5f7fa]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links

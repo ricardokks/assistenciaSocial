@@ -4,7 +4,7 @@ import type { DropboxProps } from '../../../types/interface-dropbox-props'
 export function Dropbox(props: DropboxProps) {
   return (
     <article
-      className={`${props.abrirDropbox ? 'translate-y-1 opacity-100' : '-translate-y-3 opacity-0 pointer-events-none'} absolute -left-3 top-20 flex size-auto flex-col items-start justify-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-md transition-all duration-500 ease-in-out`}
+      className={`${props.abrirDropbox ? 'translate-y-1 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'} absolute -left-3 top-20 flex size-auto flex-col items-start justify-center gap-2 rounded-2xl bg-white px-4 py-3 shadow-md transition-all duration-500 ease-in-out`}
       onClick={(e) => e.stopPropagation()}
     >
       {/* container triangulo  */}
