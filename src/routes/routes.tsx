@@ -7,6 +7,7 @@ import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
 import { HomeCidadao } from '../pages/home-cidadao'
 import { HomeAdmin } from '../pages/home-adm'
+import { Config } from '../pages/config'
 
 export const routes = createBrowserRouter([
   {
@@ -37,9 +38,13 @@ export const routes = createBrowserRouter([
         path: '/dashboard/cidadao',
         element: <HomeCidadao />
       },
-            {
+      {
         path: '/dashboard/administrador',
         element: <HomeAdmin />
+      },
+      {
+        path: '/config/k',
+        element: <Config />
       }
     ],
   },
