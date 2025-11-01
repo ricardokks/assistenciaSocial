@@ -7,8 +7,6 @@ import { Step3 } from './sections/step3';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { userCadastroSchema, type userCadastroDTO } from '../../schemas/userCadastroSchema';
-import { toast } from 'sonner';
-import { cadastro } from '../../api/cadastro/cadastro';
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0);
