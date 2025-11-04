@@ -5,6 +5,8 @@ import type { TypeUsario } from './type-usuarios'
 
 export interface HeaderLinksProps {
   typeUser: TypeUsario
-  selecionarSection: (section: TypeDashboardFuncionario | TypeDashboardCidadao | TypeDashboardAdministrador ) => void
+  selecionarSection: (
+    section: TypeDashboardFuncionario | TypeDashboardCidadao | TypeDashboardAdministrador
+  ) => void
   sectionSelecionada: TypeDashboardFuncionario | TypeDashboardCidadao | TypeDashboardAdministrador
 }

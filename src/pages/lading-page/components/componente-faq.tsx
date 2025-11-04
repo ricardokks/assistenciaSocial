@@ -15,7 +15,11 @@ export function ComponenteFAQ(props: TypeComponenteFAQ) {
             {props.pergunta}
           </h1>
           <div className="w-3 cursor-pointer max-md:w-5">
-            {props.isOpen ? <IconeMenos className="" /> : <IconeMais className="w-3 text-primary-800" />}
+            {props.isOpen ? (
+              <IconeMenos className="" />
+            ) : (
+              <IconeMais className="text-primary-800 w-3" />
+            )}
           </div>
         </div>
 

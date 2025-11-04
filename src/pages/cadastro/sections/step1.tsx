@@ -18,7 +18,12 @@ export function Step1({
   const [visiblePassword, setVisiblePassword] = useState(false)
   const cpfRef = useRef(null)
 
-  const { register, setValue, watch, formState: {errors} } = useFormContext<userCadastroDTO>()
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext<userCadastroDTO>()
 
   console.log(errors)
 
@@ -71,13 +76,12 @@ export function Step1({
               />
             </svg>
             <IMaskInput
-            {...register('cpf')}
+              {...register('cpf')}
               ref={cpfRef}
-  
-              value={watch('cpf')}
+              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               mask="000.000.000-00"
               placeholder="000.000.000-00"
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
+              value={watch('cpf')}
               onAccept={(value) => setValue('cpf', value)}
             />
           </div>

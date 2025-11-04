@@ -1,28 +1,30 @@
 import { type ReactNode, useState } from 'react'
 
+import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
+import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardAdministrador } from '../../types/type-dashboard-administrador'
 import { Instituicoes } from './sections/instituicoes'
 import { Usuarios } from './sections/usuarios'
-import { SideBarMobile } from '../../components/SideBarMobile'
-import { Inicio } from '../../components/Inicio/Inicio'
 
 export function HomeAdmin() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardAdministrador>('Inicio')
   const sectionsDashboard: Record<TypeDashboardAdministrador, ReactNode> = {
-    Inicio: <Inicio user='ADMINISTRADOR' />,
+    Inicio: <Inicio user="ADMINISTRADOR" />,
     Instituicao: <Instituicoes />,
     Usuarios: <Usuarios />,
   }
 
   return (
-    <main className="bg-[#f5f7fa] flex justify-between gap-6 h-screen">
+    <main className="flex h-screen justify-between gap-6 bg-[#f5f7fa]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
           sectionSelecionada={selecionarSection}
-          selecionarSection={(section) => setSelecionarSection(section as TypeDashboardAdministrador)}
           typeUser="ADMINISTRADOR"
+          selecionarSection={(section) =>
+            setSelecionarSection(section as TypeDashboardAdministrador)
+          }
         />
         <SideBarDashboard.botao />
       </SideBarDashboard.root>
@@ -32,8 +34,10 @@ export function HomeAdmin() {
       <SideBarMobile.root>
         <SideBarMobile.links
           sectionSelecionada={selecionarSection}
-          selecionarSection={(section) => setSelecionarSection(section as TypeDashboardAdministrador)}
           typeUser="ADMINISTRADOR"
+          selecionarSection={(section) =>
+            setSelecionarSection(section as TypeDashboardAdministrador)
+          }
         />
       </SideBarMobile.root>
 

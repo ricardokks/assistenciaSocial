@@ -23,4 +23,3 @@ export function IconeFacebook({ className }: TypeClassIcon) {
     </svg>
   )
 }
-

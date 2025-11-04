@@ -9,11 +9,17 @@ import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 export function Step2({
   section,
   setSection,
-}: {section: number
-setSection: (section: number) => void
+}: {
+  section: number
+  setSection: (section: number) => void
 }) {
   const NisRef = useRef(null)
-  const { register, setValue, watch,  formState: { errors } } = useFormContext()
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext()
 
   console.log(errors)
 
@@ -50,11 +56,11 @@ setSection: (section: number) => void
             <IconeData className="absolute left-1 top-2 h-5 w-6" />
 
             <IMaskInput
-              value={watch('dataNascimento')}
-              onAccept={(value) => setValue('dataNascimento', value)}
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               mask="00-00-0000"
               placeholder="__/__/____"
+              value={watch('dataNascimento')}
+              onAccept={(value) => setValue('dataNascimento', value)}
             />
           </div>
         </div>
@@ -67,13 +73,12 @@ setSection: (section: number) => void
           <div className="relative flex">
             <IconeNis className="absolute left-1 top-2.5 h-5" />
             <IMaskInput
-                   ref={NisRef}
-            mask="000.00000.00-0"
-            value={watch('nis')}
-            onAccept={(value) => setValue('nis', value)}
+              ref={NisRef}
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
-          
+              mask="000.00000.00-0"
               placeholder="Número do NIS"
+              value={watch('nis')}
+              onAccept={(value) => setValue('nis', value)}
             />
           </div>
         </div>

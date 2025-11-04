@@ -1,6 +1,6 @@
-import { IconeSPD } from "../../../assets/Icons/icone-spd-svg";
-import { LinksNavBarHomePage } from "../../../constants/links-header-home-page";
-import { scrollParaIrSecao } from "../../../utils/function-scroll";
+import { IconeSPD } from '../../../assets/Icons/icone-spd-svg'
+import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
+import { scrollParaIrSecao } from '../../../utils/function-scroll'
 
 export function HeaderProjeto() {
   return (
@@ -30,5 +30,5 @@ export function HeaderProjeto() {
         </button>
       </div>
     </header>
-  );
+  )
 }

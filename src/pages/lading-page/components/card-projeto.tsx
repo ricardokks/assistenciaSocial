@@ -1,9 +1,8 @@
 import type { TypeCardProjetoProps } from '../../../types/interface-card-projeto'
 
-
 export function CardProjeto(props: TypeCardProjetoProps) {
   return (
-    <div data-aos={props.animation ? "fade-right" : ""}>
+    <div data-aos={props.animation ? 'fade-right' : ''}>
       <article className="font-outfit flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-500 ease-in-out hover:scale-105">
         {/* container informações sobre projeto  */}
         <div className="flex items-center justify-center gap-4">

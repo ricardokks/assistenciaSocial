@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { IconeEditar } from '../../../assets/Icons/IconeEditar'
 import { IconeLapis } from '../../../assets/Icons/IconeLapis'
 import { imagemAvatar } from '../../../assets/image'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/Header'
 
 export function Dados() {
   // estados e variaveis utilizadas no componente
@@ -20,7 +20,7 @@ export function Dados() {
   }
 
   return (
-    <main className="flex h-full w-[calc(100%-20%)] max-md:px-4 pr-4 flex-col items-start overflow-y-auto space-y-6 max-md:w-full">
+    <main className="main">
       {/* componente header  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user="PROFISSIONAL" />
@@ -28,7 +28,7 @@ export function Dados() {
       </HeaderDashboards.root>
 
       {/* container de informações principais  */}
-      <form className="font-outfit  flex size-full flex-col gap-4 max-md:pb-42">
+      <form className="font-outfit  max-md:pb-42 flex size-full flex-col gap-4">
         {/* container de informações foto, nome, subnome */}
         <div className="flex w-full items-center justify-start gap-4 rounded-2xl p-4 shadow-md outline-2 outline-[#262626]/10">
           {/* foto  */}

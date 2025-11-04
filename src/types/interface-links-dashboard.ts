@@ -3,7 +3,7 @@ import type { TypeDashboardCidadao } from './type-dashboard-cidadao'
 import type { TypeDashboardFuncionario } from './type-dashboard-funcionario'
 import type { TypeIcon } from './type-icon'
 
-export interface LinksDashboardFuncionarioProps  {
+export interface LinksDashboardFuncionarioProps {
   icone: TypeIcon | string
   nomeLink: string
   id?: TypeDashboardFuncionario

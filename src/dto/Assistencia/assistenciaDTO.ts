@@ -24,7 +24,7 @@ export type AssistenciaNOVODTO = {
   subNome: string
   icone: TypeIcon
   descricao: string
-  localizacao: string,
+  localizacao: string
   telefone: string
   horarioFuncionamento: string
   servicos: Servico[]

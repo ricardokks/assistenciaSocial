@@ -1,9 +1,9 @@
 import type { IHomeProps } from '../../types/interface-home-props'
 import { InicioBanner } from '../banner'
-import { InicioDados } from './InicioDados'
-import { InicioNotificacao } from './InicioNotificacao'
-import { InicioDashBoard } from './InicioDashBoard'
 import { HeaderDashboards } from '../header'
+import { InicioDados } from './InicioDados'
+import { InicioDashBoard } from './InicioDashBoard'
+import { InicioNotificacao } from './InicioNotificacao'
 
 export function Inicio({ user }: IHomeProps) {
   return (
@@ -19,7 +19,7 @@ export function Inicio({ user }: IHomeProps) {
 
       {/* Container Principal  */}
       <InicioDashBoard.root>
-         <h1 className="font-satoshi-black text-primary-800 text-2xl">
+        <h1 className="font-satoshi-black text-primary-800 text-2xl">
           {user === 'CIDADAO' ? 'Notificações' : 'Informações Gerais'}
         </h1>
         {user === 'CIDADAO' ? <InicioNotificacao /> : <InicioDados />}
