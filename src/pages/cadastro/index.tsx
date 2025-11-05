@@ -35,6 +35,18 @@ export default function CadastroPage() {
   
   }
 
+  
+  async function passStep(Props: any[]) {
+    const isValid = await methods.trigger(Props)
+
+    if (isValid) {
+      setSection(section + 1)
+    }  else {
+      toast.error("Preencha os dados corretamente")
+    }
+
+  }
+
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white">
       <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4">
@@ -44,9 +56,9 @@ export default function CadastroPage() {
 
         <FormProvider {...methods}>
           <form className="flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
-            {section === 0 && <Step1 section={section} setSection={setSection} />}
-            {section === 1 && <Step2 section={section} setSection={setSection} />}
-            {section === 2 && <Step3 section={section} setSection={setSection} />}
+            {section === 0 && <Step1 section={section} setSection={setSection} passStep={() => passStep(['nome', 'cpf', 'senha'])} />}
+            {section === 1 && <Step2 section={section} setSection={setSection} passStep={ () => passStep(['nomeMae', 'dataNascimento', 'nis', ])} />}
+            {section === 2 && <Step3 section={section} setSection={setSection}  passStep={ () => passStep(['localidade', 'rua', 'numero_casa', 'complemento' ])}/>}
 
             {section === 2 && (
               <button

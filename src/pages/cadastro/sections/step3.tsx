@@ -5,13 +5,14 @@ import { IconeLocal } from '../../../assets/Icons/icone-local'
 
 interface Step3Props {
   section: number
-  setSection: (section: number) => void
+  setSection: (section: number) => void,
+   passStep: () => void | Promise<void>
+ 
 }
 
-export function Step3({ section, setSection }: Step3Props) {
+export function Step3({ section, setSection, passStep }: Step3Props) {
   const {
     register,
-    formState: { errors },
     watch,
   } = useFormContext()
 
@@ -37,14 +38,10 @@ export function Step3({ section, setSection }: Step3Props) {
               {...register('localidade')}
               placeholder="Nome do seu bairro ou localidade"
               type="text"
-              className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none ${
-                errors.localidade ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
             />
           </div>
-          {errors.localidade && (
-            <p className="mt-1 text-sm text-red-500">{errors.localidade.message as string}</p>
-          )}
+
         </div>
 
         {/* Rua */}
@@ -56,14 +53,10 @@ export function Step3({ section, setSection }: Step3Props) {
               {...register('rua')}
               placeholder="Nome da sua rua"
               type="text"
-              className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none ${
-                errors.rua ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none`}
             />
           </div>
-          {errors.rua && (
-            <p className="mt-1 text-sm text-red-500">{errors.rua.message as string}</p>
-          )}
+
         </div>
 
         <div className="flex w-3/5 flex-row items-center justify-center">
@@ -78,14 +71,10 @@ export function Step3({ section, setSection }: Step3Props) {
                 {...register('numero_casa')}
                 placeholder="Nº00"
                 type="text"
-                className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none ${
-                  errors.numero ? 'border-red-500' : 'border-gray-300'
-                }`}
+                className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
               />
             </div>
-            {errors.numero && (
-              <p className="mt-1 text-sm text-red-500">{errors.numero.message as string}</p>
-            )}
+
           </div>
 
           {/* Complemento */}
@@ -109,7 +98,7 @@ export function Step3({ section, setSection }: Step3Props) {
         <button
           className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           type="button"
-          onClick={() => setSection(section - 1)}
+          onClick={async () => passStep()}
         >
           Retornar
         </button>

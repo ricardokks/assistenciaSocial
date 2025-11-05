@@ -9,11 +9,11 @@ import { IconeSenha } from '../../../assets/Icons/iconeSenha'
 import type { userCadastroDTO } from '../../../schemas/userCadastroSchema'
 
 export function Step1({
-  section,
-  setSection,
+  passStep
 }: {
   section: number
   setSection: (section: number) => void
+passStep: () => void | Promise<void>
 }) {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const cpfRef = useRef(null)
@@ -22,10 +22,8 @@ export function Step1({
     register,
     setValue,
     watch,
-    formState: { errors },
   } = useFormContext<userCadastroDTO>()
 
-  console.log(errors)
 
   return (
     <div className="flex size-full flex-col items-center justify-center">
@@ -116,7 +114,7 @@ export function Step1({
           <button
             className="bg-primary-800 font-satoshi mt-8 w-full cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
             type="button"
-            onClick={() => setSection(section + 1)}
+            onClick={ async () => passStep()}
           >
             Prosseguir
           </button>
