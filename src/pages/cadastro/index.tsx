@@ -9,6 +9,8 @@ import { type userCadastroDTO, userCadastroSchema } from '../../schemas/userCada
 import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
+import { cadastro } from '../../api/user/cadastro'
+import { toast } from 'sonner'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)
@@ -20,17 +22,17 @@ export default function CadastroPage() {
 
   const { handleSubmit } = methods
 
-  function onSubmit(data: userCadastroDTO) {
+  async function onSubmit(data: userCadastroDTO) {
     console.log('submit chamado', data)
-    /*   try {
+    try {
       console.log(data);
       await cadastro(data);
-      toast.success("Usuário cadastrado com sucesso!");
-      reset();
+      toast.success("Usuário cadastrado com sucesso");
+      methods.reset();
     } catch {
       toast.error("Dados inválidos");
     }
-      */
+  
   }
 
   return (

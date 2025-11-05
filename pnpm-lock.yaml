@@ -20,15 +20,9 @@ importers:
       axios:
         specifier: ^1.12.2
         version: 1.12.2
-<<<<<<< HEAD
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
-=======
       lucide-react:
         specifier: ^0.552.0
         version: 0.552.0(react@19.2.0)
->>>>>>> 6b1a9a446d22bc6fafd857125601002efc1fd4b7
       react:
         specifier: ^19.1.1
         version: 19.2.0
