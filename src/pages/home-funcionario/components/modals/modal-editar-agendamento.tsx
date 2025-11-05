@@ -5,22 +5,22 @@ import { IconeCidadao } from '../../../../assets/Icons/IconeCidadao'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeData } from '../../../../assets/Icons/icone-data'
 import { IconeCPF } from '../../../../assets/Icons/iconeCpf'
-import type { ModalCriarAgendamentoProps } from '../../../../types/interface-modal-criar-agendamento'
+import type { ModalEditarAgendamentoProps } from '../../../../types/interface-modal-editar-agendamento'
 
-export function ModalCriarAgendamento(props: ModalCriarAgendamentoProps) {
+export function ModalEditarAgendamento(props: ModalEditarAgendamentoProps) {
   return ReactDOM.createPortal(
     <section
-      className={`${props.abrilModalAgendamento ? 'opacity-100' : 'pointer-events-none opacity-0'} fixed top-0 z-[9999] flex  h-screen w-full items-center justify-center bg-black/50 backdrop-blur-[3px] transition-all duration-500 ease-in-out`}
+      className={`${props.abrirEditarAgendamento ? 'opacity-100' : 'pointer-events-none opacity-0'} fixed top-0 z-[9999] flex  h-screen w-full items-center justify-center bg-black/50 backdrop-blur-[3px] transition-all duration-500 ease-in-out`}
     >
       {/* Modal de Criação do Agendamento  */}
       <article
-        className={` ${props.abrilModalAgendamento ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} relative flex size-[40%] h-auto items-start justify-between rounded-2xl bg-white p-7 px-4 transition-all duration-300 ease-in-out max-md:w-[80%]`}
+        className={` ${props.abrirEditarAgendamento ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} relative flex size-[40%] h-auto items-start justify-between rounded-2xl bg-white p-7 px-4 transition-all duration-300 ease-in-out max-md:w-[80%]`}
       >
         {/* parte de cima do componente */}
         <nav className="bg-primary-800 absolute left-0 top-0 h-12 w-full rounded-t-2xl">
           <div className="flex items-center justify-between px-4 py-2 ">
-            <h1 className="font-outfit-bold text-2xl text-white">Novo Agendamento</h1>
-            <div className="cursor-pointer" onClick={props.handleAbrilModalAgendamento}>
+            <h1 className="font-outfit-bold text-2xl text-white">Atualizar Agendamento</h1>
+            <div className="cursor-pointer" onClick={props.handleAbrirModalEditarAgendamento}>
               <IconeClosed className="size-8 text-white" />
             </div>
           </div>
@@ -73,7 +73,7 @@ export function ModalCriarAgendamento(props: ModalCriarAgendamentoProps) {
 
             {/* descrição da reunião  */}
             <div className="flex w-[97%] flex-col gap-1">
-              <p className="text-primary-800 font-outfit">Descrição do agendamento:</p>
+              <p className="text-primary-800 font-outfit">Data do agendamento:</p>
 
               <textarea
                 className="font-outfit text-primary-800 focus:border-primary-800 border-primary-800/50 w-full rounded-2xl border-2  p-4 outline-none duration-500 ease-in-out"
