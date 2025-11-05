@@ -25,7 +25,7 @@ export function Usuario() {
         <div className="flex w-full items-center justify-between">
           <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
 
-          <button onClick={handleAbrilModalAgendamento} className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out">
+          <button className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out" onClick={handleAbrilModalAgendamento}>
             <IconeMais className="size-4 text-white" /> Novo Agendamento
           </button>
         </div>

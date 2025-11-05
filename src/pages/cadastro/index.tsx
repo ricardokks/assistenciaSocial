@@ -2,24 +2,13 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from 'sonner'
 
-import { cadastro } from '../../api/cadastro/cadastro'
 import { logoMassapeAzul } from '../../assets/image'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
-<<<<<<< HEAD
 import { type userCadastroDTO, userCadastroSchema } from '../../schemas/userCadastroSchema'
 import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
-=======
-import { Step1 } from './sections/step1';
-import { Step2 } from './sections/step2';
-import { Step3 } from './sections/step3';
-import { FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { userCadastroSchema, type userCadastroDTO } from '../../schemas/userCadastroSchema';
->>>>>>> 6b1a9a446d22bc6fafd857125601002efc1fd4b7
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)

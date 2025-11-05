@@ -2,7 +2,7 @@ import type { InterfaceChildren } from "../../types/interface-children";
 
 export function ConfigRoot({children}: InterfaceChildren){
     return (
-        <main className="flex flex-col min-h-screen w-full items-center bg-[#EAEAEA] font-outfit ">
+        <main className="font-outfit flex min-h-screen w-full flex-col items-center bg-[#EAEAEA] ">
             {children}
         </main>
     )

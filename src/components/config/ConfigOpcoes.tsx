@@ -36,32 +36,32 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
 
     return (
         <form 
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full max-w-5xl px-4 py-6 space-y-4 mt-4">
-            <div className="bg-white rounded-2xl shadow-sm p-6 flex flex-col space-y-5">
+            className="mt-4 w-full max-w-5xl space-y-4 px-4 py-6"
+            onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col space-y-5 rounded-2xl bg-white p-6 shadow-sm">
                 {/* Escala da fonte */}
                 <div>
                     <div className="flex items-start gap-4">
-                        <div className="bg-gray-100 p-3 rounded-lg">
+                        <div className="rounded-lg bg-gray-100 p-3">
                             <IconeMensagemQuadrada />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-base font-semibold text-gray-900 mb-1">
+                            <h3 className="mb-1 text-base font-semibold text-gray-900">
                                 Escala da fonte dos textos
                             </h3>
                             <p className="text-sm text-gray-500">
                                 Aumente ou diminua a quantidade de zoom e o tamanho das fontes no geral
                             </p>
                         </div>
-                        <div className="w-1/9 min-w-20 mt-2 relative">
+                        <div className="w-1/9 relative mt-2 min-w-20">
                             <select
                                 {...register('tamanhoFonte')}
-                                onMouseDown={() => setIsAnimate(prev => !prev)}
-                                onMouseUp={() => setIsAnimate(false)}
-                                onMouseLeave={() => setIsAnimate(false)}
+                                className="w-full appearance-none rounded-lg border border-gray-300 bg-white p-2 text-sm outline-none "
                                 value={fontSize}
                                 onChange={(e) => setFontSize(Number(e.target.value))}
-                                className="border border-gray-300 rounded-lg px-2 py-2 text-sm bg-white outline-none w-full appearance-none "
+                                onMouseDown={() => setIsAnimate(prev => !prev)}
+                                onMouseLeave={() => setIsAnimate(false)}
+                                onMouseUp={() => setIsAnimate(false)}
                             >
                                 <option value="12">12 px</option>
                                 <option value="14">14 px</option>
@@ -72,16 +72,16 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
                                 <option value="24">24 px</option>
                             </select>
                             <ChevronDown
-                                className={`absolute top-2.5 right-1.5 h-5 w-5 duration-500 transition-all ${isAnimate ? 'rotate-180' : 'rotate-0'}`} />
+                                className={`absolute right-1.5 top-2.5 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'}`} />
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-0.5 bg-gray-800/20 rounded-2xl" />
+                <div className="h-0.5 w-full rounded-2xl bg-gray-800/20" />
                 {/* Libras */}
                 <div>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="bg-gray-100 p-3 rounded-lg">
+                            <div className="rounded-lg bg-gray-100 p-3">
                                 <IconeMensagemQuadrada />
                             </div>
                             <div>
@@ -93,12 +93,12 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
                         </div>
                         <button
                             {...register('leitorTela')}
-                            onClick={() => setLibras(!libras)}
-                            className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${libras ? "bg-green-500" : "bg-gray-300"
+                            className={`relative h-6 w-12 rounded-full transition-colors duration-300 ${libras ? "bg-green-500" : "bg-gray-300"
                                 }`}
+                            onClick={() => setLibras(!libras)}
                         >
                             <span
-                                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-300 ${libras ? "translate-x-6" : "translate-x-0"
+                                className={`absolute left-0.5 top-0.5 size-5 rounded-full bg-white transition-transform duration-300 ${libras ? "translate-x-6" : "translate-x-0"
                                     }`}
                             />
                         </button>
@@ -107,11 +107,11 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
             </div>
 
             {/* Notificações */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="rounded-xl bg-white p-6 shadow-sm">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="bg-gray-100 p-3 rounded-lg">
-                            <Bell className="w-6 h-6 text-gray-700" />
+                        <div className="rounded-lg bg-gray-100 p-3">
+                            <Bell className="size-6 text-gray-700" />
                         </div>
                         <div>
                             <h3 className="text-base font-semibold text-gray-900">Notificações</h3>
@@ -121,12 +121,12 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
                         </div>
                     </div>
                     <button
-                        onClick={() => setNotifications(!notifications)}
-                        className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${notifications ? "bg-green-500" : "bg-gray-300"
+                        className={`relative h-6 w-12 rounded-full transition-colors duration-300 ${notifications ? "bg-green-500" : "bg-gray-300"
                             }`}
+                        onClick={() => setNotifications(!notifications)}
                     >
                         <span
-                            className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-300 ${notifications ? "translate-x-6" : "translate-x-0"
+                            className={`absolute left-0.5 top-0.5 size-5 rounded-full bg-white transition-transform duration-300 ${notifications ? "translate-x-6" : "translate-x-0"
                                 }`}
                         />
                     </button>
@@ -134,28 +134,28 @@ export function ConfigOpcoes(data: { id?: string, values: typeConfig }) {
             </div>
 
             {/* Conta */}
-            <div className="bg-white rounded-xl p-6 shadow-sm">
+            <div className="rounded-xl bg-white p-6 shadow-sm">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <div className="bg-gray-100 p-3 rounded-lg">
-                            <User className="w-6 h-6 text-gray-700" />
+                        <div className="rounded-lg bg-gray-100 p-3">
+                            <User className="size-6 text-gray-700" />
                         </div>
                         <div>
                             <h3 className="text-base font-semibold text-gray-900">Conta</h3>
                             <p className="text-sm text-gray-500">Gerencie as descrições do seu perfil e sua conta</p>
                         </div>
                     </div>
-                    <button className="text-gray-700 hover:text-gray-900 transition-colors">
-                        <Edit2 className="w-5 h-5" />
+                    <button className="text-gray-700 transition-colors hover:text-gray-900">
+                        <Edit2 className="size-5" />
                     </button>
                 </div>
             </div>
 
             {/* Botão Salvar */}
-            <div className="pt-4 w-full flex items-center justify-center">
+            <div className="flex w-full items-center justify-center pt-4">
                 <button 
-                    type="submit"
-                    className="w-1/3 bg-primary-800 text-white py-2 rounded-xl font-medium hover:opacity-90 transition-opacity cursor-pointer">
+                    className="bg-primary-800 w-1/3 cursor-pointer rounded-xl py-2 font-medium text-white transition-opacity hover:opacity-90"
+                    type="submit">
                     Salvar Alterações
                 </button>
             </div>
