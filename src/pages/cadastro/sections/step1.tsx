@@ -9,29 +9,22 @@ import { IconeSenha } from '../../../assets/Icons/iconeSenha'
 import type { userCadastroDTO } from '../../../schemas/userCadastroSchema'
 
 export function Step1({
-  section,
-  setSection,
+  passStep,
 }: {
   section: number
   setSection: (section: number) => void
+  passStep: () => void | Promise<void>
 }) {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const cpfRef = useRef(null)
 
-  const {
-    register,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useFormContext<userCadastroDTO>()
-
-  console.log(errors)
+  const { register, setValue, watch } = useFormContext<userCadastroDTO>()
 
   return (
     <div className="flex size-full flex-col items-center justify-center">
-      <div className="mt-5 flex w-2/4 flex-col items-center -space-y-2">
-        <h1 className="text-primary-800 font-outfit-bold text-[30px]">SEJA BEM-VINDO(A)</h1>
-        <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium">
+      <div className="mt-5 mb-7 flex w-3/5  max-md:w-full  flex-col items-center -space-y-2 ">
+        <h1 className="text-primary-800 font-outfit-bold text-[30px] max-md:text-[1.3rem]">SEJA BEM-VINDO(A)</h1>
+        <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium max-md:text-[1.3rem]">
           Preencha os campos a seguir com suas informações
         </h2>
       </div>
@@ -116,7 +109,7 @@ export function Step1({
           <button
             className="bg-primary-800 font-satoshi mt-8 w-full cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
             type="button"
-            onClick={() => setSection(section + 1)}
+            onClick={async () => passStep()}
           >
             Prosseguir
           </button>
