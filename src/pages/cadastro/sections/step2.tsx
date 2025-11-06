@@ -9,21 +9,14 @@ import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 export function Step2({
   section,
   setSection,
-  passStep
+  passStep,
 }: {
   section: number
   setSection: (section: number) => void
   passStep: () => void | Promise<void>
-
 }) {
   const NisRef = useRef(null)
-  const {
-    register,
-    setValue,
-    watch,
-  } = useFormContext()
-
-
+  const { register, setValue, watch } = useFormContext()
 
   return (
     <div className="flex size-full flex-col items-center justify-center">

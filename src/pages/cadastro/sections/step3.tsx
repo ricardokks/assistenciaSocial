@@ -2,19 +2,17 @@ import { useFormContext } from 'react-hook-form'
 
 import { IconeCasa } from '../../../assets/Icons/icone-casa'
 import { IconeLocal } from '../../../assets/Icons/icone-local'
+import { Localidades } from '../../../constants/localidades'
+import { LocalidadeEnum } from '../../../schemas/userCadastroSchema'
 
 interface Step3Props {
   section: number
-  setSection: (section: number) => void,
-   passStep: () => void | Promise<void>
- 
+  setSection: (section: number) => void
+  passStep: () => void | Promise<void>
 }
 
-export function Step3({ section, setSection, passStep }: Step3Props) {
-  const {
-    register,
-    watch,
-  } = useFormContext()
+export function Step3({ section, setSection }: Step3Props) {
+  const { register, watch } = useFormContext()
 
   const dados = watch()
   console.log(dados)
@@ -34,14 +32,16 @@ export function Step3({ section, setSection, passStep }: Step3Props) {
           </label>
           <div className="relative flex">
             <IconeLocal className="absolute left-1 top-2.5 size-5" />
-            <input
+            <select
               {...register('localidade')}
-              placeholder="Nome do seu bairro ou localidade"
-              type="text"
               className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
-            />
+            >
+              <option value="">Selecione o Valor</option>
+              {Localidades.map((link, index) => (
+                <option key={index} value={link}>{link}</option>
+              ))}
+            </select>
           </div>
-
         </div>
 
         {/* Rua */}
@@ -56,7 +56,6 @@ export function Step3({ section, setSection, passStep }: Step3Props) {
               className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none`}
             />
           </div>
-
         </div>
 
         <div className="flex w-3/5 flex-row items-center justify-center">
@@ -74,7 +73,6 @@ export function Step3({ section, setSection, passStep }: Step3Props) {
                 className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
               />
             </div>
-
           </div>
 
           {/* Complemento */}
@@ -98,7 +96,7 @@ export function Step3({ section, setSection, passStep }: Step3Props) {
         <button
           className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           type="button"
-          onClick={async () => passStep()}
+          onClick={() => setSection(section - 1)}
         >
           Retornar
         </button>
