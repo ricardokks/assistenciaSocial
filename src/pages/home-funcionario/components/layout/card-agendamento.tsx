@@ -3,7 +3,7 @@ import type { CardAgendamentoProps } from '../../../../types/interface-card-agen
 
 export function CardAgendamento(props: CardAgendamentoProps) {
   return (
-    <div className="border-primary-800 flex justify-between max-w-[350px] flex-col gap-4 rounded-[5.97px] border-2 bg-white p-3">
+    <div className="border-primary-800 flex max-w-[350px] flex-col justify-between gap-4 rounded-[5.97px] border-2 bg-white p-3">
       {/* container calendario */}
       <div className="flex items-center justify-start gap-4">
         <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
@@ -19,7 +19,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       </div>
       {/* container dos botoes de controles  */}
       <div className="font-satoshi flex flex-col gap-4 ">
-        <button onClick={props.updateModal} className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white">
+        <button className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white" onClick={props.updateModal}>
           Editar
         </button>
         <button className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white">
