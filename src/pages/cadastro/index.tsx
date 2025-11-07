@@ -12,6 +12,7 @@ import { type userCadastroDTO, userCadastroSchema } from '../../schemas/userCada
 import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
+import { BarsLoginMobile } from '../../assets/svgs/bars-login-mobile'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)
@@ -54,9 +55,9 @@ export default function CadastroPage() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white max-lg:flex-col-reverse">
-      <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4 max-md:w-full">
+      <div className="mt-5 flex h-[90%] w-[55%] flex-col max-lg:justify-end max-lg:pb-14 items-center space-y-16 py-4 max-md:w-full">
         <div className="mb-3 flex w-full flex-col items-center justify-center space-y-5">
-          <img alt="" className="-translate-x-1" height={300} src={logoMassapeAzul} width={300} />
+          <img alt="" className="-translate-x-1 max-lg:hidden" height={300} src={logoMassapeAzul} width={300} />
         </div>
 
         <FormProvider {...methods}>
@@ -85,7 +86,7 @@ export default function CadastroPage() {
 
             {section === 2 && (
               <button
-                className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
+                className="w-4/7 max-lg:w-[calc(57.142857%-40px)] bg-primary-800 font-satoshi-bold mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
                 type="submit"
                 onClick={async () => IsValid(['localidade', 'rua', 'numero_casa', 'complemento'])}
               >
@@ -101,11 +102,12 @@ export default function CadastroPage() {
         style={{ backgroundImage: `url(${imagemMassape})`, backgroundSize: 'cover' }}
       />
       <div
-        className="absolute top-0 z-0 flex h-72 w-full items-center justify-center lg:hidden"
+        className="absolute top-0 z-0 flex h-48 w-full items-center justify-center lg:hidden"
         style={{ backgroundImage: `url(${imagemMassapeMobile})`, backgroundSize: 'cover' }}
       >
         {' '}
-        <img alt="" className="min-w-72 max-w-72" src={logoMassape} />
+        <img alt="" className="min-w-64 max-w-64" src={logoMassape} />
+        <div className='w-full h-24 absolute -bottom-8'><BarsLoginMobile></BarsLoginMobile></div>
       </div>
     </div>
   )

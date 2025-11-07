@@ -39,7 +39,7 @@ export function Usuarios() {
 
         <div className='w-full h-[2px] bg-primary-800/20 mt-4'></div>
 
-        <div className='w-full flex flex-col overflow-scroll overflow-x-hidden mb-28  h-full gap-3 mt-2'>
+        <div className='w-full flex flex-col overflow-y-auto overflow-x-hidden mb-28  h-full gap-3 mt-2'>
 
           <Usuario setDelete={() => setAbrirModalDelete(true)}></Usuario>
 

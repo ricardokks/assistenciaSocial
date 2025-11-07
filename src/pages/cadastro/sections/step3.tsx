@@ -17,16 +17,16 @@ export function Step3({ section, setSection }: Step3Props) {
   const dados = watch()
   console.log(dados)
   return (
-    <div className="flex size-full flex-col items-center justify-center">
-      <div className="mt-5 flex w-2/4 flex-col items-center -space-y-2">
-        <h2 className="text-primary-800 font-satoshi mb-5 text-center text-[25px] font-medium">
+    <div className="flex size-full max-lg:px-16 flex-col items-center justify-center min-w-[500px]">
+      <div className="mt-5 flex w-3/4 flex-col items-center -space-y-2">
+        <h2 className="text-primary-800 font-satoshi mb-5  text-center text-[25px] max-lg:text-base font-medium">
           Apenas coloque informações sobre onde você mora e estará tudo pronto
         </h2>
       </div>
 
       <div className="flex h-[70%] w-full flex-col items-center justify-center">
         {/* Bairro ou localidade */}
-        <div className="w-3/5 flex-col items-center rounded-2xl p-2">
+        <div className="w-3/5 max-lg:w-full flex-col items-center rounded-2xl p-2">
           <label className="text-primary-800 font-outfit text-[16px] font-medium">
             Bairro ou localidade:{' '}
           </label>
@@ -45,7 +45,7 @@ export function Step3({ section, setSection }: Step3Props) {
         </div>
 
         {/* Rua */}
-        <div className="w-3/5 flex-col items-center rounded-2xl p-2">
+        <div className="w-3/5 max-lg:w-full flex-col items-center rounded-2xl p-2">
           <label className="text-primary-800 font-outfit text-[16px] font-medium">Rua:</label>
           <div className="relative flex">
             <IconeLocal className="absolute left-1 top-2.5 size-5" />
@@ -58,7 +58,7 @@ export function Step3({ section, setSection }: Step3Props) {
           </div>
         </div>
 
-        <div className="flex w-3/5 flex-row items-center justify-center">
+        <div className="flex w-3/5 max-lg:w-full flex-row items-center justify-center">
           {/* Número da casa */}
           <div className="w-2/5 flex-col items-center rounded-2xl p-2">
             <label className="text-primary-800 font-outfit text-[16px] font-medium">
@@ -76,7 +76,7 @@ export function Step3({ section, setSection }: Step3Props) {
           </div>
 
           {/* Complemento */}
-          <div className="w-3/5 flex-col items-center rounded-2xl p-2">
+          <div className="w-3/5  flex-col items-center rounded-2xl p-2">
             <label className="text-primary-800 font-outfit text-[16px] font-medium">
               Complemento:{' '}
             </label>
@@ -94,7 +94,7 @@ export function Step3({ section, setSection }: Step3Props) {
 
         {/* Botão de retornar */}
         <button
-          className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
+          className="w-4/7  bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           type="button"
           onClick={() => setSection(section - 1)}
         >
