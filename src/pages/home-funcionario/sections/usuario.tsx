@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { IconeMais } from '../../../assets/Icons/icone-mais'
-import { HeaderDashboards } from '../../../components/Header'
+import { HeaderDashboards } from '../../../components/header'
 import { agendamentos } from '../../../constants/informacao-cidadao'
 import { CardAgendamento } from '../components/layout/card-agendamento'
 import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'

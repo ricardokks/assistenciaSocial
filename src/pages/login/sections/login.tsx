@@ -17,6 +17,7 @@ import logomassape from '../../../assets/image/logo-branca-massape.png'
 import { BarsLoginMobile } from '../../../assets/svgs/bars-login-mobile.tsx'
 import { type userLoginDTO, userLoginSchema } from '../../../schemas/userLoginSchema'
 import type { ILoginUserDTO } from '../../../types/type-login-user'
+import { verifyRole } from '../../../utils/verify-role.ts'
 
 export function Login() {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -26,9 +27,11 @@ export function Login() {
 
   async function onSubmit(data: userLoginDTO) {
     try {
-      await login(data)
+      const user = await login(data)
       toast.success('Usuário autenticado com sucesso!')
+      verifyRole(user.data.papel)
       reset()
+      console.log('CHEGOU ATÉ AQUI, PARABENS!')
     } catch {
       toast.error('Credencias inválidas')
     }
@@ -99,7 +102,7 @@ export function Login() {
                   className="text-primary-800 placeholder:text-primary-50 font-outfit w-full  rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium outline-none"
                   placeholder="Digite sua senha"
                   type={visiblePassword ? 'text' : 'password'}
-                  {...register('password')}
+                  {...register('senha')}
                 />
                 {/* Botão de visualizar a senha */}
                 <button

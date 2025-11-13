@@ -77,7 +77,7 @@ export const userCadastroSchema = z.object({
   dataNascimento: z.string().optional(),
   nomeMae: z.string().min(3, 'O nome da mãe deve ter pelo menos 3 caracteres').optional(),
   id: z.string().optional(),
-  nome: z.string().min(3, 'O nome deve ter pelo menos 3 caracteres'),
+  nome: z.string().min(3, 'O nome deve ter pelo mxenos 3 caracteres'),
   localidade: LocalidadeEnum,
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
