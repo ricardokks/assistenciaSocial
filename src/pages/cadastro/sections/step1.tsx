@@ -22,9 +22,9 @@ export function Step1({
 
   return (
     <div className="flex size-full flex-col items-center justify-center">
-      <div className="mt-5 mb-7 flex w-3/5  max-md:w-full  flex-col items-center -space-y-2 ">
-        <h1 className="text-primary-800 font-outfit-bold text-[30px] max-md:text-[1.3rem]">SEJA BEM-VINDO(A)</h1>
-        <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium max-md:text-[1.3rem]">
+      <div className="mt-5 mb-7 flex w-3/5 max-lg:px-16  max-lg:w-full  flex-col items-center -space-y-2 ">
+        <h1 className="text-primary-800 font-outfit-bold text-[30px] max-lg:text-xl  ">SEJA BEM-VINDO(A)</h1>
+        <h2 className="text-primary-800 font-satoshi text-center text-[25px] font-medium max-lg:text-base">
           Preencha os campos a seguir com suas informações
         </h2>
       </div>

@@ -6,15 +6,15 @@ import type { Configuracao } from './configuracoes'
 export type UsuarioDTO = {
   id: string
   nome: string
-  localidade: string
-  numero_casa: string
-  rua: string
-  complemento: string
-  email: string
-  rg: string
-  cpf: string
-  nis: string
-  telefone: string
+  localidade?: string
+  numero_casa?: string
+  rua?: string
+  complemento?: string
+  email?: string
+  rg?: string
+  cpf?: string
+  nis?: string
+  telefone?: string
   papel: 'CIDADAO' | 'ASSISTENCIA' | 'ADMIN'
   avatarURL?: string
   assistenciaId?: string
