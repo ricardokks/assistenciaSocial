@@ -62,8 +62,6 @@ export const LocalidadeEnum = z.enum([
   'TAMANDUA',
 ])
 
-
-
 export const PapelEnum = z.enum([
   'ADMINISTRADOR',
   'CIDADAO',

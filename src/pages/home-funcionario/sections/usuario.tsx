@@ -39,7 +39,7 @@ export function Usuario() {
   return (
     <main className="main overflow-y-auto">
       {/* Header da aplicação  */}
-      
+
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user="PROFISSIONAL" />
         <HeaderDashboards.notificacao />

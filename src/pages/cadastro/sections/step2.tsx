@@ -21,7 +21,7 @@ export function Step2({
   return (
     <div className="flex size-full flex-col items-center justify-center">
       <div className="mt-5 flex w-3/4 flex-col items-center -space-y-2">
-        <h2 className="text-primary-800 font-satoshi mb-5 text-center text-[25px] max-lg:text-base font-medium">
+        <h2 className="text-primary-800 font-satoshi mb-5 text-center text-[25px] font-medium max-lg:text-base">
           Estamos quase lá! Continue preenchendo os campos
         </h2>
       </div>

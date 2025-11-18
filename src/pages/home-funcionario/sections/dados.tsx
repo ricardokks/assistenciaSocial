@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { IconeEditar } from '../../../assets/Icons/IconeEditar'
 import { IconeLapis } from '../../../assets/Icons/IconeLapis'
 import { imagemAvatar } from '../../../assets/image'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/Header'
 
 export function Dados() {
   // estados e variaveis utilizadas no componente
