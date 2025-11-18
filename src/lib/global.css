@@ -286,3 +286,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes MoveUpandDown {
+  from {
+    transform: translateY(10px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+.animation-MoveUpandDown {
+  animation-duration: 7s;
+  animation-name: MoveUpandDown;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
