@@ -23,7 +23,7 @@ export const routes = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: '/sepad-massape/projeto/:id',
+        path: '/sepad-massape/projeto/k',
         element: <Projeto />,
       },
       {
