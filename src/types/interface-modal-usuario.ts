@@ -1,7 +1,7 @@
-import type { UsuarioDTO } from "../dto/Usuario/usuarioDTO"
+import type { UsuarioDTO } from '../dto/Usuario/usuarioDTO'
 
 export interface ModalUsuarioProps {
-    usuario: UsuarioDTO
-    abrilModalUsuario: boolean
-    handleAbrirModalDelete: () => void
+  usuario: UsuarioDTO
+  abrilModalUsuario: boolean
+  handleAbrirModalDelete: () => void
 }

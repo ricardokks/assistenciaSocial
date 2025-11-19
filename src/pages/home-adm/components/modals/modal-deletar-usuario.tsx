@@ -1,10 +1,8 @@
 import ReactDOM from 'react-dom'
 
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
-
-import type { ModalDeletarUsuarioProps } from '../../../../types/interface-modal-deletar-usuario'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
-
+import type { ModalDeletarUsuarioProps } from '../../../../types/interface-modal-deletar-usuario'
 
 export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
   return ReactDOM.createPortal(
@@ -13,33 +11,46 @@ export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
     >
       {/* Modal de Criação do Agendamento  */}
       <article
-        className={` ${props.abrilModalUsuario ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} relative flex size-[30%] min-w-[360px] h-auto items-start justify-between rounded-2xl bg-white p-7 px-4 transition-all duration-300 ease-in-out max-md:w-[80%]`}
+        className={` ${props.abrilModalUsuario ? 'scale-100 opacity-100' : 'scale-95 opacity-0'} relative flex size-[30%] h-auto min-w-[360px] items-start justify-between rounded-2xl bg-white p-7 px-4 transition-all duration-300 ease-in-out max-md:w-[80%]`}
       >
         {/* parte de cima do componente */}
-        <nav className="bg-white absolute left-0 top-0 h-12 w-full rounded-t-2xl">
+        <nav className="absolute left-0 top-0 h-12 w-full rounded-t-2xl bg-white">
           <div className="flex items-center justify-end px-4 py-2 ">
             <div className="cursor-pointer" onClick={props.handleAbrirModalDelete}>
-              <IconeClosed className="size-8 text-primary-800" />
+              <IconeClosed className="text-primary-800 size-8" />
             </div>
           </div>
         </nav>
 
-        <div className='w-full flex flex-col items-center justify-center '>
-              <div className='w-20 h-20 text-primary-800 p-2 mt-6 bg-primary-100/60 rounded-full'> <IconeLixeira></IconeLixeira></div>
+        <div className="flex w-full flex-col items-center justify-center ">
+          <div className="text-primary-800 bg-primary-100/60 mt-6 size-20 rounded-full p-2">
+            {' '}
+            <IconeLixeira></IconeLixeira>
+          </div>
 
-              <h1 className='font-outfit-bold text-xl text-primary-800 mt-6'>Deletar Usuário</h1>
-              <h1 className='font-satoshi  text-base text-primary-800'>Tem certeza que deseja excluir usuário?</h1>
-              <h1 className='font-satoshi text-base text-primary-800'>Essa ação não poderá ser desfeita.</h1>
+          <h1 className="font-outfit-bold text-primary-800 mt-6 text-xl">Deletar Usuário</h1>
+          <h1 className="font-satoshi  text-primary-800 text-base">
+            Tem certeza que deseja excluir usuário?
+          </h1>
+          <h1 className="font-satoshi text-primary-800 text-base">
+            Essa ação não poderá ser desfeita.
+          </h1>
 
-              <div className='w-full flex justify-evenly mt-8'> 
-                <button onClick={() => props.handleAbrirModalDelete()} className='w-[45%] h-10 p-1 bg-negative text-white rounded-md cursor-pointer'>Deletar</button>
-                <button onClick={() => props.handleAbrirModalDelete()} className='w-[45%] h-10 p-1 bg-primary-100/80 text-white rounded-md cursor-pointer'>Cancelar</button>
-
-              </div>
-
+          <div className="mt-8 flex w-full justify-evenly">
+            <button
+              className="bg-negative h-10 w-[45%] cursor-pointer rounded-md p-1 text-white"
+              onClick={() => props.handleAbrirModalDelete()}
+            >
+              Deletar
+            </button>
+            <button
+              className="bg-primary-100/80 h-10 w-[45%] cursor-pointer rounded-md p-1 text-white"
+              onClick={() => props.handleAbrirModalDelete()}
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
-
-
       </article>
     </section>,
     document.body

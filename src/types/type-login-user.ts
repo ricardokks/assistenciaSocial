@@ -1,4 +1,4 @@
 export interface ILoginUserDTO {
   cpf: string
-  password: string
+  senha: string
 }
