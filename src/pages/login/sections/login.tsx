@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
+import { useNavigate } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
+import { autoLogin } from '../../../api/auth/autologin.ts'
 import { login } from '../../../api/auth/login'
 import { IconEyeClose } from '../../../assets/Icons/IconEyeClose'
 import { IconEyeOpen } from '../../../assets/Icons/closeEyeOpen'
@@ -15,27 +17,45 @@ import imagemMassape from '../../../assets/image/imagemMasspae.png'
 import logoMassapeAzul from '../../../assets/image/logo de massape azul.svg'
 import logomassape from '../../../assets/image/logo-branca-massape.png'
 import { BarsLoginMobile } from '../../../assets/svgs/bars-login-mobile.tsx'
+import { Loading } from '../../../components/loading.tsx'
 import { type userLoginDTO, userLoginSchema } from '../../../schemas/userLoginSchema'
 import type { ILoginUserDTO } from '../../../types/type-login-user'
 import { verifyRole } from '../../../utils/verify-role.ts'
 
 export function Login() {
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+
   const [visiblePassword, setVisiblePassword] = useState(false)
   const { register, handleSubmit, reset, control } = useForm<ILoginUserDTO>({
     resolver: zodResolver(userLoginSchema),
   })
 
+  async function AutoLogin() {
+    const user = await autoLogin()
+    verifyRole(user.data.papel, navigate)
+  }
+
   async function onSubmit(data: userLoginDTO) {
     try {
+      setLoading(true)
       const user = await login(data)
+      verifyRole(user.data.papel, navigate)
       toast.success('Usuário autenticado com sucesso!')
-      verifyRole(user.data.papel)
-      reset()
-      console.log('CHEGOU ATÉ AQUI, PARABENS!')
     } catch {
       toast.error('Credencias inválidas')
+    } finally {
+      setLoading(false)
     }
   }
+
+  if (loading) {
+    return <Loading />
+  }
+
+  useEffect(() => {
+    AutoLogin()
+  }, [])
 
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white max-lg:flex-col-reverse">

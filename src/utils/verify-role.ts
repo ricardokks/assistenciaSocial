@@ -1,16 +1,9 @@
-import { useNavigate } from 'react-router-dom'
-
 import type { TypeUsario } from '../types/type-usuarios'
+import type { NavigateFunction } from 'react-router-dom'
 
-function dashboard(tipo: TypeUsario | string) {
-  const navigate = useNavigate()
-  const papel = tipo.toLowerCase()
-  return navigate(`/dashboard/${papel}`)
-}
-
-export function verifyRole(papel: TypeUsario) {
-  if (papel === 'ADMINISTRADOR') dashboard('ADMINISTRADOR')
-  if (papel === 'CIDADAO') dashboard('CIDADAO')
-  if (papel === 'GESTOR') dashboard('GESTOR')
-  if (papel === 'PROFISSIONAL') dashboard('FUNCIONARIO')
+export function verifyRole(papel: TypeUsario, navigate: NavigateFunction) {
+  if (papel === 'ADMINISTRADOR') navigate('/dashboard/administrador')
+  if (papel === 'CIDADAO') navigate('/dashboard/cidadao')
+  if (papel === 'GESTOR') navigate('/dashboard/gestor')
+  if (papel === 'PROFISSIONAL') navigate('/dashboard/funcionario')
 }
