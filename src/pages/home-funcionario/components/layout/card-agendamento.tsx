@@ -19,7 +19,10 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       </div>
       {/* container dos botoes de controles  */}
       <div className="font-satoshi flex flex-col gap-4 ">
-        <button className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white" onClick={props.updateModal}>
+        <button
+          className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+          onClick={props.updateModal}
+        >
           Editar
         </button>
         <button className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white">

@@ -29,7 +29,7 @@ export const LinksDashboardFuncionario: LinksDashboardFuncionarioProps[] = [
   {
     id: 'Usuarios',
     icone: IconeUsuario,
-    nomeLink: 'Usuários',
+    nomeLink: 'Agendamentos',
   },
 ]
 

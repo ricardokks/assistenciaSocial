@@ -1,6 +1,6 @@
 import type { IHomeProps } from '../../types/interface-home-props'
+import { HeaderDashboards } from '../Header'
 import { InicioBanner } from '../banner'
-import { HeaderDashboards } from '../header'
 import { InicioDados } from './InicioDados'
 import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'

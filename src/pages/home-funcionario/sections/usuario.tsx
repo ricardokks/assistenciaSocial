@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { HeaderDashboards } from '../../../components/Header'
 import { agendamentos } from '../../../constants/informacao-cidadao'
@@ -12,6 +13,20 @@ export function Usuario() {
   const [abrirModalCriarAgendamento, setAbrirModalCriarAgendamento] = useState<boolean>(false)
   const [abrilModalEditarAgendamento, setAbrilModalEditarAgendamento] = useState<boolean>(false)
   const [abrilModalDelete, setAbrirModalDelete] = useState<boolean>(false)
+  const [informacaoUsuario, setInformacaoUsuario] = useState()
+
+  useEffect(() => {
+    async function fecthDadosUsuarios() {
+      const dados = await getAssistencia()
+      console.log('Função da  axios foi chamada!!')
+      console.log(informacaoUsuario)
+
+      setInformacaoUsuario(dados)
+      return dados
+    }
+
+    fecthDadosUsuarios()
+  }, [])
 
   // funções utilizados
   function handleAbrirModalCriarAgendamento() {
@@ -24,6 +39,7 @@ export function Usuario() {
   return (
     <main className="main overflow-y-auto">
       {/* Header da aplicação  */}
+
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user="PROFISSIONAL" />
         <HeaderDashboards.notificacao />

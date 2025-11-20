@@ -20,7 +20,7 @@ export function Dados() {
   }
 
   return (
-    <main className="main">
+    <main className="main overflow-y-auto">
       {/* componente header  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil user="PROFISSIONAL" />

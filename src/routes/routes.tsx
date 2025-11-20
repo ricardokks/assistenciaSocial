@@ -8,6 +8,7 @@ import { HomeFuncionario } from '../pages/home-funcionario'
 import { HomePage } from '../pages/lading-page'
 import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
+import NotFound from '../pages/404'
 
 export const routes = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ export const routes = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: '/sepad-massape/projeto/:id',
+        path: '/sepad-massape/projeto/k',
         element: <Projeto />,
       },
       {
@@ -46,6 +47,10 @@ export const routes = createBrowserRouter([
         path: '/config/k',
         element: <Config />,
       },
+      {
+        path: '*',
+        element: <NotFound />
+      }
     ],
   },
 ])

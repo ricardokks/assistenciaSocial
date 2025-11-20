@@ -1,8 +1,23 @@
+import { useNavigate } from 'react-router-dom'
+
+import { autoLogin } from '../../../api/auth/autologin'
 import { browserDesktop, browserMobile } from '../../../assets/image'
+import { verifyRole } from '../../../utils/verify-role'
 import { Header } from '../components/header'
 import { HeaderMobile } from '../components/header-mobile'
 
 export function SectionHero() {
+  const navigate = useNavigate()
+
+  async function autoLoginButton() {
+    try {
+      const user = await autoLogin()
+      verifyRole(user.data.papel, navigate)
+    } catch {
+      navigate('/cadastro')
+    }
+  }
+  
   return (
     <section
       className="font-outfit m-0 flex size-[100%] h-auto max-w-[1280px] flex-col justify-start bg-transparent p-4 px-5"
@@ -29,7 +44,10 @@ export function SectionHero() {
 
         {/* container botões */}
         <div className="flex w-full items-center justify-center gap-4 max-md:flex-col max-md:items-center max-md:justify-start">
-          <button className="text-primary-800 cursor-pointer rounded-3xl bg-white px-6 py-3 font-extrabold duration-500 ease-in-out hover:bg-white/90 max-sm:w-[80%]">
+          <button
+            className="text-primary-800 cursor-pointer rounded-3xl bg-white px-6 py-3 font-extrabold duration-500 ease-in-out hover:bg-white/90 max-sm:w-[80%]"
+            onClick={async () => await autoLoginButton()}
+          >
             Agendar agora
           </button>
           <button
