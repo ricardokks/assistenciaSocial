@@ -4,10 +4,18 @@ import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { Usuario } from '../components/layout/usuario'
 import { ModalDeletarUsuario } from '../components/modals/modal-deletar-usuario'
+import { ModalCriarUsuario } from '../components/modals/modal-criar-usuario'
+import type { UsuarioDTO } from '../../../dto/Usuario/usuarioDTO'
+import { ModalEditarUsuario } from '../components/modals/modal-editar-usuario'
+import { tr } from 'zod/v4/locales'
 
 export function Usuarios() {
-  const [abrilModalUsuario, setAbrirModalDelete] = useState<boolean>(false)
+  const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
+  const [abrirModalCreate, setAbrirModalCreate] = useState<boolean>(false)
+  const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
+
   const [idUsuario, setIdUsuario] = useState<string>('')
+  const [usuario, setUsuario] = useState<UsuarioDTO>()
 
 
 
@@ -32,7 +40,7 @@ export function Usuarios() {
             />
           </div>
 
-          <button className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out">
+          <button onClick={() => setAbrirModalCreate(true)} className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out">
             <IconeMais className="size-4 text-white" /> Novo Usuário
           </button>
         </div>
@@ -41,15 +49,28 @@ export function Usuarios() {
 
         <div className='w-full flex flex-col overflow-y-auto overflow-x-hidden mb-28  h-full gap-3 mt-2'>
 
-          <Usuario setDelete={() => setAbrirModalDelete(true)}></Usuario>
+          <Usuario setDelete={() => setAbrirModalDelete(true)} setEdit={() => setAbrirModalEdit(true)}></Usuario>
 
 
         </div>
         <ModalDeletarUsuario
           id={idUsuario}
-          abrilModalUsuario={abrilModalUsuario}
+          abrilModalUsuario={abrirModalDelete}
           handleAbrirModalDelete={() => setAbrirModalDelete(false)}
         ></ModalDeletarUsuario>
+
+        <ModalCriarUsuario
+          usuario={usuario!}
+          abrilModalUsuario={abrirModalCreate}
+          handleAbrirModalDelete={() => setAbrirModalCreate(false)}
+        ></ModalCriarUsuario>
+
+          <ModalEditarUsuario
+          usuario={usuario!}
+          abrilModalUsuario={abrirModalEdit}
+          handleAbrirModalDelete={() => setAbrirModalEdit(false)}
+        ></ModalEditarUsuario>
+        
         
       </div>
     </main>

@@ -3,6 +3,7 @@ import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 
 type UsuarioProps = {
   setDelete: () => void
+  setEdit: () => void
 }
 
 export function Usuario(props: UsuarioProps) {
@@ -32,7 +33,7 @@ export function Usuario(props: UsuarioProps) {
       {/* Icones*/}
       <div className="flex space-x-1 items-center justify-center">
         {/* Icone atualizar */}
-        <button className="w-8 h-8 flex justify-center items-center bg-primary-800 hover:bg-primary-50 rounded-lg duration-300 cursor-pointer">
+        <button onClick={() => props.setEdit()} className="w-8 h-8 flex justify-center items-center bg-primary-800 hover:bg-primary-50 rounded-lg duration-300 cursor-pointer">
           <IconeEditar className="text-white"></IconeEditar>
         </button>
 
