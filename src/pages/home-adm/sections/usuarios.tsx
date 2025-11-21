@@ -58,7 +58,6 @@ export function Usuarios() {
           id={idUsuario}
           abrilModalUsuario={abrirModalDelete}
           handleAbrirModalDelete={() => setAbrirModalDelete(false)}
-          id={idUsuario}
         ></ModalDeletarUsuario>
 
         <ModalCriarUsuario

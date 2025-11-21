@@ -49,13 +49,13 @@ export function Login() {
     }
   }
 
-  if (loading) {
-    return <Loading />
-  }
-
   useEffect(() => {
     AutoLogin()
   }, [])
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white max-lg:flex-col-reverse">
