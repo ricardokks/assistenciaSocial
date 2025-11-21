@@ -18,6 +18,10 @@ export function Header() {
     }
   }
 
+  function navegarParalogin() {
+    navigate('/login')
+  }
+
   return (
     <header className="font-outfit relative flex items-center justify-between bg-transparent max-md:hidden">
       {/* logo SEPAD  */}

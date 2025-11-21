@@ -17,7 +17,7 @@ export function SectionHero() {
       navigate('/cadastro')
     }
   }
-  
+
   return (
     <section
       className="font-outfit m-0 flex size-[100%] h-auto max-w-[1280px] flex-col justify-start bg-transparent p-4 px-5"
@@ -50,13 +50,20 @@ export function SectionHero() {
           >
             Agendar agora
           </button>
-          <button
-            className="hover:text-primary-800 group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-white bg-transparent px-6 py-3 font-extrabold text-white
+          <a
+            className='max-md:w-full'
+            target="_blank"
+            href="https://wa.me/5588993255962?text=Olá,%20gostaria%20de%20mais%20informações!
+"
+          >
+            <button
+              className="hover:text-primary-800 group relative cursor-pointer overflow-hidden rounded-3xl border-2 border-white bg-transparent px-6 py-3 font-extrabold text-white
   before:absolute before:inset-0 before:origin-right before:scale-x-0 before:bg-white before:transition-transform before:duration-500
   hover:before:origin-left hover:before:scale-x-100  max-sm:w-[80%]"
-          >
-            <span className="relative z-10">Contate-nos</span>
-          </button>
+            >
+              <span className="relative z-10">Contate-nos</span>
+            </button>
+          </a>
         </div>
 
         {/* container imagem browser  */}
