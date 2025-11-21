@@ -53,6 +53,10 @@ export function Login() {
     AutoLogin()
   }, [])
 
+  function NavegarParaLogin() {
+    navigate('/cadastro')
+  }
+
   if (loading) {
     return <Loading />
   }
@@ -149,10 +153,9 @@ export function Login() {
           </button>
           {/* esqueci a senha */}
           <h1 className="font-outfit text-primary-800 text-center">
-            Esqueceu sua senha?{' '}
-            <a className="font-outfit-bold cursor-pointer">
-              Entre em contato com um <br />
-              administrador
+            Não possui uma conta?{' '}
+            <a className="font-outfit-bold cursor-pointer" onClick={NavegarParaLogin}>
+              Cadastrar
             </a>
           </h1>
         </form>

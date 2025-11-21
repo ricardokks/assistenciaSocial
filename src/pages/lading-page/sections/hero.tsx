@@ -14,7 +14,7 @@ export function SectionHero() {
       const user = await autoLogin()
       verifyRole(user.data.papel, navigate)
     } catch {
-      navigate('/cadastro')
+      navigate('/login')
     }
   }
 
