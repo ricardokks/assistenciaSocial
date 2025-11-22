@@ -55,7 +55,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
         <div className="bg-primary-800 relative w-13 h-13 rounded-full">
           <img
             alt={'Foto do usário'}
-            className="size-full rounded-full"
+            className="size-full object-cover rounded-full"
             src={dadosUser?.avatarURL}
           />
         </div>
