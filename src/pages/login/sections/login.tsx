@@ -145,11 +145,11 @@ export function Login() {
           </div>
           {/* botão de entrar */}
           <button
-            className="bg-primary-800 font-satoshi mt-8 w-3/5 cursor-pointer rounded-2xl px-3 py-1 text-lg font-bold text-white duration-500 hover:bg-blue-900 max-lg:mt-4"
+            className={`${loading ? 'bg-white/50' : 'bg-primary-800 text-white duration-500 hover:bg-blue-900'} font-satoshi mt-8 w-3/5 cursor-pointer rounded-2xl px-3 py-1 text-lg font-bold max-lg:mt-4`}
+            disabled={loading}
             type="submit"
           >
-            {' '}
-            ENTRAR{' '}
+            {loading ? 'ENTRANDO...' : 'ENTRAR'}{' '}
           </button>
           {/* esqueci a senha */}
           <h1 className="font-outfit text-primary-800 text-center">
