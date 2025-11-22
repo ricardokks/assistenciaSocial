@@ -72,13 +72,14 @@ export const PapelEnum = z.enum([
 
 // ===== Usuario Schema =====
 export const userCadastroSchema = z.object({
-  dataNascimento: z.string().optional(),
-  nomeMae: z.string().min(3, 'O nome da mãe deve ter pelo menos 3 caracteres').optional(),
+  data_nascimento: z.string().optional(),
+  nome_mae: z.string().min(3, 'O nome da mãe deve ter pelo menos 3 caracteres').optional(),
   id: z.string().optional(),
   nome: z.string().min(3, 'O nome deve ter pelo mxenos 3 caracteres'),
   localidade: LocalidadeEnum,
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
+  rg: z.string().length(9),
   complemento: z.string().optional(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
   nis: z.string().min(11, 'O NIS deve conter pelo menos 11 caracteres'),

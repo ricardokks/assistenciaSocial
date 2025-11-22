@@ -9,6 +9,6 @@ export async function cadastro(data: FormData) {
     })
     return response.data
   } catch (error) {
-    console.log('Falha ao criar um usário', error)
+    console.log('Falha ao criar um usuário', error)
   }
 }

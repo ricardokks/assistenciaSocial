@@ -34,7 +34,7 @@ export function Step2({
           <div className="relative flex">
             <IconePessoa className="absolute left-2 top-3 size-4" />
             <input
-              {...register('nomeMae')}
+              {...register('nome_mae')}
               className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
               placeholder="Nome da mãe completo"
               type="text"
@@ -42,23 +42,42 @@ export function Step2({
           </div>
         </div>
 
-        {/* data de nascimento */}
-        <div className="w-3/5 flex-col items-center rounded-2xl p-2">
-          <label className="text-primary-800 font-outfit text-[16px] font-medium">
-            Data de Nascimento:
-          </label>
-          <div className="relative flex">
-            <IconeData className="absolute left-1 top-2 h-5 w-6" />
+{/* data de nascimento */}
+<div className="w-3/5 flex-col items-center rounded-2xl p-2">
+  <label className="text-primary-800 font-outfit text-[16px] font-medium">
+    Data de Nascimento:
+  </label>
 
-            <IMaskInput
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
-              mask="00-00-0000"
-              placeholder="__/__/____"
-              value={watch('dataNascimento')}
-              onAccept={(value) => setValue('dataNascimento', value)}
-            />
-          </div>
-        </div>
+  <div className="relative flex">
+    <IconeData className="absolute left-1 top-2 h-5 w-6" />
+
+    <IMaskInput
+      mask="00/00/0000"
+      className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
+      placeholder="__/__/____"
+      
+      value={watch("data_nascimento_br") || ""}
+      
+      // Atualiza conforme digita
+      onAccept={(value) => {
+        setValue("data_nascimento_br", value)
+      }}
+
+      // SÓ AQUI você cria o valor ISO final
+      onComplete={(value) => {
+        const [dia, mes, ano] = value.split("/")
+        const iso = `${ano}-${mes}-${dia}`
+
+        setValue("data_nascimento", iso, { shouldValidate: true })
+      }}
+    />
+  </div>
+
+  {/* Este campo envia pro backend */}
+  <input type="hidden" {...register("data_nascimento")} />
+</div>
+
+
 
         {/* NIS */}
         <div className="w-3/5 flex-col items-center rounded-2xl p-2">
@@ -73,7 +92,10 @@ export function Step2({
               mask="000.00000.00-0"
               placeholder="Número do NIS"
               value={watch('nis')}
-              onAccept={(value) => setValue('nis', value)}
+              onAccept={(value) => {
+                const onlyNumbers = value.replace(/\D/g, '')
+                setValue('nis', onlyNumbers, { shouldValidate: true })
+              }}
             />
           </div>
         </div>
