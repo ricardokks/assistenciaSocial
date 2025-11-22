@@ -5,12 +5,13 @@ import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Servicos } from './section/servicos'
+import { Chat } from './section/chat'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
     Inicio: <Inicio user="CIDADAO" />,
-    ContatarAtendimento: <div> </div>,
+    ContatarAtendimento: <Chat />,
     ProcurarServico: <Servicos />,
   }
 
