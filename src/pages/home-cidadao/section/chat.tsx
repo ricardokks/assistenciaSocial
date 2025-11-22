@@ -2,9 +2,9 @@ import { useState } from "react";
 import { IconeSearch } from "../../../assets/Icons/icone-search";
 import { HeaderDashboards } from "../../../components/header";
 
-export function Chat() {
+export function Chat(user: {data: any}) {
 
-    const [selectedId, setSelectedId] = useState(1) // 1 = Não lidas
+    const [selectedId, setSelectedId] = useState(1)
 
     const dataButtons = [
         { id: 1, nome: "Não lidas" },
@@ -25,7 +25,7 @@ export function Chat() {
     return (
         <main className="main flex-col h-screen items-center px-4 max-lg:w-full max-lg:px-0">
             <HeaderDashboards.root>
-                <HeaderDashboards.perfil user="CIDADAO" />
+                <HeaderDashboards.perfil data={user.data} user="CIDADAO" />
                 <HeaderDashboards.notificacao />
             </HeaderDashboards.root>
 
@@ -36,9 +36,9 @@ export function Chat() {
 
                 {/* Input */}
                 <div className="relative flex w-[95%] max-xl:w-4/5 max-lg:w-full">
-                    <IconeSearch className="absolute left-3 top-[1.55rem]" />
+                    <IconeSearch className="absolute left-2.5 top-[1.4rem] w-4 h-4" />
                     <input
-                        className="font-satoshi bg-gray-500/20 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3 size-full rounded-2xl px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10"
+                        className="font-satoshi bg-gray-500/20 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3 size-full rounded-2xl px-2 pl-8 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10"
                         placeholder="Procure pelo usuário..."
                     />
                 </div>
