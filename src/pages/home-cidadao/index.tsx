@@ -26,7 +26,6 @@ export function HomeCidadao() {
 
   useEffect(() => {
     getDataUser()
-    console.log(user)
   }, [])
   
   return (

@@ -44,7 +44,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
         <div className="bg-primary-800 relative w-13 h-13 rounded-full">
           <img
             alt={'Foto do usário'}
-            className="size-full object-cover rounded-full"
+            className="size-full rounded-full"
             src={dadosUser?.avatarURL}
           />
         </div>
@@ -74,7 +74,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
       </div>
 
       {/* componente do dropbox */}
-      <Dropbox abrirDropbox={abrirDropbox} />
+      <Dropbox id={dadosUser?.id} abrirDropbox={abrirDropbox} />
     </div>
   )
 }
