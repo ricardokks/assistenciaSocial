@@ -23,7 +23,7 @@ export function Chat(user: {data: any}) {
     ]
 
     return (
-        <main className="main flex-col h-screen items-center px-4 max-lg:w-full max-lg:px-0">
+        <main className="main flex-col h-screen items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
             <HeaderDashboards.root>
                 <HeaderDashboards.perfil data={user.data} user="CIDADAO" />
                 <HeaderDashboards.notificacao />
@@ -64,7 +64,7 @@ export function Chat(user: {data: any}) {
                 </div>
 
                 {/* Pessoas */}
-                <div className="w-full flex flex-col space-y-2 mt-3 overflow-y-visible flex-1 pr-2">
+                <div className="w-full flex flex-col space-y-2 mt-3 overflow-y-auto  pr-2 h-4/5 pb-8">
                     {dataPeoples.map((item, index) => (
                         <div
                             key={index}
