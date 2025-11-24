@@ -4,13 +4,13 @@ import type { UsuarioDTO } from '../../dto/Usuario/usuarioDTO'
 import type { InterfaceHeader } from '../../types/interface-header'
 import type { TypeUsario } from '../../types/type-usuarios'
 import { Dropbox } from './components/dropbox'
-import { getUser } from '../../api/user/getUser'
 
 const userInfo: Record<TypeUsario, { cargo: string }> = {
   ADMINISTRADOR: { cargo: 'Administrador' },
   CIDADAO: { cargo: 'Cidadão' },
   GESTOR: { cargo: 'Gestor' },
   PROFISSIONAL: { cargo: 'Funcionário' },
+  FUNCIONARIO: { cargo: 'Funcionário' },
 }
 
 export function HeaderDashboardPerfil(props: InterfaceHeader) {

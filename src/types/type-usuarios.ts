@@ -1,1 +1,1 @@
-export type TypeUsario = 'ADMINISTRADOR' | 'CIDADAO' | 'GESTOR' | 'PROFISSIONAL'
+export type TypeUsario = 'ADMINISTRADOR' | 'CIDADAO' | 'GESTOR' | 'PROFISSIONAL' | 'FUNCIONARIO'
