@@ -5,11 +5,22 @@ import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
+import { CriarAgendamento } from '../modals/criarAgendamento'
+import { DeletarAgendamento } from '../modals/deletarAgendamento'
+import { toast } from 'sonner'
+import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
 
-export function Chat(user: { data: any }) {
+export function Agendamento(user: { data: any }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string>('')
   const [isAnimate, setIsAnimate] = useState(false)
+
+  // Visibilidade modals
+  const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
+
+  const [visibilidadeModalDeletarAgendamento, setVisibilidadeModalDeletarAgendamento] = useState(false)
+
+  const [visibilidadeModalVisualizarAgendamento, setVisibilidadeModalVisualizarAgendamento] = useState(false)
 
   // Mock data para os agendamentos
   type statusButtonProps = 'PENDENTE' | 'APROVADO' | 'RECUSADO' | 'ANALISE'
@@ -82,14 +93,16 @@ export function Chat(user: { data: any }) {
       {/* div do button Novo Agendamento */}
       <div className="w-full flex items-center justify-between text-primary-800 font-outfit">
         <h1 className="font-medium text-2xl">Meus Agendamentos</h1>
-        <button className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer ">
+        <button 
+        onClick={() => setVisibilidadeModalCriarAgendamento(true)}
+        className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer ">
           <Plus className="size-5 mr-2" />
           Novo Agendamento
         </button>
       </div>
 
       {/* Search */}
-      <div className="relative flex w-[80%] max-xl:w-4/5 max-lg:w-full -translate-y-5 items-center text-center">
+      <div className="relative flex w-[80%] max-xl:w-4/5 max-lg:w-full max-2xl:-translate-y-3 max-xl:-translate-y-0 items-center text-center">
         {/* Icone search */}
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
         <input
@@ -162,11 +175,34 @@ export function Chat(user: { data: any }) {
 
             {/* button */}
             <div className="w-full flex justify-start mt-5">
-              <ButtonInfo status={item.status} />
+              <ButtonInfo 
+              status={item.status} 
+              onClickDelete={() => setVisibilidadeModalDeletarAgendamento(prev => !prev)} 
+              onClickAguardandoAnalise={() => toast.info("Análise do seu agendamento está sendo realizada")}
+              onClickRecusado={() => toast.error("Após uma análise, o seu agendamento foi recusado")}
+              onClickVisualizarInfo={() => setVisibilidadeModalVisualizarAgendamento(prev => !prev)}
+              />
             </div>
           </div>
         ))}
       </div>
+
+      {/* Modals */}
+      <CriarAgendamento 
+        open={visibilidadeModalCriarAgendamento}
+        close={() => setVisibilidadeModalCriarAgendamento(prev => !prev)}
+        
+      />
+
+      <DeletarAgendamento 
+        open={visibilidadeModalDeletarAgendamento}
+        close={() => setVisibilidadeModalDeletarAgendamento(prev => !prev)}
+      />
+
+      <VisualizarAgendamento 
+        open={visibilidadeModalVisualizarAgendamento}
+        close={() => setVisibilidadeModalVisualizarAgendamento(prev => !prev)}
+      />
     </main>
   )
 }

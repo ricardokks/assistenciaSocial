@@ -5,12 +5,19 @@ import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
-import { Chat } from './section/atendimento'
 import { Servicos } from './section/servicos'
+import { Agendamento } from './section/atendimento'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const [user, setUser] = useState(null)
+
+  // Visibilidade modals
+  const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
+
+  const [visibilidadeModalDeletarAgendamento, setVisibilidadeModalDeletarAgendamento] = useState(false)
+
+  const [visibilidadeModalVisualizarAgendamento, setVisibilidadeModalVisualizarAgendamento] = useState(false)
 
   async function getDataUser() {
     const data = await getUser()
@@ -20,7 +27,7 @@ export function HomeCidadao() {
 
   const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
     Inicio: <Inicio user="CIDADAO" data={user} />,
-    ContatarAtendimento: <Chat data={user} />,
+    ContatarAtendimento: <Agendamento data={user} />,
     ProcurarServico: <Servicos user={user} />,
   }
 
