@@ -7,8 +7,9 @@ export async function cadastro(data: FormData) {
         'Content-Type': 'multipart/form-data',
       },
     })
-    return response.data
+    return response
   } catch (error) {
     console.log('Falha ao criar um usuário', error)
+    throw error
   }
 }

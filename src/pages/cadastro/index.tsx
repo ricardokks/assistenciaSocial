@@ -28,8 +28,10 @@ export default function CadastroPage() {
     console.log('submit chamado', data)
     try {
       console.log(data)
-      await cadastro(data)
-      toast.success('Usuário cadastrado com sucesso')
+      const cad = await cadastro(data)
+      if (cad.status === 201) {
+        toast.success('Usuário cadastrado com sucesso')
+      }
     } catch {
       toast.error('Erro ao cadastrar')
     }
