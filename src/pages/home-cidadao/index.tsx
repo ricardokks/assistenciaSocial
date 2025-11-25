@@ -5,7 +5,7 @@ import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
-import { Chat } from './section/chat'
+import { Chat } from './section/atendimento'
 import { Servicos } from './section/servicos'
 
 export function HomeCidadao() {

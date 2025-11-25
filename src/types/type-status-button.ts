@@ -1,0 +1,1 @@
+export type statusButtonProps = 'PENDENTE' | 'APROVADO' | 'RECUSADO' | 'ANALISE'
