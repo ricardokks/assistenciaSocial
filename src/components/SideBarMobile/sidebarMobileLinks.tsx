@@ -25,28 +25,21 @@ const userLinks: Record<
   CIDADAO: LinksDashboardUsuario,
   GESTOR: LinksDashboardFuncionario,
   PROFISSIONAL: LinksDashboardFuncionario,
+  FUNCIONARIO: LinksDashboardFuncionario,
 }
 
 export function SideBarMobileLinks(props: HeaderLinksProps) {
   const linksUsers = userLinks[props.typeUser]
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
 
   async function handleLogout() {
     try {
-      setLoading(true)
+      navigate('/')
       await logout()
       toast.success('Você foi deslogado com sucesso')
-      navigate('/')
     } catch {
       toast.error('Erro ao deslogar')
-    } finally {
-      setLoading(false)
     }
-  }
-
-  if (loading) {
-    return <Loading />
   }
 
   return (

@@ -47,11 +47,11 @@ const data = [
   },
 ]
 
-export function Servicos() {
+export function Servicos(user: {user: any}) {
   return (
     <main className="main flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="CIDADAO" />
+        <HeaderDashboards.perfil data={user.user} user="CIDADAO" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
       <div className="flex size-full flex-col px-4 py-1 pl-0 max-xl:px-0 max-lg:px-2">
@@ -70,8 +70,9 @@ export function Servicos() {
           />
         </div>
         <div className="mt-10 grid w-full grid-cols-[repeat(auto-fit,minmax(400px,1fr))] max-xl:flex-col max-xl:items-center max-xl:justify-center max-xl:space-y-6 max-xl:pb-[8rem] max-lg:flex xl:gap-10">
-          {data.map((item) => (
+          {data.map((item, idx) => (
             <CardProjeto
+              key={idx}
               animation={false}
               descricao={item.descricao}
               foto={item.foto}

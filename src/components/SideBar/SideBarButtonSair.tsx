@@ -1,31 +1,22 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { toast } from 'sonner'
 
 import { logout } from '../../api/auth/logout'
 import { IconeSair } from '../../assets/Icons/iconeSair'
-import { Loading } from '../loading'
 
 export function SideBarButtonSair() {
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   async function handleLogout() {
     try {
-      setLoading(true)
+      navigate('/')
       await logout()
       toast.success('Você foi deslogado com sucesso')
-      navigate('/')
     } catch {
       toast.error('Erro ao deslogar')
     } finally {
-      setLoading(false)
     }
-  }
-
-  if (loading) {
-    return <Loading />
   }
 
   return (

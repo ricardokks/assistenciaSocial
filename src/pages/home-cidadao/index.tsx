@@ -1,19 +1,32 @@
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 
+import { getUser } from '../../api/user/getUser'
 import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
-import { Servicos } from './section/servicos'
 import { Chat } from './section/chat'
+import { Servicos } from './section/servicos'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
-  const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
-    Inicio: <Inicio user="CIDADAO" />,
-    ContatarAtendimento: <Chat />,
-    ProcurarServico: <Servicos />,
+  const [user, setUser] = useState(null)
+
+  async function getDataUser() {
+    const data = await getUser()
+    setUser(data)
+    return data
   }
+
+  const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
+    Inicio: <Inicio user="CIDADAO" data={user} />,
+    ContatarAtendimento: <Chat data={user} />,
+    ProcurarServico: <Servicos user={user} />,
+  }
+
+  useEffect(() => {
+    getDataUser()
+  }, [])
 
   return (
     <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col">

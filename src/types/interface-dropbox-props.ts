@@ -1,3 +1,4 @@
 export interface DropboxProps {
-  abrirDropbox: boolean
+  abrirDropbox: boolean,
+  id?: string
 }

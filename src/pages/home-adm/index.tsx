@@ -1,5 +1,6 @@
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 
+import { getUser } from '../../api/user/getUser'
 import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
@@ -9,8 +10,19 @@ import { Usuarios } from './sections/usuarios'
 
 export function HomeAdmin() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardAdministrador>('Inicio')
+  const [user, setUser] = useState(null)
+
+  async function getDataUser() {
+    const data = await getUser()
+    setUser(data)
+    return data
+  }
+  useEffect(() => {
+    getDataUser()
+  }, [])
+
   const sectionsDashboard: Record<TypeDashboardAdministrador, ReactNode> = {
-    Inicio: <Inicio user="ADMINISTRADOR" />,
+    Inicio: <Inicio user="ADMINISTRADOR" data={user} />,
     Instituicao: <Instituicoes />,
     Usuarios: <Usuarios />,
   }

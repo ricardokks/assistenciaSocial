@@ -5,5 +5,5 @@ export function verifyRole(papel: TypeUsario, navigate: NavigateFunction) {
   if (papel === 'ADMINISTRADOR') navigate('/dashboard/administrador')
   if (papel === 'CIDADAO') navigate('/dashboard/cidadao')
   if (papel === 'GESTOR') navigate('/dashboard/gestor')
-  if (papel === 'PROFISSIONAL') navigate('/dashboard/funcionario')
+  if (papel === 'FUNCIONARIO') navigate('/dashboard/funcionario')
 }

@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 
 import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
@@ -7,12 +7,23 @@ import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcio
 import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
 import { Usuario } from './sections/usuario'
+import { getUser } from '../../api/user/getUser'
 
 export function HomeFuncionario() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Inicio')
+  const [user, setUser] = useState(null)
+  
+    async function getDataUser() {
+      const data = await getUser()
+      setUser(data)
+      return data
+    }
+    useEffect(() => {
+      getDataUser()
+    }, [])
 
   const sectionsDashboard: Record<TypeDashboardFuncionario, ReactNode> = {
-    Inicio: <Inicio user="PROFISSIONAL" />,
+    Inicio: <Inicio user="PROFISSIONAL" data={user}/>,
     Atendimento: <Atendimento />,
     Dados: <Dados />,
     Usuarios: <Usuario />,

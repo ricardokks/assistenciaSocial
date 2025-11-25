@@ -44,7 +44,7 @@ export const routes = createBrowserRouter([
         element: <HomeAdmin />,
       },
       {
-        path: '/config/k',
+        path: '/config/:id',
         element: <Config />,
       },
       {

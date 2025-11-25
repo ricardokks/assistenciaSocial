@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { PegarInformacaoFuncionario } from '../../api/user/pegarInformacaoFuncionario'
-import { imagemAvatar } from '../../assets/image'
 import type { UsuarioDTO } from '../../dto/Usuario/usuarioDTO'
 import type { InterfaceHeader } from '../../types/interface-header'
 import type { TypeUsario } from '../../types/type-usuarios'
@@ -12,6 +10,7 @@ const userInfo: Record<TypeUsario, { cargo: string }> = {
   CIDADAO: { cargo: 'Cidadão' },
   GESTOR: { cargo: 'Gestor' },
   PROFISSIONAL: { cargo: 'Funcionário' },
+  FUNCIONARIO: { cargo: 'Funcionário' },
 }
 
 export function HeaderDashboardPerfil(props: InterfaceHeader) {
@@ -26,24 +25,14 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
     setAbrirDropbox((prev) => !prev)
   }
 
-  async function PegarDadosUser() {
-    try {
-      const response = await PegarInformacaoFuncionario()
-
-      if (response && response.data && response.data.data) {
-        setDadosUser(response.data.data)
-        setCarregarInformacao(true)
-      } else {
-        console.log('Não foi possivel carregar as informações')
-      }
-    } catch (error) {
-      return console.log('Error ao pegar dados', error)
-    }
+   useEffect(() => {
+  if (props.data) {
+    setDadosUser(props.data)
+    setCarregarInformacao(true)
   }
+}, [props.data])
 
-  useEffect(() => {
-    PegarDadosUser()
-  }, [])
+  
 
   return (
     <div
@@ -55,7 +44,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
         <div className="bg-primary-800 relative w-13 h-13 rounded-full">
           <img
             alt={'Foto do usário'}
-            className="size-full object-cover rounded-full"
+            className="size-full rounded-full"
             src={dadosUser?.avatarURL}
           />
         </div>
@@ -85,7 +74,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
       </div>
 
       {/* componente do dropbox */}
-      <Dropbox abrirDropbox={abrirDropbox} />
+      <Dropbox id={dadosUser?.id} abrirDropbox={abrirDropbox} />
     </div>
   )
 }
