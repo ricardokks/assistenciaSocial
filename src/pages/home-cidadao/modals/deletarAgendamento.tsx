@@ -1,12 +1,14 @@
 import { Trash2, X } from "lucide-react";
 import { Modal } from "../../../components/ui/modal";
+import { toast } from "sonner";
 
 type IDeletarAgendamento = {
     open: boolean;
     close: () => void;
+    onDelete: () => void
 };
 
-export function DeletarAgendamento({ open, close }: IDeletarAgendamento){
+export function DeletarAgendamento({ open, close, onDelete }: IDeletarAgendamento) {
     return (
         <Modal open={open} close={close}>
             <div
@@ -20,7 +22,8 @@ export function DeletarAgendamento({ open, close }: IDeletarAgendamento){
                 <div className="w-full items-center h-1/5 flex justify-center pt-5">
                     <button
                         onClick={async () => {
-                            // data.onDelete?.()
+                            onDelete()
+                            toast.message("Agendamento cancelado com sucesso!")
                             close()
                         }}
                         className="flex items-center justify-center w-3/5 py-1 font-poppins font-semibold text-white bg-red-500 cursor-pointer hover:bg-red-600 duration-500 text-[18px] rounded-lg max-lg:w-4/5 max-lg:text-xl">Deletar</button>

@@ -7,17 +7,13 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Servicos } from './section/servicos'
 import { Agendamento } from './section/atendimento'
+import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const [user, setUser] = useState(null)
-
-  // Visibilidade modals
-  const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
-
-  const [visibilidadeModalDeletarAgendamento, setVisibilidadeModalDeletarAgendamento] = useState(false)
-
-  const [visibilidadeModalVisualizarAgendamento, setVisibilidadeModalVisualizarAgendamento] = useState(false)
+  const [assistencias, setAssistencias] = useState(null)
+  
 
   async function getDataUser() {
     const data = await getUser()
@@ -25,14 +21,21 @@ export function HomeCidadao() {
     return data
   }
 
+  async function getAssistenciasAll(){
+    const data = await getAssistencias()
+    setAssistencias(data)
+    return data
+  }
+
   const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
     Inicio: <Inicio user="CIDADAO" data={user} />,
-    ContatarAtendimento: <Agendamento data={user} />,
+    ContatarAtendimento: <Agendamento data={user} assistencias={assistencias} />,
     ProcurarServico: <Servicos user={user} />,
   }
 
   useEffect(() => {
     getDataUser()
+    getAssistencias()
   }, [])
 
   return (

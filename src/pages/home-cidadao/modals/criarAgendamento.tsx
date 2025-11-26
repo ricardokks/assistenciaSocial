@@ -1,15 +1,59 @@
 import { ChevronDown, X } from "lucide-react";
 import { Modal } from "../../../components/ui/modal";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { AssistenciaDTO } from "../../../types/type-assistencia";
+import { solicitacaoSchema, type solicitacaoSchemaDTO } from "../../../schemas/solicitacaoSchema";
+import { toast } from "sonner";
+import { createSolicitacoes } from "../../../api/solicitacoes/createSolicitacoes";
 
 type ICriarAgendamento = {
     open: boolean;
     close: () => void;
+    create: (data: any) => void;
+    assistencia: AssistenciaDTO[];
 };
 
-export function CriarAgendamento({ open, close }: ICriarAgendamento) {
-    const [isAnimate, setIsAnimate] = useState(false)
-    const [isAnimate2, setIsAnimate2] = useState(false)
+export function CriarAgendamento({
+    open,
+    close,
+    create,
+    assistencia,
+}: ICriarAgendamento) {
+    const [isAnimate, setIsAnimate] = useState(false);
+    const [isAnimate2, setIsAnimate2] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm<solicitacaoSchemaDTO>({
+        resolver: zodResolver(solicitacaoSchema),
+        defaultValues: {
+            status: "PENDENTE",
+        }
+    });
+
+
+    // O que foi selecionado no select de assistência
+    const selectedAssistenciaId = watch("unidadeId");
+
+    // Busca os serviços pertencentes à assistência
+    const servicosFiltrados =
+        assistencia.find((a) => a.id === selectedAssistenciaId)?.servicos || [];
+
+    const onSubmit = async (data: solicitacaoSchemaDTO) => {
+        try {
+            toast.message("Agendamento criado com sucesso!")
+            close()
+            const response = await createSolicitacoes(data)
+            create(response.data)
+        } catch {
+            toast.error("Erro ao criar um agendamento")
+        }
+    }
 
     return (
         <Modal open={open} close={close}>
@@ -29,14 +73,18 @@ export function CriarAgendamento({ open, close }: ICriarAgendamento) {
                 </div>
 
                 {/* Inputs */}
-                <div className="w-full px-6 mt-5 space-y-4">
-
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="w-full px-6 mt-5 space-y-4"
+                >
                     {/* Assistência */}
                     <div className="flex flex-col w-full relative">
                         <label className="text-primary-800 font-outfit text-[14px] mb-1">
                             Selecione a Assistência
                         </label>
+
                         <select
+                            {...register("unidadeId")}
                             onMouseDown={() => setIsAnimate((prev) => !prev)}
                             onMouseLeave={() => setIsAnimate(false)}
                             onMouseUp={() => setIsAnimate(false)}
@@ -44,39 +92,56 @@ export function CriarAgendamento({ open, close }: ICriarAgendamento) {
                             className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none"
                         >
                             <option value="">Selecionar</option>
-                            <option value="CRAS">CRAS</option>
-                            <option value="CREAS">CREAS</option>
-                            <option value="CasaLar">Casa Lar</option>
+                            {assistencia.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                    {item.unidade}
+                                </option>
+                            ))}
                         </select>
+
                         <ChevronDown
-                            className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? 'rotate-180' : 'rotate-0'
+                            className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? "rotate-180" : "rotate-0"
                                 }`}
                             strokeWidth={3}
                         />
+
                     </div>
 
                     {/* Serviço */}
                     <div className="flex flex-col w-full relative">
                         <label className="text-primary-800 font-outfit text-[14px] mb-1">
-                            Selecione o Serviço que deseja
+                            Selecione o Serviço
                         </label>
+
                         <select
+                            {...register("servicoId")}
+                            disabled={servicosFiltrados.length === 0}
                             onMouseDown={() => setIsAnimate2((prev) => !prev)}
                             onMouseLeave={() => setIsAnimate2(false)}
                             onMouseUp={() => setIsAnimate2(false)}
                             onClick={() => setIsAnimate2((prev) => !prev)}
-                            className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none"
+                            className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none disabled:bg-gray-200"
                         >
                             <option value="">Selecionar serviço</option>
-                            <option value="AtualizaçãoCadastral">Atualização cadastral</option>
-                            <option value="Benefícios">Benefícios</option>
-                            <option value="AtendimentoSocial">Atendimento social</option>
+
+                            {servicosFiltrados.map((service) => (
+                                <option key={service.id} value={service.id}>
+                                    {service.nome}
+                                </option>
+                            ))}
                         </select>
-                         <ChevronDown
-                            className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate2 ? 'rotate-180' : 'rotate-0'
+
+                        <ChevronDown
+                            className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate2 ? "rotate-180" : "rotate-0"
                                 }`}
                             strokeWidth={3}
                         />
+
+                        {errors.servicoId && (
+                            <span className="text-red-500 text-xs mt-1">
+                                {errors.servicoId.message}
+                            </span>
+                        )}
                     </div>
 
                     {/* Observações */}
@@ -85,6 +150,7 @@ export function CriarAgendamento({ open, close }: ICriarAgendamento) {
                             Observações
                         </label>
                         <textarea
+                            {...register("observacoes")}
                             className="w-full px-3 py-2 min-h-[80px] border-1 border-primary-800 rounded-lg text-primary-800 outline-none resize-none"
                             placeholder="Digite alguma observação..."
                         ></textarea>
@@ -92,11 +158,14 @@ export function CriarAgendamento({ open, close }: ICriarAgendamento) {
 
                     {/* Botão */}
                     <div className="w-full flex items-center justify-center">
-                        <button className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold">
-                        Criar Agendamento
-                    </button>
+                        <button
+                            type="submit"
+                            className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold"
+                        >
+                            Criar Agendamento
+                        </button>
                     </div>
-                </div>
+                </form>
             </div>
         </Modal>
     );

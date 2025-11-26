@@ -1,4 +1,4 @@
-import { ChevronDown, Plus, Trash, Trash2 } from 'lucide-react'
+import { ChevronDown, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
@@ -9,11 +9,19 @@ import { CriarAgendamento } from '../modals/criarAgendamento'
 import { DeletarAgendamento } from '../modals/deletarAgendamento'
 import { toast } from 'sonner'
 import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
+import type { AssistenciaDTO } from '../../../types/type-assistencia'
+import type { SolicitacaoDTO } from '../../../types/type-solicitacoes'
+import { deleteSolicitacaoFunc } from '../../../utils/function-delete-agendamento'
 
-export function Agendamento(user: { data: any }) {
+export function Agendamento(user: { data: any, assistencias: AssistenciaDTO[] }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string>('')
   const [isAnimate, setIsAnimate] = useState(false)
+  const [solicitacoes, setSolicitacoes] = useState<SolicitacaoDTO[]>(
+    user.data.solicitacoes || []
+  )
+  const [idParaDeletar, setIdParaDeletar] = useState<string | null>(null)
+  const [solicitacaoDados, setSolicitacaoDados] = useState<SolicitacaoDTO>()
 
   // Visibilidade modals
   const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
@@ -22,60 +30,17 @@ export function Agendamento(user: { data: any }) {
 
   const [visibilidadeModalVisualizarAgendamento, setVisibilidadeModalVisualizarAgendamento] = useState(false)
 
-  // Mock data para os agendamentos
-  type statusButtonProps = 'PENDENTE' | 'APROVADO' | 'RECUSADO' | 'ANALISE'
-
-  const appointments: Array<{
-    id: number
-    institution: string
-    date: string
-    service: string
-    status: statusButtonProps
-    statusColor: string
-  }> = [
-    {
-      id: 1,
-      institution: 'CRAS | Francisca Lima',
-      date: '08 / 08 / 2000',
-      service: 'Atualizações Cadastrais',
-      status: 'PENDENTE',
-      statusColor: 'bg-blue-600',
-    },
-    {
-      id: 3,
-      institution: 'CRAS | Francisca Lima',
-      date: '08 / 08 / 2000',
-      service: 'Atualizações Cadastrais',
-      status: 'ANALISE',
-      statusColor: 'bg-blue-600',
-    },
-    {
-      id: 4,
-      institution: 'CRAS | Francisca Lima',
-      date: '08 / 08 / 2000',
-      service: 'Atualizações Cadastrais',
-      status: 'APROVADO',
-      statusColor: 'bg-green-600',
-    },
-    {
-      id: 5,
-      institution: 'CRAS | Francisca Lima',
-      date: '08 / 08 / 2000',
-      service: 'Atualizações Cadastrais',
-      status: 'RECUSADO',
-      statusColor: 'bg-gray-500',
-    },
-  ]
-
-  const filteredAppointments = appointments.filter((apt) => {
-    const matchesText = apt.institution.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredAppointments = solicitacoes.filter((apt: SolicitacaoDTO) => {
+    const matchesText = apt.assistencia.unidade
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
 
     const matchesStatus = selectedStatus ? apt.status === selectedStatus : true
 
     return matchesText && matchesStatus
   })
 
-  function formatDate(dateString: string) {
+  function formatDate(dateString: Date) {
     const formatted = new Date(dateString).toLocaleDateString('pt-BR', {
       timeZone: 'UTC',
     })
@@ -93,9 +58,9 @@ export function Agendamento(user: { data: any }) {
       {/* div do button Novo Agendamento */}
       <div className="w-full flex items-center justify-between text-primary-800 font-outfit">
         <h1 className="font-medium text-2xl">Meus Agendamentos</h1>
-        <button 
-        onClick={() => setVisibilidadeModalCriarAgendamento(true)}
-        className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer ">
+        <button
+          onClick={() => setVisibilidadeModalCriarAgendamento(true)}
+          className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer ">
           <Plus className="size-5 mr-2" />
           Novo Agendamento
         </button>
@@ -128,16 +93,15 @@ export function Agendamento(user: { data: any }) {
           </select>
 
           <ChevronDown
-            className={`absolute right-1.5 top-3.5 size-5 transition-all duration-500 text-primary-800 ${
-              isAnimate ? 'rotate-180' : 'rotate-0'
-            }`}
+            className={`absolute right-1.5 top-3.5 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? 'rotate-180' : 'rotate-0'
+              }`}
             strokeWidth={3}
           />
         </div>
       </div>
 
       <div className="w-full mt-5 grid grid-cols-3 gap-x-3 gap-y-2">
-        {filteredAppointments.map((item) => (
+        {filteredAppointments.map((item: SolicitacaoDTO) => (
           <div
             key={item.id}
             className="bg-white w-full flex flex-col rounded-2xl p-4 shadow-lg min-h-[170px]"
@@ -147,10 +111,10 @@ export function Agendamento(user: { data: any }) {
               <img src="/" className="w-12 h-12" />
               <div className="flex flex-col">
                 <span className="font-outfit-bold text-lg text-primary-800">
-                  {item.institution}
+                  {item.assistencia.unidade}
                 </span>
                 <span className="font-outfit text-sm text-primary-800/75">
-                  Data de solicitacao: {formatDate(item.date)}
+                  Data de solicitacao: {formatDate(item.dataCriacao)}
                 </span>
               </div>
             </div>
@@ -160,7 +124,7 @@ export function Agendamento(user: { data: any }) {
               <div className="w-full flex flex-col mt-5">
                 <span className="font-outfit text-primary-800 text-[14px]">Serviço solicitado</span>
                 <span className="font-satoshi font-medium text-primary-800 text-[12px]">
-                  {item.service}
+                  {item.servico}
                 </span>
               </div>
 
@@ -175,12 +139,18 @@ export function Agendamento(user: { data: any }) {
 
             {/* button */}
             <div className="w-full flex justify-start mt-5">
-              <ButtonInfo 
-              status={item.status} 
-              onClickDelete={() => setVisibilidadeModalDeletarAgendamento(prev => !prev)} 
-              onClickAguardandoAnalise={() => toast.info("Análise do seu agendamento está sendo realizada")}
-              onClickRecusado={() => toast.error("Após uma análise, o seu agendamento foi recusado")}
-              onClickVisualizarInfo={() => setVisibilidadeModalVisualizarAgendamento(prev => !prev)}
+              <ButtonInfo
+                status={item.status}
+                onClickDelete={() => {
+                  setIdParaDeletar(item.id)
+                  setVisibilidadeModalDeletarAgendamento(true)
+                }}
+                onClickAguardandoAnalise={() => toast.info("Análise do seu agendamento está sendo realizada")}
+                onClickRecusado={() => toast.error("Após uma análise, o seu agendamento foi recusado")}
+                onClickVisualizarInfo={() => {
+                  setSolicitacaoDados(item)
+                  setVisibilidadeModalVisualizarAgendamento(prev => !prev)
+                }}
               />
             </div>
           </div>
@@ -188,20 +158,25 @@ export function Agendamento(user: { data: any }) {
       </div>
 
       {/* Modals */}
-      <CriarAgendamento 
+      <CriarAgendamento
         open={visibilidadeModalCriarAgendamento}
         close={() => setVisibilidadeModalCriarAgendamento(prev => !prev)}
-        
+        create={(data) => {
+          setSolicitacoes(prev => [...prev, data])
+        }}
+        assistencia={user.assistencias}
       />
 
-      <DeletarAgendamento 
+      <DeletarAgendamento
         open={visibilidadeModalDeletarAgendamento}
         close={() => setVisibilidadeModalDeletarAgendamento(prev => !prev)}
+        onDelete={() => deleteSolicitacaoFunc(idParaDeletar, setSolicitacoes, setVisibilidadeModalDeletarAgendamento)}
       />
 
-      <VisualizarAgendamento 
+      <VisualizarAgendamento
         open={visibilidadeModalVisualizarAgendamento}
         close={() => setVisibilidadeModalVisualizarAgendamento(prev => !prev)}
+        solicitacao={solicitacaoDados}
       />
     </main>
   )

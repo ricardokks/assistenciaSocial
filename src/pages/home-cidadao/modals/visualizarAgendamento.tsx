@@ -1,12 +1,14 @@
 import { X, Download } from "lucide-react";
 import { Modal } from "../../../components/ui/modal";
+import type { SolicitacaoDTO } from "../../../types/type-solicitacoes";
 
 type IVisualizarAgendamento = {
     open: boolean;
     close: () => void;
+    solicitacao?: SolicitacaoDTO
 };
 
-export function VisualizarAgendamento({ open, close }: IVisualizarAgendamento) {
+export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarAgendamento) {
     return (
         <Modal open={open} close={close}>
             <div
@@ -42,12 +44,11 @@ export function VisualizarAgendamento({ open, close }: IVisualizarAgendamento) {
 
                         <div className="flex flex-col mt-3 text-[15px] space-y-1">
                             <span className="font-bold">Data do Atendimento</span>
-                            <span className="font-satoshi">Dia 09 / 11 / 2025 às 13:50</span>
+                            <span className="font-satoshi">Dia {solicitacao?.data}</span>
 
                             <span className="font-bold mt-3">Observação</span>
                             <span className="font-satoshi text-[14px]">
-                                Levar papel de luz, Levar RG, Levar CPF, 
-                                Levar comprovante de renda (se tiver)
+                                {solicitacao?.observacoes}
                             </span>
                         </div>
                     </div>
