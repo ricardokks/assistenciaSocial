@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
-import { cadastro } from '../../api/user/cadastro'
 import { logoMassape, logoMassapeAzul } from '../../assets/image'
 import imagemMassapeMobile from '../../assets/image/image-mobile-login.png'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
@@ -13,6 +12,7 @@ import { type userCadastroDTO, userCadastroSchema } from '../../schemas/userCada
 import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
+import { cadastro } from '../../api/user/cadastro'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)

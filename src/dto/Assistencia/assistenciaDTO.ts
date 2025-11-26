@@ -34,3 +34,13 @@ export type AssistenciaNOVODTO = {
   ouvidorias: Ouvidoria[]
   abrange: string[]
 }
+
+export type AssistenciaDTOO = {
+  id: string
+  unidade: string
+  localizacao: string
+  abrange: string[]
+  icone: string
+  sobre: string
+  subnome: string
+}

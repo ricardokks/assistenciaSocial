@@ -10,7 +10,7 @@ import { Usuario } from './sections/usuario'
 import { getUser } from '../../api/user/getUser'
 
 export function HomeFuncionario() {
-  const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Inicio')
+  const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Dados')
   const [user, setUser] = useState(null)
   
     async function getDataUser() {
