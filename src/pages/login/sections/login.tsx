@@ -33,14 +33,15 @@ export function Login() {
 
   async function AutoLogin() {
     const user = await autoLogin()
-    verifyRole(user.data.papel, navigate)
+    verifyRole(user.data.papel, navigate, user.data.id)
   }
 
   async function onSubmit(data: userLoginDTO) {
+    console.log("rodou o submit: ")
     try {
       setLoading(true)
       const user = await login(data)
-      verifyRole(user.data.papel, navigate)
+      verifyRole(user.data.papel, navigate, user.data.id)
       toast.success('Usuário autenticado com sucesso!')
     } catch {
       toast.error('Credencias inválidas')

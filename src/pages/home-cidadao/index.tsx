@@ -35,7 +35,7 @@ export function HomeCidadao() {
 
   useEffect(() => {
     getDataUser()
-    getAssistencias()
+    getAssistenciasAll()
   }, [])
 
   return (

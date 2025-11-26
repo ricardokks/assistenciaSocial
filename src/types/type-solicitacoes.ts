@@ -8,7 +8,7 @@ export type SolicitacaoDTO = {
   data?: string
   unidadeId: string
   observacoes?: string
-  status: "ANALISE" | "APROVADO" | "RECUSADO" | "PENDENTE"
+  status: "ANALISE" | "CONCLUIDO" | "RECUSADO" | "PENDENTE"
   servico: any
   assistencia: AssistenciaDTO
 }

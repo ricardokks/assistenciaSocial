@@ -57,7 +57,7 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
                 {/* Botão baixar comprovante */}
                 <button
                     onClick={() => console.log("Baixar comprovante")}
-                    className="mt-auto mb-5 bg-primary-800 text-white font-outfit flex items-center gap-2 px-6 py-2 rounded-xl shadow-md hover:shadow-lg duration-300"
+                    className="mt-auto mb-5 bg-primary-800 text-white font-outfit flex items-center gap-2 px-6 py-2 rounded-xl shadow-md hover:shadow-lg duration-300 cursor-pointer"
                 >
                     <Download className="size-5" />
                     Baixar comprovante

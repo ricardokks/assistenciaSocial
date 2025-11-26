@@ -8,12 +8,8 @@ export async function deleteSolicitacaoFunc(idParaDeletar: string | null, setSol
 
     try {
         await deleteSolicitacao(idParaDeletar)
-
         // remove do estado local
         setSolicitacoes(prev => prev.filter(item => item.id !== idParaDeletar))
-
-        toast.success("Agendamento deletado com sucesso")
-        //   usar dps de funcionar =>       await deleteSolicitacao(idParaDeletar)
     } catch {
         toast.error("Erro ao deletar")
     } finally {

@@ -16,7 +16,7 @@ export function ButtonStatus(data: { status: statusButtonProps }) {
             Análise
         </button>
       )}
-        {data.status === 'APROVADO' && (
+        {data.status === 'CONCLUIDO' && (
         <button className="bg-[#19c954cc] flex items-center justify-center gap-1 text-[0.7rem] w-1/2 text-white font-bold p-1 rounded-full h-5">
           <Check className="size-3" strokeWidth={4} />
           
