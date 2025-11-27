@@ -11,9 +11,10 @@ import { HeaderMobile } from './components/headerMobileProjeto'
 import { HeaderProjeto } from './components/headerProjeto'
 import { InfoAssistencia } from './section/infoAssistencia'
 import { MapaAssistencia } from './section/mapaAssistencia'
+import type { AssistenciaDTO } from '../../types/type-assistencia'
 
 export function Projeto() {
-  const [assistencia, setAssistencia] = useState<AssistenciaNOVODTO>()
+  const [assistencia, setAssistencia] = useState<AssistenciaDTO>()
   const { id } = useParams()
 
   async function pegarDadosAssistencia() {
@@ -42,10 +43,10 @@ export function Projeto() {
       {/* Section */}
       <InfoAssistencia
         abrange={assistencia.abrange}
-        descrição={assistencia.descricao}
+        descrição={assistencia.sobre}
         icone={assistencia.icone}
         nome={assistencia.unidade}
-        subNome={assistencia.subNome}
+        subNome={assistencia.subnome}
       />
 
       {/* Mapa */}

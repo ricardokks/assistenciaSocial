@@ -13,11 +13,13 @@ const userLink: Record<
   | typeof LinksDashboardFuncionario
   | typeof LinksDashboardUsuario
   | typeof LinksDashboardAdministrador
+  | typeof LinksDashboardFuncionario
 > = {
   ADMINISTRADOR: LinksDashboardAdministrador,
   CIDADAO: LinksDashboardUsuario,
   GESTOR: LinksDashboardFuncionario,
   PROFISSIONAL: LinksDashboardFuncionario,
+  FUNCIONARIO: LinksDashboardFuncionario,
 }
 
 export function SideBarLinks(props: HeaderLinksProps) {

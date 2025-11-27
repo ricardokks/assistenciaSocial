@@ -6,7 +6,7 @@ export function InfoAssistencia(data: dataInfoAssistencia) {
       {/* Div foto e botão */}
       <div className="m-0 flex h-full items-center justify-center space-x-6 pt-10 max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-4 max-md:space-x-0 ">
         <div className="rounded-4xl shadow-inner-[#194A99] shadow-inner-xl flex h-2/3 w-1/4 flex-col items-center justify-evenly bg-white p-4 drop-shadow-[#70A6FF] drop-shadow-xl max-md:w-full">
-          {<data.icone />}
+          <img src={data.icone}/>
           <button className="botao-contato font-satoshi-black cursor-pointer rounded-2xl p-2 text-[1.1rem] max-md:w-full max-md:text-[14px]">
             {' '}
             Entrar em contato
