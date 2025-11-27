@@ -18,12 +18,15 @@ type ICriarAgendamento = {
   close: () => void
   create: (data: any) => void
   assistencias: any
+  solicitacoes: any[]
 }
 
-export function CriarAgendamento({ open, close, create, assistencias }: ICriarAgendamento) {
+
+export function CriarAgendamento({ open, close, create, assistencias, solicitacoes }: ICriarAgendamento) {
   const [isAnimate, setIsAnimate] = useState(false)
   const [isAnimate2, setIsAnimate2] = useState(false)
-  const [assistencia, setAssistencia] = useState<AssistenciaDTO[]>(assistencias?.data ?? [])
+  const [assistencia, setAssistencia] = useState<AssistenciaDTO[]>
+    (assistencias?.data ?? [])
 
   const { id } = useParams()
 
@@ -49,15 +52,26 @@ export function CriarAgendamento({ open, close, create, assistencias }: ICriarAg
     : []
 
   const onSubmit = async (data: solicitacaoSchemaDTO) => {
+    // Verificar duplicidade
+    const existe = solicitacoes?.some(s =>
+      s.unidadeId === data.unidadeId && s.servicoId === data.servicoId
+    );
+
+    if (existe) {
+      toast.error("Você já possui este serviço solicitado nessa assistência.");
+      return
+    }
+
     try {
-      close()
+      close();
+      toast.success('Agendamento criado com sucesso! Espere alguns segundos')
       const response = await createSolicitacoes(data)
       create(response)
-      toast.success('Agendamento criado com sucesso!')
     } catch {
       toast.error('Erro ao criar um agendamento')
     }
   }
+
 
   useEffect(() => {
     if (Array.isArray(assistencias?.data)) {
@@ -75,11 +89,11 @@ export function CriarAgendamento({ open, close, create, assistencias }: ICriarAg
     <Modal open={open} close={close}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[450px] relative rounded-xl flex flex-col items-center transition-all duration-500 
+        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50
           ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-125'}`}
       >
         {/* Cabeçalho */}
-        <div className="w-full bg-primary-800 py-2 font-outfit font-bold text-white flex items-center justify-between px-3 text-2xl rounded-t-xl">
+        <div className="w-full bg-primary-800 py-2 font-outfit font-bold text-white flex items-center justify-between px-3 text-2xl rounded-t-xl ">
           <h1>Novo Agendamento</h1>
           <X
             onClick={close}
@@ -113,9 +127,8 @@ export function CriarAgendamento({ open, close, create, assistencias }: ICriarAg
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
-                isAnimate ? 'rotate-180' : 'rotate-0'
-              }`}
+              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? 'rotate-180' : 'rotate-0'
+                }`}
               strokeWidth={3}
             />
           </div>
@@ -145,9 +158,8 @@ export function CriarAgendamento({ open, close, create, assistencias }: ICriarAg
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
-                isAnimate2 ? 'rotate-180' : 'rotate-0'
-              }`}
+              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate2 ? 'rotate-180' : 'rotate-0'
+                }`}
               strokeWidth={3}
             />
 
@@ -170,7 +182,7 @@ export function CriarAgendamento({ open, close, create, assistencias }: ICriarAg
           <div className="w-full flex items-center justify-center">
             <button
               type="submit"
-              className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold"
+              className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold max-md:mt-2 max-md:w-4/5"
             >
               Criar Agendamento
             </button>

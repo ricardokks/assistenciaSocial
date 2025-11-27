@@ -18,7 +18,9 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState<string>('')
   const [isAnimate, setIsAnimate] = useState(false)
-  const [solicitacoes, setSolicitacoes] = useState<SolicitacaoDTO[]>(user.data?.solicitacoes ?? [])
+  const [solicitacoes, setSolicitacoes] = useState<SolicitacaoDTO[]>([])
+  const [lastCreatedId, setLastCreatedId] = useState<string | null>(null);
+
 
   const [idParaDeletar, setIdParaDeletar] = useState<string | null>(null)
   const [solicitacaoDados, setSolicitacaoDados] = useState<SolicitacaoDTO>()
@@ -49,13 +51,12 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
   }
 
   useEffect(() => {
-  if (user.data?.solicitacoes) {
-    setSolicitacoes(user.data.solicitacoes)
-  }
-}, [user.data])
+    if (user.data?.solicitacoes) {
+      setSolicitacoes(user.data.solicitacoes)
+    }
+  }, [user.data])
 
-
-  console.log('Solicitacoes:', solicitacoes)
+  
   return (
     <main className="main flex-col h-screen items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
       <HeaderDashboards.root>
@@ -64,11 +65,11 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
       </HeaderDashboards.root>
 
       {/* div do button Novo Agendamento */}
-      <div className="w-full flex items-center justify-between text-primary-800 font-outfit">
-        <h1 className="font-medium text-2xl">Meus Agendamentos</h1>
+      <div className="w-full flex md:items-center md:justify-between text-primary-800 font-outfit max-md:flex-col max-md:space-y-1">
+        <h1 className="font-medium text-2xl max-md:text-xl">Meus Agendamentos</h1>
         <button
           onClick={() => setVisibilidadeModalCriarAgendamento(true)}
-          className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer "
+          className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer max-md:px-2 max-md:py-1 max-md:text-sm max-md:w-1/2 max-md:max-w-[170px]"
         >
           <Plus className="size-5 mr-2" />
           Novo Agendamento
@@ -76,15 +77,15 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
       </div>
 
       {/* Search */}
-      <div className="relative flex w-[80%] max-xl:w-4/5 max-lg:w-full max-2xl:-translate-y-3 max-xl:-translate-y-0 items-center text-center">
+      <div className="relative flex w-[80%] max-xl:w-4/5 max-lg:w-full max-2xl:-translate-y-3 max-xl:-translate-y-0 items-center text-center max-md:w-full">
         {/* Icone search */}
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
         <input
-          className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3  size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10"
+          className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3  size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10 max-md:w-3/5"
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="w-1/4 h-full mt-3 ml-3 relative">
+        <div className="w-1/4 h-full mt-3 ml-3 relative max-md:w-2/5">
           <select
             onMouseDown={() => setIsAnimate((prev) => !prev)}
             onMouseLeave={() => setIsAnimate(false)}
@@ -102,19 +103,21 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
           </select>
 
           <ChevronDown
-            className={`absolute right-1.5 top-3.5 size-5 transition-all duration-500 text-primary-800 ${
-              isAnimate ? 'rotate-180' : 'rotate-0'
-            }`}
+            className={`absolute right-1.5 top-3.5 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? 'rotate-180' : 'rotate-0'
+              }`}
             strokeWidth={3}
           />
         </div>
       </div>
 
-      <div className="w-full mt-5 grid grid-cols-3 gap-x-3 gap-y-2">
+      <div className="w-full mt-5 grid grid-cols-3 md:gap-x-3 gap-y-2 max-md:grid-cols-1 max-md:overflow-y-auto ">
         {filteredAppointments.map((item: SolicitacaoDTO) => (
           <div
             key={item.id}
-            className="bg-white w-full flex flex-col rounded-2xl p-4 shadow-lg min-h-[170px]"
+            className={`bg-white w-full flex flex-col rounded-2xl p-4 shadow-lg min-h-[170px] max-md:max-h-[200px]
+    transition-all duration-700 animate-scale-in
+    ${item.id === lastCreatedId ? 'animate-scale-in' : ''}
+  `}
           >
             {/* Foto, nome, data solicitacao */}
             <div className="w-full flex space-x-5">
@@ -175,8 +178,23 @@ export function Agendamento(user: { data: any; assistencias: AssistenciaDTO[] })
       <CriarAgendamento
         open={visibilidadeModalCriarAgendamento}
         close={() => setVisibilidadeModalCriarAgendamento((p) => !p)}
-        create={(data) => setSolicitacoes((prev) => [...prev, data.data])}
+        create={(response) => {
+          const created = response.data
+          const { data } = user.assistencias
+
+          const assistencia = data.find(a => a.id === created.unidadeId)
+
+          const novoAgendamento = {
+            ...created,
+            assistencia: assistencia ?? null,
+          }
+
+          setLastCreatedId(created.id)
+          setSolicitacoes(prev => [...prev, novoAgendamento])
+        }}
+
         assistencias={user.assistencias}
+        solicitacoes={solicitacoes}
       />
 
       <DeletarAgendamento

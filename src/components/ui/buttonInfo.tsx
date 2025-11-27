@@ -8,7 +8,7 @@ export function ButtonInfo(data: { status: statusButtonProps, onClickDelete: () 
       {data.status === 'PENDENTE' && (
         <button
           onClick={data.onClickDelete}
-          className={`font-outfit text-[13px] bg-[#FF5353] text-white px-3 py-0.5 rounded-lg shadow-md hover:shadow-lg duration-500  cursor-pointer flex items-center justify-center `}
+          className={`font-outfit text-[13px] bg-[#FF5353] text-white px-3 py-0.5 rounded-lg shadow-md hover:shadow-lg duration-500  cursor-pointer flex items-center justify-center max-md:py-1 max-md:text-sm`}
         >
           <Trash2 className=" w-[14px] aspect-square -translate-y-[1.5px] -translate-x-1" />
           Cancelar{' '}
