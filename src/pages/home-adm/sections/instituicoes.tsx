@@ -3,8 +3,9 @@ import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { Instituicao } from '../components/layout/instituicao'
+import type { IHomeProps } from '../../../types/interface-home-props'
 
-export function Instituicoes() {
+export function Instituicoes(data: IHomeProps) {
 
     const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
     const [abrirModalCreate, setAbrirModalCreate] = useState<boolean>(false)
@@ -17,7 +18,7 @@ export function Instituicoes() {
     <main className="flex h-full w-[calc(100%-20%)] overflow-hidden flex-col items-start space-y-6 pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="ADMINISTRADOR" />
+        <HeaderDashboards.perfil user="ADMINISTRADOR" data={data.data}/>
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
