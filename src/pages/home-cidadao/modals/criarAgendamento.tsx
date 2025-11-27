@@ -19,14 +19,23 @@ type ICriarAgendamento = {
   create: (data: any) => void
   assistencias: any
   solicitacoes: any[]
+  assistenciaSelecionada: any
 }
 
-
-export function CriarAgendamento({ open, close, create, assistencias, solicitacoes }: ICriarAgendamento) {
+export function CriarAgendamento({
+  open,
+  close,
+  create,
+  assistencias,
+  solicitacoes,
+  assistenciaSelecionada,
+}: ICriarAgendamento) {
   const [isAnimate, setIsAnimate] = useState(false)
   const [isAnimate2, setIsAnimate2] = useState(false)
-  const [assistencia, setAssistencia] = useState<AssistenciaDTO[]>
-    (assistencias?.data ?? [])
+  const [assistencia, setAssistencia] = useState<AssistenciaDTO[]>(assistencias?.data ?? [])
+  const [unidadeId, setUnidadeId] = useState(
+    assistenciaSelecionada ? assistenciaSelecionada?.id : ''
+  )
 
   const { id } = useParams()
 
@@ -53,25 +62,24 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
 
   const onSubmit = async (data: solicitacaoSchemaDTO) => {
     // Verificar duplicidade
-    const existe = solicitacoes?.some(s =>
-      s.unidadeId === data.unidadeId && s.servicoId === data.servicoId
-    );
+    const existe = solicitacoes?.some(
+      (s) => s.unidadeId === data.unidadeId && s.servicoId === data.servicoId
+    )
 
     if (existe) {
-      toast.error("Você já possui este serviço solicitado nessa assistência.");
+      toast.error('Você já possui este serviço solicitado nessa assistência.')
       return
     }
 
     try {
-      close();
-      toast.success('Agendamento criado com sucesso! Espere alguns segundos')
+      close()
       const response = await createSolicitacoes(data)
+      toast.success('Agendamento criado com sucesso! Espere alguns segundos')
       create(response)
     } catch {
       toast.error('Erro ao criar um agendamento')
     }
   }
-
 
   useEffect(() => {
     if (Array.isArray(assistencias?.data)) {
@@ -89,7 +97,7 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
     <Modal open={open} close={close}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50
+        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[420px] max-md:max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50 max-lg:w-4/5 max-lg:h-[40%] max-lg:max-h-[430px] max-xl:w-3/5 max-xl:h-1/3 max-xl:min-h-[28rem] max-xl:max-h-[28rem] 
           ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-125'}`}
       >
         {/* Cabeçalho */}
@@ -116,6 +124,8 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
               onMouseLeave={() => setIsAnimate(false)}
               onMouseUp={() => setIsAnimate(false)}
               onClick={() => setIsAnimate((prev) => !prev)}
+              value={unidadeId}
+              onChange={(e) => setUnidadeId(e.target.value)}
               className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none"
             >
               <option value="">Selecionar</option>
@@ -127,8 +137,9 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate ? 'rotate-180' : 'rotate-0'
-                }`}
+              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
+                isAnimate ? 'rotate-180' : 'rotate-0'
+              }`}
               strokeWidth={3}
             />
           </div>
@@ -158,8 +169,9 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${isAnimate2 ? 'rotate-180' : 'rotate-0'
-                }`}
+              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
+                isAnimate2 ? 'rotate-180' : 'rotate-0'
+              }`}
               strokeWidth={3}
             />
 
@@ -182,7 +194,7 @@ export function CriarAgendamento({ open, close, create, assistencias, solicitaco
           <div className="w-full flex items-center justify-center">
             <button
               type="submit"
-              className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold max-md:mt-2 max-md:w-4/5"
+              className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold max-md:mt-2 max-md:w-4/5 max-xl:mt-4 mt-4"
             >
               Criar Agendamento
             </button>

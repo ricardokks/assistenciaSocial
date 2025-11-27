@@ -13,8 +13,8 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
         <Modal open={open} close={close}>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[450px] 
-                relative rounded-xl flex flex-col items-center transition-all duration-500 
+                className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[28rem] 
+                relative rounded-xl flex flex-col items-center transition-all duration-500  max-md:w-[95%] max-md:z-50 max-md:h-4/5 min-h-[430px]
                 ${open ? "opacity-100 scale-100" : "opacity-0 scale-125"}`}
             >
                 {/* Cabeçalho */}
@@ -57,7 +57,7 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
                 {/* Botão baixar comprovante */}
                 <button
                     onClick={() => console.log("Baixar comprovante")}
-                    className="mt-auto mb-5 bg-primary-800 text-white font-outfit flex items-center gap-2 px-6 py-2 rounded-xl shadow-md hover:shadow-lg duration-300 cursor-pointer"
+                    className="mt-5 bg-primary-800 text-white font-outfit flex items-center gap-2 px-6 py-2 rounded-xl shadow-md hover:shadow-lg duration-300 cursor-pointer"
                 >
                     <Download className="size-5" />
                     Baixar comprovante
