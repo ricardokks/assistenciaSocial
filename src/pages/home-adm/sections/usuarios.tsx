@@ -9,8 +9,9 @@ import { ModalCriarUsuario } from '../components/modals/modal-criar-usuario'
 import type { UsuarioDTO } from '../../../dto/Usuario/usuarioDTO'
 import { ModalEditarUsuario } from '../components/modals/modal-editar-usuario'
 import { tr } from 'zod/v4/locales'
+import type { IHomeProps } from '../../../types/interface-home-props'
 
-export function Usuarios() {
+export function Usuarios(data : IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
   const [abrirModalCreate, setAbrirModalCreate] = useState<boolean>(false)
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
@@ -25,7 +26,7 @@ export function Usuarios() {
     <main className="flex h-full w-[calc(100%-20%)] flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="ADMINISTRADOR" />
+        <HeaderDashboards.perfil user="ADMINISTRADOR" data={data.data}/>
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
