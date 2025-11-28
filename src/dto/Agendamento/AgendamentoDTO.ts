@@ -4,4 +4,5 @@ export type AgendamentoDTO = {
   status?: string
   dataCriacao?: string
   usuarioId?: string
+  data: string
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { toast } from 'sonner'
 
 import { updateAgendamento } from '../../../../api/agendamentos/updateAgendamento'
@@ -13,18 +14,16 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   const [openObservacao, setOpenObservacao] = useState(false)
   const [observacaoFuncionario, setObservacaoFuncionario] = useState('')
   const [statusSelecionado, setStatusSelecionado] = useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
+  const [dataAtendimento, setDataAtendimento] = useState('') // input do usuário
 
-  // Estado interno que será atualizado quando props.dados mudar
   const [dadosInternos, setDadosInternos] = useState(props.dados)
 
-  const dataFormatada = formatarData(dadosInternos.dataCriacao ?? '')
-
-  // Sincroniza dados internos quando props.dados muda
+  // Sincroniza props com estado interno
   useEffect(() => {
     setDadosInternos(props.dados)
   }, [props.dados])
 
-  // Pegar informações do usuário
+  // Busca dados do usuário
   useEffect(() => {
     async function FetchUsuario(id: string) {
       const response = await getUser(id)
@@ -34,13 +33,11 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     if (props.dados.usuarioId) FetchUsuario(props.dados.usuarioId)
   }, [props.dados.usuarioId])
 
-  // Abrir input para aceitar ou cancelar
   const handleAbrirInput = (status: 'CONCLUIDO' | 'RECUSADO') => {
     setStatusSelecionado(status)
     setOpenObservacao(true)
   }
 
-  // Enviar atualização
   const handleAtualizar = async () => {
     if (!statusSelecionado) return
 
@@ -49,35 +46,43 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       return
     }
 
+    if (statusSelecionado === 'CONCLUIDO' && !dataAtendimento) {
+      toast.error('Selecione uma data para o agendamento.')
+      return
+    }
+
     try {
-      // Atualiza no backend
+      // Cria data ISO-8601 correta
+      const dataISO = statusSelecionado === 'CONCLUIDO' ? new Date(dataAtendimento) : null
+
       await updateAgendamento(dadosInternos.id ?? '', {
         status: statusSelecionado,
         observacoesFuncionario: observacaoFuncionario,
-        data: new Date(),
+        data: dataISO,
       })
 
       toast.success('Agendamento atualizado com sucesso!')
 
-      // Atualiza estado interno do card
+      // Atualiza estado local
       setDadosInternos((prev) => ({
         ...prev,
         status: statusSelecionado,
         observacoesFuncionario: observacaoFuncionario,
-        data: new Date(),
+        data: dataISO,
       }))
 
-      // Atualiza estado no componente pai
+      // Atualiza estado do pai
       props.onUpdateLocal(dadosInternos.id!, {
         status: statusSelecionado,
         observacoesFuncionario: observacaoFuncionario,
-        data: new Date(),
+        data: dataISO,
       })
 
-      // Resetar input
+      // Limpa campos
       setOpenObservacao(false)
       setObservacaoFuncionario('')
       setStatusSelecionado(null)
+      setDataAtendimento('')
     } catch (err) {
       console.error(err)
       toast.error('Erro ao realizar ação.')
@@ -85,13 +90,15 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   }
 
   return (
-    <div className="border-primary-800 flex max-w-[350px] flex-col justify-between gap-4 rounded-[5.97px] border-2 bg-white p-3">
+    <div className="border-primary-800 flex max-w-[350px] flex-col justify-start gap-4 rounded-[5.97px] border-2 bg-white p-3">
       {/* Calendário */}
       <div className="flex items-center justify-start gap-4">
         <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
           <IconeCalendario />
         </div>
-        <h1 className="font-satoshi-black text-2xl">{dataFormatada}</h1>
+        <h1 className="font-satoshi-black text-2xl">
+          {dadosInternos.data ? formatarData(dadosInternos.data) : 'Defina uma data'}
+        </h1>
       </div>
 
       {/* Dados do cidadão */}
@@ -105,26 +112,41 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         </p>
       </div>
 
-      {/* Input de observação */}
+      {/* Observação + Data */}
       {openObservacao && (
         <div className="flex flex-col gap-2">
+          {statusSelecionado === 'CONCLUIDO' && (
+            <div>
+              <p className="text-primary-800 font-outfit">Escolha a baixo a data do atendimento:</p>
+              <input
+                type="date"
+                className="border border-gray-300 rounded p-2 w-full"
+                value={dataAtendimento}
+                onChange={(e) => setDataAtendimento(e.target.value)}
+              />
+            </div>
+          )}
+
           <textarea
             placeholder="Digite sua observação..."
             className="border border-gray-300 rounded max-h-16 p-2 w-full"
             value={observacaoFuncionario}
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
           />
+
           <button
             onClick={handleAtualizar}
             className="hover:bg-green-600 bg-green-500 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
           >
             Enviar
           </button>
+
           <button
             onClick={() => {
               setOpenObservacao(false)
               setObservacaoFuncionario('')
               setStatusSelecionado(null)
+              setDataAtendimento('')
             }}
             className="hover:bg-gray-400 bg-gray-300 w-full cursor-pointer rounded-[5.97px] p-2 text-black"
           >
@@ -136,18 +158,23 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       {/* Botões */}
       {!openObservacao && (
         <div className="font-satoshi flex flex-col gap-4">
-          <button
-            onClick={() => handleAbrirInput('CONCLUIDO')}
-            className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
-          >
-            Aceitar
-          </button>
-          <button
-            onClick={() => handleAbrirInput('RECUSADO')}
-            className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white"
-          >
-            Cancelar
-          </button>
+          {dadosInternos.status !== 'CONCLUIDO' && (
+            <button
+              onClick={() => handleAbrirInput('CONCLUIDO')}
+              className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+            >
+              Aceitar
+            </button>
+          )}
+
+          {dadosInternos.status !== 'CONCLUIDO' && (
+            <button
+              onClick={() => handleAbrirInput('RECUSADO')}
+              className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+            >
+              Cancelar
+            </button>
+          )}
         </div>
       )}
     </div>

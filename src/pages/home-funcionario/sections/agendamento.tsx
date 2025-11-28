@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
 import { HeaderDashboards } from '../../../components/Header'
-import { Loading } from '../../../components/loading'
 import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
 import { CardAgendamento } from '../components/layout/card-agendamento'
 import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'
 import { ModalEditarAgendamento } from '../components/modals/modal-editar-agendamento'
+import { SkeletonAgendamento } from '../components/skeleton/skeleton-agendamento'
 
 export function Agendamento() {
   // estados e estados utilizados
@@ -16,6 +16,7 @@ export function Agendamento() {
   const [idInstituicao, setIdInstituicao] = useState<string | null>(null)
   const [informacaoUsuario, setInformacaoUsuario] = useState()
   const [agendamentoss, setAgendamentoss] = useState<AgendamentoDTO[]>([])
+  const [loading, setLoading] = useState(false)
 
   // Funções Chamadadoras da API do backend
   async function fetchIdInstituicao() {
@@ -44,6 +45,8 @@ export function Agendamento() {
 
   useEffect(() => {
     if (idInstituicao) {
+      setLoading(true)
+
       fetchDadosInstituicao(idInstituicao ?? '')
     }
   }, [idInstituicao])
@@ -51,8 +54,8 @@ export function Agendamento() {
   useEffect(() => {
     async function fecthDadosUsuarios() {
       const dados = await getAssistencia()
-
       setInformacaoUsuario(dados)
+
       return dados
     }
 
@@ -74,10 +77,6 @@ export function Agendamento() {
     )
   }
 
-  if (!idInstituicao) {
-    return <Loading />
-  }
-
   return (
     <main className="main overflow-y-auto">
       {/* Header da aplicação  */}
@@ -87,18 +86,23 @@ export function Agendamento() {
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
       {/* conteudo principal  */}
-      <div className="flex w-full flex-col gap-4">
-        <div className="flex w-full items-center justify-between">
-          <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
-        </div>
 
-        {/* renderização dos cards  */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8">
-          {agendamentoss?.map((card) => (
-            <CardAgendamento key={card.id} dados={card} onUpdateLocal={updateLocalAgendamento} />
-          ))}
+      {loading ? (
+        <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full items-center justify-between">
+            <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
+          </div>
+
+          {/* renderização dos cards  */}
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 items-start">
+            {agendamentoss?.map((card) => (
+              <CardAgendamento key={card.id} dados={card} onUpdateLocal={updateLocalAgendamento} />
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <SkeletonAgendamento />
+      )}
 
       {/* Modais utilizados no componente */}
       <ModalCriarAgendamento
