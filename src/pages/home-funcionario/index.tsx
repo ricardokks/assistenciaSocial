@@ -6,11 +6,11 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
 import { Atendimento } from './sections/atendimento'
 import { Dados } from './sections/dados'
-import { Usuario } from './sections/usuario'
+import { Agendamento } from './sections/agendamento'
 import { getUser } from '../../api/user/getUser'
 
 export function HomeFuncionario() {
-  const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Dados')
+  const [selecionarSection, setSelecionarSection] = useState<TypeDashboardFuncionario>('Usuarios')
   const [user, setUser] = useState(null)
   
     async function getDataUser() {
@@ -26,8 +26,10 @@ export function HomeFuncionario() {
     Inicio: <Inicio user="PROFISSIONAL" data={user}/>,
     Atendimento: <Atendimento />,
     Dados: <Dados />,
-    Usuarios: <Usuario />,
+    Usuarios: <Agendamento />,
   }
+
+
 
   return (
     <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa]">

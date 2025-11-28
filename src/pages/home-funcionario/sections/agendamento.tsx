@@ -1,25 +1,56 @@
 import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
-import { IconeMais } from '../../../assets/Icons/icone-mais'
-import { HeaderDashboards } from '../../../components/header'
-import { agendamentos } from '../../../constants/informacao-cidadao'
+import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
+import { HeaderDashboards } from '../../../components/Header'
+import { Loading } from '../../../components/loading'
+import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
 import { CardAgendamento } from '../components/layout/card-agendamento'
 import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'
 import { ModalEditarAgendamento } from '../components/modals/modal-editar-agendamento'
 
-export function Usuario() {
+export function Agendamento() {
   // estados e estados utilizados
   const [abrirModalCriarAgendamento, setAbrirModalCriarAgendamento] = useState<boolean>(false)
   const [abrilModalEditarAgendamento, setAbrilModalEditarAgendamento] = useState<boolean>(false)
-  const [abrilModalDelete, setAbrirModalDelete] = useState<boolean>(false)
+  const [idInstituicao, setIdInstituicao] = useState<string | null>(null)
   const [informacaoUsuario, setInformacaoUsuario] = useState()
+  const [agendamentoss, setAgendamentoss] = useState<AgendamentoDTO[]>([])
+
+  // Funções Chamadadoras da API do backend
+  async function fetchIdInstituicao() {
+    const response = await PegarInformacaoFuncionario()
+    if (response && response.data && response.data.data) {
+      {
+        setIdInstituicao(response.data.data.assistenciaId)
+      }
+    }
+  }
+
+  async function fetchDadosInstituicao(id: string) {
+    const response = await getAssistencia(id)
+    setAgendamentoss(response.solicitacoes)
+
+    return response.solicitacoes
+  }
+
+  useEffect(() => {
+    fetchIdInstituicao()
+  }, [])
+
+  useEffect(() => {
+    console.log('Estado', agendamentoss)
+  }, [agendamentoss])
+
+  useEffect(() => {
+    if (idInstituicao) {
+      fetchDadosInstituicao(idInstituicao ?? '')
+    }
+  }, [idInstituicao])
 
   useEffect(() => {
     async function fecthDadosUsuarios() {
       const dados = await getAssistencia()
-      console.log('Função da  axios foi chamada!!')
-      console.log(informacaoUsuario)
 
       setInformacaoUsuario(dados)
       return dados
@@ -36,6 +67,17 @@ export function Usuario() {
   function handleAbrirModalEditarAgendamento() {
     setAbrilModalEditarAgendamento((prev) => !prev)
   }
+
+  function updateLocalAgendamento(id: string, novosDados: Partial<AgendamentoDTO>) {
+    setAgendamentoss((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, ...novosDados } : item))
+    )
+  }
+
+  if (!idInstituicao) {
+    return <Loading />
+  }
+
   return (
     <main className="main overflow-y-auto">
       {/* Header da aplicação  */}
@@ -48,24 +90,12 @@ export function Usuario() {
       <div className="flex w-full flex-col gap-4">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
-
-          <button
-            className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out"
-            onClick={handleAbrirModalCriarAgendamento}
-          >
-            <IconeMais className="size-4 text-white" /> Novo Agendamento
-          </button>
         </div>
 
         {/* renderização dos cards  */}
         <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8">
-          {agendamentos.map((card, index) => (
-            <CardAgendamento
-              key={index}
-              abrirModal={handleAbrirModalCriarAgendamento}
-              updateModal={handleAbrirModalEditarAgendamento}
-              {...card}
-            />
+          {agendamentoss?.map((card) => (
+            <CardAgendamento key={card.id} dados={card} onUpdateLocal={updateLocalAgendamento} />
           ))}
         </div>
       </div>

@@ -1,3 +1,7 @@
 export type AgendamentoDTO = {
-    nomeCidadao: string
+  id?: string
+  observacoes?: string
+  status?: string
+  dataCriacao?: string
+  usuarioId?: string
 }
