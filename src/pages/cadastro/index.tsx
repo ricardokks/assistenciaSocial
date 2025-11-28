@@ -13,6 +13,8 @@ import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
 import { cadastro } from '../../api/user/cadastro'
+import { autoLogin } from '../../api/auth/autologin'
+import { verifyRole } from '../../utils/verify-role'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)
@@ -24,13 +26,17 @@ export default function CadastroPage() {
 
   const { handleSubmit } = methods
 
+  async function AutoLogin() {
+      const user = await autoLogin()
+      verifyRole(user.data.papel, navigate, user.data.id)
+    }
+
   async function onSubmit(data: userCadastroDTO) {
-    console.log('submit chamado', data)
     try {
-      console.log(data)
       const cad = await cadastro(data)
       if (cad.status === 201) {
         toast.success('Usuário cadastrado com sucesso')
+        AutoLogin()
       }
     } catch {
       toast.error('Erro ao cadastrar')
