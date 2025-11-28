@@ -1,30 +1,90 @@
-import { IconeNotificacao } from '../../assets/Icons/icone-notificacao'
+import { useEffect, useState } from "react"
+import { socket } from "../../utils/socket"
+import { CardNotificacao } from "./cardNotificacao"
 
-export function InicioNotificacao() {
+type Notificacao = {
+  data: string
+  hora: string
+  novoStatus: string
+  protocolo: string
+  servico?: string
+  unidade?: string
+  solicitacaoId: string
+  solicitacao: any
+
+  timestampCriado: number
+  timestampVisto?: number | null
+}
+
+export function InicioNotificacao({ user }: { user: any }) {
+  const [notificacoes, setNotificacoes] = useState<Notificacao[]>([])
+
+  const LIMITE_MS = 60 * 60 * 1000 
+
+  useEffect(() => {
+    const saved = localStorage.getItem("notificacoes")
+    if (!saved) return
+
+    const parsed: Notificacao[] = JSON.parse(saved)
+    const agora = Date.now()
+
+    const filtradas = parsed.filter(n => {
+      if (!n.timestampVisto) return true
+      return agora - n.timestampVisto < LIMITE_MS
+    })
+
+    setNotificacoes(filtradas)
+  }, [])
+
+  useEffect(() => {
+    if (notificacoes.length === 0) return
+
+    const agora = Date.now()
+
+    const novas = notificacoes.map(n => {
+      if (!n.timestampVisto) {
+        return { ...n, timestampVisto: agora }
+      }
+      return n
+    })
+
+    setNotificacoes(novas)
+    localStorage.setItem("notificacoes", JSON.stringify(novas))
+  }, [notificacoes.length])
+
+  useEffect(() => {
+    if (!user) return
+
+    socket.on("solicitacao:statusAtualizado", (payload) => {
+      setNotificacoes(prev => {
+        const novaNotif: Notificacao = {
+          ...payload,
+          timestampCriado: Date.now(),
+          timestampVisto: null, 
+        }
+
+        const lista = [novaNotif, ...prev].slice(0, 4)
+
+        localStorage.setItem("notificacoes", JSON.stringify(lista))
+
+        return lista
+      })
+    })
+
+    return () => socket.off("solicitacao:statusAtualizado")
+  }, [user])
+
   return (
-    <div className="mt-2 flex size-full flex-col space-y-2 overflow-y-auto max-md:pb-[8rem]">
-      {/* Componente de notificação */}
-      <div className="relative flex h-auto w-full items-center space-x-3 rounded-2xl bg-[#476CFF1A] px-4 py-6 shadow shadow-blue-950/25">
-        {/* Icone de notificação */}
-        <div className="bg-primary-800 flex aspect-square h-8 items-center justify-center rounded-full p-2">
-          <IconeNotificacao />
+    <div className="flex flex-col space-y-2 mt-2 max-md:pb-[8rem]">
+      {notificacoes.length === 0 ? (
+        <div className="text-primary-800/60 text-center mt-4">
+          Você não possui notificações recentes.
         </div>
-        {/* Main ( texto e data ) */}
-        <div className="text-primary-800 flex w-full flex-col justify-around">
-          <h1 className="font-outfit font-medium"> Nova mensagem </h1>
-          <h1 className="font-satoshi text-[15px] font-light max-md:line-clamp-2">
-            {' '}
-            Olá Felipe, você tem novas mensagens para responder, clique abaixo e verifique
-          </h1>
-          <h1 className="text-primary-800/50 font-satoshi mt-0.5 text-[12px] font-normal">
-            {' '}
-            12/12/2025 13:00{' '}
-          </h1>
-        </div>
-
-        {/* Bolinha de notificação no canto superior direito */}
-        <div className="absolute right-3 top-3 aspect-square h-2 rounded-full bg-[#335CFF]" />
-      </div>
+      ) : (
+        notificacoes.map((item, index) => (
+          <CardNotificacao key={index} data={item} user={user} />
+        ))
+      )}
     </div>
   )
 }

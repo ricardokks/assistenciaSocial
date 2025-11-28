@@ -20,19 +20,20 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
   const [carregarInformacao, setCarregarInformacao] = useState(false)
   const [abrirDropbox, setAbrirDropbox] = useState(false)
 
+  const inicial = dadosUser?.nome[0].toUpperCase();
   // Funções utilizadas no componente
   function handleAbrirDropbox() {
     setAbrirDropbox((prev) => !prev)
   }
 
-   useEffect(() => {
-  if (props.data) {
-    setDadosUser(props.data)
-    setCarregarInformacao(true)
-  }
-}, [props.data])
+  useEffect(() => {
+    if (props.data) {
+      setDadosUser(props.data)
+      setCarregarInformacao(true)
+    }
+  }, [props.data])
 
-  
+
 
   return (
     <div
@@ -40,17 +41,23 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
       onClick={handleAbrirDropbox}
     >
       {/* container de foto */}
-      {carregarInformacao ? (
-        <div className="bg-primary-800 relative w-13 h-13 rounded-full">
-          <img
-            alt={'Foto do usário'}
-            className="size-full rounded-full"
-            src={dadosUser?.avatarURL}
-          />
-        </div>
-      ) : (
-        <div className=" w-13 h-13 bg-black/10 animate-pulse rounded-full"></div>
-      )}
+      {carregarInformacao ?
+        dadosUser?.avatarURL ? (
+          <div className="bg-primary-800 relative w-13 h-13 rounded-full">
+            <img
+              alt={'Foto do usário'}
+              className="size-full rounded-full"
+              src={dadosUser?.avatarURL}
+            />
+          </div>
+        ) : (
+          <div className="bg-primary-800 relative w-13 h-13 rounded-full flex items-center justify-center text-white font-outfit-bold text-[35px] ">
+            <h1 className='pt-1'>{inicial}</h1>
+          </div>
+        )
+       : (
+          <div className=" w-13 h-13 bg-black/10 animate-pulse rounded-full"></div>
+        )}
 
       {/* container nome e tipo de usuario  */}
       <div className="flex flex-col items-start justify-center leading-5">
