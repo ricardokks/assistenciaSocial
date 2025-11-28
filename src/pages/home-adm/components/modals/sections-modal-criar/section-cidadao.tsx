@@ -82,7 +82,7 @@ export function CidadaoSection() {
               <div className="relative flex w-full rounded-2xl">
                 <input
                   className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                  placeholder="Digite o nome do cidadão"
+                  placeholder="Digite a senha do cidadão"
                   type="text"
                 />
                 <IconeSenha className="absolute left-2 top-2 size-7" />
@@ -110,7 +110,7 @@ export function CidadaoSection() {
             <div className="relative flex w-full rounded-2xl">
               <input
                 className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                placeholder="Digite o nome do cidadão"
+                placeholder="Digite o nome da Mãe do cidadão"
                 type="text"
               />
               <IconeCidadao className="absolute left-2 top-2 size-7" />
@@ -124,7 +124,7 @@ export function CidadaoSection() {
             <div className="relative flex w-full rounded-2xl">
               <input
                 className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                placeholder="Digite o nome do cidadão"
+                placeholder="Digite a localidade cidadão"
                 type="text"
               />
               <IconeLocal className="absolute left-2 top-2 size-7" />
@@ -137,7 +137,7 @@ export function CidadaoSection() {
             <div className="relative flex w-full rounded-2xl">
               <input
                 className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                placeholder="Digite o nome do cidadão"
+                placeholder="Digite a rua do cidadão"
                 type="text"
               />
               <IconeLocal className="absolute left-2 top-2 size-7" />
@@ -152,7 +152,7 @@ export function CidadaoSection() {
               <div className="relative flex w-full rounded-2xl">
                 <input
                   className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                  placeholder="Digite o nome do cidadão"
+                  placeholder="Complemento sobre a moradia..."
                   type="text"
                 />
                 <IconeCasa className="absolute left-2 top-2 size-7" />
@@ -166,7 +166,7 @@ export function CidadaoSection() {
               <div className="relative flex w-full rounded-2xl">
                 <input
                   className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                  placeholder="Digite o nome do cidadão"
+                  placeholder="Digite o número da casa do cidadão"
                   type="text"
                 />
                 <IconeCasa className="absolute left-2 top-2 size-7" />

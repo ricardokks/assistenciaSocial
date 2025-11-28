@@ -1,36 +1,31 @@
-import { type ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 import { getUser } from '../../api/user/getUser'
 import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
+import { Agendamento } from './section/agendamento'
 import { Servicos } from './section/servicos'
-import { Agendamento } from './section/atendimento'
-import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const [user, setUser] = useState(null)
   const [assistencias, setAssistencias] = useState(null)
-  
+  const [solicitacoes, setSolicitacoes] = useState([])
+  const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
+  const [assistenciaSelecionada, setAssistenciaSelecionada] = useState(null)
 
   async function getDataUser() {
     const data = await getUser()
     setUser(data)
-    return data
+    setSolicitacoes(data.solicitacoes)
   }
 
-  async function getAssistenciasAll(){
+  async function getAssistenciasAll() {
     const data = await getAssistencias()
     setAssistencias(data)
-    return data
-  }
-
-  const sectionsDashboard: Record<TypeDashboardCidadao, ReactNode> = {
-    Inicio: <Inicio user="CIDADAO" data={user} />,
-    ContatarAtendimento: <Agendamento data={user} assistencias={assistencias} />,
-    ProcurarServico: <Servicos user={user} />,
   }
 
   useEffect(() => {
@@ -49,6 +44,7 @@ export function HomeCidadao() {
         />
         <SideBarDashboard.botao />
       </SideBarDashboard.root>
+
       <SideBarMobile.root>
         <SideBarMobile.links
           sectionSelecionada={selecionarSection}
@@ -57,7 +53,34 @@ export function HomeCidadao() {
         />
       </SideBarMobile.root>
 
-      {sectionsDashboard[selecionarSection]}
+      {/* Renderização condicional CORRETA */}
+      {selecionarSection === 'Inicio' && <Inicio user="CIDADAO" data={user} />}
+
+      {selecionarSection === 'ContatarAtendimento' && (
+        <Agendamento
+          data={user}
+          assistencias={assistencias}
+          solicitacoes={solicitacoes}
+          setSolicitacoes={setSolicitacoes}
+          visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
+          setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
+          assistenciaSelecionada={assistenciaSelecionada}
+        />
+      )}
+
+      {selecionarSection === 'ProcurarServico' && (
+        <Servicos
+          user={user}
+          assistencia={assistencias}
+          onClick={(assistencia) => {
+            setAssistenciaSelecionada(assistencia) 
+            setSelecionarSection('ContatarAtendimento')
+            setTimeout(() => {
+              setVisibilidadeModalCriarAgendamento(true)
+            }, 1000)
+          }}
+        />
+      )}
     </main>
   )
 }
