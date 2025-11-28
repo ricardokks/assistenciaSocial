@@ -1,4 +1,4 @@
-import { IconeNotificacao } from "../../assets/Icons/icone-notificacao";
+import { IconeNotificacao } from '../../assets/Icons/icone-notificacao'
 
 export function CardNotificacao({ data, user }: any) {
   return (
@@ -8,14 +8,11 @@ export function CardNotificacao({ data, user }: any) {
       </div>
 
       <div className="text-primary-800 flex w-full flex-col">
-        <h1 className="font-outfit font-medium">
-          Atualização do seu agendamento
-        </h1>
+        <h1 className="font-outfit font-medium">Atualização do seu agendamento</h1>
 
         <p className="font-satoshi text-[15px] font-light">
-          Olá {user?.nome}, seu agendamento foi atualizado para{" "}
-          <strong>{data.novoStatus}</strong> na unidade{" "}
-          <strong>{data.unidade}</strong>.
+          Olá {user?.nome}, seu agendamento foi atualizado para <strong>{data.novoStatus}</strong>{' '}
+          na unidade <strong>{data.unidade}</strong>.
         </p>
 
         <span className="text-primary-800/50 font-satoshi mt-0.5 text-[12px]">

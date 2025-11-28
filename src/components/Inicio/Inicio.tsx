@@ -1,18 +1,19 @@
+import { useEffect } from 'react'
+
 import type { IHomeProps } from '../../types/interface-home-props'
-import { HeaderDashboards } from '../header'
+import { socket } from '../../utils/socket'
 import { InicioBanner } from '../banner'
+import { HeaderDashboards } from '../Header'
 import { InicioDados } from './InicioDados'
 import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'
-import { useEffect } from 'react'
-import { socket } from '../../utils/socket'
 
 export function Inicio(data: IHomeProps) {
   useEffect(() => {
     if (!data.data) return
 
     socket.connect()
-    socket.emit("register", data.data.id)
+    socket.emit('register', data.data.id)
 
     return () => {
       socket.disconnect()

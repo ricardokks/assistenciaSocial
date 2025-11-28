@@ -11,10 +11,10 @@ import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
 
 export function FuncionarioSection() {
   return (
-    <div className="w-full h-[90%]">
-      <form action="POST" className="flex w-full h-full flex-col items-start justify-between gap-4">
+    <div className="h-[90%] w-full">
+      <form action="POST" className="flex size-full flex-col items-start justify-between gap-4">
         {/* container informações nome, cpf, data do agendamento, descrição  */}
-        <div className="flex px-10 w-full h-4/5 flex-col gap-4 overflow-y-scroll ">
+        <div className="flex h-4/5 w-full flex-col gap-4 overflow-y-scroll px-10 ">
           {/* nome  */}
           <div className="flex w-[97%] flex-col gap-1">
             <p className="text-primary-800 font-outfit">Nome do Funcionário:</p>
@@ -30,7 +30,7 @@ export function FuncionarioSection() {
           </div>
 
           {/* Email  */}
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             <div className="flex w-[97%] flex-col gap-1">
               <p className="text-primary-800 font-outfit">CPF do Funcionário:</p>
 
@@ -63,7 +63,7 @@ export function FuncionarioSection() {
               <p className="text-primary-800 font-outfit">Nis do Funcionário:</p>
 
               <div className="relative flex">
-                <IconeNis className="absolute left-1 top-1.5 h-8 w-8" />
+                <IconeNis className="absolute left-1 top-1.5 size-8" />
                 <IMaskInput
                   className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
                   mask="000.00000.00-0"
@@ -73,7 +73,7 @@ export function FuncionarioSection() {
             </div>
           </div>
 
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             {/* Senha  */}
 
             <div className="flex w-[97%] flex-col gap-1">
@@ -144,7 +144,7 @@ export function FuncionarioSection() {
             </div>
           </div>
 
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             {/* Localidade  */}
             <div className="flex w-[97%] flex-col gap-1">
               <p className="text-primary-800 font-outfit">Complemento:</p>
@@ -180,15 +180,15 @@ export function FuncionarioSection() {
             <div className="relative flex w-full rounded-2xl">
               <select
                 className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-                name=""
                 id=""
+                name=""
               >
                 <option value="">Selecione a instituição</option>
                 <option value="">Instituição 1</option>
                 <option value="">Instituição 2</option>
                 <option value="">Instituição 3</option>
               </select>
-              <IconeInstituicao className="absolute left-2 top-2 size-7 text-primary-800" />
+              <IconeInstituicao className="text-primary-800 absolute left-2 top-2 size-7" />
             </div>
           </div>
         </div>

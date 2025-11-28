@@ -56,8 +56,11 @@ export function SideBarMobileLinks(props: HeaderLinksProps) {
         </button>
       ))}
 
-      <button className={'text-white hover:bg-white p-2 rounded-2xl  group'} onClick={async () => await handleLogout()}>
-        <IconeSair className="size-8 text-white group-hover:text-primary-800" />
+      <button
+        className={'group rounded-2xl p-2 text-white  hover:bg-white'}
+        onClick={async () => await handleLogout()}
+      >
+        <IconeSair className="group-hover:text-primary-800 size-8 text-white" />
       </button>
     </div>
   )

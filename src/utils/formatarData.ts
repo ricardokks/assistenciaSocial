@@ -1,4 +1,3 @@
-
 export function formatarData(iso: string) {
   const data = new Date(iso)
   const dia = String(data.getDate()).padStart(2, '0')

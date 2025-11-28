@@ -54,26 +54,26 @@ export function HomeCidadao() {
       </SideBarMobile.root>
 
       {/* Renderização condicional CORRETA */}
-      {selecionarSection === 'Inicio' && <Inicio user="CIDADAO" data={user} />}
+      {selecionarSection === 'Inicio' && <Inicio data={user} user="CIDADAO" />}
 
       {selecionarSection === 'ContatarAtendimento' && (
         <Agendamento
-          data={user}
           assistencias={assistencias}
-          solicitacoes={solicitacoes}
-          setSolicitacoes={setSolicitacoes}
-          visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
-          setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
           assistenciaSelecionada={assistenciaSelecionada}
+          data={user}
+          setSolicitacoes={setSolicitacoes}
+          setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
+          solicitacoes={solicitacoes}
+          visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
         />
       )}
 
       {selecionarSection === 'ProcurarServico' && (
         <Servicos
-          user={user}
           assistencia={assistencias}
+          user={user}
           onClick={(assistencia) => {
-            setAssistenciaSelecionada(assistencia) 
+            setAssistenciaSelecionada(assistencia)
             setSelecionarSection('ContatarAtendimento')
             setTimeout(() => {
               setVisibilidadeModalCriarAgendamento(true)

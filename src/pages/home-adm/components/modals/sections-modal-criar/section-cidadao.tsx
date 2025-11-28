@@ -1,20 +1,20 @@
 import { IMaskInput } from 'react-imask'
 
 import { IconeCidadao } from '../../../../../assets/Icons/IconeCidadao'
+import { IconeCasa } from '../../../../../assets/Icons/icone-casa'
+import { IconeData } from '../../../../../assets/Icons/icone-data'
+import { IconeLocal } from '../../../../../assets/Icons/icone-local'
 import { IconeNis } from '../../../../../assets/Icons/icone-nis'
 import { IconeEmail } from '../../../../../assets/Icons/iconeEmail'
 import { IconeInstituicao } from '../../../../../assets/Icons/iconeInstituicao'
 import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
-import { IconeCasa } from '../../../../../assets/Icons/icone-casa'
-import { IconeLocal } from '../../../../../assets/Icons/icone-local'
-import { IconeData } from '../../../../../assets/Icons/icone-data'
 
 export function CidadaoSection() {
   return (
-    <div className="w-full h-[90%]">
-      <form action="POST" className="flex w-full h-full flex-col items-start justify-between gap-4">
+    <div className="h-[90%] w-full">
+      <form action="POST" className="flex size-full flex-col items-start justify-between gap-4">
         {/* container informações nome, cpf, data do agendamento, descrição  */}
-        <div className="flex px-10 w-full h-4/5 flex-col gap-4 overflow-y-scroll ">
+        <div className="flex h-4/5 w-full flex-col gap-4 overflow-y-scroll px-10 ">
           {/* nome  */}
           <div className="flex w-[97%] flex-col gap-1">
             <p className="text-primary-800 font-outfit">Nome do Cidadão:</p>
@@ -30,7 +30,7 @@ export function CidadaoSection() {
           </div>
 
           {/* Email  */}
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             <div className="flex w-[97%] flex-col gap-1">
               <p className="text-primary-800 font-outfit">CPF do Cidadão:</p>
 
@@ -63,7 +63,7 @@ export function CidadaoSection() {
               <p className="text-primary-800 font-outfit">Nis do Cidadão:</p>
 
               <div className="relative flex">
-                <IconeNis className="absolute left-1 top-1.5 h-8 w-8" />
+                <IconeNis className="absolute left-1 top-1.5 size-8" />
                 <IMaskInput
                   className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
                   mask="000.00000.00-0"
@@ -73,7 +73,7 @@ export function CidadaoSection() {
             </div>
           </div>
 
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             {/* Senha  */}
 
             <div className="flex w-[97%] flex-col gap-1">
@@ -144,7 +144,7 @@ export function CidadaoSection() {
             </div>
           </div>
 
-          <div className="w-full grid grid-cols-2 gap-x-4 pr-4">
+          <div className="grid w-full grid-cols-2 gap-x-4 pr-4">
             {/* Localidade  */}
             <div className="flex w-[97%] flex-col gap-1">
               <p className="text-primary-800 font-outfit">Complemento:</p>

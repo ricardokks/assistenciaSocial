@@ -2,7 +2,7 @@ import { SkeletonCardAgendamento } from './skeleton-cardAgendamento'
 
 export function SkeletonAgendamento() {
   return (
-    <main className="overflow-y-auto w-[100%]">
+    <main className="w-[100%] overflow-y-auto">
       {/* conteudo principal  */}
       <div className="flex w-full flex-col gap-4">
         <div className="flex w-full items-center justify-between">

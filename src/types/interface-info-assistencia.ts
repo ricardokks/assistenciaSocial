@@ -1,4 +1,3 @@
-
 export interface dataInfoAssistencia {
   nome: string
   icone: string

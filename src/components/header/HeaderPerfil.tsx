@@ -20,7 +20,8 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
   const [carregarInformacao, setCarregarInformacao] = useState(false)
   const [abrirDropbox, setAbrirDropbox] = useState(false)
 
-  const inicial = dadosUser?.nome[0].toUpperCase();
+  const inicial = dadosUser?.nome?.[0]?.toUpperCase() ?? ''
+
   // Funções utilizadas no componente
   function handleAbrirDropbox() {
     setAbrirDropbox((prev) => !prev)
@@ -33,17 +34,15 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
     }
   }, [props.data])
 
-
-
   return (
     <div
       className="font-outfit-bold relative z-40 flex cursor-pointer items-center justify-center gap-4"
       onClick={handleAbrirDropbox}
     >
       {/* container de foto */}
-      {carregarInformacao ?
+      {carregarInformacao ? (
         dadosUser?.avatarURL ? (
-          <div className="bg-primary-800 relative w-13 h-13 rounded-full">
+          <div className="bg-primary-800 w-13 h-13 relative rounded-full">
             <img
               alt={'Foto do usário'}
               className="size-full rounded-full"
@@ -51,13 +50,13 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
             />
           </div>
         ) : (
-          <div className="bg-primary-800 relative w-13 h-13 rounded-full flex items-center justify-center text-white font-outfit-bold text-[35px] ">
-            <h1 className='pt-1'>{inicial}</h1>
+          <div className="bg-primary-800 w-13 h-13 font-outfit-bold relative flex items-center justify-center rounded-full text-[35px] text-white ">
+            <h1 className="pt-1">{inicial}</h1>
           </div>
         )
-       : (
-          <div className=" w-13 h-13 bg-black/10 animate-pulse rounded-full"></div>
-        )}
+      ) : (
+        <div className=" w-13 h-13 animate-pulse rounded-full bg-black/10"></div>
+      )}
 
       {/* container nome e tipo de usuario  */}
       <div className="flex flex-col items-start justify-center leading-5">
@@ -66,7 +65,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
           {carregarInformacao ? (
             <span>{dadosUser?.nome}</span>
           ) : (
-            <div className="bg-black/10 w-19 h-4 rounded-[5.97px]"></div>
+            <div className="w-19 h-4 rounded-[5.97px] bg-black/10"></div>
           )}
         </h3>
 
@@ -75,13 +74,13 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
           {carregarInformacao ? (
             user.cargo
           ) : (
-            <div className="bg-black/10 w-19 h-4 mt-1 rounded-[5.97px]"></div>
+            <div className="w-19 mt-1 h-4 rounded-[5.97px] bg-black/10"></div>
           )}
         </p>
       </div>
 
       {/* componente do dropbox */}
-      <Dropbox id={dadosUser?.id} abrirDropbox={abrirDropbox} />
+      <Dropbox abrirDropbox={abrirDropbox} id={dadosUser?.id} />
     </div>
   )
 }

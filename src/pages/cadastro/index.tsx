@@ -1,26 +1,26 @@
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
+import { autoLogin } from '../../api/auth/autologin'
+import { cadastro } from '../../api/user/cadastro'
 import { logoMassape, logoMassapeAzul } from '../../assets/image'
 import imagemMassapeMobile from '../../assets/image/image-mobile-login.png'
 import imagemMassape from '../../assets/image/imagemMasspae.png'
 import { BarsLoginMobile } from '../../assets/svgs/bars-login-mobile'
 import { type userCadastroDTO, userCadastroSchema } from '../../schemas/userCadastroSchema'
+import { verifyRole } from '../../utils/verify-role'
 import { Step1 } from './sections/step1'
 import { Step2 } from './sections/step2'
 import { Step3 } from './sections/step3'
-import { cadastro } from '../../api/user/cadastro'
-import { autoLogin } from '../../api/auth/autologin'
-import { verifyRole } from '../../utils/verify-role'
-import { useNavigate } from 'react-router-dom'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)
   const navigate = useNavigate()
-  
+
   const methods = useForm({
     resolver: zodResolver(userCadastroSchema),
     shouldUnregister: false,
@@ -29,9 +29,9 @@ export default function CadastroPage() {
   const { handleSubmit } = methods
 
   async function AutoLogin() {
-      const user = await autoLogin()
-      verifyRole(user.data.papel, navigate, user.data.id)
-    }
+    const user = await autoLogin()
+    verifyRole(user.data.papel, navigate, user.data.id)
+  }
 
   async function onSubmit(data: userCadastroDTO) {
     try {

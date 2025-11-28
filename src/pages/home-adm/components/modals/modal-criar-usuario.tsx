@@ -7,11 +7,11 @@ import { IconeGestor } from '../../../../assets/Icons/Icon-gestor'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import { IconeSair } from '../../../../assets/Icons/iconeSair'
-import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
-import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
-import { CidadaoSection } from './sections-modal-criar/section-cidadao'
-import { GestorSection } from './sections-modal-criar/section-gestor'
 import { IconeVoltar } from '../../../../assets/Icons/iconeVoltar'
+import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
+import { CidadaoSection } from './sections-modal-criar/section-cidadao'
+import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
+import { GestorSection } from './sections-modal-criar/section-gestor'
 
 export function ModalCriarUsuario(props: ModalUsuarioProps) {
   const [section, setSection] = useState<number>(0)
@@ -44,41 +44,40 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
 
         {/* Seção dos forms */}
 
-
         <div
-          className={`flex flex-col  mt-10 pt-4 items-center justify-end ${stage === 0 ? 'h-100 w-full' : 'invisible size-0'}`}
+          className={`mt-10 flex  flex-col items-center justify-end pt-4 ${stage === 0 ? 'h-100 w-full' : 'invisible size-0'}`}
         >
-          <h1 className="font-outfit-bold text-2xl text-primary-800">
+          <h1 className="font-outfit-bold text-primary-800 text-2xl">
             Que tipo de usuário você deseja criar?
           </h1>
-          <div className="w-full flex justify-evenly items-center h-28 mt-16">
+          <div className="mt-16 flex h-28 w-full items-center justify-evenly">
             <button
-              className={` ${section == 1 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} w-[20%] cursor-pointer  duration-300 ease h-full rounded-2xl font-satoshi-black text-lg text-primary-800 flex flex-col gap-2 p-1 items-center justify-center`}
+              className={` ${section == 1 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} ease font-satoshi-black  text-primary-800 flex h-full w-[20%] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl p-1 text-lg duration-300`}
               onClick={() => setSection(1)}
             >
               {' '}
-              <IconeFuncionario className="w-12 h-12" /> Funcionário
+              <IconeFuncionario className="size-12" /> Funcionário
             </button>
             <button
-              className={` ${section == 2 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} w-[20%] cursor-pointer  duration-300 ease h-full rounded-2xl font-satoshi-black text-lg text-primary-800 flex flex-col gap-2 p-1 items-center justify-center`}
+              className={` ${section == 2 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} ease font-satoshi-black  text-primary-800 flex h-full w-[20%] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl p-1 text-lg duration-300`}
               onClick={() => setSection(2)}
             >
               {' '}
-              <IconeCidadao className="w-12 h-12" /> Cidadão
+              <IconeCidadao className="size-12" /> Cidadão
             </button>
             <button
-              className={` ${section == 3 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} w-[20%] cursor-pointer  duration-300 ease h-full rounded-2xl font-satoshi-black text-lg text-primary-800 flex flex-col gap-2 p-1 items-center justify-center`}
+              className={` ${section == 3 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} ease font-satoshi-black  text-primary-800 flex h-full w-[20%] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl p-1 text-lg duration-300`}
               onClick={() => setSection(3)}
             >
               {' '}
-              <IconeGestor className="w-12 h-12" /> Gestor
+              <IconeGestor className="size-12" /> Gestor
             </button>
           </div>
 
-          <div className="w-full flex justify-evenly mt-20 mb-4">
+          <div className="mb-4 mt-20 flex w-full justify-evenly">
             <button
+              className="bg-primary-800 h-10 w-[45%] cursor-pointer rounded-md p-1 text-white"
               onClick={() => (section ? setStage(1) : null)}
-              className="w-[45%] h-10 p-1 bg-primary-800 text-white rounded-md cursor-pointer"
             >
               Prosseguir
             </button>
@@ -88,22 +87,21 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
         {/*Sections */}
 
         <div
-          className={` flex flex-col mt-6 pt-4 items-center justify-end ${stage === 1 ? 'h-full py-10 w-full' : 'invisible size-0'}`}
+          className={` mt-6 flex flex-col items-center justify-end pt-4 ${stage === 1 ? 'size-full py-10' : 'invisible size-0'}`}
         >
-            <div className=' justify-self-start mb-3 flex self-start pl-10 cursor-pointer'
+          <div
+            className=" mb-3 flex cursor-pointer place-self-start pl-10"
             onClick={() => {
               setSection(0)
               setStage(0)
             }}
           >
             {' '}
-            <IconeVoltar className="h-6 w-6 text-primary-800" />{' '}
+            <IconeVoltar className="text-primary-800 size-6" />{' '}
           </div>
           {section === 1 && <FuncionarioSection />}
           {section === 2 && <CidadaoSection />}
           {section === 3 && <GestorSection />}
-
-
         </div>
       </article>
     </section>,

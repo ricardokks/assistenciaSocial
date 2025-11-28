@@ -1,5 +1,6 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 
+import NotFound from '../pages/404'
 import CadastroPage from '../pages/cadastro'
 import { Config } from '../pages/config'
 import { HomeAdmin } from '../pages/home-adm'
@@ -8,7 +9,6 @@ import { HomeFuncionario } from '../pages/home-funcionario'
 import { HomePage } from '../pages/lading-page'
 import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
-import NotFound from '../pages/404'
 
 export const routes = createBrowserRouter([
   {
@@ -49,8 +49,8 @@ export const routes = createBrowserRouter([
       },
       {
         path: '*',
-        element: <NotFound />
-      }
+        element: <NotFound />,
+      },
     ],
   },
 ])

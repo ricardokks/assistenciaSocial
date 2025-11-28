@@ -2,13 +2,12 @@ import { useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
 
-
 import { IconEyeClose } from '../../../assets/Icons/IconEyeClose'
 import { IconEyeOpen } from '../../../assets/Icons/closeEyeOpen'
+import { IconeCPF } from '../../../assets/Icons/icon-cpf'
 import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 import { IconeSenha } from '../../../assets/Icons/iconeSenha'
 import type { userCadastroDTO } from '../../../schemas/userCadastroSchema'
-import { IconeCPF } from '../../../assets/Icons/icon-cpf'
 
 export function Step1({
   passStep,
@@ -69,7 +68,6 @@ export function Step1({
                 setValue('cpf', onlyNumbers, { shouldValidate: true })
               }}
             />
-
           </div>
         </div>
 
@@ -92,7 +90,6 @@ export function Step1({
                 setValue('rg', onlyNumbers, { shouldValidate: true })
               }}
             />
-
           </div>
         </div>
 

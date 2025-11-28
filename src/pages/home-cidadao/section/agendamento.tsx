@@ -23,7 +23,7 @@ export function Agendamento(user: {
   setVisibilidadeModalCriarAgendamento: React.Dispatch<React.SetStateAction<boolean>>
   assistenciaSelecionada: any
 }) {
-  const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento} = user
+  const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento } = user
 
   const { setSolicitacoes, solicitacoes } = user
   const [searchTerm, setSearchTerm] = useState('')
@@ -59,28 +59,28 @@ export function Agendamento(user: {
   }
 
   return (
-    <main className="main flex-col h-screen items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0 relative">
+    <main className="main relative h-screen flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={user.data} user="CIDADAO" />
       </HeaderDashboards.root>
 
       {/* div do button Novo Agendamento */}
       <div
-        className={`w-full flex md:items-center md:justify-between text-primary-800 font-outfit max-md:flex-col max-md:space-y-1 ${isAnimateSearch ? 'max-md:hidden' : ''}`}
+        className={`text-primary-800 font-outfit flex w-full max-md:flex-col max-md:space-y-1 md:items-center md:justify-between ${isAnimateSearch ? 'max-md:hidden' : ''}`}
       >
-        <h1 className="font-medium text-2xl max-md:text-xl">Meus Agendamentos</h1>
+        <h1 className="text-2xl font-medium max-md:text-xl">Meus Agendamentos</h1>
         <button
+          className="bg-primary-800 hover:bg-primary-800/90 flex cursor-pointer items-center rounded-lg px-4 py-2 text-white shadow-md duration-500 hover:shadow-lg max-md:w-1/2 max-md:max-w-[170px] max-md:px-2 max-md:py-1 max-md:text-sm"
           onClick={() => setVisibilidadeModalCriarAgendamento(true)}
-          className="flex items-center bg-primary-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg duration-500 hover:bg-primary-800/90 cursor-pointer max-md:px-2 max-md:py-1 max-md:text-sm max-md:w-1/2 max-md:max-w-[170px]"
         >
-          <Plus className="size-5 mr-2" />
+          <Plus className="mr-2 size-5" />
           Novo Agendamento
         </button>
       </div>
 
       {/* Search */}
       <div
-        className={`relative flex w-[80%] max-xl:w-4/5 max-lg:w-full max-2xl:-translate-y-3 max-xl:-translate-y-0 items-center text-center max-md:w-full ${isAnimateSearch ? 'max-md:hidden' : ''}`}
+        className={`relative flex w-[80%] items-center text-center max-2xl:-translate-y-3 max-xl:w-4/5 max-xl:-translate-y-0 max-lg:w-full max-md:w-full ${isAnimateSearch ? 'max-md:hidden' : ''}`}
       >
         {/* Icone search */}
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
@@ -89,15 +89,15 @@ export function Agendamento(user: {
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <div className="w-1/4 h-full mt-3 ml-3 relative max-md:w-2/5">
+        <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
           <select
+            className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2  bg-transparent pl-3 text-[16px] shadow-md outline-none"
+            value={selectedStatus}
+            onChange={(e) => setSelectedStatus(e.target.value)}
+            onClick={() => setIsAnimate((prev) => !prev)}
             onMouseDown={() => setIsAnimate((prev) => !prev)}
             onMouseLeave={() => setIsAnimate(false)}
             onMouseUp={() => setIsAnimate(false)}
-            onClick={() => setIsAnimate((prev) => !prev)}
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-            className="text-primary-800 pl-3 appearance-none rounded-2xl text-[16px] border-primary-800 border-2 bg-transparent  outline-none shadow-md ml-1 h-full w-full font-outfit"
           >
             <option value="">Filtrar por...</option>
             <option value="PENDENTE">Pendente</option>
@@ -107,31 +107,31 @@ export function Agendamento(user: {
           </select>
 
           <ChevronDown
-            className={`absolute right-1.5 top-3.5 size-5 transition-all duration-500 text-primary-800 ${
+            strokeWidth={3}
+            className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${
               isAnimate ? 'rotate-180' : 'rotate-0'
             }`}
-            strokeWidth={3}
           />
         </div>
       </div>
 
-      <div className="w-full mt-5 grid grid-cols-3 md:gap-x-3 gap-y-2 max-md:flex max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:min-h-2/5 max-md:pb-32 max-md:h-[90%] max-xl:grid-cols-2">
+      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
         {filteredAppointments.map((item: SolicitacaoDTO) => (
           <div
             key={item.id}
-            className={`bg-white w-full flex flex-col rounded-2xl p-4 shadow-lg min-h-[170px] max-md:max-h-[200px]
-    transition-all duration-700 animate-scale-in
+            className={`animate-scale-in flex min-h-[170px] w-full flex-col rounded-2xl bg-white p-4 shadow-lg
+    transition-all duration-700 max-md:max-h-[200px]
     ${item.id === lastCreatedId ? 'animate-scale-in' : ''}
   `}
           >
             {/* Foto, nome, data solicitacao */}
-            <div className="w-full flex space-x-5">
-              <img src="/" className="w-12 h-12" />
+            <div className="flex w-full space-x-5">
+              <img className="size-12" src="/" />
               <div className="flex flex-col">
-                <span className="font-outfit-bold text-lg text-primary-800">
+                <span className="font-outfit-bold text-primary-800 text-lg">
                   {item.assistencia?.unidade}
                 </span>
-                <span className="font-outfit text-sm text-primary-800/75">
+                <span className="font-outfit text-primary-800/75 text-sm">
                   Data de solicitacao: {formatDate(item.dataCriacao)}
                 </span>
               </div>
@@ -139,15 +139,15 @@ export function Agendamento(user: {
 
             <div className="flex w-full">
               {/* text Servico solicitado e Status de agendamento */}
-              <div className="w-full flex flex-col mt-5">
+              <div className="mt-5 flex w-full flex-col">
                 <span className="font-outfit text-primary-800 text-[14px]">Serviço solicitado</span>
-                <span className="font-satoshi font-medium text-primary-800 text-[12px]">
+                <span className="font-satoshi text-primary-800 text-[12px] font-medium">
                   {item?.assistencia?.servicos?.find((svc) => svc.id === item.servicoId)?.nome}
                 </span>
               </div>
 
               {/* serviço e status*/}
-              <div className="w-full flex flex-col mt-5">
+              <div className="mt-5 flex w-full flex-col">
                 <span className="font-outfit text-primary-800 text-[14px]">
                   Status do agendamento
                 </span>
@@ -156,18 +156,20 @@ export function Agendamento(user: {
             </div>
 
             {/* button */}
-            <div className="w-full flex justify-start mt-5 max-md:mt-2">
+            <div className="mt-5 flex w-full justify-start max-md:mt-2">
               <ButtonInfo
                 status={item.status}
+                onClickAguardandoAnalise={() =>
+                  toast.info('Análise do seu agendamento está sendo realizada')
+                }
                 onClickDelete={() => {
                   setIdParaDeletar(item.id)
                   setVisibilidadeModalDeletarAgendamento(true)
                 }}
-                onClickAguardandoAnalise={() =>
-                  toast.info('Análise do seu agendamento está sendo realizada')
-                }
                 onClickRecusado={() =>
-                  toast.error(`${item.observacoesFuncionario ? `Após uma análise, o seu agendamento foi recusado. Observação do funcionário: ${item.observacoesFuncionario}` : "Após uma análise, o seu agendamento foi recusado"} `)
+                  toast.error(
+                    `${item.observacoesFuncionario ? `Após uma análise, o seu agendamento foi recusado. Observação do funcionário: ${item.observacoesFuncionario}` : 'Após uma análise, o seu agendamento foi recusado'} `
+                  )
                 }
                 onClickVisualizarInfo={() => {
                   setSolicitacaoDados(item)
@@ -181,8 +183,11 @@ export function Agendamento(user: {
 
       {/* Modals */}
       <CriarAgendamento
-        open={visibilidadeModalCriarAgendamento}
+        assistencias={user.assistencias}
+        assistenciaSelecionada={user.assistenciaSelecionada}
         close={() => setVisibilidadeModalCriarAgendamento((p) => !p)}
+        open={visibilidadeModalCriarAgendamento}
+        solicitacoes={solicitacoes}
         create={(response) => {
           const created = response.data
           const { data } = user.assistencias
@@ -197,14 +202,11 @@ export function Agendamento(user: {
           setLastCreatedId(created.id)
           setSolicitacoes((prev: any) => [...prev, novoAgendamento])
         }}
-        assistencias={user.assistencias}
-        solicitacoes={solicitacoes}
-        assistenciaSelecionada={user.assistenciaSelecionada}
       />
 
       <DeletarAgendamento
-        open={visibilidadeModalDeletarAgendamento}
         close={() => setVisibilidadeModalDeletarAgendamento((prev) => !prev)}
+        open={visibilidadeModalDeletarAgendamento}
         onDelete={() =>
           deleteSolicitacaoFunc(
             idParaDeletar,
@@ -215,16 +217,16 @@ export function Agendamento(user: {
       />
 
       <VisualizarAgendamento
-        open={visibilidadeModalVisualizarAgendamento}
         close={() => setVisibilidadeModalVisualizarAgendamento((prev) => !prev)}
+        open={visibilidadeModalVisualizarAgendamento}
         solicitacao={solicitacaoDados}
         user={user.data}
       />
 
       <Menu
-        onClick={() => setIsAnimateSearch(prev => !prev)}
-        className={`absolute top-5 right-7 size-8 text-primary-800 lg:hidden cursor-pointer  `}
+        className={`text-primary-800 absolute right-7 top-5 size-8 cursor-pointer lg:hidden  `}
         strokeWidth={3}
+        onClick={() => setIsAnimateSearch((prev) => !prev)}
       />
     </main>
   )

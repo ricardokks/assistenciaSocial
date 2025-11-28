@@ -51,7 +51,7 @@ export function SectionHero() {
             Agendar agora
           </button>
           <a
-            className='max-md:w-full'
+            className="max-md:w-full"
             target="_blank"
             href="https://wa.me/5588993255962?text=Olá,%20gostaria%20de%20mais%20informações!
 "

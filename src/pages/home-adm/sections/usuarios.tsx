@@ -1,17 +1,18 @@
 import { useState } from 'react'
 
+import { tr } from 'zod/v4/locales'
+
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
-import { Usuario } from '../components/layout/usuario'
-import { ModalDeletarUsuario } from '../components/modals/modal-deletar-usuario'
-import { ModalCriarUsuario } from '../components/modals/modal-criar-usuario'
 import type { UsuarioDTO } from '../../../dto/Usuario/usuarioDTO'
-import { ModalEditarUsuario } from '../components/modals/modal-editar-usuario'
-import { tr } from 'zod/v4/locales'
 import type { IHomeProps } from '../../../types/interface-home-props'
+import { Usuario } from '../components/layout/usuario'
+import { ModalCriarUsuario } from '../components/modals/modal-criar-usuario'
+import { ModalDeletarUsuario } from '../components/modals/modal-deletar-usuario'
+import { ModalEditarUsuario } from '../components/modals/modal-editar-usuario'
 
-export function Usuarios(data : IHomeProps) {
+export function Usuarios(data: IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
   const [abrirModalCreate, setAbrirModalCreate] = useState<boolean>(false)
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
@@ -19,14 +20,11 @@ export function Usuarios(data : IHomeProps) {
   const [idUsuario, setIdUsuario] = useState<string>('')
   const [usuario, setUsuario] = useState<UsuarioDTO>()
 
-
-
-
   return (
     <main className="flex h-full w-[calc(100%-20%)] flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="ADMINISTRADOR" data={data.data}/>
+        <HeaderDashboards.perfil data={data.data} user="ADMINISTRADOR" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
@@ -42,38 +40,39 @@ export function Usuarios(data : IHomeProps) {
             />
           </div>
 
-          <button onClick={() => setAbrirModalCreate(true)} className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out">
+          <button
+            className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out"
+            onClick={() => setAbrirModalCreate(true)}
+          >
             <IconeMais className="size-4 text-white" /> Novo Usuário
           </button>
         </div>
 
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
-        <div className='w-full flex flex-col overflow-y-auto overflow-x-hidden mb-28  h-full gap-3 mt-2'>
-
-          <Usuario setDelete={() => setAbrirModalDelete(true)} setEdit={() => setAbrirModalEdit(true)}></Usuario>
-
-
+        <div className="mb-28 mt-2 flex size-full flex-col gap-3  overflow-y-auto overflow-x-hidden">
+          <Usuario
+            setDelete={() => setAbrirModalDelete(true)}
+            setEdit={() => setAbrirModalEdit(true)}
+          ></Usuario>
         </div>
         <ModalDeletarUsuario
-          id={idUsuario}
           abrilModalUsuario={abrirModalDelete}
           handleAbrirModalDelete={() => setAbrirModalDelete(false)}
+          id={idUsuario}
         ></ModalDeletarUsuario>
 
         <ModalCriarUsuario
-          usuario={usuario!}
           abrilModalUsuario={abrirModalCreate}
           handleAbrirModalDelete={() => setAbrirModalCreate(false)}
+          usuario={usuario!}
         ></ModalCriarUsuario>
 
-          <ModalEditarUsuario
-          usuario={usuario!}
+        <ModalEditarUsuario
           abrilModalUsuario={abrirModalEdit}
           handleAbrirModalDelete={() => setAbrirModalEdit(false)}
+          usuario={usuario!}
         ></ModalEditarUsuario>
-        
-        
       </div>
     </main>
   )

@@ -1,4 +1,4 @@
-import type { AssistenciaDTO } from "./type-assistencia"
+import type { AssistenciaDTO } from './type-assistencia'
 
 export type SolicitacaoDTO = {
   id: string
@@ -8,7 +8,7 @@ export type SolicitacaoDTO = {
   data?: string
   unidadeId: string
   observacoes?: string
-  status: "ANALISE" | "CONCLUIDO" | "RECUSADO" | "PENDENTE"
+  status: 'ANALISE' | 'CONCLUIDO' | 'RECUSADO' | 'PENDENTE'
   servico: any
   assistencia: AssistenciaDTO
   observacoesFuncionario?: string

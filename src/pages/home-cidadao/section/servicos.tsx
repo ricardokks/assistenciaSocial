@@ -4,8 +4,7 @@ import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { CardProjeto } from '../../lading-page/components/card-projeto'
 
-
-export function Servicos(user: { user: any, onClick: (item: any) => void, assistencia: any }) {
+export function Servicos(user: { user: any; onClick: (item: any) => void; assistencia: any }) {
   const { data } = user.assistencia
 
   const [searchTerm, setSearchTerm] = useState('')

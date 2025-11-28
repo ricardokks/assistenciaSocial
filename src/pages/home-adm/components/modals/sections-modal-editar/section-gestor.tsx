@@ -5,10 +5,10 @@ import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
 
 export function GestorSection() {
   return (
-    <div className="w-full h-full">
-      <form action="POST" className="flex w-full h-full flex-col items-start justify-between gap-4">
+    <div className="size-full">
+      <form action="POST" className="flex size-full flex-col items-start justify-between gap-4">
         {/* container informações nome, cpf, data do agendamento, descrição  */}
-        <div className="flex px-10 w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 px-10">
           {/* nome  */}
           <div className="flex w-[97%] flex-col gap-1">
             <p className="text-primary-800 font-outfit">Nome do Gestor:</p>
@@ -56,21 +56,18 @@ export function GestorSection() {
             <p className="text-primary-800 font-outfit">Institução do Gestor:</p>
 
             <div className="relative flex w-full rounded-2xl">
-            <select
-              className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
-              name=""
-              id=""
-            >
-              <option value="">Selecione a instituição</option>
-              <option value="">Instituição 1</option>
-              <option value="">Instituição 2</option>
-              <option value="">Instituição 3</option>
-              
-            </select>
-          <IconeInstituicao className="absolute left-2 top-2 size-7 text-primary-800" />
+              <select
+                className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
+                id=""
+                name=""
+              >
+                <option value="">Selecione a instituição</option>
+                <option value="">Instituição 1</option>
+                <option value="">Instituição 2</option>
+                <option value="">Instituição 3</option>
+              </select>
+              <IconeInstituicao className="text-primary-800 absolute left-2 top-2 size-7" />
             </div>
-
-
           </div>
         </div>
 

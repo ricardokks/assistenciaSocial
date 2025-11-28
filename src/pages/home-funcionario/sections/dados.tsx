@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/Header'
 import type { AssistenciaDTOO } from '../../../dto/Assistencia/assistenciaDTO'
+import type { IHomeProps } from '../../../types/interface-home-props'
 import { SkeletonDados } from '../components/skeleton/skeleton-dados'
 
-export function Dados() {
+export function Dados(data: IHomeProps) {
   // estados e variaveis utilizadas no componente
   const [idInstituicao, setIdInstituicao] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [dadosInstituicao, setDadosInstituicao] = useState<AssistenciaDTOO | null>(null)
+  const dadosSeparados = dadosInstituicao?.abrange.slice()
 
   // Funções Chamadadoras da API do backend
   async function fetchIdInstituicao() {
@@ -50,11 +52,12 @@ export function Dados() {
     }
   }, [idInstituicao])
 
+  console.log('dados: ', data)
   return (
     <main className="main overflow-y-auto">
       {/* componente header  */}
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="PROFISSIONAL" />
+        <HeaderDashboards.perfil data={data.data} user="PROFISSIONAL" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
@@ -98,8 +101,15 @@ export function Dados() {
             <div className="flex w-full flex-col gap-3">
               <h1 className="text-primary-800 font-outfit-bold">Abrange a:</h1>
 
-              <div className="font-outfit text-primary-800 focus:border-primary-800 w-full rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
-                <h1>{dadosInstituicao?.abrange}</h1>
+              <div className="font-outfit text-primary-800 focus:border-primary-800 flex w-full items-start justify-start rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
+                {dadosInstituicao?.abrange.map((item) => (
+                  <h1
+                    key={item}
+                    className="border-primary-100/80 font-outfit mx-2 rounded-2xl border-2 p-1 px-2"
+                  >
+                    {item}
+                  </h1>
+                ))}
               </div>
             </div>
 

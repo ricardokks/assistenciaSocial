@@ -2,19 +2,15 @@ import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
-<<<<<<< HEAD
 import { HeaderDashboards } from '../../../components/Header'
-=======
-import { HeaderDashboards } from '../../../components/header'
-import { Loading } from '../../../components/loading'
->>>>>>> 183f0701d42f71eb5b14d17208eac67106484f99
 import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
+import type { IHomeProps } from '../../../types/interface-home-props'
 import { CardAgendamento } from '../components/layout/card-agendamento'
 import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'
 import { ModalEditarAgendamento } from '../components/modals/modal-editar-agendamento'
 import { SkeletonAgendamento } from '../components/skeleton/skeleton-agendamento'
 
-export function Agendamento() {
+export function Agendamento(data: IHomeProps) {
   // estados e estados utilizados
   const [abrirModalCriarAgendamento, setAbrirModalCriarAgendamento] = useState<boolean>(false)
   const [abrilModalEditarAgendamento, setAbrilModalEditarAgendamento] = useState<boolean>(false)
@@ -87,7 +83,7 @@ export function Agendamento() {
       {/* Header da aplicação  */}
 
       <HeaderDashboards.root>
-        <HeaderDashboards.perfil user="PROFISSIONAL" />
+        <HeaderDashboards.perfil data={data.data} user="PROFISSIONAL" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
       {/* conteudo principal  */}
@@ -99,7 +95,7 @@ export function Agendamento() {
           </div>
 
           {/* renderização dos cards  */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 items-start">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
             {agendamentoss?.map((card) => (
               <CardAgendamento key={card.id} dados={card} onUpdateLocal={updateLocalAgendamento} />
             ))}

@@ -37,7 +37,7 @@ export function Login() {
   }
 
   async function onSubmit(data: userLoginDTO) {
-    console.log("rodou o submit: ")
+    console.log('rodou o submit: ')
     try {
       setLoading(true)
       const user = await login(data)

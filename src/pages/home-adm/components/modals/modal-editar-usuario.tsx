@@ -1,17 +1,14 @@
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
-
 import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
-import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
 import { CidadaoSection } from './sections-modal-criar/section-cidadao'
+import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
 import { GestorSection } from './sections-modal-criar/section-gestor'
 
 export function ModalEditarUsuario(props: ModalUsuarioProps) {
-
-  let userType = "Gestor"
+  let userType = 'Gestor'
 
   return ReactDOM.createPortal(
     <section
@@ -29,7 +26,6 @@ export function ModalEditarUsuario(props: ModalUsuarioProps) {
               className="cursor-pointer"
               onClick={() => {
                 props.handleAbrirModalDelete()
-
               }}
             >
               <IconeClosed className="size-8 text-white" />
@@ -39,20 +35,12 @@ export function ModalEditarUsuario(props: ModalUsuarioProps) {
 
         {/* Seção dos forms */}
 
-
-
-
         {/*Sections */}
 
-        <div
-          className={` flex flex-col mt-6 pt-4 items-center justify-end h-full py-10 w-full `}
-        >
-
-          {userType === "Funcionario" && <FuncionarioSection />}
-          {userType === "Cidadao" && <CidadaoSection />}
-          {userType === "Gestor" && <GestorSection />}
-
-
+        <div className={` mt-6 flex size-full flex-col items-center justify-end py-10 pt-4 `}>
+          {userType === 'Funcionario' && <FuncionarioSection />}
+          {userType === 'Cidadao' && <CidadaoSection />}
+          {userType === 'Gestor' && <GestorSection />}
         </div>
       </article>
     </section>,

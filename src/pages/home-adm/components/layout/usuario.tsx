@@ -33,7 +33,10 @@ export function Usuario(props: UsuarioProps) {
       {/* Icones*/}
       <div className="flex items-center justify-center space-x-1">
         {/* Icone atualizar */}
-        <button onClick={() => props.setEdit()} className="w-8 h-8 flex justify-center items-center bg-primary-800 hover:bg-primary-50 rounded-lg duration-300 cursor-pointer">
+        <button
+          className="bg-primary-800 hover:bg-primary-50 flex size-8 cursor-pointer items-center justify-center rounded-lg duration-300"
+          onClick={() => props.setEdit()}
+        >
           <IconeEditar className="text-white"></IconeEditar>
         </button>
 

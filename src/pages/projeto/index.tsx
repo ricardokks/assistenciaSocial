@@ -7,11 +7,11 @@ import { getAssistencia } from '../../api/assistencia/getAssistencia'
 import { IconeLoading } from '../../assets/Icons/icone-loading'
 import { Loading } from '../../components/loading'
 import { type AssistenciaNOVODTO } from '../../dto/Assistencia/assistenciaDTO'
+import type { AssistenciaDTO } from '../../types/type-assistencia'
 import { HeaderMobile } from './components/headerMobileProjeto'
 import { HeaderProjeto } from './components/headerProjeto'
 import { InfoAssistencia } from './section/infoAssistencia'
 import { MapaAssistencia } from './section/mapaAssistencia'
-import type { AssistenciaDTO } from '../../types/type-assistencia'
 
 export function Projeto() {
   const [assistencia, setAssistencia] = useState<AssistenciaDTO>()

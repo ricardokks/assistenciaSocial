@@ -90,7 +90,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   }
 
   return (
-    <div className="border-primary-800 flex max-w-[350px] flex-col justify-start gap-4 rounded-[5.97px] border-2 bg-white p-3">
+    <div className="border-primary-800 h-full flex max-w-[350px] flex-col justify-start gap-4 rounded-[5.97px] border-2 bg-white p-3">
       {/* Calendário */}
       <div className="flex items-center justify-start gap-4">
         <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
@@ -119,8 +119,8 @@ export function CardAgendamento(props: CardAgendamentoProps) {
             <div>
               <p className="text-primary-800 font-outfit">Escolha a baixo a data do atendimento:</p>
               <input
+                className="w-full rounded border border-gray-300 p-2"
                 type="date"
-                className="border border-gray-300 rounded p-2 w-full"
                 value={dataAtendimento}
                 onChange={(e) => setDataAtendimento(e.target.value)}
               />
@@ -128,27 +128,27 @@ export function CardAgendamento(props: CardAgendamentoProps) {
           )}
 
           <textarea
+            className="max-h-16 w-full rounded border border-gray-300 p-2"
             placeholder="Digite sua observação..."
-            className="border border-gray-300 rounded max-h-16 p-2 w-full"
             value={observacaoFuncionario}
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
           />
 
           <button
+            className="w-full cursor-pointer rounded-[5.97px] bg-green-500 p-2 text-white hover:bg-green-600"
             onClick={handleAtualizar}
-            className="hover:bg-green-600 bg-green-500 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
           >
             Enviar
           </button>
 
           <button
+            className="w-full cursor-pointer rounded-[5.97px] bg-gray-300 p-2 text-black hover:bg-gray-400"
             onClick={() => {
               setOpenObservacao(false)
               setObservacaoFuncionario('')
               setStatusSelecionado(null)
               setDataAtendimento('')
             }}
-            className="hover:bg-gray-400 bg-gray-300 w-full cursor-pointer rounded-[5.97px] p-2 text-black"
           >
             Cancelar
           </button>
@@ -160,8 +160,8 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         <div className="font-satoshi flex flex-col gap-4">
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              onClick={() => handleAbrirInput('CONCLUIDO')}
               className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+              onClick={() => handleAbrirInput('CONCLUIDO')}
             >
               Aceitar
             </button>
@@ -169,8 +169,8 @@ export function CardAgendamento(props: CardAgendamentoProps) {
 
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              onClick={() => handleAbrirInput('RECUSADO')}
               className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+              onClick={() => handleAbrirInput('RECUSADO')}
             >
               Cancelar
             </button>

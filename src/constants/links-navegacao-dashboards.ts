@@ -17,11 +17,6 @@ export const LinksDashboardFuncionario: LinksDashboardFuncionarioProps[] = [
     nomeLink: 'Início',
   },
   {
-    id: 'Atendimento',
-    icone: IconeAtendimento,
-    nomeLink: 'Atendimento',
-  },
-  {
     id: 'Dados',
     icone: IconeDados,
     nomeLink: 'Dados',

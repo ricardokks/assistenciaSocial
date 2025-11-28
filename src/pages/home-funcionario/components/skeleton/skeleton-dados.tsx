@@ -2,21 +2,21 @@ export function SkeletonDados() {
   return (
     <main className="w-full">
       {/* container de informações principais  */}
-      <form className="font-outfit w-full  max-md:pb-42 flex size-full flex-col gap-4">
+      <form className="font-outfit max-md:pb-42  flex size-full w-full flex-col gap-4">
         {/* container de informações foto, nome, subnome */}
         <div className="flex w-full items-center justify-start gap-4 rounded-2xl p-4 shadow-md outline-2 outline-[#262626]/10">
           {/* foto  */}
           <div className="relative">
-            <div className="h-14 w-14 rounded-full bg-black/10 animate-pulse"></div>
+            <div className="size-14 animate-pulse rounded-full bg-black/10"></div>
           </div>
 
           {/* nome e subnome */}
           <div className="flex flex-col justify-center leading-4">
             {/* nome  */}
-            <div className="relative flex  h-4 w-20 rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
+            <div className="relative flex  h-4 w-20 animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
 
             {/* subnome */}
-            <div className="relative flex  h-4 w-15 mt-2 rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
+            <div className="w-15 relative  mt-2 flex h-4 animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
           </div>
         </div>
 
@@ -25,10 +25,10 @@ export function SkeletonDados() {
           <div className="flex w-full flex-col">
             <h1 className="text-primary-800 font-outfit-bold">Sobre a assistencia :</h1>
 
-            <div className="font-outfit text-primary-800 focus:border-primary-800 w-full flex flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
-              <div className="relative flex  h-5 w-full rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
-              <div className="relative flex  h-5 w-[80%] rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
-              <div className="relative flex  h-5 w-[50%] rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
+            <div className="font-outfit text-primary-800 focus:border-primary-800 flex w-full flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
+              <div className="relative flex  h-5 w-full animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
+              <div className="relative flex  h-5 w-[80%] animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
+              <div className="relative flex  h-5 w-[50%] animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
             </div>
           </div>
 
@@ -36,10 +36,10 @@ export function SkeletonDados() {
           <div className="flex w-full flex-col gap-3">
             <h1 className="text-primary-800 font-outfit-bold">Abrange a:</h1>
 
-            <div className="font-outfit text-primary-800 focus:border-primary-800 w-full flex flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
-              <div className="relative flex  h-5 w-full rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
-              <div className="relative flex  h-5 w-[80%] rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
-              <div className="relative flex  h-5 w-[50%] rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
+            <div className="font-outfit text-primary-800 focus:border-primary-800 flex w-full flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
+              <div className="relative flex  h-5 w-full animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
+              <div className="relative flex  h-5 w-[80%] animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
+              <div className="relative flex  h-5 w-[50%] animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
             </div>
           </div>
 
@@ -47,13 +47,11 @@ export function SkeletonDados() {
           <div className="flex w-full flex-col gap-6">
             <h1 className="text-primary-800 font-outfit-bold">Localização</h1>
 
-            <div className="font-outfit text-primary-800 focus:border-primary-800 w-full flex flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
-              <div className="relative flex  h-5 w-[40%] rounded-2xl bg-black/10 animate-pulse items-center gap-2"></div>
+            <div className="font-outfit text-primary-800 focus:border-primary-800 flex w-full flex-col gap-3 rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
+              <div className="relative flex  h-5 w-[40%] animate-pulse items-center gap-2 rounded-2xl bg-black/10"></div>
             </div>
 
-            <div
-              className="xw-full rounded-2xl border-0 bg-black/10 animate-pulse h-[10rem]"
-            />
+            <div className="xw-full h-[10rem] animate-pulse rounded-2xl border-0 bg-black/10" />
           </div>
         </div>
       </form>

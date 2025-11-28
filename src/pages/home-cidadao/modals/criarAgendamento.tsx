@@ -94,39 +94,39 @@ export function CriarAgendamento({
   }
 
   return (
-    <Modal open={open} close={close}>
+    <Modal close={close} open={open}>
       <div
+        className={`relative flex h-[62%] max-h-[500px] min-h-[420px] w-[40%] max-w-[600px] flex-col items-center rounded-xl bg-white transition-all duration-500 max-xl:h-1/3 max-xl:max-h-[28rem] max-xl:min-h-[28rem] max-xl:w-3/5 max-lg:h-[40%] max-lg:max-h-[430px] max-lg:w-4/5 max-md:z-50 max-md:max-h-[420px] max-md:w-[90%] 
+          ${open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'}`}
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[500px] min-h-[420px] max-md:max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50 max-lg:w-4/5 max-lg:h-[40%] max-lg:max-h-[430px] max-xl:w-3/5 max-xl:h-1/3 max-xl:min-h-[28rem] max-xl:max-h-[28rem] 
-          ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-125'}`}
       >
         {/* Cabeçalho */}
-        <div className="w-full bg-primary-800 py-2 font-outfit font-bold text-white flex items-center justify-between px-3 text-2xl rounded-t-xl ">
+        <div className="bg-primary-800 font-outfit flex w-full items-center justify-between rounded-t-xl px-3 py-2 text-2xl font-bold text-white ">
           <h1>Novo Agendamento</h1>
           <X
-            onClick={close}
-            className="size-8 hover:text-red-500 duration-300 cursor-pointer"
+            className="size-8 cursor-pointer duration-300 hover:text-red-500"
             strokeWidth={3}
+            onClick={close}
           />
         </div>
 
         {/* Inputs */}
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full px-6 mt-5 space-y-4">
+        <form className="mt-5 w-full space-y-4 px-6" onSubmit={handleSubmit(onSubmit)}>
           {/* Assistência */}
-          <div className="flex flex-col w-full relative">
-            <label className="text-primary-800 font-outfit text-[14px] mb-1">
+          <div className="relative flex w-full flex-col">
+            <label className="text-primary-800 font-outfit mb-1 text-[14px]">
               Selecione a Assistência
             </label>
 
             <select
               {...register('unidadeId')}
+              className="border-1 border-primary-800 text-primary-800 w-full appearance-none rounded-lg py-2 pl-2 text-[14px] outline-none"
+              value={unidadeId}
+              onChange={(e) => setUnidadeId(e.target.value)}
+              onClick={() => setIsAnimate((prev) => !prev)}
               onMouseDown={() => setIsAnimate((prev) => !prev)}
               onMouseLeave={() => setIsAnimate(false)}
               onMouseUp={() => setIsAnimate(false)}
-              onClick={() => setIsAnimate((prev) => !prev)}
-              value={unidadeId}
-              onChange={(e) => setUnidadeId(e.target.value)}
-              className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none"
             >
               <option value="">Selecionar</option>
               {assistencia.map((item) => (
@@ -137,27 +137,27 @@ export function CriarAgendamento({
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
+              strokeWidth={3}
+              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${
                 isAnimate ? 'rotate-180' : 'rotate-0'
               }`}
-              strokeWidth={3}
             />
           </div>
 
           {/* Serviço */}
-          <div className="flex flex-col w-full relative">
-            <label className="text-primary-800 font-outfit text-[14px] mb-1">
+          <div className="relative flex w-full flex-col">
+            <label className="text-primary-800 font-outfit mb-1 text-[14px]">
               Selecione o Serviço
             </label>
 
             <select
               {...register('servicoId')}
+              className="border-1 border-primary-800 text-primary-800 w-full appearance-none rounded-lg py-2 pl-2 text-[14px] outline-none disabled:bg-gray-200"
               disabled={servicosFiltrados.length === 0}
+              onClick={() => setIsAnimate2((prev) => !prev)}
               onMouseDown={() => setIsAnimate2((prev) => !prev)}
               onMouseLeave={() => setIsAnimate2(false)}
               onMouseUp={() => setIsAnimate2(false)}
-              onClick={() => setIsAnimate2((prev) => !prev)}
-              className="w-full pl-2 py-2 border-1 border-primary-800 rounded-lg text-[14px] text-primary-800 outline-none appearance-none disabled:bg-gray-200"
             >
               <option value="">Selecionar serviço</option>
 
@@ -169,32 +169,32 @@ export function CriarAgendamento({
             </select>
 
             <ChevronDown
-              className={`absolute right-1.5 top-9 size-5 transition-all duration-500 text-primary-800 ${
+              strokeWidth={3}
+              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${
                 isAnimate2 ? 'rotate-180' : 'rotate-0'
               }`}
-              strokeWidth={3}
             />
 
             {errors.servicoId && (
-              <span className="text-red-500 text-xs mt-1">{errors.servicoId.message}</span>
+              <span className="mt-1 text-xs text-red-500">{errors.servicoId.message}</span>
             )}
           </div>
 
           {/* Observações */}
-          <div className="flex flex-col w-full">
-            <label className="text-primary-800 font-outfit text-[14px] mb-1">Observações</label>
+          <div className="flex w-full flex-col">
+            <label className="text-primary-800 font-outfit mb-1 text-[14px]">Observações</label>
             <textarea
               {...register('observacoes')}
-              className="w-full px-3 py-2 min-h-[80px] border-1 border-primary-800 rounded-lg text-primary-800 outline-none resize-none"
+              className="border-1 border-primary-800 text-primary-800 min-h-[80px] w-full resize-none rounded-lg px-3 py-2 outline-none"
               placeholder="Digite alguma observação..."
             ></textarea>
           </div>
 
           {/* Botão */}
-          <div className="w-full flex items-center justify-center">
+          <div className="flex w-full items-center justify-center">
             <button
+              className="bg-primary-800 font-outfit hover:bg-primary-800/90 mt-4 w-2/4 cursor-pointer rounded-lg py-2 font-bold text-white shadow duration-300 max-xl:mt-4 max-md:mt-2 max-md:w-4/5"
               type="submit"
-              className="w-2/4 bg-primary-800 text-white py-2 rounded-lg font-outfit hover:bg-primary-800/90 duration-300 shadow cursor-pointer font-bold max-md:mt-2 max-md:w-4/5 max-xl:mt-4 mt-4"
             >
               Criar Agendamento
             </button>

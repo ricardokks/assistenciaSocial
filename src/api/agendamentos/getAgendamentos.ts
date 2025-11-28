@@ -4,6 +4,6 @@
 //     try {
 //         const response = await api.get('/soli')
 //     } catch (error) {
-        
+
 //     }
 // }

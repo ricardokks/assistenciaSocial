@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+
 import { LinksDropbox } from '../../../constants/links-dropbox'
 import type { DropboxProps } from '../../../types/interface-dropbox-props'
 
@@ -16,12 +17,12 @@ export function Dropbox(props: DropboxProps) {
       {/* Container Configurações  */}
       {LinksDropbox.map((card, index) => (
         <div
+          key={index}
+          className="z-10 flex w-full items-center justify-start gap-4 rounded-[5.97px] py-1.5 pl-2 pr-3 transition-all duration-500 ease-in-out hover:bg-black/10"
           onClick={() => {
             if (!props.id) return
             navigate(card.navigate(props.id))
           }}
-          key={index}
-          className="z-10 flex w-full items-center justify-start gap-4 rounded-[5.97px] py-1.5 pl-2 pr-3 transition-all duration-500 ease-in-out hover:bg-black/10"
         >
           <div className="bg-primary-800 content-center rounded-2xl p-2">
             {<card.icone className="size-5" />}

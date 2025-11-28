@@ -1,10 +1,9 @@
 import type { TypeCardProjetoProps } from '../../../types/interface-card-projeto'
 
 export function CardProjeto(props: TypeCardProjetoProps) {
-
   return (
     <div data-aos={props.animation ? 'fade-right' : ''}>
-      <article className="font-outfit flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 ease-in-out transition-all duration-700 animate-scale-in">
+      <article className="font-outfit animate-scale-in flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out">
         {/* container informações sobre projeto  */}
         <div className="flex items-center justify-center gap-4">
           {/* container foto do projeto */}
@@ -28,9 +27,9 @@ export function CardProjeto(props: TypeCardProjetoProps) {
 
         {/* container botão entrar em contato  */}
         <div>
-          <button 
-          onClick={props.onClick}
-          className="botao-contato font-outfit font-bold">Entrar em contato</button>
+          <button className="botao-contato font-outfit font-bold" onClick={props.onClick}>
+            Entrar em contato
+          </button>
         </div>
       </article>
     </div>

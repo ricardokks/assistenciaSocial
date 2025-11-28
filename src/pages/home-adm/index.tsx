@@ -22,9 +22,9 @@ export function HomeAdmin() {
   }, [])
 
   const sectionsDashboard: Record<TypeDashboardAdministrador, ReactNode> = {
-    Inicio: <Inicio user="ADMINISTRADOR" data={user} />,
+    Inicio: <Inicio data={user} user="ADMINISTRADOR" />,
     Instituicao: <Instituicoes data={user} />,
-    Usuarios: <Usuarios  data={user}/>,
+    Usuarios: <Usuarios data={user} />,
   }
 
   return (
