@@ -15,10 +15,12 @@ import { Step3 } from './sections/step3'
 import { cadastro } from '../../api/user/cadastro'
 import { autoLogin } from '../../api/auth/autologin'
 import { verifyRole } from '../../utils/verify-role'
+import { useNavigate } from 'react-router-dom'
 
 export default function CadastroPage() {
   const [section, setSection] = useState(0)
-
+  const navigate = useNavigate()
+  
   const methods = useForm({
     resolver: zodResolver(userCadastroSchema),
     shouldUnregister: false,
