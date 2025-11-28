@@ -1,14 +1,16 @@
 import { X, Download } from "lucide-react";
 import { Modal } from "../../../components/ui/modal";
 import type { SolicitacaoDTO } from "../../../types/type-solicitacoes";
+import { gerarComprovante } from "../../../utils/gerarComprovante";
 
 type IVisualizarAgendamento = {
     open: boolean;
     close: () => void;
     solicitacao?: SolicitacaoDTO
+    user: any
 };
 
-export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarAgendamento) {
+export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisualizarAgendamento) {
     return (
         <Modal open={open} close={close}>
             <div
@@ -33,7 +35,7 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
                     <div>
                         <h2 className="text-lg font-bold">Informações importantes</h2>
                         <p className="text-sm font-satoshi text-primary-800/80 mt-1 max-w-[420px]">
-                            Suas informações de agendamento estão descritas abaixo. 
+                            Suas informações de agendamento estão descritas abaixo.
                             Por favor, apresente este comprovante no dia do seu atendimento.
                         </p>
                     </div>
@@ -48,7 +50,7 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
 
                             <span className="font-bold mt-3">Observação</span>
                             <span className="font-satoshi text-[14px]">
-                                {solicitacao?.observacoes}
+                                {solicitacao?.observacoesFuncionario || "Não há observações do funcionario"}
                             </span>
                         </div>
                     </div>
@@ -56,12 +58,26 @@ export function VisualizarAgendamento({ open, close, solicitacao }: IVisualizarA
 
                 {/* Botão baixar comprovante */}
                 <button
-                    onClick={() => console.log("Baixar comprovante")}
+                    onClick={() => {
+                        if (!solicitacao) return;
+
+                        gerarComprovante({
+                            nome: user?.nome ?? "Não informado",
+                            dataNascimento: user?.data_nascimento ?? 0,
+                            cpf: user?.cpf ?? "",
+                            solicitacao,
+                            assistencia: solicitacao.assistencia?.unidade ?? "Não informado",
+                            servico:
+                                solicitacao.assistencia?.servicos.find(s => s.id === solicitacao.servicoId)
+                                    ?.nome ?? "Não informado",
+                        });
+                    }}
                     className="mt-5 bg-primary-800 text-white font-outfit flex items-center gap-2 px-6 py-2 rounded-xl shadow-md hover:shadow-lg duration-300 cursor-pointer"
                 >
                     <Download className="size-5" />
                     Baixar comprovante
                 </button>
+
             </div>
         </Modal>
     );

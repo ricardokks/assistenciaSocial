@@ -11,4 +11,6 @@ export type SolicitacaoDTO = {
   status: "ANALISE" | "CONCLUIDO" | "RECUSADO" | "PENDENTE"
   servico: any
   assistencia: AssistenciaDTO
+  observacoesFuncionario?: string
+  protocolo?: string
 }

@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
+<<<<<<< HEAD
 import { HeaderDashboards } from '../../../components/Header'
+=======
+import { HeaderDashboards } from '../../../components/header'
+import { Loading } from '../../../components/loading'
+>>>>>>> 183f0701d42f71eb5b14d17208eac67106484f99
 import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
 import { CardAgendamento } from '../components/layout/card-agendamento'
 import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'

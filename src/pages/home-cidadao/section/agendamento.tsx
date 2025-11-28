@@ -167,7 +167,7 @@ export function Agendamento(user: {
                   toast.info('Análise do seu agendamento está sendo realizada')
                 }
                 onClickRecusado={() =>
-                  toast.error('Após uma análise, o seu agendamento foi recusado')
+                  toast.error(`${item.observacoesFuncionario ? `Após uma análise, o seu agendamento foi recusado. Observação do funcionário: ${item.observacoesFuncionario}` : "Após uma análise, o seu agendamento foi recusado"} `)
                 }
                 onClickVisualizarInfo={() => {
                   setSolicitacaoDados(item)
@@ -218,6 +218,7 @@ export function Agendamento(user: {
         open={visibilidadeModalVisualizarAgendamento}
         close={() => setVisibilidadeModalVisualizarAgendamento((prev) => !prev)}
         solicitacao={solicitacaoDados}
+        user={user.data}
       />
 
       <Menu

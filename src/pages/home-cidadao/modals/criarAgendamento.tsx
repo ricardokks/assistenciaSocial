@@ -97,7 +97,7 @@ export function CriarAgendamento({
     <Modal open={open} close={close}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[420px] max-md:max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50 max-lg:w-4/5 max-lg:h-[40%] max-lg:max-h-[430px] max-xl:w-3/5 max-xl:h-1/3 max-xl:min-h-[28rem] max-xl:max-h-[28rem] 
+        className={`bg-white w-[40%] h-[62%] max-w-[600px] max-h-[500px] min-h-[420px] max-md:max-h-[420px] relative rounded-xl flex flex-col items-center transition-all duration-500 max-md:w-[90%] max-md:z-50 max-lg:w-4/5 max-lg:h-[40%] max-lg:max-h-[430px] max-xl:w-3/5 max-xl:h-1/3 max-xl:min-h-[28rem] max-xl:max-h-[28rem] 
           ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-125'}`}
       >
         {/* Cabeçalho */}
