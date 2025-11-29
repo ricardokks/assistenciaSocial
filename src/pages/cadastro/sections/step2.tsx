@@ -1,9 +1,6 @@
-import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
-
 import { IconeData } from '../../../assets/Icons/icone-data'
-import { IconeNis } from '../../../assets/Icons/icone-nis'
 import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 
 export function Step2({
@@ -15,7 +12,7 @@ export function Step2({
   setSection: (section: number) => void
   passStep: () => void | Promise<void>
 }) {
-  const NisRef = useRef(null)
+
   const { register, setValue, watch } = useFormContext()
 
   return (
@@ -74,26 +71,6 @@ export function Step2({
           <input type="hidden" {...register('data_nascimento')} />
         </div>
 
-        {/* NIS */}
-        <div className="w-3/5 flex-col items-center rounded-2xl p-2">
-          <label className="text-primary-800 placeholder:text-primary-50 font-outfit text-[16px] font-medium">
-            NIS:{' '}
-          </label>
-          <div className="relative flex">
-            <IconeNis className="absolute left-1 top-2.5 h-5" />
-            <IMaskInput
-              ref={NisRef}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
-              mask="000.00000.00-0"
-              placeholder="Número do NIS"
-              value={watch('nis')}
-              onAccept={(value) => {
-                const onlyNumbers = value.replace(/\D/g, '')
-                setValue('nis', onlyNumbers, { shouldValidate: true })
-              }}
-            />
-          </div>
-        </div>
 
         {/* botão de retornar */}
         <button
