@@ -70,6 +70,17 @@
     box-shadow 0.2s;
 }
 
+@media (max-width: 768px) {
+  .botao-contato {
+    font-size: 0.875rem;   
+    width: 55%;            
+    white-space: nowrap;  
+    padding-left: 8px;     
+    padding-right: 8px;    
+  }
+}
+
+
 .botao-contato:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -318,4 +329,19 @@
 
 .animate-scale-in {
   animation: scaleIn 0.4s ease-out forwards;
+}
+
+.fade-up-animate {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

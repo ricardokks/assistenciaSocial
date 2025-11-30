@@ -4,5 +4,6 @@ export interface TypeCardProjetoProps {
   subtitulo: string
   descricao: string
   animation?: boolean
+  id?: string
   onClick?: (item: any) => void
 }
