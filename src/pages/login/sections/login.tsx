@@ -27,7 +27,7 @@ export function Login() {
   const [loading, setLoading] = useState(false)
 
   const [visiblePassword, setVisiblePassword] = useState(false)
-  const { register, handleSubmit, reset, control } = useForm<ILoginUserDTO>({
+  const { register, handleSubmit, control } = useForm<ILoginUserDTO>({
     resolver: zodResolver(userLoginSchema),
   })
 
@@ -37,7 +37,6 @@ export function Login() {
   }
 
   async function onSubmit(data: userLoginDTO) {
-    console.log('rodou o submit: ')
     try {
       setLoading(true)
       const user = await login(data)
