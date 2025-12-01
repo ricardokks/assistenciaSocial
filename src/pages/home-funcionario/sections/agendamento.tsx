@@ -6,14 +6,10 @@ import { HeaderDashboards } from '../../../components/Header'
 import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { CardAgendamento } from '../components/layout/card-agendamento'
-import { ModalCriarAgendamento } from '../components/modals/modal-criar-agendamento'
-import { ModalEditarAgendamento } from '../components/modals/modal-editar-agendamento'
 import { SkeletonAgendamento } from '../components/skeleton/skeleton-agendamento'
 
 export function Agendamento(data: IHomeProps) {
   // estados e estados utilizados
-  const [abrirModalCriarAgendamento, setAbrirModalCriarAgendamento] = useState<boolean>(false)
-  const [abrilModalEditarAgendamento, setAbrilModalEditarAgendamento] = useState<boolean>(false)
   const [idInstituicao, setIdInstituicao] = useState<string | null>(null)
   const [informacaoUsuario, setInformacaoUsuario] = useState()
   const [agendamentoss, setAgendamentoss] = useState<AgendamentoDTO[]>([])
@@ -41,10 +37,6 @@ export function Agendamento(data: IHomeProps) {
   }, [])
 
   useEffect(() => {
-    console.log('Estado', agendamentoss)
-  }, [agendamentoss])
-
-  useEffect(() => {
     if (idInstituicao) {
       setLoading(true)
 
@@ -64,14 +56,6 @@ export function Agendamento(data: IHomeProps) {
   }, [])
 
   // funções utilizados
-  function handleAbrirModalCriarAgendamento() {
-    setAbrirModalCriarAgendamento((prev) => !prev)
-  }
-
-  function handleAbrirModalEditarAgendamento() {
-    setAbrilModalEditarAgendamento((prev) => !prev)
-  }
-
   function updateLocalAgendamento(id: string, novosDados: Partial<AgendamentoDTO>) {
     setAgendamentoss((prev) =>
       prev.map((item) => (item.id === id ? { ...item, ...novosDados } : item))
@@ -104,17 +88,6 @@ export function Agendamento(data: IHomeProps) {
       ) : (
         <SkeletonAgendamento />
       )}
-
-      {/* Modais utilizados no componente */}
-      <ModalCriarAgendamento
-        abrilModalAgendamento={abrirModalCriarAgendamento}
-        handleAbrilModalAgendamento={handleAbrirModalCriarAgendamento}
-      />
-
-      <ModalEditarAgendamento
-        abrirEditarAgendamento={abrilModalEditarAgendamento}
-        handleAbrirModalEditarAgendamento={handleAbrirModalEditarAgendamento}
-      />
     </main>
   )
 }
