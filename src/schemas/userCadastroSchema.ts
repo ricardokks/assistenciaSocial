@@ -79,12 +79,9 @@ export const userCadastroSchema = z.object({
   localidade: LocalidadeEnum,
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
-  rg: z.string().length(9),
-  complemento: z.string().optional(),
+ complemento: z.string().optional(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
-  nis: z.string().min(11, 'O NIS deve conter pelo menos 11 caracteres'),
   senha: z.string().min(8, 'A senha deve ter pelo menos 6 caracteres'),
-
   // relacionamentos
   assistencia: z.any().optional(),
   solicitacoes: z.array(z.any()).optional(),

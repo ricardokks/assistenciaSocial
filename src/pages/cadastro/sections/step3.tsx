@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form'
 import { IconeCasa } from '../../../assets/Icons/icone-casa'
 import { IconeLocal } from '../../../assets/Icons/icone-local'
 import { Localidades } from '../../../constants/localidades'
-import { LocalidadeEnum } from '../../../schemas/userCadastroSchema'
 
 interface Step3Props {
   section: number

@@ -4,24 +4,23 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { getAssistencia } from '../../api/assistencia/getAssistencia'
-import { IconeLoading } from '../../assets/Icons/icone-loading'
 import { Loading } from '../../components/loading'
-import { type AssistenciaNOVODTO } from '../../dto/Assistencia/assistenciaDTO'
 import type { AssistenciaDTO } from '../../types/type-assistencia'
 import { HeaderMobile } from './components/headerMobileProjeto'
 import { HeaderProjeto } from './components/headerProjeto'
 import { InfoAssistencia } from './section/infoAssistencia'
 import { MapaAssistencia } from './section/mapaAssistencia'
 
+
 export function Projeto() {
   const [assistencia, setAssistencia] = useState<AssistenciaDTO>()
   const { id } = useParams()
-
+    
   async function pegarDadosAssistencia() {
     try {
-      const { data } = await getAssistencia(id)
+      const data = await getAssistencia(id)
       setAssistencia(data)
-
+      console.log("Data: ", data)
       return data
     } catch {
       toast.error('Erro ao pegar assistencia')

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
-import { HeaderDashboards } from '../../../components/Header'
+import { HeaderDashboards } from '../../../components/header'
 import type { AssistenciaDTOO } from '../../../dto/Assistencia/assistenciaDTO'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { SkeletonDados } from '../components/skeleton/skeleton-dados'

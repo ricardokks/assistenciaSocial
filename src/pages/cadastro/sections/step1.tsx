@@ -71,27 +71,6 @@ export function Step1({
           </div>
         </div>
 
-        {/* RG */}
-        <div className="w-3/5 flex-col items-center rounded-2xl p-2">
-          <label className="text-primary-800 placeholder:text-primary-50 font-outfit text-[16px] font-medium">
-            RG:
-          </label>
-          <div className="relative flex">
-            <IconeCPF className="absolute left-1 top-2" />
-            <IMaskInput
-              {...register('rg')}
-              ref={cpfRef}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
-              mask="00.000.000-0"
-              placeholder="00.000.000-0"
-              value={watch('rg')}
-              onAccept={(value) => {
-                const onlyNumbers = value.replace(/\D/g, '')
-                setValue('rg', onlyNumbers, { shouldValidate: true })
-              }}
-            />
-          </div>
-        </div>
 
         {/* Senha */}
         <div className="w-3/5 flex-col items-center rounded-2xl p-2">

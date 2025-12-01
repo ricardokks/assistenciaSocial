@@ -1,6 +1,7 @@
 import { api } from '../../lib/axios.config'
 
 export async function cadastro(data: FormData) {
+  
   try {
     const response = await api.post('/users', data, {
       headers: {

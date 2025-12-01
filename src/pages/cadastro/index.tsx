@@ -34,8 +34,16 @@ export default function CadastroPage() {
   }
 
   async function onSubmit(data: userCadastroDTO) {
+    const formData = new FormData()
+
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as any)
+      }
+    })
+
     try {
-      const cad = await cadastro(data)
+      const cad = await cadastro(formData)
       if (cad.status === 201) {
         toast.success('Usuário cadastrado com sucesso')
         AutoLogin()
@@ -86,7 +94,7 @@ export default function CadastroPage() {
             )}
             {section === 1 && (
               <Step2
-                passStep={() => passStep(['nomeMae', 'dataNascimento', 'nis'])}
+                passStep={() => passStep(['nomeMae', 'dataNascimento'])}
                 section={section}
                 setSection={setSection}
               />
