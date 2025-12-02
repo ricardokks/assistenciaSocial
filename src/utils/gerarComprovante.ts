@@ -17,123 +17,154 @@ export function gerarComprovante({
   assistencia: string
   servico: string
 }) {
-  // Calcular idade a partir da data de nascimento
-  const calcularIdade = (dataNasc: string) => {
+  const pdf = new jsPDF()
+
+  const calcularIdade = (dn: string) => {
     const hoje = new Date()
-    const nascimento = new Date(dataNasc)
-    let idade = hoje.getFullYear() - nascimento.getFullYear()
-    const mes = hoje.getMonth() - nascimento.getMonth()
-    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
-      idade--
-    }
+    const nasc = new Date(dn)
+    let idade = hoje.getFullYear() - nasc.getFullYear()
+    const m = hoje.getMonth() - nasc.getMonth()
+    if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--
     return idade
   }
 
   const idade = calcularIdade(dataNascimento)
-  const pdf = new jsPDF()
-
   const maskedCpf = maskCPF(cpf)
   const dataCriacao = new Date(solicitacao.dataCriacao).toLocaleDateString('pt-BR')
   const dataAtendimento = solicitacao.data
     ? new Date(solicitacao.data).toLocaleDateString('pt-BR')
     : 'Não informado'
 
-  // Cores
-  const primaryColor: [number, number, number] = [25, 74, 153] // #194a99
-  const secondaryColor: [number, number, number] = [52, 73, 94] // Cinza escuro
-  const lightGray: [number, number, number] = [236, 240, 241]
-  const white: [number, number, number] = [255, 255, 255]
+  // -------------------------------------
+  // CORES DO DESIGN
+  // -------------------------------------
+  const blue1 = [0, 110, 255]
+  const blue2 = [10, 80, 200]
+  const green = [40, 185, 120]
+  const grayText = [70, 70, 70]
+  const lightGray = [245, 245, 245]
+  const white = [255, 255, 255]
 
-  // Cabeçalho com fundo colorido
-  pdf.setFillColor(...primaryColor)
-  pdf.rect(0, 0, 210, 40, 'F')
+  // -------------------------------------
+  // FUNDO SUPERIOR — DEGRADÊ AZUL
+  // -------------------------------------
+  for (let i = 0; i < 80; i++) {
+    const r = blue1[0] + ((blue2[0] - blue1[0]) * i) / 80
+    const g = blue1[1] + ((blue2[1] - blue1[1]) * i) / 80
+    const b = blue1[2] + ((blue2[2] - blue1[2]) * i) / 80
+    pdf.setFillColor(r, g, b)
+    pdf.rect(0, i, 210, 1, 'F')
+  }
 
-  // Título
+  // -------------------------------------
+  // CABEÇALHO
+  // -------------------------------------
   pdf.setTextColor(...white)
   pdf.setFont('Helvetica', 'bold')
-  pdf.setFontSize(24)
-  pdf.text('COMPROVANTE DE AGENDAMENTO', 105, 20, { align: 'center' })
+  pdf.setFontSize(22)
+  pdf.text('PREFEITURA DE', 105, 22, { align: 'center' })
+  pdf.setFontSize(28)
+  pdf.text('MASSAPÊ', 105, 32, { align: 'center' })
 
+  pdf.setFont('Helvetica', 'normal')
   pdf.setFontSize(12)
-  pdf.setFont('Helvetica', 'normal')
-  pdf.text('Guarde este comprovante para sua consulta', 105, 30, { align: 'center' })
+  pdf.text('Gestão diferente e eficiente', 105, 40, { align: 'center' })
 
-  // Reset cor do texto
-  pdf.setTextColor(...secondaryColor)
-
-  let y = 55
-
-  // Função para criar seções com background
-  const createSection = (title: string, yPos: number) => {
-    pdf.setFillColor(...lightGray)
-    pdf.rect(15, yPos - 7, 180, 10, 'F')
-    pdf.setFont('Helvetica', 'bold')
-    pdf.setFontSize(14)
-    pdf.setTextColor(...primaryColor)
-    pdf.text(title, 20, yPos)
-    pdf.setTextColor(...secondaryColor)
-    return yPos + 12
-  }
-
-  // Função para adicionar linhas de informação
-  const addInfoLine = (label: string, value: string | number, yPos: number) => {
-    pdf.setFont('Helvetica', 'bold')
-    pdf.setFontSize(11)
-    pdf.text(label, 20, yPos)
-    pdf.setFont('Helvetica', 'normal')
-    pdf.setFontSize(11)
-    pdf.text(String(value), 80, yPos)
-    return yPos + 8
-  }
-
-  // Seção: Informações do Usuário
-  y = createSection('INFORMAÇÕES DO USUÁRIO', y)
-  y = addInfoLine('Nome:', nome, y)
-  y = addInfoLine('Idade:', `${idade} anos`, y)
-  y = addInfoLine('CPF:', maskedCpf, y)
-
-  y += 8
-
-  // Seção: Atendimento
-  y = createSection('ATENDIMENTO', y)
-  y = addInfoLine('Assistência:', assistencia, y)
-  y = addInfoLine('Serviço:', servico, y)
-
-  y += 8
-
-  // Seção: Dados da Solicitação
-  y = createSection('DADOS DA SOLICITAÇÃO', y)
-  y = addInfoLine('Protocolo:', solicitacao.protocolo, y)
-  y = addInfoLine('Criado em:', dataCriacao, y)
-  y = addInfoLine('Data Agendada:', dataAtendimento, y)
-
-  // Observação do Funcionário (pode ser mais longo)
+  // Botão “Comprovante de Agendamento”
+  pdf.setFillColor(255, 255, 255)
+  pdf.roundedRect(35, 50, 140, 12, 3, 3, 'F')
+  pdf.setTextColor(blue2[0], blue2[1], blue2[2])
+  pdf.setFontSize(12)
   pdf.setFont('Helvetica', 'bold')
-  pdf.setFontSize(11)
-  pdf.text('Observação do Funcionário:', 20, y)
-  pdf.setFont('Helvetica', 'normal')
-  const observacao = solicitacao.observacoes ?? 'Nenhuma'
-  const splitObservacao = pdf.splitTextToSize(observacao, 110)
-  pdf.text(splitObservacao, 20, y + 8)
-  y += 8 + splitObservacao.length * 6
+  pdf.setFont('Helvetica', 'bold')
+  pdf.setFontSize(12)
+  pdf.text('COMPROVANTE DE AGENDAMENTO', 105, 58, { align: 'center' })
 
-  // Rodapé
-  y = Math.max(y + 15, 260)
-  pdf.setFillColor(...lightGray)
-  pdf.rect(0, y, 210, 30, 'F')
-  pdf.setFont('Helvetica', 'italic')
+  let y = 75
+
+  // -------------------------------------
+  // FUNÇÃO PARA CARTÕES
+  // -------------------------------------
+  const card = (title: string, startY: number, color: number[]) => {
+    pdf.setFillColor(...lightGray)
+    pdf.roundedRect(15, startY, 180, 8, 3, 3, 'F')
+    pdf.setFont('Helvetica', 'bold')
+    pdf.setFontSize(13)
+    pdf.setTextColor(...color)
+    pdf.text(title, 20, startY + 5)
+    pdf.setTextColor(...grayText)
+    return startY + 18
+  }
+
+  // -------------------------------------
+  // FUNÇÃO DE LINHAS
+  // -------------------------------------
+  const info = (label: string, value: string | number, Y: number) => {
+    pdf.setFontSize(11)
+    pdf.setFont('Helvetica', 'bold')
+    pdf.text(label, 20, Y)
+    pdf.setFont('Helvetica', 'normal')
+    pdf.text(String(value), 80, Y)
+    return Y + 8
+  }
+
+  // -------------------------------------
+  // CARTÃO: INFORMAÇÕES DO USUÁRIO
+  // -------------------------------------
+  y = card('Informações do Usuário', y, blue2)
+  y = info('Nome do Cidadão:', nome, y)
+  y = info('CPF do Cidadão:', maskedCpf, y)
+  y = info('Idade:', `${idade} anos`, y)
+  y = info('Localização:', 'Massapê - Ceará - Brasil', y)
+
+  y += 10
+
+  // -------------------------------------
+  // CARTÃO: ASSISTÊNCIA
+  // -------------------------------------
+  y = card('Informações da Assistência', y, green)
+  y = info('Nome da Assistência:', assistencia, y)
+  y = info('Serviço Solicitado:', servico, y)
+  y = info('Localização:', 'Massapê, Ceará', y)
+  y = info('Data:', dataAtendimento, y)
+  y = info('Horário:', '17:00', y)
+
+  y += 10
+
+  // -------------------------------------
+  // GRANDE DESTAQUE DA DATA
+  // -------------------------------------
+  pdf.setFillColor(255, 244, 200)
+  pdf.roundedRect(20, y, 170, 18, 4, 4, 'F')
+  pdf.setFont('Helvetica', 'bold')
+  pdf.setFontSize(14)
+  pdf.setTextColor(0, 0, 0)
+  pdf.text('Agendamento confirmado para', 105, y + 7, { align: 'center' })
+  pdf.setFontSize(18)
+  pdf.text(`${dataAtendimento} às 17:00`, 105, y + 15, { align: 'center' })
+
+  y += 30
+
+  // -------------------------------------
+  // RODAPÉ OFICIAL
+  // -------------------------------------
+  pdf.setFontSize(10)
+  pdf.setTextColor(90, 90, 90)
+  pdf.text(`Documento emitido em ${dataCriacao}`, 20, y)
+
   pdf.setFontSize(9)
-  pdf.setTextColor(...secondaryColor)
-  pdf.text('Este é um documento oficial de agendamento.', 105, y + 10, { align: 'center' })
-  pdf.text('Em caso de dúvidas, entre em contato com nossa central de atendimento.', 105, y + 16, {
-    align: 'center',
-  })
-  pdf.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 105, y + 22, { align: 'center' })
+  const textoRodape =
+    'Este documento possui natureza oficial e certifica que o(a) solicitante possui atendimento ' +
+    'de Assistência Social previamente agendado junto à Prefeitura Municipal de Massapê.'
 
-  // Borda decorativa
-  pdf.setDrawColor(...primaryColor)
-  pdf.setLineWidth(1)
-  pdf.rect(10, 45, 190, y - 40)
+  const split = pdf.splitTextToSize(textoRodape, 170)
+  pdf.text(split, 20, y + 10)
 
+  pdf.setFontSize(9)
+  pdf.text('Assistência Social na Palma da Mão', 105, y + 28, { align: 'center' })
+
+  // -------------------------------------
+  // SALVAR
+  // -------------------------------------
   pdf.save(`comprovante-${solicitacao.protocolo}.pdf`)
 }

@@ -126,7 +126,7 @@ export function Agendamento(user: {
           >
             {/* Foto, nome, data solicitacao */}
             <div className="flex w-full space-x-5">
-              <img className="size-12" src="/" />
+              <img className="size-12" src={item.assistencia.icone} />
               <div className="flex flex-col">
                 <span className="font-outfit-bold text-primary-800 text-lg">
                   {item.assistencia?.unidade}
