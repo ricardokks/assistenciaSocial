@@ -99,24 +99,21 @@ export function Login() {
               <label className="text-primary-800 font-outfit text-[16px] font-medium">CPF: </label>
               <div className="relative flex w-full">
                 <IconeCPF className="absolute left-1 top-2" />
-<Controller
-  control={control}
-  name="cpf"
-  render={({ field }) => (
-    <IMaskInput
-      mask="000.000.000-00"
-      placeholder="000.000.000-00"
-      unmask={true}
-
-      value={field.value}
-      onAccept={(value) => field.onChange(value)}
-
-      inputRef={field.ref}  // ← MUITO IMPORTANTE
-      className="font-outfit placeholder:text-primary-50 text-primary-800 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium outline-none"
-    />
-  )}
-/>
-
+                <Controller
+                  control={control}
+                  name="cpf"
+                  render={({ field }) => (
+                    <IMaskInput
+                      mask="000.000.000-00"
+                      placeholder="000.000.000-00"
+                      unmask={true}
+                      value={field.value}
+                      onAccept={(value) => field.onChange(value)}
+                      inputRef={field.ref}
+                      className="font-outfit placeholder:text-primary-50 text-primary-800 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium outline-none"
+                    />
+                  )}
+                />
               </div>
             </div>
             {/* senha */}

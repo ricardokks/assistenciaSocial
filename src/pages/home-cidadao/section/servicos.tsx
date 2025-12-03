@@ -4,7 +4,8 @@ import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { CardProjeto } from '../../lading-page/components/card-projeto'
 
-export function Servicos(user: { user: any; onClick: (item: any) => void; assistencia: any }) {
+
+export function Servicos(user: { user: any, onClick: (item: any) => void, assistencia: any }) {
   const { data } = user.assistencia
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -16,6 +17,10 @@ export function Servicos(user: { user: any; onClick: (item: any) => void; assist
     return item.titulo.toLowerCase().includes(termo)
   })
 
+  if (!user.user) return null
+  if (!data) return null
+  if (!user.assistencia) return null
+  
   return (
     <main className="main flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
       <HeaderDashboards.root>
@@ -47,7 +52,6 @@ export function Servicos(user: { user: any; onClick: (item: any) => void; assist
               subtitulo={item.subnome}
               titulo={item.unidade}
               onClick={() => user.onClick(item)}
-              id={item.id}
             />
           ))}
         </div>

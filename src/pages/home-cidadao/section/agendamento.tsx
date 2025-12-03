@@ -13,6 +13,7 @@ import { deleteSolicitacaoFunc } from '../../../utils/function-delete-agendament
 import { CriarAgendamento } from '../modals/criarAgendamento'
 import { DeletarAgendamento } from '../modals/deletarAgendamento'
 import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
+import { Loading } from '../../../components/loading'
 
 export function Agendamento(user: {
   data: any
@@ -23,6 +24,8 @@ export function Agendamento(user: {
   setVisibilidadeModalCriarAgendamento: React.Dispatch<React.SetStateAction<boolean>>
   assistenciaSelecionada: any
 }) {
+
+
   const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento } = user
 
   const { setSolicitacoes, solicitacoes } = user
@@ -57,6 +60,7 @@ export function Agendamento(user: {
 
     return formatted
   }
+  if (!solicitacoes) return (<Loading />)
 
   return (
     <main className="main relative h-screen flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
@@ -119,8 +123,8 @@ export function Agendamento(user: {
         {filteredAppointments.map((item: SolicitacaoDTO) => (
           <div
             key={item.id}
-            className={`animate-scale-in flex min-h-[170px] w-full flex-col rounded-2xl bg-white p-4 shadow-lg
-    transition-all duration-700 max-md:max-h-[200px]
+            className={`animate-scale-in flex min-h-[200px] w-full flex-col rounded-2xl bg-white p-4 shadow-lg
+    transition-all duration-700 max-md:max-h-[200px] justify-between
     ${item.id === lastCreatedId ? 'animate-scale-in' : ''}
   `}
           >
@@ -137,7 +141,7 @@ export function Agendamento(user: {
               </div>
             </div>
 
-            <div className="flex w-full">
+            <div className="flex w-full min-h-20 max-h-20">
               {/* text Servico solicitado e Status de agendamento */}
               <div className="mt-5 flex w-full flex-col">
                 <span className="font-outfit text-primary-800 text-[14px]">Serviço solicitado</span>
@@ -156,7 +160,6 @@ export function Agendamento(user: {
             </div>
 
             {/* button */}
-            <div className="mt-5 flex w-full justify-start max-md:mt-2">
               <ButtonInfo
                 status={item.status}
                 onClickAguardandoAnalise={() =>
@@ -176,7 +179,6 @@ export function Agendamento(user: {
                   setVisibilidadeModalVisualizarAgendamento((prev) => !prev)
                 }}
               />
-            </div>
           </div>
         ))}
       </div>
