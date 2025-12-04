@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import { PegarInformacaoFuncionario } from '../../api/user/pegarInformacaoFuncionario'
 import type { IHomeProps } from '../../types/interface-home-props'
 import { socket } from '../../utils/socket'
 import { InicioBanner } from '../banner'
@@ -9,6 +10,8 @@ import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'
 
 export function Inicio(data: IHomeProps) {
+  const [idUsuario, setIdUsuario] = useState('')
+
   useEffect(() => {
     if (!data.data) return
 
@@ -19,6 +22,18 @@ export function Inicio(data: IHomeProps) {
       socket.disconnect()
     }
   }, [data.data])
+
+  useEffect(() => {
+    async function fecthIdUsuario() {
+      const response = await PegarInformacaoFuncionario()
+      if (response && response.data) {
+        console.log(response.data.id)
+        setIdUsuario(response.data.id)
+      }
+    }
+
+    fecthIdUsuario()
+  }, [])
 
   return (
     <main className="main">
