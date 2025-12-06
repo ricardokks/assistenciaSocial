@@ -33,8 +33,6 @@ export function HomeCidadao() {
     getAssistenciasAll()
   }, [])
 
-  console.log('solicitacoes: ', solicitacoes)
-  console.log("user: ", user)
   if (!assistencias) return null
   return (
     <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 import { getNotificacoes } from '../api/notificacao/getNotificacao'
 import { socket } from '../utils/socket'
 
@@ -10,16 +9,45 @@ let globalNotificacoes: any[] = []
 
 function atualizarTodos(novas: any[]) {
   globalNotificacoes = novas
+
   localStorage.setItem('notificacoes', JSON.stringify(novas))
 
-  globalSetters.forEach((set) => set(novas))
+  globalSetters.forEach((set, i) => {
+    set(novas)
+  })
+}
+
+function carregarLocalStorage() {
+  try {
+    const raw = localStorage.getItem('notificacoes')
+
+    if (!raw) return []
+
+    const parsed = JSON.parse(raw)
+
+    const agora = Date.now()
+    const filtradas = parsed.filter((n: any) => {
+      const ok = !n.timestampVisto || agora - n.timestampVisto < LIMITE_MS
+      return ok
+    })
+
+    return filtradas
+  } catch (err) {
+    return []
+  }
 }
 
 export function useNotificacoes(userId?: string) {
-  const [notificacoes, setNotificacoes] = useState<any[]>(globalNotificacoes)
+  const [notificacoes, setNotificacoes] = useState(() => {
+    const initial = carregarLocalStorage()
+    return initial
+  })
 
   useEffect(() => {
-    globalSetters.push(setNotificacoes)
+    if (!globalSetters.includes(setNotificacoes)) {
+      globalSetters.push(setNotificacoes)
+    } else {
+    }
 
     return () => {
       globalSetters = globalSetters.filter((s) => s !== setNotificacoes)
@@ -28,58 +56,70 @@ export function useNotificacoes(userId?: string) {
 
   useEffect(() => {
     async function load() {
-      const saved = localStorage.getItem('notificacoes')
-      const agora = Date.now()
-      let notificacoesSalvas: any[] = []
 
-      if (saved) {
-        const parsed = JSON.parse(saved)
-        notificacoesSalvas = parsed.filter(
-          (n) => !n.timestampVisto || agora - n.timestampVisto < LIMITE_MS
-        )
-      }
+      const base = carregarLocalStorage()
 
       if (userId) {
+
         const response = await getNotificacoes(userId)
+
         const doBanco = response.map((n: any) => ({
           ...n,
           timestampCriado: new Date(n.timestampCriado).getTime(),
-          timestampVisto: n.timestampVisto ? new Date(n.timestampVisto).getTime() : null,
+          timestampVisto: n.timestampVisto
+            ? new Date(n.timestampVisto).getTime()
+            : null,
         }))
 
-        notificacoesSalvas = [...doBanco, ...notificacoesSalvas].filter(
-          (v, i, a) => a.findIndex((n) => n.id === v.id) === i
+        const merged = [...doBanco, ...base, ...globalNotificacoes]
+
+        const unicos = merged.filter(
+          (v, i, arr) => arr.findIndex((n) => n.id === v.id) === i
         )
+
+        atualizarTodos(unicos)
       }
-
-      atualizarTodos(notificacoesSalvas)
-    }
-
-    if (!userId) {
-      const saved = localStorage.getItem('notificacoes')
-      if (saved) setNotificacoes(JSON.parse(saved))
-      return
     }
 
     load()
   }, [userId])
 
+
+  useEffect(() => {
+    if (!userId) return;
+
+    if (!socket.connected) {
+      socket.connect();
+    }
+
+    socket.emit("register", userId);
+
+    return () => {
+      socket.off("register");
+    };
+  }, [userId]);
+
+
   useEffect(() => {
     if (!userId) return
-
     const handler = (payload: any) => {
+
       const nova = {
         ...payload,
         timestampCriado: Date.now(),
         timestampVisto: null,
       }
 
-      const lista = [nova, ...globalNotificacoes].slice(0, 4)
-      atualizarTodos(lista)
+      const merged = [nova, ...globalNotificacoes]
+
+      atualizarTodos(merged)
     }
 
     socket.on('solicitacao:statusAtualizado', handler)
-    return () => socket.off('solicitacao:statusAtualizado', handler)
+
+    return () => {
+      socket.off('solicitacao:statusAtualizado', handler)
+    }
   }, [userId])
 
   return notificacoes
