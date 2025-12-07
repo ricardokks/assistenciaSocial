@@ -1,10 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { set } from 'zod'
+
+import { getAssistencias } from '../../../api/assistencia/getAllAssistencia'
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
+import type { AssistenciaDTOO } from '../../../dto/Assistencia/assistenciaDTO'
+import { api } from '../../../lib/axios.config'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { Instituicao } from '../components/layout/instituicao'
+import { ModalCriarInst } from '../components/modals-inst/modal-criar'
+import { ModalDeletarInst } from '../components/modals-inst/modal-deletar'
+import { ModalEditarInst } from '../components/modals-inst/modal-editar'
 
 export function Instituicoes(data: IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
@@ -12,10 +20,23 @@ export function Instituicoes(data: IHomeProps) {
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
 
   const [idInstituicao, setIdInstituicao] = useState<string>('')
-  const [instituicao, setInstituicao] = useState<any>()
+  const [instituicao, setInstituicao] = useState<AssistenciaDTOO>()
 
+  const [instituicoes, setInstituicoes] = useState<AssistenciaDTOO[]>([])
+
+  async function HandleGetAllInst() {
+    const res = await getAssistencias()
+    setInstituicoes(res.data)
+    console.log(res.data)
+  }
+
+  useEffect(() => {
+    HandleGetAllInst()
+  }, [])
+
+  
   return (
-    <main className="flex h-full w-[calc(100%-20%)] flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
+    <main className="flex h-full  flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4 main">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user="ADMINISTRADOR" />
@@ -45,8 +66,34 @@ export function Instituicoes(data: IHomeProps) {
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
         <div className="mb-28 mt-2 grid size-full grid-cols-3 gap-2 overflow-y-auto overflow-x-hidden">
-          <Instituicao></Instituicao>
+          {instituicoes.map((inst) => (
+            <Instituicao
+              key={inst.id}
+              setDelete={() => setAbrirModalDelete(true)}
+              setEdit={() => setAbrirModalEdit(true)}
+              instituicao={inst}
+              setInstituicao={() => setInstituicao(inst)}
+              setId={() => setIdInstituicao(inst.id)}
+            ></Instituicao>
+          ))}
         </div>
+
+        <ModalDeletarInst
+          abrilModalAssistencia={abrirModalDelete}
+          handleAbrirModalDelete={() => setAbrirModalDelete(false)}
+          id={idInstituicao}
+        ></ModalDeletarInst>
+
+        <ModalCriarInst
+          abrilModalAssistencia={abrirModalCreate}
+          handleAbrirModalDelete={() => setAbrirModalCreate(false)}
+        ></ModalCriarInst>
+
+        <ModalEditarInst
+          abrilModalAssistencia={abrirModalEdit}
+          handleAbrirModalDelete={() => setAbrirModalEdit(false)}
+          assistencia={instituicao!}
+        ></ModalEditarInst>
       </div>
     </main>
   )

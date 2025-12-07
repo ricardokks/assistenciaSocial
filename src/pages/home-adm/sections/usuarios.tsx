@@ -8,9 +8,9 @@ import { HeaderDashboards } from '../../../components/header'
 import type { UsuarioDTO } from '../../../dto/Usuario/usuarioDTO'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { Usuario } from '../components/layout/usuario'
-import { ModalCriarUsuario } from '../components/modals/modal-criar-usuario'
-import { ModalDeletarUsuario } from '../components/modals/modal-deletar-usuario'
-import { ModalEditarUsuario } from '../components/modals/modal-editar-usuario'
+import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
+import { ModalCriarUsuario } from '../components/modals-user/modal-criar-usuario'
+import { ModalEditarUsuario } from '../components/modals-user/modal-editar-usuario'
 
 export function Usuarios(data: IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
@@ -21,7 +21,7 @@ export function Usuarios(data: IHomeProps) {
   const [usuario, setUsuario] = useState<UsuarioDTO>()
 
   return (
-    <main className="flex h-full w-[calc(100%-20%)] flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
+    <main className="flex h-full main flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user="ADMINISTRADOR" />
