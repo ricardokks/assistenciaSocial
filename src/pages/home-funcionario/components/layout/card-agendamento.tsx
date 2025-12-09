@@ -16,20 +16,16 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   const [statusSelecionado, setStatusSelecionado] =
     useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
 
-  // ✅ DATA E HORA PADRÃO
-  const hoje = new Date().toISOString().split('T')[0]
-
-  const [dataAtendimento, setDataAtendimento] = useState(hoje)
-  const [horaAtendimento, setHoraAtendimento] = useState('07:00')
+  // ✅ SEM VALOR DEFAULT
+  const [dataAtendimento, setDataAtendimento] = useState('')
+  const [horaAtendimento, setHoraAtendimento] = useState('')
 
   const [dadosInternos, setDadosInternos] = useState(props.dados)
 
-  // Sincroniza props com estado interno
   useEffect(() => {
     setDadosInternos(props.dados)
   }, [props.dados])
 
-  // Busca dados do usuário
   useEffect(() => {
     async function FetchUsuario(id: string) {
       const response = await getUser(id)
@@ -40,9 +36,22 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     if (props.dados.usuarioId) FetchUsuario(props.dados.usuarioId)
   }, [props.dados.usuarioId])
 
+  // ✅ GERA HORÁRIOS DE 30 EM 30 MIN (07:00 → 17:00)
+  const horarios = Array.from({ length: 21 }, (_, i) => {
+    const totalMinutos = 7 * 60 + i * 30
+    const hora = Math.floor(totalMinutos / 60)
+    const minutos = totalMinutos % 60
+
+    if (hora > 17) return null
+
+    return `${String(hora).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`
+  }).filter(Boolean) as string[]
+
   const handleAbrirInput = (status: 'CONCLUIDO' | 'RECUSADO') => {
     setStatusSelecionado(status)
     setOpenObservacao(true)
+    setDataAtendimento('')
+    setHoraAtendimento('')
   }
 
   const handleAtualizar = async () => {
@@ -53,34 +62,46 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       return
     }
 
+    if (statusSelecionado === 'CONCLUIDO') {
+      if (!dataAtendimento || !horaAtendimento) {
+        toast.error('Escolha a data e a hora do atendimento.')
+        return
+      }
+    }
+
     try {
+      let dataHoraISO: string | undefined
+
+      if (statusSelecionado === 'CONCLUIDO') {
+        dataHoraISO = new Date(
+          `${dataAtendimento}T${horaAtendimento}:00`
+        ).toISOString()
+      }
+
       await updateAgendamento(dadosInternos.id ?? '', {
         status: statusSelecionado,
-        observacoesFuncionario,
-        data: dataAtendimento, // ✅ STRING YYYY-MM-DD
-        hora: horaAtendimento, // ✅ STRING HH:mm
+        observacoesFuncionario: observacaoFuncionario,
+        ...(dataHoraISO && { data: dataHoraISO }),
+        ...(horaAtendimento && { hora: horaAtendimento }),
       })
 
       toast.success('Agendamento atualizado com sucesso!')
 
-      // Atualiza estado local
       setDadosInternos((prev) => ({
         ...prev,
         status: statusSelecionado,
-        observacoesFuncionario,
-        data: dataAtendimento,
-        hora: horaAtendimento,
+        observacoesFuncionario: observacaoFuncionario,
+        ...(dataHoraISO && { data: dataHoraISO }),
+        ...(horaAtendimento && { hora: horaAtendimento }),
       }))
 
-      // Atualiza estado do pai
       props.onUpdateLocal(dadosInternos.id!, {
         status: statusSelecionado,
-        observacoesFuncionario,
-        data: dataAtendimento,
-        hora: horaAtendimento,
+        observacoesFuncionario: observacaoFuncionario,
+        ...(dataHoraISO && { data: dataHoraISO }),
+        ...(horaAtendimento && { hora: horaAtendimento }),
       })
 
-      // Limpa campos
       setOpenObservacao(false)
       setObservacaoFuncionario('')
       setStatusSelecionado(null)
@@ -91,84 +112,78 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   }
 
   return (
-    <div className="border-primary-800 h-full flex max-w-[350px] flex-col justify-start gap-4 rounded-[5.97px] border-2 bg-white p-3">
-      {/* Calendário */}
-      <div className="flex items-center justify-start gap-4">
+    <div className="border-primary-800 h-full flex max-w-[350px] flex-col gap-4 rounded-[5.97px] border-2 bg-white p-3">
+      {/* Cabeçalho */}
+      <div className="flex items-center gap-4">
         <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
           <IconeCalendario />
         </div>
+
         <h1 className="font-satoshi-black text-2xl">
-          {dadosInternos.data ? formatarData(dadosInternos.data) : 'Defina uma data'}
+          {dadosInternos.data
+            ? formatarData(dadosInternos.data)
+            : 'Data não definida'}
           {dadosInternos.hora && ` às ${dadosInternos.hora}`}
         </h1>
       </div>
 
-      {/* Dados do cidadão */}
+      {/* Dados */}
       <div className="flex flex-col">
-        <p className="text-primary-800 font-outfit py-1">{dadosInternos.observacoes}</p>
+        <p className="text-primary-800 font-outfit py-1">
+          {dadosInternos.observacoes}
+        </p>
         <p className="text-primary-800 font-outfit">Nome: {nomeCidadao}</p>
         <p className="text-primary-800 font-outfit">CPF: {cpfCidadao}</p>
         <p className="text-primary-800 font-outfit">
-          Status do Agendamento:{' '}
-          <span className="font-bold">{dadosInternos.status?.toLowerCase()}</span>
+          Status:{' '}
+          <span className="font-bold">
+            {dadosInternos.status?.toLowerCase()}
+          </span>
         </p>
       </div>
 
-      {/* Observação + Data + Hora */}
       {openObservacao && (
         <div className="flex flex-col gap-2">
           {statusSelecionado === 'CONCLUIDO' && (
-            <div className="flex flex-col gap-2">
-              <p className="text-primary-800 font-outfit">
-                Escolha abaixo a data do atendimento:
-              </p>
-
-              {/* DATA */}
+            <>
               <input
-                className="w-full rounded border border-gray-300 p-2"
                 type="date"
+                className="w-full rounded border p-2"
                 value={dataAtendimento}
                 onChange={(e) => setDataAtendimento(e.target.value)}
               />
 
-              {/* HORA */}
               <select
-                className="w-full rounded border border-gray-300 p-2"
+                className="w-full rounded border p-2"
                 value={horaAtendimento}
                 onChange={(e) => setHoraAtendimento(e.target.value)}
               >
                 <option value="">Selecione a hora</option>
-                {Array.from({ length: 11 }, (_, i) => 7 + i).map((h) => {
-                  const hora = String(h).padStart(2, '0') + ':00'
-                  return (
-                    <option key={hora} value={hora}>
-                      {hora}
-                    </option>
-                  )
-                })}
+                {horarios.map((hora) => (
+                  <option key={hora} value={hora}>
+                    {hora}
+                  </option>
+                ))}
               </select>
-            </div>
+            </>
           )}
 
-          {/* OBSERVAÇÃO */}
           <textarea
-            className="max-h-16 w-full rounded border border-gray-300 p-2"
-            placeholder="Digite sua observação..."
+            className="max-h-16 w-full rounded border p-2"
+            placeholder="Digite a observação..."
             value={observacaoFuncionario}
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
           />
 
-          {/* BOTÃO ENVIAR */}
           <button
-            className="w-full cursor-pointer rounded-[5.97px] bg-green-500 p-2 text-white hover:bg-green-600"
+            className="bg-green-500 text-white p-2 rounded"
             onClick={handleAtualizar}
           >
             Enviar
           </button>
 
-          {/* BOTÃO CANCELAR */}
           <button
-            className="w-full cursor-pointer rounded-[5.97px] bg-gray-300 p-2 text-black hover:bg-gray-400"
+            className="bg-gray-300 p-2 rounded"
             onClick={() => {
               setOpenObservacao(false)
               setObservacaoFuncionario('')
@@ -180,12 +195,11 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         </div>
       )}
 
-      {/* Botões */}
       {!openObservacao && (
-        <div className="font-satoshi flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              className="hover:bg-primary-800/95 bg-primary-800 w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+              className="bg-primary-800 text-white p-2 rounded"
               onClick={() => handleAbrirInput('CONCLUIDO')}
             >
               Aceitar
@@ -194,7 +208,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
 
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              className="hover:bg-negative/95 bg-negative w-full cursor-pointer rounded-[5.97px] p-2 text-white"
+              className="bg-negative text-white p-2 rounded"
               onClick={() => handleAbrirInput('RECUSADO')}
             >
               Cancelar

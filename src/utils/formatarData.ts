@@ -1,4 +1,4 @@
-export function formatarData(iso: string) {
+export function formatarData(iso: string | Date) {
   const data = new Date(iso)
   const dia = String(data.getDate()).padStart(2, '0')
   const mes = String(data.getMonth() + 1).padStart(2, '0')

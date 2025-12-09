@@ -5,7 +5,7 @@ export type SolicitacaoDTO = {
   usuarioId: string
   servicoId: string
   dataCriacao: Date
-  data?: string
+  data?: Date
   unidadeId: string
   observacoes?: string
   status: 'ANALISE' | 'CONCLUIDO' | 'RECUSADO' | 'PENDENTE'

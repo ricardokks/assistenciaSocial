@@ -1,27 +1,36 @@
-export function converterCoresOKLCHparaRGB(element: HTMLElement) {
-  const computed = window.getComputedStyle(element)
+function converterParaRGB(valor: string): string {
+  const canvas = document.createElement('canvas')
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return valor
 
-  const props = ['color', 'backgroundColor', 'borderColor']
-
-  props.forEach((prop) => {
-    const value = computed.getPropertyValue(prop)
-
-    if (value.includes('oklch')) {
-      // Converte usando CSS nativo
-      element.style.setProperty(prop, corOKLCHparaRGB(value))
-    }
-  })
-
-  ;[...element.children].forEach((child) => converterCoresOKLCHparaRGB(child as HTMLElement))
+  ctx.fillStyle = valor
+  return ctx.fillStyle
 }
 
-function corOKLCHparaRGB(oklchValue: string) {
-  const helper = document.createElement('div')
-  helper.style.color = oklchValue
-  document.body.appendChild(helper)
+export function converterCoresOKLCHparaRGB(root: HTMLElement) {
+  const allElements = root.querySelectorAll<HTMLElement>('*')
 
-  const rgb = getComputedStyle(helper).color
+  const propriedades = [
+    'color',
+    'backgroundColor',
+    'borderColor',
+    'outlineColor',
+    'borderTopColor',
+    'borderRightColor',
+    'borderBottomColor',
+    'borderLeftColor',
+  ]
 
-  document.body.removeChild(helper)
-  return rgb
+  allElements.forEach((el) => {
+    const style = getComputedStyle(el)
+
+    propriedades.forEach((prop) => {
+      const valor = style.getPropertyValue(prop)
+
+      if (valor?.includes('oklch')) {
+        const rgb = converterParaRGB(valor)
+        el.style.setProperty(prop, rgb)
+      }
+    })
+  })
 }
