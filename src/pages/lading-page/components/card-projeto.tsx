@@ -6,7 +6,7 @@ export function CardProjeto(props: TypeCardProjetoProps) {
   
   return (
     <div data-aos={props.animation ? 'fade-right' : ''}>
-      <article className="font-outfit animate-scale-in flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out">
+      <article className="font-outfit animate-scale-in flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out min-h-[280px] max-h-[280px] max-md:min-w-[380px] max-md:fmax-w-[380px]">
         {/* container informações sobre projeto  */}
         <div className="flex items-center justify-center gap-4">
           {/* container foto do projeto */}

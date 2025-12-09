@@ -13,8 +13,14 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   const [cpfCidadao, setCpfCidadao] = useState('')
   const [openObservacao, setOpenObservacao] = useState(false)
   const [observacaoFuncionario, setObservacaoFuncionario] = useState('')
-  const [statusSelecionado, setStatusSelecionado] = useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
-  const [dataAtendimento, setDataAtendimento] = useState('') // input do usuário
+  const [statusSelecionado, setStatusSelecionado] =
+    useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
+
+  // ✅ DATA E HORA PADRÃO
+  const hoje = new Date().toISOString().split('T')[0]
+
+  const [dataAtendimento, setDataAtendimento] = useState(hoje)
+  const [horaAtendimento, setHoraAtendimento] = useState('07:00')
 
   const [dadosInternos, setDadosInternos] = useState(props.dados)
 
@@ -30,6 +36,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       setNomeCidadao(response.nome)
       setCpfCidadao(response.cpf)
     }
+
     if (props.dados.usuarioId) FetchUsuario(props.dados.usuarioId)
   }, [props.dados.usuarioId])
 
@@ -46,19 +53,12 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       return
     }
 
-    if (statusSelecionado === 'CONCLUIDO' && !dataAtendimento) {
-      toast.error('Selecione uma data para o agendamento.')
-      return
-    }
-
     try {
-      // Cria data ISO-8601 correta
-      const dataISO = statusSelecionado === 'CONCLUIDO' ? new Date(dataAtendimento) : null
-
       await updateAgendamento(dadosInternos.id ?? '', {
         status: statusSelecionado,
-        observacoesFuncionario: observacaoFuncionario,
-        data: dataISO,
+        observacoesFuncionario,
+        data: dataAtendimento, // ✅ STRING YYYY-MM-DD
+        hora: horaAtendimento, // ✅ STRING HH:mm
       })
 
       toast.success('Agendamento atualizado com sucesso!')
@@ -67,22 +67,23 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       setDadosInternos((prev) => ({
         ...prev,
         status: statusSelecionado,
-        observacoesFuncionario: observacaoFuncionario,
-        data: dataISO,
+        observacoesFuncionario,
+        data: dataAtendimento,
+        hora: horaAtendimento,
       }))
 
       // Atualiza estado do pai
       props.onUpdateLocal(dadosInternos.id!, {
         status: statusSelecionado,
-        observacoesFuncionario: observacaoFuncionario,
-        data: dataISO,
+        observacoesFuncionario,
+        data: dataAtendimento,
+        hora: horaAtendimento,
       })
 
       // Limpa campos
       setOpenObservacao(false)
       setObservacaoFuncionario('')
       setStatusSelecionado(null)
-      setDataAtendimento('')
     } catch (err) {
       console.error(err)
       toast.error('Erro ao realizar ação.')
@@ -98,6 +99,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         </div>
         <h1 className="font-satoshi-black text-2xl">
           {dadosInternos.data ? formatarData(dadosInternos.data) : 'Defina uma data'}
+          {dadosInternos.hora && ` às ${dadosInternos.hora}`}
         </h1>
       </div>
 
@@ -112,21 +114,43 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         </p>
       </div>
 
-      {/* Observação + Data */}
+      {/* Observação + Data + Hora */}
       {openObservacao && (
         <div className="flex flex-col gap-2">
           {statusSelecionado === 'CONCLUIDO' && (
-            <div>
-              <p className="text-primary-800 font-outfit">Escolha a baixo a data do atendimento:</p>
+            <div className="flex flex-col gap-2">
+              <p className="text-primary-800 font-outfit">
+                Escolha abaixo a data do atendimento:
+              </p>
+
+              {/* DATA */}
               <input
                 className="w-full rounded border border-gray-300 p-2"
                 type="date"
                 value={dataAtendimento}
                 onChange={(e) => setDataAtendimento(e.target.value)}
               />
+
+              {/* HORA */}
+              <select
+                className="w-full rounded border border-gray-300 p-2"
+                value={horaAtendimento}
+                onChange={(e) => setHoraAtendimento(e.target.value)}
+              >
+                <option value="">Selecione a hora</option>
+                {Array.from({ length: 11 }, (_, i) => 7 + i).map((h) => {
+                  const hora = String(h).padStart(2, '0') + ':00'
+                  return (
+                    <option key={hora} value={hora}>
+                      {hora}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           )}
 
+          {/* OBSERVAÇÃO */}
           <textarea
             className="max-h-16 w-full rounded border border-gray-300 p-2"
             placeholder="Digite sua observação..."
@@ -134,6 +158,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
           />
 
+          {/* BOTÃO ENVIAR */}
           <button
             className="w-full cursor-pointer rounded-[5.97px] bg-green-500 p-2 text-white hover:bg-green-600"
             onClick={handleAtualizar}
@@ -141,13 +166,13 @@ export function CardAgendamento(props: CardAgendamentoProps) {
             Enviar
           </button>
 
+          {/* BOTÃO CANCELAR */}
           <button
             className="w-full cursor-pointer rounded-[5.97px] bg-gray-300 p-2 text-black hover:bg-gray-400"
             onClick={() => {
               setOpenObservacao(false)
               setObservacaoFuncionario('')
               setStatusSelecionado(null)
-              setDataAtendimento('')
             }}
           >
             Cancelar

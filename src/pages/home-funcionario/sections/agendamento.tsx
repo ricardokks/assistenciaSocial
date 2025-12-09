@@ -55,7 +55,7 @@ export function Agendamento(data: IHomeProps) {
     fecthDadosUsuarios()
   }, [])
 
-  // funções utilizados
+  // funções de atualização de agendamentos localmente
   function updateLocalAgendamento(id: string, novosDados: Partial<AgendamentoDTO>) {
     setAgendamentoss((prev) =>
       prev.map((item) => (item.id === id ? { ...item, ...novosDados } : item))

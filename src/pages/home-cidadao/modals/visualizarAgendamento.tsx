@@ -2,8 +2,8 @@ import { Download, X } from 'lucide-react'
 
 import { Modal } from '../../../components/ui/modal'
 import type { SolicitacaoDTO } from '../../../types/type-solicitacoes'
-import { gerarComprovante } from '../../../utils/gerarComprovante'
 import { formatarData } from '../../../utils/formatarData'
+import { gerarComprovante } from '../../../utils/gerarComprovante'
 
 type IVisualizarAgendamento = {
   open: boolean
@@ -76,6 +76,9 @@ export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisua
               servico:
                 solicitacao.assistencia?.servicos.find((s) => s.id === solicitacao.servicoId)
                   ?.nome ?? 'Não informado',
+              hora: solicitacao.hora || 'Não informado',
+              dataAtendimento: solicitacao.data,
+              dataCriacao: formatarData(new Date().toISOString()),
             })
           }}
         >

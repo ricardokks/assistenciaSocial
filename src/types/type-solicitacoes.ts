@@ -13,4 +13,5 @@ export type SolicitacaoDTO = {
   assistencia: AssistenciaDTO
   observacoesFuncionario?: string
   protocolo?: string
+  hora?: string
 }

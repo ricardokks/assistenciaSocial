@@ -18,14 +18,8 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
   const user = userInfo[props.user]
   const [dadosUser, setDadosUser] = useState<UsuarioDTO | null>(null)
   const [carregarInformacao, setCarregarInformacao] = useState(false)
-  const [abrirDropbox, setAbrirDropbox] = useState(false)
 
   const inicial = dadosUser?.nome?.[0]?.toUpperCase() ?? ''
-
-  // Funções utilizadas no componente
-  function handleAbrirDropbox() {
-    setAbrirDropbox((prev) => !prev)
-  }
 
   useEffect(() => {
     if (props.data) {
@@ -37,7 +31,6 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
   return (
     <div
       className="font-outfit-bold relative z-40 flex cursor-pointer items-center justify-center gap-4"
-      onClick={handleAbrirDropbox}
     >
       {/* container de foto */}
       {carregarInformacao ? (
@@ -79,8 +72,6 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
         </p>
       </div>
 
-      {/* componente do dropbox */}
-      <Dropbox abrirDropbox={abrirDropbox} id={dadosUser?.id} />
     </div>
   )
 }

@@ -6,18 +6,24 @@ import { converterCoresOKLCHparaRGB } from './fixColors'
 
 export async function gerarComprovante({
   nome,
-  dataNascimento,
+  dataAtendimento,
   cpf,
   solicitacao,
   assistencia,
   servico,
+  hora,
+  dataCriacao,
+  dataNascimento
 }: {
   nome: string
-  dataNascimento: string | number
+  dataAtendimento?: string
   cpf: string
   solicitacao: any
   assistencia: string
   servico: string
+  hora: string
+  dataCriacao: string
+  dataNascimento: string
 }) {
   const container = document.createElement('div')
 
@@ -103,5 +109,44 @@ export async function gerarComprovante({
 
   pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
   pdf.save('comprovante-agendamento.pdf')
+  
+  let y = pdfHeight + 10
+  y += 10
 
-  document.body.removeChild(container)}
+  // -------------------------------------
+  // GRANDE DESTAQUE DA DATA
+  // -------------------------------------
+  pdf.setFillColor(255, 244, 200)
+  pdf.roundedRect(20, y, 170, 18, 4, 4, 'F')
+  pdf.setFont('Helvetica', 'bold')
+  pdf.setFontSize(14)
+  pdf.setTextColor(0, 0, 0)
+  pdf.text('Agendamento confirmado para', 105, y + 7, { align: 'center' })
+  pdf.setFontSize(18)
+  pdf.text(`${dataAtendimento} às ${hora}`, 105, y + 15, { align: 'center' })
+
+  y += 30
+
+  // -------------------------------------
+  // RODAPÉ OFICIAL
+  // -------------------------------------
+  pdf.setFontSize(10)
+  pdf.setTextColor(90, 90, 90)
+  pdf.text(`Documento emitido em ${dataCriacao}`, 20, y)
+
+  pdf.setFontSize(9)
+  const textoRodape =
+    'Este documento possui natureza oficial e certifica que o(a) solicitante possui atendimento ' +
+    'de Assistência Social previamente agendado junto à Prefeitura Municipal de Massapê.'
+
+  const split = pdf.splitTextToSize(textoRodape, 170)
+  pdf.text(split, 20, y + 10)
+
+  pdf.setFontSize(9)
+  pdf.text('Assistência Social na Palma da Mão', 105, y + 28, { align: 'center' })
+
+  // -------------------------------------
+  // SALVAR
+  // -------------------------------------
+  pdf.save(`comprovante-${solicitacao.protocolo}.pdf`)
+}
