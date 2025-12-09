@@ -104,5 +104,4 @@ export async function gerarComprovante({
   pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
   pdf.save('comprovante-agendamento.pdf')
 
-  document.body.removeChild(container)
-}
+  document.body.removeChild(container)}

@@ -63,7 +63,7 @@ export function CriarAgendamento({
   const onSubmit = async (data: solicitacaoSchemaDTO) => {
     // Verificar duplicidade
     const existe = solicitacoes?.some(
-      (s) => s.unidadeId === data.unidadeId && s.servicoId === data.servicoId
+      (s) => s.unidadeId === data.unidadeId && s.servicoId === data.servicoId && s.status === 'PENDENTE'
     )
 
     if (existe) {

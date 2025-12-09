@@ -3,6 +3,7 @@ import { Download, X } from 'lucide-react'
 import { Modal } from '../../../components/ui/modal'
 import type { SolicitacaoDTO } from '../../../types/type-solicitacoes'
 import { gerarComprovante } from '../../../utils/gerarComprovante'
+import { formatarData } from '../../../utils/formatarData'
 
 type IVisualizarAgendamento = {
   open: boolean
@@ -12,6 +13,9 @@ type IVisualizarAgendamento = {
 }
 
 export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisualizarAgendamento) {
+  if (!solicitacao) return null
+  if (!solicitacao.data) return null
+
   return (
     <Modal close={close} open={open}>
       <div
@@ -47,7 +51,7 @@ export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisua
 
             <div className="mt-3 flex flex-col space-y-1 text-[15px]">
               <span className="font-bold">Data do Atendimento</span>
-              <span className="font-satoshi">Dia {solicitacao?.data}</span>
+              <span className="font-satoshi">Dia {formatarData(solicitacao.data)}</span>
 
               <span className="mt-3 font-bold">Observação</span>
               <span className="font-satoshi text-[14px]">

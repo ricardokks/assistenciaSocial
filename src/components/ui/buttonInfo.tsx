@@ -22,7 +22,7 @@ export function ButtonInfo(data: {
       )}
       {data.status === 'CONCLUIDO' && (
         <button
-          className={`font-outfit bg-primary-800 flex cursor-pointer items-center justify-center rounded-lg px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 hover:shadow-lg `}
+          className={`font-outfit bg-primary-800 flex cursor-pointer items-center justify-center rounded-lg px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 hover:shadow-lg max-2xl:mt-4`}
           onClick={data.onClickVisualizarInfo}
         >
           <Eye className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.5px]" />
