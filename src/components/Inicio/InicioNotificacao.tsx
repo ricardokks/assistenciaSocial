@@ -2,7 +2,7 @@ import { CardNotificacao } from './cardNotificacao'
 import { useNotificacoes } from '../../hooks/useNotificacao'
 
 export function InicioNotificacao({ user }: { user: any }) {
-   const notificacoes = useNotificacoes(user?.id)
+  const notificacoes = useNotificacoes(user?.id)
 
   return (
     <div className="mt-2 flex flex-col space-y-2 max-md:pb-[8rem] h-[90%] overflow-y-auto pb-5">
@@ -11,11 +11,12 @@ export function InicioNotificacao({ user }: { user: any }) {
           Você não possui notificações recentes.
         </div>
       ) : (
-        notificacoes.map((item, index) => (
-          <CardNotificacao key={index} data={item} user={user} />
-        ))
+        [...notificacoes]
+          .reverse()
+          .map((item, index) => (
+            <CardNotificacao key={index} data={item} user={user} />
+          ))
       )}
     </div>
   )
 }
-

@@ -1,8 +1,11 @@
+import type { AssistenciaSchema } from '../../schemas/assistenciaSchema'
 import type { TypeIcon } from '../../types/type-icon'
 import type { UsuarioDTO } from '../Usuario/usuarioDTO'
 import type { Denuncia } from './denuncia'
 import type { Ouvidoria } from './ouvidoria'
 import type { Servico, Solicitacoes } from './solicitacao'
+
+import z from 'zod'
 
 export type AssistenciaDTO = {
   id: string
@@ -44,3 +47,5 @@ export type AssistenciaDTOO = {
   sobre: string
   subnome: string
 }
+
+export type AssistenciaSchemaDTO = z.infer<typeof AssistenciaSchema>

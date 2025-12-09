@@ -29,8 +29,8 @@ export function CardProjeto(props: TypeCardProjetoProps) {
         </div>
 
         {/* container botão entrar em contato  */}
-        <div className='w-full space-x-4 flex items-center'>
-          <button className="botao-contato font-outfit font-bold max-md:text-sm max-md:w-1/2 max-md:whitespace-nowrap max-md:px-1" onClick={props.onClick}>
+        <div className='w-full space-x-4 max-md:space-x-8 flex items-center'>
+          <button className="botao-contato font-outfit font-bold max-md:text-sm max-md:w-1/2 max-md:whitespace-nowrap max-md:px-2" onClick={props.onClick}>
             Realizar agendamento
           </button>
 

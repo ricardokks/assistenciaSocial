@@ -28,7 +28,7 @@ export function HomeAdmin() {
   }
 
   return (
-    <main className="flex h-screen justify-between gap-6 bg-[#f5f7fa]">
+    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
