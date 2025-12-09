@@ -52,7 +52,6 @@ export function Dados(data: IHomeProps) {
     }
   }, [idInstituicao])
 
-  console.log('dados: ', data)
   return (
     <main className="main overflow-y-auto">
       {/* componente header  */}

@@ -17,6 +17,7 @@ export function InicioDados() {
     const resultado = getAgendamentosStats(agendamento.solicitacoes)
     setStats(resultado)
   }, [agendamento])
+  
   // Função para converter string -> Date
   function parseDate(dateString: string) {
     return new Date(dateString)
