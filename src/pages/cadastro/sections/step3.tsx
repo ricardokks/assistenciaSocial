@@ -1,8 +1,11 @@
+import { use, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
+import { set } from 'zod'
+
+import { findAllLocalidades } from '../../../api/localidades/findAllLocalidades'
 import { IconeCasa } from '../../../assets/Icons/icone-casa'
 import { IconeLocal } from '../../../assets/Icons/icone-local'
-import { Localidades } from '../../../constants/localidades'
 
 interface Step3Props {
   section: number
@@ -10,8 +13,28 @@ interface Step3Props {
   passStep: () => void | Promise<void>
 }
 
+type Localidades = {
+  id: string
+  nome: string
+}
+
 export function Step3({ section, setSection }: Step3Props) {
   const { register, watch } = useFormContext()
+  const [localidades, setLocalidades] = useState<Localidades[]>([])
+
+  useEffect(() => {
+    async function FetchLocalidades() {
+      const response = await findAllLocalidades()
+
+      console.log("dados: ", response.data)
+      setLocalidades(response.data)
+    }
+    FetchLocalidades()
+  }, [])
+
+  useEffect(() => {
+    console.log("dados: ", localidades)
+  }, [])
 
   const dados = watch()
   console.log(dados)
@@ -32,13 +55,13 @@ export function Step3({ section, setSection }: Step3Props) {
           <div className="relative flex">
             <IconeLocal className="absolute left-1 top-2.5 size-5" />
             <select
-              {...register('localidade')}
+              {...register('localidadeId')}
               className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
             >
               <option value="">Selecione o Valor</option>
-              {Localidades.map((link, index) => (
-                <option key={index} value={link}>
-                  {link}
+              {localidades.map((link): any => (
+                <option key={link.id} value={link.id}>
+                  {link.nome}
                 </option>
               ))}
             </select>
