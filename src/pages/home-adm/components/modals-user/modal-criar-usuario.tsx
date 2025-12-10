@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 
 import { IconeCidadao } from '../../../../assets/Icons/Icon-cidadao'
 import { IconeFuncionario } from '../../../../assets/Icons/Icon-funcionario'
-import { IconeGestor } from '../../../../assets/Icons/Icon-gestor'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import { IconeSair } from '../../../../assets/Icons/iconeSair'
@@ -11,7 +10,6 @@ import { IconeVoltar } from '../../../../assets/Icons/iconeVoltar'
 import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
 import { CidadaoSection } from './sections-modal-criar/section-cidadao'
 import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
-import { GestorSection } from './sections-modal-criar/section-gestor'
 
 export function ModalCriarUsuario(props: ModalUsuarioProps) {
   const [section, setSection] = useState<number>(0)
@@ -65,13 +63,7 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
               {' '}
               <IconeCidadao className="size-12" /> Cidadão
             </button>
-            <button
-              className={` ${section == 3 ? 'bg-primary-100' : 'bg-primary-100/50 hover:bg-primary-100/60'} ease font-satoshi-black  text-primary-800 flex h-full w-[20%] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl p-1 text-lg duration-300`}
-              onClick={() => setSection(3)}
-            >
-              {' '}
-              <IconeGestor className="size-12" /> Gestor
-            </button>
+
           </div>
 
           <div className="mb-4 mt-20 flex w-full justify-evenly">
@@ -101,7 +93,6 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
           </div>
           {section === 1 && <FuncionarioSection />}
           {section === 2 && <CidadaoSection />}
-          {section === 3 && <GestorSection />}
         </div>
       </article>
     </section>,

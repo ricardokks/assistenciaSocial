@@ -43,7 +43,7 @@ export function Instituicoes(data: IHomeProps) {
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
-      <div className="flex size-full flex-col">
+      <div className="flex size-full flex-col max-lg:pb-30">
         <h1 className="font-outfit-bold text-primary-800 text-xl">Instituições</h1>
         <div className="mt-3 flex w-full justify-between">
           <div className="relative w-2/3">
@@ -65,7 +65,7 @@ export function Instituicoes(data: IHomeProps) {
 
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
-        <div className="mb-28 mt-2 grid size-full grid-cols-3 gap-2 overflow-y-auto overflow-x-hidden">
+        <div className="mb-28 mt-2 grid size-full grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-2 overflow-y-auto overflow-x-hidden">
           {instituicoes.map((inst) => (
             <Instituicao
               key={inst.id}

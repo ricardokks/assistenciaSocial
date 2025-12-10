@@ -1,9 +1,13 @@
 import { IconeEditar } from '../../../../assets/Icons/IconeEditar'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
+import type { UsuarioDTOO } from '../../../../dto/Usuario/usuarioDTO'
 
 type UsuarioProps = {
+  user: UsuarioDTOO | undefined
   setDelete: () => void
   setEdit: () => void
+  setId: () => void
+  setUser: () => void
 }
 
 export function Usuario(props: UsuarioProps) {
@@ -13,19 +17,15 @@ export function Usuario(props: UsuarioProps) {
         <div
           className="bg-white-100 border-3 border-verde-100 aspect-square size-14 rounded-full max-lg:size-20 max-md:size-14"
           style={{
-            backgroundImage: `url(#)`,
+            backgroundImage: `url(${props?.user?.avatarURL })`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         ></div>
         <div className="text-verde-200 flex flex-col justify-center pl-3 ">
-          <h1 className="text-primary-800 font-satoshi-bold  text-lg ">Aluno Sobrenome</h1>
-          <h2 className=" text-primary-800 text-sm">pedrolucas@gmail.com</h2>
+          <h1 className="text-primary-800 font-satoshi-bold  text-lg ">{props?.user?.nome}</h1>
           <div className="text-primary-800 font-satoshi-bold mt-2 w-full rounded-2xl pr-1 text-left text-xs">
-            {
-              //data.sexoAluno === 'PREFIRO_NAO_DIZER' ? 'Sem informação' : SexoFormat
-            }{' '}
-            Funcionário
+            {props?.user?.papel}
           </div>
         </div>
       </div>
@@ -35,14 +35,18 @@ export function Usuario(props: UsuarioProps) {
         {/* Icone atualizar */}
         <button
           className="bg-primary-800 hover:bg-primary-50 flex size-8 cursor-pointer items-center justify-center rounded-lg duration-300"
-          onClick={() => props.setEdit()}
+          onClick={() => {props.setEdit()
+            props.setUser()
+          }}
         >
           <IconeEditar className="text-white"></IconeEditar>
         </button>
 
         <button
           className="bg-negative hover:bg-negative/80 flex size-8 cursor-pointer items-center justify-center rounded-lg duration-300"
-          onClick={() => props.setDelete()}
+          onClick={() => {props.setDelete()
+          props.setId()
+          }}
         >
           <IconeLixeira className="text-white"></IconeLixeira>
         </button>

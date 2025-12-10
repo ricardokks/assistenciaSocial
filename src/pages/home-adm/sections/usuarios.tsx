@@ -1,16 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { tr } from 'zod/v4/locales'
 
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
-import type { UsuarioDTO } from '../../../dto/Usuario/usuarioDTO'
+import type { UsuarioDTOO } from '../../../dto/Usuario/usuarioDTO'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { Usuario } from '../components/layout/usuario'
 import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
 import { ModalCriarUsuario } from '../components/modals-user/modal-criar-usuario'
 import { ModalEditarUsuario } from '../components/modals-user/modal-editar-usuario'
+import { GetAllUsers } from '../../../api/user/getAllUsers'
 
 export function Usuarios(data: IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
@@ -18,7 +19,20 @@ export function Usuarios(data: IHomeProps) {
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
 
   const [idUsuario, setIdUsuario] = useState<string>('')
-  const [usuario, setUsuario] = useState<UsuarioDTO>()
+  const [usuario, setUsuario] = useState<UsuarioDTOO>()
+
+  const [Usuarios, setUsuarios] = useState<UsuarioDTOO[]>()
+
+  async function GetUsers(){
+    const res = await GetAllUsers()
+    setUsuarios(res.data)
+  }
+
+  
+
+  useEffect(()=> {
+     GetUsers()
+  },[])
 
   return (
     <main className="flex h-full main flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
@@ -28,7 +42,7 @@ export function Usuarios(data: IHomeProps) {
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
-      <div className="flex size-full flex-col">
+      <div className="flex size-full flex-col pb-10 max-lg:pb-30">
         <h1 className="font-outfit-bold text-primary-800 text-xl">Usuários</h1>
         <div className="mt-3 flex w-full justify-between">
           <div className="relative w-2/3">
@@ -51,10 +65,16 @@ export function Usuarios(data: IHomeProps) {
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
         <div className="mb-28 mt-2 flex size-full flex-col gap-3  overflow-y-auto overflow-x-hidden">
+          {Usuarios?.map((user)=>(
           <Usuario
             setDelete={() => setAbrirModalDelete(true)}
             setEdit={() => setAbrirModalEdit(true)}
-          ></Usuario>
+            user={user}
+            setId={() => setIdUsuario(user.id)}
+            setUser={() => setUsuario(user!)}
+
+          ></Usuario>))
+}
         </div>
         <ModalDeletarUsuario
           abrilModalUsuario={abrirModalDelete}
@@ -65,7 +85,6 @@ export function Usuarios(data: IHomeProps) {
         <ModalCriarUsuario
           abrilModalUsuario={abrirModalCreate}
           handleAbrirModalDelete={() => setAbrirModalCreate(false)}
-          usuario={usuario!}
         ></ModalCriarUsuario>
 
         <ModalEditarUsuario

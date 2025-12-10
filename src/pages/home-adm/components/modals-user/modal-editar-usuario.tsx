@@ -5,9 +5,9 @@ import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
 import { CidadaoSection } from './sections-modal-criar/section-cidadao'
 import { FuncionarioSection } from './sections-modal-criar/section-funcionario'
-import { GestorSection } from './sections-modal-criar/section-gestor'
+import type { UsuarioDTOO } from '../../../../dto/Usuario/usuarioDTO'
 
-export function ModalEditarUsuario(props: ModalUsuarioProps) {
+export function ModalEditarUsuario(props: ModalUsuarioProps, usuario: UsuarioDTOO) {
   let userType = 'Gestor'
 
   return ReactDOM.createPortal(
@@ -40,7 +40,6 @@ export function ModalEditarUsuario(props: ModalUsuarioProps) {
         <div className={` mt-6 flex size-full flex-col items-center justify-end py-10 pt-4 `}>
           {userType === 'Funcionario' && <FuncionarioSection />}
           {userType === 'Cidadao' && <CidadaoSection />}
-          {userType === 'Gestor' && <GestorSection />}
         </div>
       </article>
     </section>,
