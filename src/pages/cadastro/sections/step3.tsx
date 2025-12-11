@@ -37,7 +37,6 @@ export function Step3({ section, setSection }: Step3Props) {
   }, [])
 
   const dados = watch()
-  console.log(dados)
   return (
     <div className="flex size-full min-w-[500px] flex-col items-center justify-center max-lg:px-16">
       <div className="mt-5 flex w-3/4 flex-col items-center -space-y-2">
@@ -59,7 +58,7 @@ export function Step3({ section, setSection }: Step3Props) {
               className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}
             >
               <option value="">Selecione o Valor</option>
-              {localidades.map((link): any => (
+              {localidades?.map((link): any => (
                 <option key={link.id} value={link.id}>
                   {link.nome}
                 </option>

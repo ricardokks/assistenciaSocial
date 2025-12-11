@@ -91,8 +91,8 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
             {' '}
             <IconeVoltar className="text-primary-800 size-6" />{' '}
           </div>
-          {section === 1 && <FuncionarioSection />}
-          {section === 2 && <CidadaoSection />}
+          {section === 1 && <FuncionarioSection setSection={setSection} setStage={setStage} handleAbrirModalDelete={() => props.handleAbrirModalDelete()} />}
+          {section === 2 && <CidadaoSection setSection={setSection} setStage={setStage} handleAbrirModalDelete={() => props.handleAbrirModalDelete()} />}
         </div>
       </article>
     </section>,

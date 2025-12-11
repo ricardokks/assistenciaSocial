@@ -14,6 +14,10 @@ export async function createUser(data: userCadastroDTO, papel: string) {
   if (data.cpf) formData.append('cpf', data.cpf);
   if(data.senha)formData.append('senha', data.senha);
   formData.append('papel', papel);
+
+  if(papel ==  'FUNCIONARIO' && data.assistenciaId){
+    formData.append('assistenciaId', data.assistenciaId);
+  }
   
   try {
     const response = await api.post('/users', formData, {

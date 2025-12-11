@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react'
 
 import { tr } from 'zod/v4/locales'
 
+import { GetAllUsers } from '../../../api/user/getAllUsers'
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import type { UsuarioDTOO } from '../../../dto/Usuario/usuarioDTO'
+import type { userCadastroDTO } from '../../../schemas/userCadastroSchema'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { Usuario } from '../components/layout/usuario'
-import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
 import { ModalCriarUsuario } from '../components/modals-user/modal-criar-usuario'
+import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
 import { ModalEditarUsuario } from '../components/modals-user/modal-editar-usuario'
-import { GetAllUsers } from '../../../api/user/getAllUsers'
 
 export function Usuarios(data: IHomeProps) {
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
@@ -19,20 +20,18 @@ export function Usuarios(data: IHomeProps) {
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
 
   const [idUsuario, setIdUsuario] = useState<string>('')
-  const [usuario, setUsuario] = useState<UsuarioDTOO>()
+  const [usuario, setUsuario] = useState<userCadastroDTO>()
 
-  const [Usuarios, setUsuarios] = useState<UsuarioDTOO[]>()
+  const [Usuarios, setUsuarios] = useState<userCadastroDTO[]>()
 
-  async function GetUsers(){
+  async function GetUsers() {
     const res = await GetAllUsers()
     setUsuarios(res.data)
   }
 
-  
-
-  useEffect(()=> {
-     GetUsers()
-  },[])
+  useEffect(() => {
+    GetUsers()
+  }, [])
 
   return (
     <main className="flex h-full main flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
@@ -65,16 +64,16 @@ export function Usuarios(data: IHomeProps) {
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
         <div className="mb-28 mt-2 flex size-full flex-col gap-3  overflow-y-auto overflow-x-hidden">
-          {Usuarios?.map((user)=>(
-          <Usuario
-            setDelete={() => setAbrirModalDelete(true)}
-            setEdit={() => setAbrirModalEdit(true)}
-            user={user}
-            setId={() => setIdUsuario(user.id)}
-            setUser={() => setUsuario(user!)}
-
-          ></Usuario>))
-}
+          {Usuarios?.filter((u) => u.papel !== 'ADMINISTRADOR').map((user) => (
+            <Usuario
+              key={user.id}
+              setDelete={() => setAbrirModalDelete(true)}
+              setEdit={() => setAbrirModalEdit(true)}
+              user={user}
+              setId={() => setIdUsuario(user.id)}
+              setUser={() => setUsuario(user)}
+            />
+          ))}
         </div>
         <ModalDeletarUsuario
           abrilModalUsuario={abrirModalDelete}

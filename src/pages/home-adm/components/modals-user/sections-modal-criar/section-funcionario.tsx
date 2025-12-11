@@ -9,12 +9,33 @@ import { IconeEmail } from '../../../../../assets/Icons/iconeEmail'
 import { IconeInstituicao } from '../../../../../assets/Icons/iconeInstituicao'
 import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
 import { createUser } from '../../../../../api/user/createUser'
+import { useEffect, useState } from 'react'
+import { userCadastroSchema, type userCadastroDTO } from '../../../../../schemas/userCadastroSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ErrorMessage } from '../../../../../components/ui/errorMsg'
+import { Controller, useForm } from 'react-hook-form'
+import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
 
-export function FuncionarioSection() {
+
+type Localidade = {
+  id: string
+  nome: string
+}
+
+type Props = {
+  handleAbrirModalDelete: () => void
+  setSection: (value: number) => void
+  setStage: (value: number) => void
+}
+
+export function FuncionarioSection(props: Props) {
 
   
     const [Localidades, setLocalidades] = useState<Localidade[]>([])
+    const [Assistencias, setAssistencias] = useState<AssistenciaDTOO[]>([])
     const [loading, setLoading] = useState(true)
+    const [loadingA, setLoadingA] = useState(true)
+
   
   
     const {
@@ -26,9 +47,9 @@ export function FuncionarioSection() {
       resolver: zodResolver(userCadastroSchema),
       shouldUnregister: false,
     })
-  
-      useEffect(() => {
-      async function fetchLocalidades() {
+
+
+          async function fetchLocalidades() {
         try {
           const response = await fetch('http://localhost:4000/localidades')
           const json = await response.json()
@@ -40,14 +61,32 @@ export function FuncionarioSection() {
           setLoading(false)
         }
       }
+
+      async function fetchAssistencias() {
+        try {
+          const response = await fetch('http://localhost:4000/assistencias')
+          const json = await response.json()
+          setAssistencias(json.data ?? [])
+        } catch (error) {
+          console.error('Erro ao buscar assistências', error)
+        } finally {
+          setLoadingA(false)
+      }}
+  
+      useEffect(() => {
+
   
       fetchLocalidades()
+      fetchAssistencias()
     }, [])
   
   
     async function onSubmit(data: userCadastroDTO) {
-      const res = await createUser(data, 'CIDADÃO')
+      const res = await createUser(data, 'FUNCIONARIO')
       console.log('response:', res.data)
+      props.setStage(0)
+      props.setSection(0)
+      props.handleAbrirModalDelete()
     }
   
   return (
@@ -147,7 +186,7 @@ export function FuncionarioSection() {
             <select
               {...register('localidadeId', { required: true })}
               disabled={loading}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none"
+              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
             >
               <option value="">
                 {loading ? 'Carregando...' : 'Selecione a localidade'}
@@ -159,7 +198,7 @@ export function FuncionarioSection() {
                 </option>
               ))}
             </select>
-              <IconeLocal className="absolute left-2 top-2 size-7" />
+              <IconeLocal className="absolute left-2 top-1 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />
           </div>
@@ -207,12 +246,39 @@ export function FuncionarioSection() {
               </div>
               <ErrorMessage message={errors?.numero_casa?.message} />
             </div>
+
+            
+          </div>
+
+
+                    {/* Assistencia */}
+          <div className="flex flex-col gap-1">
+            <p className="text-primary-800 font-outfit">Assistencia:</p>
+            <div className="relative">
+            <select
+              {...register('assistenciaId', { required: true })}
+              disabled={loadingA}
+              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+            >
+              <option value="">
+                {loadingA ? 'Carregando...' : 'Selecione a assistência'}
+              </option>
+
+              {Assistencias.map((assistencia) => (
+                <option key={assistencia.id} value={assistencia.id}>
+                  {assistencia.unidade}
+                </option>
+              ))}
+            </select>
+              <IconeInstituicao className="absolute left-2 top-1 text-primary-800 size-7" />
+            </div>
+            <ErrorMessage message={errors?.localidadeId?.message} />
           </div>
         </div>
 
         <div className="flex w-full justify-center">
           <button className="bg-primary-800 w-[80%] rounded-md p-2 font-bold text-white hover:opacity-90">
-            Criar Cidadão
+            Criar Funcionário
           </button>
         </div>
       </form>

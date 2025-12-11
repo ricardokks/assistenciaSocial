@@ -13,14 +13,21 @@ import { ErrorMessage } from '../../../../../components/ui/errorMsg'
 import { Localidades } from '../../../../../constants/localidades'
 import { type userCadastroDTO, userCadastroSchema } from '../../../../../schemas/userCadastroSchema'
 import { useEffect, useState } from 'react'
+import { findAllLocalidades } from '../../../../../api/localidades/findAllLocalidades'
 
 interface Localidade {
   id: string
   nome: string
 }
 
+type Props = {
+  handleAbrirModalDelete: () => void
+  setSection: (value: number) => void
+  setStage: (value: number) => void
+}
 
-export function CidadaoSection() {
+
+export function CidadaoSection(props: Props) {
 
   const [Localidades, setLocalidades] = useState<Localidade[]>([])
   const [loading, setLoading] = useState(true)
@@ -36,27 +43,28 @@ export function CidadaoSection() {
     shouldUnregister: false,
   })
 
-    useEffect(() => {
-    async function fetchLocalidades() {
-      try {
-        const response = await fetch('http://localhost:4000/localidades')
-        const json = await response.json()
+  useEffect(() => {
+    async function FetchLocalidades() {
+      const response = await findAllLocalidades()
 
-        setLocalidades(json.data ?? [])
-      } catch (error) {
-        console.error('Erro ao buscar localidades', error)
-      } finally {
-        setLoading(false)
-      }
+      console.log("dados: ", response.data)
+      setLocalidades(response.data)
     }
+    FetchLocalidades()
+    setLoading(false)
+  }, [])
 
-    fetchLocalidades()
+  useEffect(() => {
+    console.log("dados: ", Localidades)
   }, [])
 
 
   async function onSubmit(data: userCadastroDTO) {
-    const res = await createUser(data, 'CIDADÃO')
+    const res = await createUser(data, 'CIDADAO')
     console.log('response:', res.data)
+    props.setStage(0)
+    props.setSection(0)
+    props.handleAbrirModalDelete()
   }
 
   return (
@@ -220,7 +228,9 @@ export function CidadaoSection() {
         </div>
 
         <div className="flex w-full justify-center">
-          <button className="bg-primary-800 w-[80%] rounded-md p-2 font-bold text-white hover:opacity-90">
+          <button
+          type='submit'
+          className="bg-primary-800 cursor-pointer w-[80%] rounded-md p-2 font-bold text-white hover:opacity-90">
             Criar Cidadão
           </button>
         </div>

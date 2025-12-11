@@ -80,10 +80,11 @@ export const userCadastroSchema = z.object({
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
  complemento: z.string().optional(),
+  papel: z.string(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
-  senha: z.string().min(8, 'A senha deve ter pelo menos 6 caracteres'),
+  senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres'),
   // relacionamentos
-  assistencia: z.any().optional(),
+  assistenciaId: z.any().optional(),
   solicitacoes: z.array(z.any()).optional(),
   configuracao: z.any().optional(),
   atividades: z.array(z.any()).optional(),
@@ -91,3 +92,25 @@ export const userCadastroSchema = z.object({
 })
 
 export type userCadastroDTO = z.infer<typeof userCadastroSchema>
+
+export const userEditarSchema = z.object({
+  data_nascimento: z.string().optional(),
+  nome_mae: z.string().min(3, 'O nome da mãe deve ter pelo menos 3 caracteres').optional(),
+  id: z.string().optional(),
+  nome: z.string().min(3, 'O nome deve ter pelo mxenos 3 caracteres'),
+  localidadeId: z.string(),
+  numero_casa: z.string().optional(),
+  rua: z.string().optional(),
+ complemento: z.string().optional(),
+  papel: z.string(),
+  cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
+  senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres').or(z.literal('')).optional(),
+  // relacionamentos
+  assistenciaId: z.any().optional(),
+  solicitacoes: z.array(z.any()).optional(),
+  configuracao: z.any().optional(),
+  atividades: z.array(z.any()).optional(),
+  ouvidorias: z.array(z.any()).optional(),
+})
+
+export type userEditarDTO = z.infer<typeof userEditarSchema>
