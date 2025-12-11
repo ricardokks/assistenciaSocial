@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 
 import type { IHomeProps } from '../../types/interface-home-props'
 import { socket } from '../../utils/socket'
-import { HeaderDashboards } from '../header'
 import { InicioBanner } from '../banner'
+import { HeaderDashboards } from '../header'
 import { InicioDados } from './InicioDados'
 import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'
+import { InicioRelatorio } from './InicioRelatorioMensal'
 
 export function Inicio(data: IHomeProps) {
-
   useEffect(() => {
     if (!data.data) return
 
@@ -20,8 +20,6 @@ export function Inicio(data: IHomeProps) {
       socket.disconnect()
     }
   }, [data.data])
-
-
 
   return (
     <main className="main">
@@ -40,6 +38,9 @@ export function Inicio(data: IHomeProps) {
           {data.user === 'CIDADAO' ? 'Notificações' : 'Informações Gerais'}
         </h1>
         {data.user === 'CIDADAO' ? <InicioNotificacao user={data.data} /> : <InicioDados />}
+
+        
+        {data.user === 'FUNCIONARIO' ? <InicioDashBoard.relatorio /> : null}
       </InicioDashBoard.root>
     </main>
   )
