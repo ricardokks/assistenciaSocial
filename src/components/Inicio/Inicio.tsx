@@ -1,20 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import { getAssistencia } from '../../api/assistencia/getAssistencia'
-import { PegarInformacaoFuncionario } from '../../api/user/pegarInformacaoFuncionario'
 import type { IHomeProps } from '../../types/interface-home-props'
 import { socket } from '../../utils/socket'
-import { HeaderDashboards } from '../Header'
+import { HeaderDashboards } from '../header'
 import { InicioBanner } from '../banner'
 import { InicioDados } from './InicioDados'
 import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'
-
-interface InicioProps {
-  solicitacoes: {
-    dataCriacao: string
-  }
-}
 
 export function Inicio(data: IHomeProps) {
 

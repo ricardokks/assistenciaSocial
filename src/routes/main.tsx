@@ -11,5 +11,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Toaster richColors position="top-right" />
     <RouterProvider router={routes}></RouterProvider>
+
   </StrictMode>
 )

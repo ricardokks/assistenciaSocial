@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
-import { HeaderDashboards } from '../../../components/Header'
+import { HeaderDashboards } from '../../../components/header'
 import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
 import type { AssistenciaDTO } from '../../../types/type-assistencia'
