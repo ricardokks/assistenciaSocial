@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { getAssistencia } from '../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../api/user/pegarInformacaoFuncionario'
 import { CardInicioAgendamento } from './components/cardInicio'
+import { InicioDashBoard } from './InicioDashBoard'
 
 export function InicioDados() {
   const [idUsuario, setIdUsuario] = useState('')
@@ -76,13 +77,14 @@ export function InicioDados() {
   }, [idUsuario])
 
   return (
-    <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8">
+    <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8 ">
       <CardInicioAgendamento text="Total de agendamentos mensais" valorAgendamento={stats.mensal} />
       <CardInicioAgendamento
         text="Total de agendamentos semanais"
         valorAgendamento={stats.semanal}
       />
       <CardInicioAgendamento text="Total de agendamentos diários" valorAgendamento={stats.diario} />
+
     </div>
   )
 }
