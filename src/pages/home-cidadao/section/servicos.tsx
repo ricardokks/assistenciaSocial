@@ -52,6 +52,7 @@ export function Servicos(user: { user: any, onClick: (item: any) => void, assist
               subtitulo={item.subnome}
               titulo={item.unidade}
               onClick={() => user.onClick(item)}
+              id={item.id}
             />
           ))}
         </div>

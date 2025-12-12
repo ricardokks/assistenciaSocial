@@ -13,7 +13,7 @@ export function Dados(data: IHomeProps) {
   const [loading, setLoading] = useState(false)
   const [dadosInstituicao, setDadosInstituicao] = useState<AssistenciaDTOO | null>(null)
   const dadosSeparados = dadosInstituicao?.abrange.slice()
-
+  
   // Funções Chamadadoras da API do backend
   async function fetchIdInstituicao() {
     const response = await PegarInformacaoFuncionario()

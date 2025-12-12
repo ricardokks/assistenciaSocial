@@ -46,6 +46,7 @@ export function Projeto() {
         icone={assistencia.icone}
         nome={assistencia.unidade}
         subNome={assistencia.subnome}
+        localizacao={assistencia.localizacao}
       />
 
       {/* Mapa */}
