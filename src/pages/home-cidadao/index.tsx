@@ -35,7 +35,7 @@ export function HomeCidadao() {
 
   if (!assistencias) return null
   return (
-    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col max-w-[1280px] min-w-[1280px] h-auto">
+    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
