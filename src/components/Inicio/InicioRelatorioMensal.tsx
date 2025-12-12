@@ -1,12 +1,12 @@
-import { ClipboardList, DownloadCloud } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { getAllRelatoriosAssistencia } from "../../api/assistencia/getAllRelatoriosAssistencia";
 import { CardRelatorio } from "./components/CardRelatorio";
-import { gerarRelatorio } from "../../utils/gerarRelatorio";
+import { relatorionDownload } from "../../api/relatorio/relatorioDonwload";
 
 
 type relatorio = {
+    id: string,
     mes: number,
     ano: number,
     dados: any
@@ -17,6 +17,7 @@ export function InicioRelatorio() {
     const [relatorios, setRelatorios] = useState<relatorio[]>([])
     const a = [
   {
+    id: "relatorio-2025-01",
     ano: 2025,
     mes: 3, // Março
     dados: {
@@ -84,27 +85,26 @@ export function InicioRelatorio() {
         getRelatorios()
     }, [])
 
-    async function gerarRelatorioMensal(dados: any, mes: string){
-        console.log("chamou pai")
-        return await gerarRelatorio(dados, mes)
+    async function gerarRelatorioMensal(id: string){
+        return await relatorionDownload(id)
     }
 
     if (!relatorios) return null
 
     return (
-        <div className="w-full mt-5 py-1 px-2 flex flex-col space-y-3 pb-[8rem] max-md:pb-[15rem]">
+        <div className="w-full mt-5 py-1 px-2 flex flex-col space-y-3 pb-[8rem] max-md:pb-[15rem] overflow-y-auto h-auto scrollbar-thin-personalizada"> 
             <h1 className="font-satoshi-black text-primary-800 text-2xl max-md:text-lg">Seus relatórios mensais</h1>
-            {a.length === 0 ? (<div className="text-primary-800/60 mt-4 text-center col-span-3 max-md:col-span-1">
+            {relatorios.length === 0 ? (<div className="text-primary-800/60 mt-4 text-center col-span-3 max-md:col-span-1">
                 Você ainda não possui relatórios mensais
             </div>) : (
                 <>
-                   {a.map(item => (
+                   {relatorios.map(item => (
                      <CardRelatorio 
                         ano={item.ano} 
                         nomeMes={procurarMes(item.mes)}
                         numeroMes={item.mes}
                         dados={item.dados}
-                        gerarRelatorio={() => gerarRelatorioMensal(item.dados, procurarMes(item.mes))}
+                        gerarRelatorio={() => gerarRelatorioMensal(item.id)}
                     />
                    ))}
                 </>

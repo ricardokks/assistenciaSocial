@@ -23,7 +23,7 @@ export function Inicio(data: IHomeProps) {
   }, [data.data])
 
   return (
-    <main className="main overflow-y-auto">
+    <main className="main overflow-y-auto scrollbar-thin-personalizada">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user={data.user} />
@@ -41,7 +41,7 @@ export function Inicio(data: IHomeProps) {
         {data.user === 'CIDADAO' ? <InicioNotificacao user={data.data} /> : <InicioDados />}
       
 
-        {data.user === 'CIDADAO' ? ( 
+        {data.user === 'CIDADAO' || 'ADMINISTRADOR' ? ( 
           null
       ) : <InicioRelatorio />}
       </InicioDashBoard.root>
