@@ -25,16 +25,8 @@ export const routes = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: '/sepad-massape/projeto/:id',
-        element: <Projeto />,
-      },
-      {
         path: '/cadastro',
         element: <CadastroPage />,
-      },
-      {
-        path: '/config/:id',
-        element: <Config />,
       },
       {
         path: '*',
@@ -56,6 +48,10 @@ export const routes = createBrowserRouter([
       {
         path: '/dashboard/administrador',
         element: <HomeAdmin />,
+      },
+      {
+        path: '/sepad-massape/projeto/:id',
+        element: <Projeto />,
       },
     ],
   },

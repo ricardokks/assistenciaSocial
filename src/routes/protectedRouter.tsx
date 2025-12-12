@@ -1,10 +1,31 @@
+import { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
-export function ProtectedRouter() {
-  const token = localStorage.getItem('token')
+import { getUser } from '../api/user/getUser'
 
-  if (!token) {
-    return <Navigate replace to={'/login'} />
+export function ProtectedRouter() {
+  const [idUser, setIdUser] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchIdUser() {
+      try {
+        const response = await getUser()
+        setIdUser(response.id) 
+      } catch (err) {
+        setIdUser(null) 
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchIdUser()
+  }, [])
+
+  if (loading) return null 
+
+  if (!idUser) {
+    return <Navigate to="/login" replace />
   }
 
   return <Outlet />
