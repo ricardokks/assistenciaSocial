@@ -4,4 +4,5 @@ export interface dataInfoAssistencia {
   subNome: string
   descrição: string
   abrange: string[]
+  localizacao: string
 }
