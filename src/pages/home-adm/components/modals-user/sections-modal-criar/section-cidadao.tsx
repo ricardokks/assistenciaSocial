@@ -14,6 +14,8 @@ import { Localidades } from '../../../../../constants/localidades'
 import { type userCadastroDTO, userCadastroSchema } from '../../../../../schemas/userCadastroSchema'
 import { useEffect, useState } from 'react'
 import { findAllLocalidades } from '../../../../../api/localidades/findAllLocalidades'
+import { ca } from 'zod/v4/locales'
+import { toast } from 'sonner'
 
 interface Localidade {
   id: string
@@ -24,6 +26,8 @@ type Props = {
   handleAbrirModalDelete: () => void
   setSection: (value: number) => void
   setStage: (value: number) => void
+  refreshUsers: () => void
+
 }
 
 
@@ -60,11 +64,21 @@ export function CidadaoSection(props: Props) {
 
 
   async function onSubmit(data: userCadastroDTO) {
+
+    try{
     const res = await createUser(data, 'CIDADAO')
     console.log('response:', res.data)
     props.setStage(0)
     props.setSection(0)
     props.handleAbrirModalDelete()
+
+    props.refreshUsers()
+
+    toast.success('Cidadão criado com sucesso!')
+
+    }catch(error){
+      toast.error('Erro ao criar cidadão. Por favor, tente novamente.')
+    }
   }
 
   return (

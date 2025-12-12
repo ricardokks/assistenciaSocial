@@ -4,6 +4,7 @@ import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import type { ModalDeletarUsuarioProps } from '../../../../types/interface-modal-deletar-usuario'
 import { deleteUser } from '../../../../api/user/deleteUser'
+import { toast } from 'sonner'
 
 export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
 
@@ -14,8 +15,12 @@ export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
       const res = await deleteUser(props.id)
       console.log("response:", res.data)
       props.handleAbrirModalDelete()
+      props.refreshUsers()
+
+      toast.success('Usuário deletado com sucesso!')
     } catch (error) {
       console.log('Erro ao deletar usuário:', error)
+      toast.error('Erro ao deletar usuário. Por favor, tente novamente.')
     }
   }
 

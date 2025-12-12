@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ErrorMessage } from '../../../../../components/ui/errorMsg'
 import { Controller, useForm } from 'react-hook-form'
 import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
+import { toast } from 'sonner'
 
 
 type Localidade = {
@@ -26,6 +27,7 @@ type Props = {
   handleAbrirModalDelete: () => void
   setSection: (value: number) => void
   setStage: (value: number) => void
+  refreshUsers: () => void
 }
 
 export function FuncionarioSection(props: Props) {
@@ -82,11 +84,22 @@ export function FuncionarioSection(props: Props) {
   
   
     async function onSubmit(data: userCadastroDTO) {
+      console.log("comeu")
+      console.log("FORM DATA:", data);
+      try{
       const res = await createUser(data, 'FUNCIONARIO')
       console.log('response:', res.data)
       props.setStage(0)
       props.setSection(0)
       props.handleAbrirModalDelete()
+
+      props.refreshUsers()
+
+      toast.success('Funcionário criado com sucesso!')
+      }catch(error){
+        toast.error('Erro ao criar funcionário. Por favor, tente novamente.')
+      }
+
     }
   
   return (
@@ -192,11 +205,11 @@ export function FuncionarioSection(props: Props) {
                 {loading ? 'Carregando...' : 'Selecione a localidade'}
               </option>
 
-              {Localidades.map((localidade) => (
+              {Localidades ? Localidades?.map((localidade) => (
                 <option key={localidade.id} value={localidade.id}>
                   {localidade.nome}
                 </option>
-              ))}
+              )) : <></>}
             </select>
               <IconeLocal className="absolute left-2 top-1 size-7" />
             </div>
@@ -264,11 +277,11 @@ export function FuncionarioSection(props: Props) {
                 {loadingA ? 'Carregando...' : 'Selecione a assistência'}
               </option>
 
-              {Assistencias.map((assistencia) => (
+              { Assistencias ? Assistencias?.map((assistencia) => (
                 <option key={assistencia.id} value={assistencia.id}>
                   {assistencia.unidade}
                 </option>
-              ))}
+              )) : <></>}
             </select>
               <IconeInstituicao className="absolute left-2 top-1 text-primary-800 size-7" />
             </div>

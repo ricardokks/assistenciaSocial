@@ -19,7 +19,8 @@ export type ModalEditarUsuarioProps = ModalUsuarioProps & {
 export function ModalEditarUsuario({
   abrilModalUsuario,
   handleAbrirModalDelete,
-  usuario
+  usuario,
+  refreshUsers
 }: ModalEditarUsuarioProps) {
   return ReactDOM.createPortal(
     <section
@@ -46,11 +47,11 @@ export function ModalEditarUsuario({
         {/* Conteúdo */}
         <div className="mt-6 flex size-full flex-col items-center justify-end py-10 pt-4">
           {usuario?.papel === 'FUNCIONARIO' && (
-            <FuncionarioEditarSection usuario={usuario} />
+            <FuncionarioEditarSection usuario={usuario} refreshUsers={refreshUsers} />
           )}
 
           {usuario?.papel === 'CIDADAO' && (
-            <CidadaoEditarSection usuario={usuario} />
+            <CidadaoEditarSection usuario={usuario} refreshUsers={refreshUsers} />
           )}
         </div>
       </article>

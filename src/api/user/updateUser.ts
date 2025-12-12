@@ -15,6 +15,7 @@ export async function updateUser(data: userEditarDTO, id: string) {
   if (data.complemento) formData.append('complemento', data.complemento)
   if (data.cpf) formData.append('cpf', data.cpf)
   if (data.senha) formData.append('senha', data.senha)
+  if (data.papel) formData.append('papel', data.papel)
 
   if (data.assistenciaId) {
     formData.append('assistenciaId', data.assistenciaId)

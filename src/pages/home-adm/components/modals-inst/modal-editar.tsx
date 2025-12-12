@@ -13,6 +13,8 @@ import { updateAssistencia } from '../../../../api/assistencia/updateAssistencia
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AssistenciaSchema } from '../../../../schemas/assistenciaSchema'
+import { tr } from 'zod/v4/locales'
+import { toast } from 'sonner'
 
 export function ModalEditarInst(props: ModalAssistenciaProps) {
   const methods = useForm({
@@ -73,6 +75,7 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
   }, [tags])
 
   async function onSubmit(data: AssistenciaSchemaDTO) {
+    try{
     console.log('data do form', data)
 
     const payload = {
@@ -84,6 +87,15 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
     console.log('ERROS DO FORM', errors)
 
     console.log('response', res.data)
+
+    
+
+    toast.success('Assistência editada com sucesso!')
+    props.refreshAssistencias()
+    props.handleAbrirModalDelete()
+  }catch(error){
+    toast.error('Erro ao editar assistência. Por favor, tente novamente.')
+  }
   }
 
   return ReactDOM.createPortal(

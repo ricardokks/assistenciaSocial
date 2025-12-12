@@ -80,7 +80,7 @@ export const userCadastroSchema = z.object({
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
  complemento: z.string().optional(),
-  papel: z.string(),
+  papel: z.string().optional(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
   senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres'),
   // relacionamentos
@@ -101,8 +101,8 @@ export const userEditarSchema = z.object({
   localidadeId: z.string(),
   numero_casa: z.string().optional(),
   rua: z.string().optional(),
- complemento: z.string().optional(),
-  papel: z.string(),
+ complemento: z.string().or(z.literal('')).optional(),
+  papel: z.string().optional(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
   senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres').or(z.literal('')).optional(),
   // relacionamentos

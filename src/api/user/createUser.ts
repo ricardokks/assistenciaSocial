@@ -20,7 +20,7 @@ export async function createUser(data: userCadastroDTO, papel: string) {
   }
   
   try {
-    const response = await api.post('/users', formData, {
+    const response = await api.post('/users/admin', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

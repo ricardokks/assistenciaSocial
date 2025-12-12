@@ -24,14 +24,13 @@ export function Instituicoes(data: IHomeProps) {
 
   const [instituicoes, setInstituicoes] = useState<AssistenciaDTOO[]>([])
 
-  async function HandleGetAllInst() {
+  async function RefreshAllInst() {
     const res = await getAssistencias()
     setInstituicoes(res.data)
-    console.log(res.data)
   }
 
   useEffect(() => {
-    HandleGetAllInst()
+    RefreshAllInst()
   }, [])
 
   
@@ -82,17 +81,20 @@ export function Instituicoes(data: IHomeProps) {
           abrilModalAssistencia={abrirModalDelete}
           handleAbrirModalDelete={() => setAbrirModalDelete(false)}
           id={idInstituicao}
+          refreshAssistencias={() => RefreshAllInst()}
         ></ModalDeletarInst>
 
         <ModalCriarInst
           abrilModalAssistencia={abrirModalCreate}
           handleAbrirModalDelete={() => setAbrirModalCreate(false)}
+          refreshAssistencias={() => RefreshAllInst()}
         ></ModalCriarInst>
 
         <ModalEditarInst
           abrilModalAssistencia={abrirModalEdit}
           handleAbrirModalDelete={() => setAbrirModalEdit(false)}
           assistencia={instituicao!}
+          refreshAssistencias={() => RefreshAllInst()}
         ></ModalEditarInst>
       </div>
     </main>

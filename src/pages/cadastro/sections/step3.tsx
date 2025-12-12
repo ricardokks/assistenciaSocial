@@ -101,7 +101,7 @@ export function Step3({ section, setSection }: Step3Props) {
           {/* Complemento */}
           <div className="w-3/5  flex-col items-center rounded-2xl p-2">
             <label className="text-primary-800 font-outfit text-[16px] font-medium">
-              Complemento:{' '}
+              Complemento (Opcional):{' '}
             </label>
             <div className="relative flex">
               <IconeCasa className="absolute left-1.5 top-2.5 size-5" />

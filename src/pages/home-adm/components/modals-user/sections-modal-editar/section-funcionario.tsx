@@ -17,7 +17,8 @@ import { Controller, useForm } from 'react-hook-form'
 import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
 import { findAllLocalidades } from '../../../../../api/localidades/findAllLocalidades'
 import { updateUser } from '../../../../../api/user/updateUser'
-import { da } from 'zod/v4/locales'
+import { ca, da } from 'zod/v4/locales'
+import { toast } from 'sonner'
 
 
 type Localidade = {
@@ -26,7 +27,7 @@ type Localidade = {
 }
 
 
-export function FuncionarioEditarSection({ usuario }: { usuario: userEditarDTO }) {
+export function FuncionarioEditarSection({ usuario, refreshUsers }: { usuario: userEditarDTO, refreshUsers: () => void }) {
   const [Localidades, setLocalidades] = useState<Localidade[]>([])
   const [loading, setLoading] = useState(true)
   const [Assistencias, setAssistencia] = useState<AssistenciaDTOO[]>([])
@@ -102,8 +103,14 @@ useEffect(() => {
 }, [usuario, loading, loadingA, reset]);
 
   async function onSubmit(data: userEditarDTO) {
+    try{
     const res = await updateUser(data, data.id!)
     console.log('response:', res.data)
+    toast.success('Funcionário editado com sucesso!')
+    refreshUsers()
+    }catch(error){
+      toast.error('Erro ao editar funcionário. Por favor, tente novamente.')
+    }
   }
   
   return (

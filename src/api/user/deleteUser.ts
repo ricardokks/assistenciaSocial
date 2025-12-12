@@ -1,5 +1,4 @@
 
-
 import { api } from '../../lib/axios.config'
 
 export async function deleteUser(userId: string) {

@@ -24,13 +24,13 @@ export function Usuarios(data: IHomeProps) {
 
   const [Usuarios, setUsuarios] = useState<userCadastroDTO[]>()
 
-  async function GetUsers() {
+  async function refreshUsers() {
     const res = await GetAllUsers()
     setUsuarios(res.data)
   }
 
   useEffect(() => {
-    GetUsers()
+    refreshUsers()
   }, [])
 
   return (
@@ -79,17 +79,20 @@ export function Usuarios(data: IHomeProps) {
           abrilModalUsuario={abrirModalDelete}
           handleAbrirModalDelete={() => setAbrirModalDelete(false)}
           id={idUsuario}
+          refreshUsers={() => refreshUsers()}
         ></ModalDeletarUsuario>
 
         <ModalCriarUsuario
           abrilModalUsuario={abrirModalCreate}
           handleAbrirModalDelete={() => setAbrirModalCreate(false)}
+          refreshUsers={() => refreshUsers()}
         ></ModalCriarUsuario>
 
         <ModalEditarUsuario
           abrilModalUsuario={abrirModalEdit}
           handleAbrirModalDelete={() => setAbrirModalEdit(false)}
           usuario={usuario!}
+          refreshUsers={() => refreshUsers()}
         ></ModalEditarUsuario>
       </div>
     </main>

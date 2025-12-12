@@ -14,6 +14,7 @@ import { type userCadastroDTO, userCadastroSchema, type userEditarDTO, userEdita
 import { useEffect, useState } from 'react'
 import { findAllLocalidades } from '../../../../../api/localidades/findAllLocalidades'
 import { updateUser } from '../../../../../api/user/updateUser'
+import { toast } from 'sonner'
 
 interface Localidade {
   id: string
@@ -22,7 +23,7 @@ interface Localidade {
 
 
 
-export function CidadaoEditarSection({ usuario }: { usuario: userEditarDTO }) {
+export function CidadaoEditarSection({ usuario, refreshUsers }: { usuario: userEditarDTO, refreshUsers: () => void }) {
   const [Localidades, setLocalidades] = useState<Localidade[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -76,8 +77,16 @@ useEffect(() => {
 
 
   async function onSubmit(data: userEditarDTO) {
+    try{
     const res = await updateUser(data, data.id!)
     console.log('response:', res.data)
+
+    toast.success('Cidadão editado com sucesso!')
+    refreshUsers()
+
+    }catch(error){
+      toast.error('Erro ao editar cidadão. Por favor, tente novamente.')
+    }
   }
 
   return (

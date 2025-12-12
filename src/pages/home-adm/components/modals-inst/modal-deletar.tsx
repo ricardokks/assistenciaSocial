@@ -4,12 +4,19 @@ import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import type { ModalDeleteAssistenciaProps } from '../../../../types/interface-modal-deletar-assistencia'
 import { deleteAssistencia } from '../../../../api/assistencia/deleteAssistencia'
+import { toast } from 'sonner'
 
 export function ModalDeletarInst(props: ModalDeleteAssistenciaProps) {
 
   async function handleDeleteInst() {
+    try{
     const res = await deleteAssistencia(props.id)
     console.log(res)
+    toast.success('Instituição deletada com sucesso!')
+    props.refreshAssistencias()
+    } catch (error) {
+      toast.error('Erro ao deletar instituição. Por favor, tente novamente.')
+    }
   }
 
 

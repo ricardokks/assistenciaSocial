@@ -13,6 +13,7 @@ import { ErrorMessage } from '../../../../components/ui/errorMsg'
 import type { AssistenciaSchemaDTO } from '../../../../dto/Assistencia/assistenciaDTO'
 import { AssistenciaSchema } from '../../../../schemas/assistenciaSchema'
 import type { ModalAssistenciaProps } from '../../../../types/interface-modal-assistencia'
+import { toast } from 'sonner'
 
 export function ModalCriarInst(props: ModalAssistenciaProps) {
   const methods = useForm({
@@ -57,6 +58,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
   }, [tags])
 
   async function onSubmit(data: AssistenciaSchemaDTO) {
+    try{
     console.log('data do form', data)
     if (!foto) return
 
@@ -69,6 +71,14 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
     console.log('ERROS DO FORM', errors)
 
     console.log('response', res.data)
+
+    toast.success('Assistência criada com sucesso!')
+    props.handleAbrirModalDelete()
+    props.refreshAssistencias()
+
+  }catch(error){
+    toast.error('Erro ao criar assistência. Por favor, tente novamente.')
+  }
   }
 
   return ReactDOM.createPortal(
