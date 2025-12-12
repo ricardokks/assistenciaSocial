@@ -7,6 +7,7 @@ import { HeaderDashboards } from '../header'
 import { InicioDados } from './InicioDados'
 import { InicioDashBoard } from './InicioDashBoard'
 import { InicioNotificacao } from './InicioNotificacao'
+import { ClipboardList, DownloadCloud } from 'lucide-react'
 import { InicioRelatorio } from './InicioRelatorioMensal'
 
 export function Inicio(data: IHomeProps) {
@@ -22,7 +23,7 @@ export function Inicio(data: IHomeProps) {
   }, [data.data])
 
   return (
-    <main className="main">
+    <main className="main overflow-y-auto">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user={data.user} />
@@ -34,13 +35,15 @@ export function Inicio(data: IHomeProps) {
 
       {/* Container Principal  */}
       <InicioDashBoard.root>
-        <h1 className="font-satoshi-black text-primary-800 text-2xl">
+        <h1 className="font-satoshi-black text-primary-800 text-2xl max-md:text-lg mb-2">
           {data.user === 'CIDADAO' ? 'Notificações' : 'Informações Gerais'}
         </h1>
         {data.user === 'CIDADAO' ? <InicioNotificacao user={data.data} /> : <InicioDados />}
+      
 
-        
-        {data.user === 'FUNCIONARIO' ? <InicioDashBoard.relatorio /> : null}
+        {data.user === 'CIDADAO' ? ( 
+          null
+      ) : <InicioRelatorio />}
       </InicioDashBoard.root>
     </main>
   )

@@ -1,10 +1,10 @@
 import { createPortal } from "react-dom";
+import { Modal } from "../../../ui/modal";
 
 export function RelatorioMensalModal(){
-    return createPortal(
-        <main className="">
+    <Modal open={true} close={() => false}>
+        <div>
 
-        </main>
-        ,document.body
-    )
+        </div>
+    </Modal>
 }
