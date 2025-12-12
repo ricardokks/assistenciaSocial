@@ -9,6 +9,7 @@ import { HomeFuncionario } from '../pages/home-funcionario'
 import { HomePage } from '../pages/lading-page'
 import LoginPage from '../pages/login'
 import { Projeto } from '../pages/projeto'
+import { ProtectedRouter } from './protectedRouter'
 
 export const routes = createBrowserRouter([
   {
@@ -32,6 +33,19 @@ export const routes = createBrowserRouter([
         element: <CadastroPage />,
       },
       {
+        path: '/config/:id',
+        element: <Config />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRouter />,
+    children: [
+      {
         path: '/dashboard/funcionario',
         element: <HomeFuncionario />,
       },
@@ -42,14 +56,6 @@ export const routes = createBrowserRouter([
       {
         path: '/dashboard/administrador',
         element: <HomeAdmin />,
-      },
-      {
-        path: '/config/:id',
-        element: <Config />,
-      },
-      {
-        path: '*',
-        element: <NotFound />,
       },
     ],
   },
