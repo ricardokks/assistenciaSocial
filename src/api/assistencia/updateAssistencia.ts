@@ -14,6 +14,10 @@ export async function updateAssistencia(data: AssistenciaSchemaDTO, id: string |
   if (data.sobre) formData.append('sobre', data.sobre)
   if (data.subnome) formData.append('subnome', data.subnome)
 
+  const servicos = (data.abrange ?? []).map((nome) => ({ nome }))
+
+  formData.append('servicos', JSON.stringify(servicos))
+
   const res = await api.put(`/assistencias/${id}`, formData)
 
   return res
