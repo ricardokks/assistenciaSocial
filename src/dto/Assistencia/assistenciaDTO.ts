@@ -46,6 +46,7 @@ export type AssistenciaDTOO = {
   icone: string
   sobre: string
   subnome: string
+  servicos: Servico[]
 }
 
 export type AssistenciaSchemaDTO = z.infer<typeof AssistenciaSchema>
