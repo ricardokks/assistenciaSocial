@@ -78,12 +78,19 @@ export function Agendamento(data: IHomeProps) {
             <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
           </div>
 
-          {/* renderização dos cards  */}
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
-            {agendamentoss?.map((card) => (
-              <CardAgendamento key={card.id} dados={card} onUpdateLocal={updateLocalAgendamento} />
-            ))}
-          </div>
+          {agendamentoss.length > 0 ? (
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
+              {agendamentoss.map((card) => (
+                <CardAgendamento
+                  key={card.id}
+                  dados={card}
+                  onUpdateLocal={updateLocalAgendamento}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-primary-800 mt-4">Não encontramos nenhum agendamento.</p>
+          )}
         </div>
       ) : (
         <SkeletonAgendamento />
