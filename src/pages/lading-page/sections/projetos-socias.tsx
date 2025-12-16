@@ -1,7 +1,28 @@
-import { TextoscardsProjeto } from '../../../constants/textos-card-projeto'
+import { useEffect, useState } from 'react'
 import { CardProjeto } from '../components/card-projeto'
+import { getAssistencias } from '../../../api/assistencia/getAllAssistencia'
 
 export function SectionProjetosSociais() {
+  const [assistencias, setAssistencias] = useState([])
+
+  async function fetchAssistencias() {
+    try {
+      const response = await getAssistencias()
+      setAssistencias(response.data)
+    } catch (error) {
+      // aa
+    }
+  }
+
+  useEffect(() => {
+    fetchAssistencias()
+  }, [])
+  
+  if (assistencias.length === 0) {
+    return null; // Ou um indicador de carregamento, se preferir
+  }
+
+  console.log("assistencias:", assistencias);
   return (
     <section
       className="relative flex w-full items-start justify-center overflow-hidden px-8"
@@ -20,8 +41,8 @@ export function SectionProjetosSociais() {
 
         {/* container rederização dos cards  */}
         <div className="gap-y-15 grid w-full grid-cols-2 gap-20 max-md:grid-cols-1 max-sm:gap-8">
-          {TextoscardsProjeto.map((card, index) => (
-            <CardProjeto key={index} animation={true} {...card} />
+          {assistencias.map((card: any, index): any => (
+            <CardProjeto key={card.id} animation={true} {...card} />
           ))}
         </div>
       </div>

@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
+import { useForm } from 'react-hook-form'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
+
+import { createAssistencia } from '../../../../api/assistencia/createAssistencia'
+import { updateAssistencia } from '../../../../api/assistencia/updateAssistencia'
+import { CriarServicos } from '../../../../api/servicos/createService'
+import { deleteServico } from '../../../../api/servicos/deleteService'
 import { IconeCidadao } from '../../../../assets/Icons/Icon-cidadao'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLocal } from '../../../../assets/Icons/icone-local'
 import { IconeVoltar } from '../../../../assets/Icons/iconeVoltar'
-import type { ModalAssistenciaProps } from '../../../../types/interface-modal-assistencia'
 import { ErrorMessage } from '../../../../components/ui/errorMsg'
 import type { AssistenciaSchemaDTO } from '../../../../dto/Assistencia/assistenciaDTO'
-import { updateAgendamento } from '../../../../api/agendamentos/updateAgendamento'
-import { updateAssistencia } from '../../../../api/assistencia/updateAssistencia'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { AssistenciaSchema } from '../../../../schemas/assistenciaSchema'
-import { tr } from 'zod/v4/locales'
-import { toast } from 'sonner'
+import type { ModalAssistenciaProps } from '../../../../types/interface-modal-assistencia'
+
+type ServicoTag = {
+  id?: string
+  nome: string
+}
 
 export function ModalEditarInst(props: ModalAssistenciaProps) {
   const methods = useForm({
@@ -33,7 +40,7 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
   const [fotoFront, setFotoFront] = useState<string | null>(null)
   const [foto, setFoto] = useState<File | undefined>(undefined)
 
-  const [tags, setTags] = useState<string[]>([])
+  const [tags, setTags] = useState<ServicoTag[]>([])
 
   const [inputValue, setInputValue] = useState<string>('')
 
@@ -46,56 +53,61 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
   }
 
   function addTag() {
-    console.log('clicou')
-    if (inputValue.length > 1 && inputValue.trim() !== '') {
-      setTags((tags) => [...tags, inputValue])
+    if (inputValue.trim().length > 1) {
+      setTags((tags) => [...tags, { nome: inputValue }])
       setInputValue('')
-      console.log('clicou2')
-      console.log(tags)
     }
   }
 
   useEffect(() => {
-  if (!props.assistencia) return
+    if (!props.assistencia) return
 
-  reset({
-    unidade: props.assistencia.unidade,
-    subnome: props.assistencia.subnome,
-    sobre: props.assistencia.sobre,
-    localizacao: props.assistencia.localizacao,
-    abrange: props.assistencia.abrange,
-  })
+    setTags(
+      props.assistencia.servicos.map((s) => ({
+        id: s.id,
+        nome: s.nome,
+      }))
+    )
 
-  setTags(props.assistencia.abrange ?? [])
-  setFotoFront(props.assistencia.icone ?? null)
-}, [props.assistencia, reset])
+    reset({
+      unidade: props.assistencia.unidade,
+      subnome: props.assistencia.subnome,
+      sobre: props.assistencia.sobre,
+      localizacao: props.assistencia.localizacao,
+      abrange: props.assistencia.servicos.map((s) => s.nome),
+    })
+
+    setFotoFront(props.assistencia.icone ?? null)
+  }, [props.assistencia, reset])
 
   useEffect(() => {
-    setValue('abrange', tags)
+    setValue(
+      'abrange',
+      tags.map((t) => t.nome)
+    )
   }, [tags])
 
   async function onSubmit(data: AssistenciaSchemaDTO) {
-    try{
-    console.log('data do form', data)
+    try {
+      const payload = {
+        ...data,
+        icone: foto,
+        abrange: tags.map((t) => t.nome),
+      }
 
-    const payload = {
-      ...data,
-      icone: foto,
+      await updateAssistencia(payload, props.assistencia?.id)
+      const novosServicos = tags.filter((tag) => !tag.id)
+
+      await Promise.all(
+        novosServicos.map((tag) => CriarServicos(props.assistencia?.id ?? '', tag.nome))
+      )
+
+      toast.success('Assistência editada com sucesso!')
+      props.refreshAssistencias()
+      props.handleAbrirModalDelete()
+    } catch (error) {
+      toast.error('Erro ao editar assistência. Por favor, tente novamente.')
     }
-
-    const res = await updateAssistencia(payload, props.assistencia?.id)
-    console.log('ERROS DO FORM', errors)
-
-    console.log('response', res.data)
-
-    
-
-    toast.success('Assistência editada com sucesso!')
-    props.refreshAssistencias()
-    props.handleAbrirModalDelete()
-  }catch(error){
-    toast.error('Erro ao editar assistência. Por favor, tente novamente.')
-  }
   }
 
   return ReactDOM.createPortal(
@@ -109,11 +121,10 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
         {/* parte de cima do componente */}
         <nav className="bg-primary-800 absolute left-0 top-0 h-12 w-full rounded-t-2xl">
           <div className="flex items-center justify-between px-4 py-2 ">
-            <h1 className="font-outfit-bold text-2xl text-white">Novo Usuário</h1>
+            <h1 className="font-outfit-bold text-2xl text-white">Editar Insituição</h1>
             <div
               className="cursor-pointer"
               onClick={() => {
-                setTags([])
                 setInputValue('')
                 props.handleAbrirModalDelete()
               }}
@@ -151,11 +162,15 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
               6,2"
               >
                 <div
-                  style={{ backgroundImage: `url(${fotoFront})` }}
+                  style={{ backgroundImage: `url(${fotoFront})`, backgroundSize: 'cover' }}
                   className="h-32 w-32 rounded-full border-2 border-primary-800/50 overflow-hidden"
                 >
                   {' '}
-                  <input onChange={(e) => addFoto(e)} type="file" className="w-full h-full" />
+                  <input
+                    onChange={(e) => addFoto(e)}
+                    type="file"
+                    className="w-full opacity-0 h-full"
+                  />
                 </div>
 
                 <div className="w-full h-full flex gap-4 flex-col">
@@ -217,11 +232,14 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
                         key={index}
                         className="border-primary-100/80 font-outfit rounded-2xl border-2 items-center flex px-2"
                       >
-                        {tag}
+                        {tag.nome}
 
                         <button
                           type="button"
-                          onClick={() => {
+                          onClick={async () => {
+                            if (tag.id) {
+                              await deleteServico(tag.id)
+                            }
                             setTags((tags) => tags.filter((_, i) => i !== index))
                           }}
                           className=" font-satoshi-black ml-1.5 text-lg cursor-pointer hover:text-negative duration-300 ease items-center h-full flex -translate-y-0.5"
@@ -275,7 +293,7 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
                 onClick={() => console.log('clicou no submitasd')}
                 className="bg-primary-800 hover:bg-primary-800/90 w-[80%] mb-4 cursor-pointer  rounded-[5.97px] p-2 text-[1.1rem] font-bold text-white duration-500 ease-in-out max-md:w-full"
               >
-                Criar Instituição
+                Editar Instituição
               </button>
             </div>
           </form>

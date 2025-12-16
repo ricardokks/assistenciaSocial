@@ -14,6 +14,7 @@ import type { AssistenciaSchemaDTO } from '../../../../dto/Assistencia/assistenc
 import { AssistenciaSchema } from '../../../../schemas/assistenciaSchema'
 import type { ModalAssistenciaProps } from '../../../../types/interface-modal-assistencia'
 import { toast } from 'sonner'
+import { CriarServicos } from '../../../../api/servicos/createService'
 
 export function ModalCriarInst(props: ModalAssistenciaProps) {
   const methods = useForm({
@@ -71,6 +72,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
     console.log('ERROS DO FORM', errors)
 
     console.log('response', res.data)
+    tags.map(async (tag) => await CriarServicos(res.data.data.id, tag))
 
     toast.success('Assistência criada com sucesso!')
     props.handleAbrirModalDelete()
@@ -92,7 +94,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
         {/* parte de cima do componente */}
         <nav className="bg-primary-800 absolute left-0 top-0 h-12 w-full rounded-t-2xl">
           <div className="flex items-center justify-between px-4 py-2 ">
-            <h1 className="font-outfit-bold text-2xl text-white">Novo Usuário</h1>
+            <h1 className="font-outfit-bold text-2xl text-white">Nova Insituição</h1>
             <div
               className="cursor-pointer"
               onClick={() => {
@@ -134,7 +136,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
               6,2"
               >
                 <div
-                  style={{ backgroundImage: `url(${fotoFront})` }}
+                  style={{ backgroundImage: `url(${fotoFront})`, backgroundSize: 'cover' }}
                   className="h-32 w-32 rounded-full border-2 border-primary-800/50 overflow-hidden"
                 >
                   {' '}

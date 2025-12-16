@@ -11,6 +11,10 @@ export async function createAssistencia(data: AssistenciaSchemaDTO) {
   formData.append('sobre', data.sobre)
   formData.append('subnome', data.subnome)
 
+  const servicos = (data.abrange ?? []).map((nome) => ({ nome }))
+
+  formData.append('servicos', JSON.stringify(servicos))
+
   const res = await api.post('/assistencias', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -147,22 +147,22 @@
 
 @font-face {
   font-family: 'Outfit';
-  src: url('../assets/fonts/Outfit-Regular.otf') format('opentype');
+  src: url('../assets/fonts/Outfit-Regular.ttf') format('opentype');
 }
 
 @font-face {
   font-family: 'Outfit-Light';
-  src: url('../assets/fonts/Outfit-Light.otf') format('opentype');
+  src: url('../assets/fonts/Outfit-Light.ttf') format('opentype');
 }
 
 @font-face {
   font-family: 'Outfit-Bold';
-  src: url('../assets/fonts/Outfit-Bold.otf') format('opentype');
+  src: url('../assets/fonts/Outfit-Bold.ttf') format('opentype');
 }
 
 @font-face {
   font-family: 'Outfit-Black';
-  src: url('../assets/fonts/Outfit-Black.otf') format('opentype');
+  src: url('../assets/fonts/Outfit-Black.ttf') format('opentype');
 }
 
 @keyframes rotateFull {
