@@ -1,38 +1,42 @@
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
+
+import { associateAssistencia } from '../../../../../api/assistencia/associateAssistencia'
+import { updateUser } from '../../../../../api/user/updateUser'
 import { IconeCidadao } from '../../../../../assets/Icons/IconeCidadao'
 import { IconeCasa } from '../../../../../assets/Icons/icone-casa'
 import { IconeData } from '../../../../../assets/Icons/icone-data'
 import { IconeLocal } from '../../../../../assets/Icons/icone-local'
-import { IconeNis } from '../../../../../assets/Icons/icone-nis'
-import { IconeEmail } from '../../../../../assets/Icons/iconeEmail'
 import { IconeInstituicao } from '../../../../../assets/Icons/iconeInstituicao'
 import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
-import { createUser } from '../../../../../api/user/createUser'
-import { useEffect, useState } from 'react'
-import { userCadastroSchema, userEditarSchema, type userCadastroDTO, type userEditarDTO } from '../../../../../schemas/userCadastroSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { ErrorMessage } from '../../../../../components/ui/errorMsg'
-import { Controller, useForm } from 'react-hook-form'
 import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
-import { findAllLocalidades } from '../../../../../api/localidades/findAllLocalidades'
-import { updateUser } from '../../../../../api/user/updateUser'
-import { ca, da } from 'zod/v4/locales'
-import { toast } from 'sonner'
-
+import {
+  userCadastroSchema,
+  type userEditarDTO,
+  userEditarSchema,
+} from '../../../../../schemas/userCadastroSchema'
 
 type Localidade = {
   id: string
   nome: string
 }
 
-
-export function FuncionarioEditarSection({ usuario, refreshUsers }: { usuario: userEditarDTO, refreshUsers: () => void }) {
+export function FuncionarioEditarSection({
+  usuario,
+  refreshUsers,
+}: {
+  usuario: userEditarDTO
+  refreshUsers: () => void
+}) {
   const [Localidades, setLocalidades] = useState<Localidade[]>([])
   const [loading, setLoading] = useState(true)
   const [Assistencias, setAssistencia] = useState<AssistenciaDTOO[]>([])
   const [loadingA, setLoadingA] = useState(true)
-
 
   const {
     handleSubmit,
@@ -45,74 +49,70 @@ export function FuncionarioEditarSection({ usuario, refreshUsers }: { usuario: u
     shouldUnregister: false,
   })
 
+  async function fetchLocalidades() {
+    try {
+      const response = await fetch('http://localhost:4000/localidades')
+      const json = await response.json()
 
-  
-          async function fetchLocalidades() {
-        try {
-          const response = await fetch('http://localhost:4000/localidades')
-          const json = await response.json()
-  
-          setLocalidades(json.data ?? [])
-        } catch (error) {
-          console.error('Erro ao buscar localidades', error)
-        } finally {
-          setLoading(false)
-        }
-      }
+      setLocalidades(json.data ?? [])
+    } catch (error) {
+      console.error('Erro ao buscar localidades', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-      async function fetchAssistencias() {
-        try {
-          const response = await fetch('http://localhost:4000/assistencias')
-          const json = await response.json()
-          setAssistencia(json.data ?? [])
-        } catch (error) {
-          console.error('Erro ao buscar assistências', error)
-        } finally {
-          setLoadingA(false)
-      }}
-  
-      useEffect(() => {
+  async function fetchAssistencias() {
+    try {
+      const response = await fetch('http://localhost:4000/assistencias')
+      const json = await response.json()
+      setAssistencia(json.data ?? [])
+    } catch (error) {
+      console.error('Erro ao buscar assistências', error)
+    } finally {
+      setLoadingA(false)
+    }
+  }
 
-  
-      fetchLocalidades()
-      fetchAssistencias()
-    }, [])
+  useEffect(() => {
+    fetchLocalidades()
+    fetchAssistencias()
+  }, [])
 
+  useEffect(() => {
+    if (!usuario) return
+    if (loading || loadingA) return // só reseta quando as duas APIs carregarem
 
+    reset({
+      id: usuario.id,
+      nome: usuario.nome,
+      cpf: usuario.cpf,
+      data_nascimento: usuario.data_nascimento?.split('T')[0],
+      nome_mae: usuario.nome_mae,
+      localidadeId: usuario.localidadeId,
+      rua: usuario.rua,
+      complemento: usuario.complemento,
+      numero_casa: usuario.numero_casa,
+      papel: usuario.papel,
+      assistenciaId: usuario.assistenciaId,
+    })
 
-useEffect(() => {
-  if (!usuario) return;
-  if (loading || loadingA) return; // só reseta quando as duas APIs carregarem
-
-  reset({
-    id: usuario.id,
-    nome: usuario.nome,
-    cpf: usuario.cpf,
-    data_nascimento: usuario.data_nascimento?.split("T")[0],
-    nome_mae: usuario.nome_mae,
-    localidadeId: usuario.localidadeId,
-    rua: usuario.rua,
-    complemento: usuario.complemento,
-    numero_casa: usuario.numero_casa,
-    papel: usuario.papel,
-    assistenciaId: usuario.assistenciaId,
-  });
-
-  console.log("RESET RODOU com assistencia:", usuario.assistenciaId);
-
-}, [usuario, loading, loadingA, reset]);
+    console.log('RESET RODOU com assistencia:', usuario.assistenciaId)
+  }, [usuario, loading, loadingA, reset])
 
   async function onSubmit(data: userEditarDTO) {
-    try{
-    const res = await updateUser(data, data.id!)
-    console.log('response:', res.data)
-    toast.success('Funcionário editado com sucesso!')
-    refreshUsers()
-    }catch(error){
+    try {
+      await updateUser(data, data.id!)
+      if (data.assistenciaId !== usuario.assistenciaId) {
+        await associateAssistencia(data.id!, data.assistenciaId!)
+      }
+      toast.success('Funcionário editado com sucesso!')
+      refreshUsers()
+    } catch (error) {
       toast.error('Erro ao editar funcionário. Por favor, tente novamente.')
     }
   }
-  
+
   return (
     <div className="h-[90%] w-full">
       <form
@@ -207,21 +207,19 @@ useEffect(() => {
           <div className="flex flex-col gap-1">
             <p className="text-primary-800 font-outfit">Localidade:</p>
             <div className="relative">
-            <select
-              {...register('localidadeId', { required: true })}
-              disabled={loading}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
-            >
-              <option value="">
-                {loading ? 'Carregando...' : 'Selecione a localidade'}
-              </option>
+              <select
+                {...register('localidadeId', { required: true })}
+                disabled={loading}
+                className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+              >
+                <option value="">{loading ? 'Carregando...' : 'Selecione a localidade'}</option>
 
-              {Localidades.map((localidade) => (
-                <option key={localidade.id} value={localidade.id}>
-                  {localidade.nome}
-                </option>
-              ))}
-            </select>
+                {Localidades.map((localidade) => (
+                  <option key={localidade.id} value={localidade.id}>
+                    {localidade.nome}
+                  </option>
+                ))}
+              </select>
               <IconeLocal className="absolute left-2 top-1 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />
@@ -270,30 +268,25 @@ useEffect(() => {
               </div>
               <ErrorMessage message={errors?.numero_casa?.message} />
             </div>
-
-            
           </div>
 
-
-                    {/* Assistencia */}
+          {/* Assistencia */}
           <div className="flex flex-col gap-1">
             <p className="text-primary-800 font-outfit">Assistencia:</p>
             <div className="relative">
-            <select
-              {...register('assistenciaId', { required: true })}
-              disabled={loadingA}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
-            >
-              <option value="">
-                {loadingA ? 'Carregando...' : 'Selecione a assistência'}
-              </option>
+              <select
+                {...register('assistenciaId', { required: true })}
+                disabled={loadingA}
+                className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+              >
+                <option value="">{loadingA ? 'Carregando...' : 'Selecione a assistência'}</option>
 
-              {Assistencias.map((assistencia) => (
-                <option key={assistencia.id} value={assistencia.id}>
-                  {assistencia.unidade}
-                </option>
-              ))}
-            </select>
+                {Assistencias.map((assistencia) => (
+                  <option key={assistencia.id} value={assistencia.id}>
+                    {assistencia.unidade}
+                  </option>
+                ))}
+              </select>
               <IconeInstituicao className="absolute left-2 top-1 text-primary-800 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />

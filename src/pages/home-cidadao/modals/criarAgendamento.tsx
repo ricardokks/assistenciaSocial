@@ -76,8 +76,9 @@ export function CriarAgendamento({
       const response = await createSolicitacoes(data)
       toast.success('Agendamento criado com sucesso! Espere alguns segundos')
       create(response)
-    } catch {
-      toast.error('Erro ao criar um agendamento')
+    } catch (error: any){
+      const messagem = error?.response?.data?.message ?? 'Erro ao criar um agendamento'
+      toast.error(messagem)
     }
   }
 

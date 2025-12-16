@@ -1,5 +1,6 @@
 import { IconeEditar } from '../../../../assets/Icons/IconeEditar'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
+import { fotoPadraoInstituicao } from '../../../../assets/image'
 import type { AssistenciaDTOO } from '../../../../dto/Assistencia/assistenciaDTO'
 
 type InstituicaoProps = {
@@ -11,12 +12,13 @@ type InstituicaoProps = {
 }
 
 export function Instituicao(props: InstituicaoProps) {
+  const foto =  props.instituicao?.icone === null ? fotoPadraoInstituicao : props.instituicao?.icone
   return (
     <div className="border-primary-100/20 h-64 w-full flex justify-between flex-col pb-4 rounded-2xl border-2 bg-white p-1 px-4 pt-4 shadow-2xl shadow-neutral-700/20 ">
       <div className="flex w-full justify-start gap-4">
         <div
           className="size-16 min-h-16 min-w-16 rounded-lg bg-black"
-          style={{ backgroundImage: `url(${props.instituicao?.icone})`, backgroundSize: 'cover' }}
+          style={{ backgroundImage: `url(${foto})`, backgroundSize: 'cover' }}
         />
         <div className="flex w-full flex-col">
           <h1 className="color-text font-outfit-bold text-lg line-clamp-1">

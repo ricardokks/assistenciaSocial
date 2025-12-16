@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
-import { CardProjeto } from '../../lading-page/components/card-projeto'
+import { CardProjeto } from '../components/cardProjeto'
 
 
 export function Servicos(user: { user: any, onClick: (item: any) => void, assistencia: any }) {
@@ -47,10 +47,10 @@ export function Servicos(user: { user: any, onClick: (item: any) => void, assist
             <CardProjeto
               key={idx}
               animation={false}
-              descricao={item.sobre}
+              sobre={item.sobre}
               foto={item.icone}
-              subtitulo={item.subnome}
-              titulo={item.unidade}
+              subnome={item.subnome}
+              unidade={item.unidade}
               onClick={() => user.onClick(item)}
               id={item.id}
             />

@@ -13,8 +13,9 @@ export async function deleteSolicitacaoFunc(
   try {
     await deleteSolicitacao(idParaDeletar)
     setSolicitacoes((prev) => prev.filter((item) => item.id !== idParaDeletar))
-  } catch {
-    toast.error('Erro ao deletar')
+  } catch (error: any) {
+    const message = error?.response?.data?.message ?? 'Erro ao deletar agendamento'
+    toast.error(message)
   } finally {
     setVisibilidadeModalDeletarAgendamento(false)
   }

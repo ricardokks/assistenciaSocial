@@ -33,7 +33,6 @@ export function Instituicoes(data: IHomeProps) {
     RefreshAllInst()
   }, [])
 
-  
   return (
     <main className="flex h-full  flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4 main">
       {/* Header da aplicação  */}

@@ -78,8 +78,9 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
     props.handleAbrirModalDelete()
     props.refreshAssistencias()
 
-  }catch(error){
-    toast.error('Erro ao criar assistência. Por favor, tente novamente.')
+  }catch(error: any){
+    const msg = error?.response?.data?.message ?? "Erro ao criar assistência. Por favor, tente novamente."
+    toast.error(msg)
   }
   }
 

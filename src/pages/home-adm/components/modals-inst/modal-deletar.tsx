@@ -8,16 +8,22 @@ import { toast } from 'sonner'
 
 export function ModalDeletarInst(props: ModalDeleteAssistenciaProps) {
 
-  async function handleDeleteInst() {
-    try{
-    const res = await deleteAssistencia(props.id)
-    console.log(res)
+ async function handleDeleteInst() {
+  try {
+    await deleteAssistencia(props.id)
+
     toast.success('Instituição deletada com sucesso!')
     props.refreshAssistencias()
-    } catch (error) {
-      toast.error('Erro ao deletar instituição. Por favor, tente novamente.')
-    }
+    props.handleAbrirModalDelete()
+  } catch (error: any) {
+    const message =
+      error?.response?.data?.message ??
+      'Erro ao deletar instituição. Por favor, tente novamente.'
+
+    toast.error(message)
   }
+}
+
 
 
   return ReactDOM.createPortal(

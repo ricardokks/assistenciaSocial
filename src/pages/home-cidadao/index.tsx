@@ -8,6 +8,7 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Agendamento } from './section/agendamento'
 import { Servicos } from './section/servicos'
+import { toast } from 'sonner'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
@@ -18,14 +19,24 @@ export function HomeCidadao() {
   const [assistenciaSelecionada, setAssistenciaSelecionada] = useState(null)
 
   async function getDataUser() {
-    const data = await getUser()
-    setUser(data)
-    setSolicitacoes(data.solicitacoes)
+    try {
+      const data = await getUser()
+      setUser(data)
+      setSolicitacoes(data.solicitacoes)
+    } catch (error: any) {
+      const message = error?.response?.data?.message ?? 'Erro ao buscar dados do usuário'
+      toast.error(message)
+    }
   }
 
   async function getAssistenciasAll() {
-    const data = await getAssistencias()
+    try {
+      const data = await getAssistencias()
     setAssistencias(data)
+    } catch (error: any) {
+      const message = error?.response?.data?.message ?? 'Erro ao buscar assistências'
+      toast.error(message)
+    }
   }
 
   useEffect(() => {

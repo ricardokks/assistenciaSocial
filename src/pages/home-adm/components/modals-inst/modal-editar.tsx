@@ -105,8 +105,11 @@ export function ModalEditarInst(props: ModalAssistenciaProps) {
       toast.success('Assistência editada com sucesso!')
       props.refreshAssistencias()
       props.handleAbrirModalDelete()
-    } catch (error) {
-      toast.error('Erro ao editar assistência. Por favor, tente novamente.')
+    } catch (error: any) {
+       const message =
+      error?.response?.data?.message ??
+      'Erro ao editar assistência. Por favor, tente novamente.'
+      toast.error(message)
     }
   }
 
