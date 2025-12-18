@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
+import { Loading } from '../../../components/loading'
 import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
 import type { AssistenciaDTO } from '../../../types/type-assistencia'
@@ -13,7 +14,6 @@ import { deleteSolicitacaoFunc } from '../../../utils/function-delete-agendament
 import { CriarAgendamento } from '../modals/criarAgendamento'
 import { DeletarAgendamento } from '../modals/deletarAgendamento'
 import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
-import { Loading } from '../../../components/loading'
 
 export function Agendamento(user: {
   data: any
@@ -24,8 +24,6 @@ export function Agendamento(user: {
   setVisibilidadeModalCriarAgendamento: React.Dispatch<React.SetStateAction<boolean>>
   assistenciaSelecionada: any
 }) {
-
-
   const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento } = user
 
   const { setSolicitacoes, solicitacoes } = user
@@ -60,7 +58,7 @@ export function Agendamento(user: {
 
     return formatted
   }
-  if (!solicitacoes) return (<Loading />)
+  if (!solicitacoes) return <Loading />
 
   return (
     <main className="main relative h-screen flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
@@ -121,49 +119,52 @@ export function Agendamento(user: {
 
       <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
         {filteredAppointments.length === 0 ? (
-          <div className="text-primary-800/60 mt-4 text-center col-span-3 max-md:col-span-1">
+          <div className="text-primary-800/60 col-span-3 mt-4 text-center max-md:col-span-1">
             Você não possui agendamentos recentes
-          </div>) : 
-            filteredAppointments.map((item: SolicitacaoDTO) => (
-          <div
-            key={item.id}
-            className={`animate-scale-in flex min-h-[200px] w-full flex-col rounded-2xl bg-white p-4 shadow-lg
-    transition-all duration-700 max-md:max-h-[200px] justify-between
+          </div>
+        ) : (
+          filteredAppointments.map((item: SolicitacaoDTO) => (
+            <div
+              key={item.id}
+              className={`animate-scale-in flex min-h-[200px] w-full flex-col justify-between rounded-2xl bg-white p-4
+    shadow-lg transition-all duration-700 max-md:max-h-[200px]
     ${item.id === lastCreatedId ? 'animate-scale-in' : ''}
   `}
-          >
-            {/* Foto, nome, data solicitacao */}
-            <div className="flex w-full space-x-5">
-              <img className="size-12" src={item.assistencia.icone} />
-              <div className="flex flex-col">
-                <span className="font-outfit-bold text-primary-800 text-lg">
-                  {item.assistencia?.unidade}
-                </span>
-                <span className="font-outfit text-primary-800/75 text-sm">
-                  Data de solicitacao: {formatDate(item.dataCriacao)}
-                </span>
-              </div>
-            </div>
-
-            <div className="flex w-full min-h-20 max-h-20">
-              {/* text Servico solicitado e Status de agendamento */}
-              <div className="mt-5 flex w-full flex-col">
-                <span className="font-outfit text-primary-800 text-[14px]">Serviço solicitado</span>
-                <span className="font-satoshi text-primary-800 text-[12px] font-medium">
-                  {item?.assistencia?.servicos?.find((svc) => svc.id === item.servicoId)?.nome}
-                </span>
+            >
+              {/* Foto, nome, data solicitacao */}
+              <div className="flex w-full space-x-5">
+                <img className="size-12" src={item.assistencia.icone} />
+                <div className="flex flex-col">
+                  <span className="font-outfit-bold text-primary-800 text-lg">
+                    {item.assistencia?.unidade}
+                  </span>
+                  <span className="font-outfit text-primary-800/75 text-sm">
+                    Data de solicitacao: {formatDate(item.dataCriacao)}
+                  </span>
+                </div>
               </div>
 
-              {/* serviço e status*/}
-              <div className="mt-5 flex w-full flex-col">
-                <span className="font-outfit text-primary-800 text-[14px]">
-                  Status do agendamento
-                </span>
-                <ButtonStatus status={item.status} />
-              </div>
-            </div>
+              <div className="flex max-h-20 min-h-20 w-full">
+                {/* text Servico solicitado e Status de agendamento */}
+                <div className="mt-5 flex w-full flex-col">
+                  <span className="font-outfit text-primary-800 text-[14px]">
+                    Serviço solicitado
+                  </span>
+                  <span className="font-satoshi text-primary-800 text-[12px] font-medium">
+                    {item?.assistencia?.servicos?.find((svc) => svc.id === item.servicoId)?.nome}
+                  </span>
+                </div>
 
-            {/* button */}
+                {/* serviço e status*/}
+                <div className="mt-5 flex w-full flex-col">
+                  <span className="font-outfit text-primary-800 text-[14px]">
+                    Status do agendamento
+                  </span>
+                  <ButtonStatus status={item.status} />
+                </div>
+              </div>
+
+              {/* button */}
               <ButtonInfo
                 status={item.status}
                 onClickAguardandoAnalise={() =>
@@ -183,8 +184,9 @@ export function Agendamento(user: {
                   setVisibilidadeModalVisualizarAgendamento((prev) => !prev)
                 }}
               />
-          </div>
-        ))}
+            </div>
+          ))
+        )}
       </div>
 
       {/* Modals */}

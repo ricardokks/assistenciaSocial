@@ -1,30 +1,27 @@
 import ReactDOM from 'react-dom'
 
+import { toast } from 'sonner'
+
+import { deleteAssistencia } from '../../../../api/assistencia/deleteAssistencia'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import type { ModalDeleteAssistenciaProps } from '../../../../types/interface-modal-deletar-assistencia'
-import { deleteAssistencia } from '../../../../api/assistencia/deleteAssistencia'
-import { toast } from 'sonner'
 
 export function ModalDeletarInst(props: ModalDeleteAssistenciaProps) {
+  async function handleDeleteInst() {
+    try {
+      await deleteAssistencia(props.id)
 
- async function handleDeleteInst() {
-  try {
-    await deleteAssistencia(props.id)
+      toast.success('Instituição deletada com sucesso!')
+      props.refreshAssistencias()
+      props.handleAbrirModalDelete()
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.message ?? 'Erro ao deletar instituição. Por favor, tente novamente.'
 
-    toast.success('Instituição deletada com sucesso!')
-    props.refreshAssistencias()
-    props.handleAbrirModalDelete()
-  } catch (error: any) {
-    const message =
-      error?.response?.data?.message ??
-      'Erro ao deletar instituição. Por favor, tente novamente.'
-
-    toast.error(message)
+      toast.error(message)
+    }
   }
-}
-
-
 
   return ReactDOM.createPortal(
     <section
@@ -61,11 +58,9 @@ export function ModalDeletarInst(props: ModalDeleteAssistenciaProps) {
             <button
               className="bg-negative h-10 w-[45%] cursor-pointer rounded-md p-1 text-white"
               onClick={() => {
-
                 handleDeleteInst()
-                props.handleAbrirModalDelete()}
-                
-              }
+                props.handleAbrirModalDelete()
+              }}
             >
               Deletar
             </button>

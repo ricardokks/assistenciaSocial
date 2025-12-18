@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { getAssistencia } from '../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../api/user/pegarInformacaoFuncionario'
 import { CardInicioAgendamento } from './components/cardInicio'
-import { InicioDashBoard } from './InicioDashBoard'
 
 export function InicioDados() {
   const [idUsuario, setIdUsuario] = useState('')
@@ -18,7 +17,7 @@ export function InicioDados() {
     const resultado = getAgendamentosStats(agendamento.solicitacoes)
     setStats(resultado)
   }, [agendamento])
-  
+
   // Função para converter string -> Date
   function parseDate(dateString: string) {
     return new Date(dateString)
@@ -84,7 +83,6 @@ export function InicioDados() {
         valorAgendamento={stats.semanal}
       />
       <CardInicioAgendamento text="Total de agendamentos diários" valorAgendamento={stats.diario} />
-
     </div>
   )
 }

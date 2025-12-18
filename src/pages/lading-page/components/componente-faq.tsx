@@ -28,7 +28,7 @@ export function ComponenteFAQ(props: TypeComponenteFAQ) {
           <div
             className={` ${props.isOpen ? 'mb-2 mt-1 max-h-[500px] opacity-100' : 'my-0 max-h-0 opacity-0'} text-primary-800 w-full transition-all duration-1000 ease-in-out`}
           >
-            <p className='font-satoshi'>{props.resposta}</p>
+            <p className="font-satoshi">{props.resposta}</p>
           </div>
         }
       </article>

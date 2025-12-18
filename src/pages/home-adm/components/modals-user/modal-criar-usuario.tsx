@@ -63,7 +63,6 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
               {' '}
               <IconeCidadao className="size-12" /> Cidadão
             </button>
-
           </div>
 
           <div className="mb-4 mt-20 flex w-full justify-evenly">
@@ -91,8 +90,22 @@ export function ModalCriarUsuario(props: ModalUsuarioProps) {
             {' '}
             <IconeVoltar className="text-primary-800 size-6" />{' '}
           </div>
-          {section === 1 && <FuncionarioSection setSection={setSection} refreshUsers={props.refreshUsers} setStage={setStage} handleAbrirModalDelete={() => props.handleAbrirModalDelete()} />}
-          {section === 2 && <CidadaoSection setSection={setSection} refreshUsers={props.refreshUsers} setStage={setStage} handleAbrirModalDelete={() => props.handleAbrirModalDelete()} />}
+          {section === 1 && (
+            <FuncionarioSection
+              handleAbrirModalDelete={() => props.handleAbrirModalDelete()}
+              refreshUsers={props.refreshUsers}
+              setSection={setSection}
+              setStage={setStage}
+            />
+          )}
+          {section === 2 && (
+            <CidadaoSection
+              handleAbrirModalDelete={() => props.handleAbrirModalDelete()}
+              refreshUsers={props.refreshUsers}
+              setSection={setSection}
+              setStage={setStage}
+            />
+          )}
         </div>
       </article>
     </section>,

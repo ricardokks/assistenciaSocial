@@ -1,10 +1,9 @@
-import { createPortal } from "react-dom";
-import { Modal } from "../../../ui/modal";
+import { createPortal } from 'react-dom'
 
-export function RelatorioMensalModal(){
-    <Modal open={true} close={() => false}>
-        <div>
+import { Modal } from '../../../ui/modal'
 
-        </div>
-    </Modal>
+export function RelatorioMensalModal() {
+  ;<Modal close={() => false} open={true}>
+    <div></div>
+  </Modal>
 }

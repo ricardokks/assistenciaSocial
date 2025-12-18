@@ -34,14 +34,14 @@ export function Usuarios(data: IHomeProps) {
   }, [])
 
   return (
-    <main className="flex h-full main flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
+    <main className="main flex h-full flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user="ADMINISTRADOR" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
-      <div className="flex size-full flex-col pb-10 max-lg:pb-30">
+      <div className="max-lg:pb-30 flex size-full flex-col pb-10">
         <h1 className="font-outfit-bold text-primary-800 text-xl">Usuários</h1>
         <div className="mt-3 flex w-full justify-between">
           <div className="relative w-2/3">
@@ -69,9 +69,9 @@ export function Usuarios(data: IHomeProps) {
               key={user.id}
               setDelete={() => setAbrirModalDelete(true)}
               setEdit={() => setAbrirModalEdit(true)}
-              user={user}
               setId={() => setIdUsuario(user.id)}
               setUser={() => setUsuario(user)}
+              user={user}
             />
           ))}
         </div>
@@ -91,8 +91,8 @@ export function Usuarios(data: IHomeProps) {
         <ModalEditarUsuario
           abrilModalUsuario={abrirModalEdit}
           handleAbrirModalDelete={() => setAbrirModalEdit(false)}
-          usuario={usuario!}
           refreshUsers={() => refreshUsers()}
+          usuario={usuario!}
         ></ModalEditarUsuario>
       </div>
     </main>

@@ -136,26 +136,25 @@ export async function gerarComprovante({
 
   y += 30
 
- // =============================
-// RODAPÉ
-// =============================
-y += 10 // <-- espaçamento extra (equivalente a padding-top)
+  // =============================
+  // RODAPÉ
+  // =============================
+  y += 10 // <-- espaçamento extra (equivalente a padding-top)
 
-pdf.setFontSize(9)
-pdf.setTextColor(...AZUL)
-pdf.text(`Documento emitido em ${dataCriacao}`, margin, y)
+  pdf.setFontSize(9)
+  pdf.setTextColor(...AZUL)
+  pdf.text(`Documento emitido em ${dataCriacao}`, margin, y)
 
-y += 8 // <-- mais espaço entre linhas
-const rodape =
-  'Este documento possui natureza oficial e certifica que o(a) solicitante possui ' +
-  'atendimento de Assistência Social previamente agendado junto à Prefeitura Municipal de Massapê.'
+  y += 8 // <-- mais espaço entre linhas
+  const rodape =
+    'Este documento possui natureza oficial e certifica que o(a) solicitante possui ' +
+    'atendimento de Assistência Social previamente agendado junto à Prefeitura Municipal de Massapê.'
 
-const rodapeSplit = pdf.splitTextToSize(rodape, pageWidth - margin * 2)
-pdf.text(rodapeSplit, margin, y)
+  const rodapeSplit = pdf.splitTextToSize(rodape, pageWidth - margin * 2)
+  pdf.text(rodapeSplit, margin, y)
 
-y += rodapeSplit.length * 6 + 8
-pdf.text('Assistência Social na Palma da Mão', pageWidth / 2, y, { align: 'center' })
-
+  y += rodapeSplit.length * 6 + 8
+  pdf.text('Assistência Social na Palma da Mão', pageWidth / 2, y, { align: 'center' })
 
   // =============================
   // SALVAR

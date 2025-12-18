@@ -35,4 +35,3 @@ export type UsuarioDTOO = {
   papel: 'CIDADAO' | 'ASSISTENCIA' | 'ADMIN'
   avatarURL?: string
 }
-  

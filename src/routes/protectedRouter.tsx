@@ -11,9 +11,9 @@ export function ProtectedRouter() {
     async function fetchIdUser() {
       try {
         const response = await getUser()
-        setIdUser(response.id) 
+        setIdUser(response.id)
       } catch (err) {
-        setIdUser(null) 
+        setIdUser(null)
       } finally {
         setLoading(false)
       }
@@ -22,10 +22,10 @@ export function ProtectedRouter() {
     fetchIdUser()
   }, [])
 
-  if (loading) return null 
+  if (loading) return null
 
   if (!idUser) {
-    return <Navigate to="/login" replace />
+    return <Navigate replace to="/login" />
   }
 
   return <Outlet />

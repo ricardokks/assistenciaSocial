@@ -34,14 +34,14 @@ export function Instituicoes(data: IHomeProps) {
   }, [])
 
   return (
-    <main className="flex h-full  flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4 main">
+    <main className="main flex  h-full flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user="ADMINISTRADOR" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
 
-      <div className="flex size-full flex-col max-lg:pb-30">
+      <div className="max-lg:pb-30 flex size-full flex-col">
         <h1 className="font-outfit-bold text-primary-800 text-xl">Instituições</h1>
         <div className="mt-3 flex w-full justify-between">
           <div className="relative w-2/3">
@@ -63,15 +63,15 @@ export function Instituicoes(data: IHomeProps) {
 
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
-        <div className="mb-28 mt-2 grid size-full grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-2 overflow-y-auto overflow-x-hidden">
+        <div className="mb-28 mt-2 grid size-full grid-cols-3 gap-2 overflow-y-auto overflow-x-hidden max-md:grid-cols-2 max-sm:grid-cols-1">
           {instituicoes.map((inst) => (
             <Instituicao
               key={inst.id}
+              instituicao={inst}
               setDelete={() => setAbrirModalDelete(true)}
               setEdit={() => setAbrirModalEdit(true)}
-              instituicao={inst}
-              setInstituicao={() => setInstituicao(inst)}
               setId={() => setIdInstituicao(inst.id)}
+              setInstituicao={() => setInstituicao(inst)}
             ></Instituicao>
           ))}
         </div>
@@ -91,8 +91,8 @@ export function Instituicoes(data: IHomeProps) {
 
         <ModalEditarInst
           abrilModalAssistencia={abrirModalEdit}
-          handleAbrirModalDelete={() => setAbrirModalEdit(false)}
           assistencia={instituicao!}
+          handleAbrirModalDelete={() => setAbrirModalEdit(false)}
           refreshAssistencias={() => RefreshAllInst()}
         ></ModalEditarInst>
       </div>

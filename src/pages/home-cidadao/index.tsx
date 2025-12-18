@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { toast } from 'sonner'
+
 import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 import { getUser } from '../../api/user/getUser'
 import { Inicio } from '../../components/Inicio/Inicio'
@@ -8,7 +10,6 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Agendamento } from './section/agendamento'
 import { Servicos } from './section/servicos'
-import { toast } from 'sonner'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
@@ -32,7 +33,7 @@ export function HomeCidadao() {
   async function getAssistenciasAll() {
     try {
       const data = await getAssistencias()
-    setAssistencias(data)
+      setAssistencias(data)
     } catch (error: any) {
       const message = error?.response?.data?.message ?? 'Erro ao buscar assistências'
       toast.error(message)

@@ -1,29 +1,19 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const AssistenciaSchema = z.object({
-  unidade: z
-    .string()
-    .min(1, { message: 'O nome da instituição é obrigatório.' }),
+  unidade: z.string().min(1, { message: 'O nome da instituição é obrigatório.' }),
 
-  localizacao: z
-    .string()
-    .min(5, { message: 'A localização é obrigatória.' }),
+  localizacao: z.string().min(5, { message: 'A localização é obrigatória.' }),
 
-  subnome: z
-    .string()
-    .min(4, { message: 'O resumo da instituição é obrigatório.' }),
+  subnome: z.string().min(4, { message: 'O resumo da instituição é obrigatório.' }),
 
-  sobre: z
-    .string()
-    .min(1, { message: 'A descrição da assistência é obrigatória.' }),
+  sobre: z.string().min(1, { message: 'A descrição da assistência é obrigatória.' }),
 
   abrange: z
     .array(z.string().min(1))
     .min(1, { message: 'Informe pelo menos uma área de atuação.' }),
 
-  icone: z
-    .instanceof(File)
-    .optional(),
+  icone: z.instanceof(File).optional(),
 })
 
 /*model Assistencia {

@@ -4,8 +4,7 @@ import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/header'
 import { CardProjeto } from '../components/cardProjeto'
 
-
-export function Servicos(user: { user: any, onClick: (item: any) => void, assistencia: any }) {
+export function Servicos(user: { user: any; onClick: (item: any) => void; assistencia: any }) {
   const { data } = user.assistencia
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -20,7 +19,7 @@ export function Servicos(user: { user: any, onClick: (item: any) => void, assist
   if (!user.user) return null
   if (!data) return null
   if (!user.assistencia) return null
-  
+
   return (
     <main className="main flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
       <HeaderDashboards.root>
@@ -47,12 +46,12 @@ export function Servicos(user: { user: any, onClick: (item: any) => void, assist
             <CardProjeto
               key={idx}
               animation={false}
-              sobre={item.sobre}
               foto={item.icone}
+              id={item.id}
+              sobre={item.sobre}
               subnome={item.subnome}
               unidade={item.unidade}
               onClick={() => user.onClick(item)}
-              id={item.id}
             />
           ))}
         </div>

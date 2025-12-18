@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
+
 import { IconeData } from '../../../assets/Icons/icone-data'
 import { IconePessoa } from '../../../assets/Icons/icone-pessoa'
 
@@ -12,7 +13,6 @@ export function Step2({
   setSection: (section: number) => void
   passStep: () => void | Promise<void>
 }) {
-
   const { register, setValue, watch } = useFormContext()
 
   return (
@@ -70,7 +70,6 @@ export function Step2({
           {/* Este campo envia pro backend */}
           <input type="hidden" {...register('data_nascimento')} />
         </div>
-
 
         {/* botão de retornar */}
         <button

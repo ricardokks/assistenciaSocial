@@ -12,15 +12,10 @@ type IVisualizarAgendamento = {
   user: any
 }
 
-export function VisualizarAgendamento({
-  open,
-  close,
-  solicitacao,
-  user,
-}: IVisualizarAgendamento) {
+export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisualizarAgendamento) {
   if (!solicitacao || !solicitacao.data) return null
 
-  console.log("solicitacao: ", solicitacao)
+  console.log('solicitacao: ', solicitacao)
   return (
     <Modal close={close} open={open}>
       <div
@@ -61,8 +56,7 @@ export function VisualizarAgendamento({
 
               <span className="mt-3 font-bold">Observação</span>
               <span className="font-satoshi text-[14px]">
-                {solicitacao.observacoesFuncionario ||
-                  'Não há observações do funcionário'}
+                {solicitacao.observacoesFuncionario || 'Não há observações do funcionário'}
               </span>
             </div>
           </div>
@@ -79,12 +73,10 @@ export function VisualizarAgendamento({
                 : 'Não informado',
               cpf: user?.cpf ?? 'Não informado',
               solicitacao,
-              assistencia:
-                solicitacao.assistencia?.unidade ?? 'Não informado',
+              assistencia: solicitacao.assistencia?.unidade ?? 'Não informado',
               servico:
-                solicitacao.assistencia?.servicos.find(
-                  (s) => s.id === solicitacao.servicoId
-                )?.nome ?? 'Não informado',
+                solicitacao.assistencia?.servicos.find((s) => s.id === solicitacao.servicoId)
+                  ?.nome ?? 'Não informado',
               hora: solicitacao.hora || 'Não informado',
               dataAtendimento: formatarData(solicitacao.data ?? 'Não informado'),
               dataCriacao: formatarData(new Date().toISOString()),

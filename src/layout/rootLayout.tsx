@@ -1,21 +1,22 @@
-import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
-import { socket } from "../utils/socket";
+import { useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
+
+import { socket } from '../utils/socket'
 
 export function RootLayout() {
   useEffect(() => {
-    const raw = localStorage.getItem("user");
+    const raw = localStorage.getItem('user')
 
     if (raw) {
-      const user = JSON.parse(raw);
-      socket.auth = { userId: user.id };
-      socket.connect();
+      const user = JSON.parse(raw)
+      socket.auth = { userId: user.id }
+      socket.connect()
     }
 
     return () => {
-      socket.disconnect();
-    };
-  }, []);
+      socket.disconnect()
+    }
+  }, [])
 
-  return <Outlet />;
+  return <Outlet />
 }

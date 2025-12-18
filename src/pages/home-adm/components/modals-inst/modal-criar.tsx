@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
 
 import { createAssistencia } from '../../../../api/assistencia/createAssistencia'
+import { CriarServicos } from '../../../../api/servicos/createService'
 import { IconeCidadao } from '../../../../assets/Icons/Icon-cidadao'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLocal } from '../../../../assets/Icons/icone-local'
@@ -13,8 +15,6 @@ import { ErrorMessage } from '../../../../components/ui/errorMsg'
 import type { AssistenciaSchemaDTO } from '../../../../dto/Assistencia/assistenciaDTO'
 import { AssistenciaSchema } from '../../../../schemas/assistenciaSchema'
 import type { ModalAssistenciaProps } from '../../../../types/interface-modal-assistencia'
-import { toast } from 'sonner'
-import { CriarServicos } from '../../../../api/servicos/createService'
 
 export function ModalCriarInst(props: ModalAssistenciaProps) {
   const methods = useForm({
@@ -59,29 +59,29 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
   }, [tags])
 
   async function onSubmit(data: AssistenciaSchemaDTO) {
-    try{
-    console.log('data do form', data)
-    if (!foto) return
+    try {
+      console.log('data do form', data)
+      if (!foto) return
 
-    const payload = {
-      ...data,
-      icone: foto,
+      const payload = {
+        ...data,
+        icone: foto,
+      }
+
+      const res = await createAssistencia(payload)
+      console.log('ERROS DO FORM', errors)
+
+      console.log('response', res.data)
+      tags.map(async (tag) => await CriarServicos(res.data.data.id, tag))
+
+      toast.success('Assistência criada com sucesso!')
+      props.handleAbrirModalDelete()
+      props.refreshAssistencias()
+    } catch (error: any) {
+      const msg =
+        error?.response?.data?.message ?? 'Erro ao criar assistência. Por favor, tente novamente.'
+      toast.error(msg)
     }
-
-    const res = await createAssistencia(payload)
-    console.log('ERROS DO FORM', errors)
-
-    console.log('response', res.data)
-    tags.map(async (tag) => await CriarServicos(res.data.data.id, tag))
-
-    toast.success('Assistência criada com sucesso!')
-    props.handleAbrirModalDelete()
-    props.refreshAssistencias()
-
-  }catch(error: any){
-    const msg = error?.response?.data?.message ?? "Erro ao criar assistência. Por favor, tente novamente."
-    toast.error(msg)
-  }
   }
 
   return ReactDOM.createPortal(
@@ -112,7 +112,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
         {/* Seção dos forms */}
 
         <div
-          className={` mt-6 flex flex-col w-full h-full overflow-x-hidden items-center justify-end pt-4 `}
+          className={` mt-6 flex size-full flex-col items-center justify-end overflow-x-hidden pt-4 `}
         >
           <div
             className=" mb-3 flex cursor-pointer place-self-start pl-10"
@@ -125,26 +125,26 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
           </div>
 
           <form
+            className="flex size-full flex-col items-start  justify-between overflow-x-hidden "
             onSubmit={handleSubmit(onSubmit)}
-            className="flex h-full w-full flex-col  overflow-x-hidden items-start justify-between "
           >
             {/* container informações nome, cpf, data do agendamento, descrição  */}
-            <div className="flex h-4/5 w-full flex-col gap-4  px-10 overflow-y-scroll">
+            <div className="flex h-4/5 w-full flex-col gap-4  overflow-y-scroll px-10">
               {/* nome  */}
 
               <div
-                className="w-full gap-4 items-center grid-cols-[128px_1fr] grid 3
-              6,2"
+                className="3 6,2 grid w-full grid-cols-[128px_1fr] items-center
+              gap-4"
               >
                 <div
+                  className="border-primary-800/50 size-32 overflow-hidden rounded-full border-2"
                   style={{ backgroundImage: `url(${fotoFront})`, backgroundSize: 'cover' }}
-                  className="h-32 w-32 rounded-full border-2 border-primary-800/50 overflow-hidden"
                 >
                   {' '}
-                  <input onChange={(e) => addFoto(e)} type="file" className="w-full h-full" />
+                  <input className="size-full" type="file" onChange={(e) => addFoto(e)} />
                 </div>
 
-                <div className="w-full h-full flex gap-4 flex-col">
+                <div className="flex size-full flex-col gap-4">
                   <div className="flex w-[97%] flex-col gap-1">
                     <p className="text-primary-800 font-outfit">Nome da Instituição:</p>
 
@@ -196,21 +196,21 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
               <div className="flex w-[97%] flex-col gap-1">
                 <p className="text-primary-800 font-outfit">Abrange á:</p>
 
-                <div className="border-primary-800/50 relative text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2  outline-none">
-                  <div className="w-full min-h-10 items-center flex h-fit gap-2 flex-wrap mb-4">
+                <div className="border-primary-800/50 text-primary-800 focus:border-primary-800 relative  w-full rounded-2xl  border-2 p-2  outline-none">
+                  <div className="mb-4 flex h-fit min-h-10 w-full flex-wrap items-center gap-2">
                     {tags.map((tag, index) => (
                       <h1
                         key={index}
-                        className="border-primary-100/80 font-outfit rounded-2xl border-2 items-center flex px-2"
+                        className="border-primary-100/80 font-outfit flex items-center rounded-2xl border-2 px-2"
                       >
                         {tag}
 
                         <button
+                          className=" font-satoshi-black hover:text-negative ease ml-1.5 flex h-full -translate-y-0.5 cursor-pointer items-center text-lg duration-300"
                           type="button"
                           onClick={() => {
                             setTags((tags) => tags.filter((_, i) => i !== index))
                           }}
-                          className=" font-satoshi-black ml-1.5 text-lg cursor-pointer hover:text-negative duration-300 ease items-center h-full flex -translate-y-0.5"
                         >
                           x
                         </button>
@@ -219,6 +219,10 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
                   </div>
 
                   <input
+                    className="w-full pl-10 outline-none"
+                    placeholder="Ex: Correção de documentos, auxílio financeiro, etc."
+                    type="text"
+                    value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key == 'Enter') {
@@ -226,13 +230,9 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
                         addTag()
                       }
                     }}
-                    placeholder="Ex: Correção de documentos, auxílio financeiro, etc."
-                    type="text"
-                    className="pl-10 w-full outline-none"
-                    value={inputValue}
                   ></input>
 
-                  <IconeLocal className="absolute left-2 bottom-2 size-7" />
+                  <IconeLocal className="absolute bottom-2 left-2 size-7" />
                 </div>
                 <ErrorMessage message={errors.abrange?.message} />
               </div>
@@ -257,9 +257,9 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
             {/* container button  */}
             <div className="flex w-full items-center justify-center">
               <button
+                className="bg-primary-800 hover:bg-primary-800/90 mb-4 w-[80%] cursor-pointer  rounded-[5.97px] p-2 text-[1.1rem] font-bold text-white duration-500 ease-in-out max-md:w-full"
                 type="submit"
                 onClick={() => console.log('clicou no submitasd')}
-                className="bg-primary-800 hover:bg-primary-800/90 w-[80%] mb-4 cursor-pointer  rounded-[5.97px] p-2 text-[1.1rem] font-bold text-white duration-500 ease-in-out max-md:w-full"
               >
                 Criar Instituição
               </button>

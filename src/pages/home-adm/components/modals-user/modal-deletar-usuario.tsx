@@ -1,19 +1,17 @@
 import ReactDOM from 'react-dom'
 
+import { toast } from 'sonner'
+
+import { deleteUser } from '../../../../api/user/deleteUser'
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import type { ModalDeletarUsuarioProps } from '../../../../types/interface-modal-deletar-usuario'
-import { deleteUser } from '../../../../api/user/deleteUser'
-import { toast } from 'sonner'
 
 export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
-
-
-
   async function handleDeleteUser() {
     try {
       const res = await deleteUser(props.id)
-      console.log("response:", res.data)
+      console.log('response:', res.data)
       props.handleAbrirModalDelete()
       props.refreshUsers()
 
@@ -23,7 +21,6 @@ export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
       toast.error('Erro ao deletar usuário. Por favor, tente novamente.')
     }
   }
-
 
   return ReactDOM.createPortal(
     <section
@@ -59,8 +56,9 @@ export function ModalDeletarUsuario(props: ModalDeletarUsuarioProps) {
           <div className="mt-8 flex w-full justify-evenly">
             <button
               className="bg-negative h-10 w-[45%] cursor-pointer rounded-md p-1 text-white"
-              onClick={() => {props.handleAbrirModalDelete()
-                                   handleDeleteUser()
+              onClick={() => {
+                props.handleAbrirModalDelete()
+                handleDeleteUser()
               }}
             >
               Deletar

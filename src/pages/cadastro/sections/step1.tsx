@@ -71,7 +71,6 @@ export function Step1({
           </div>
         </div>
 
-
         {/* Senha */}
         <div className="w-3/5 flex-col items-center rounded-2xl p-2">
           <label className="text-primary-800 font-outfit text-[16px] font-medium">Senha:</label>

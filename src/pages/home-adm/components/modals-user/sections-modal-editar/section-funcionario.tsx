@@ -116,8 +116,8 @@ export function FuncionarioEditarSection({
   return (
     <div className="h-[90%] w-full">
       <form
-        onSubmit={handleSubmit(onSubmit)}
         className="flex size-full flex-col items-start justify-between gap-4"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex h-4/5 w-full flex-col gap-4 overflow-y-scroll px-10">
           {/* Nome */}
@@ -143,13 +143,13 @@ export function FuncionarioEditarSection({
                 name="cpf"
                 render={({ field }) => (
                   <IMaskInput
+                    className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
+                    inputRef={field.ref}
                     mask="000.000.000-00"
                     placeholder="000.000.000-00"
                     unmask={true}
                     value={field.value}
                     onAccept={(value) => field.onChange(value)}
-                    inputRef={field.ref}
-                    className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
                   />
                 )}
               />
@@ -165,9 +165,9 @@ export function FuncionarioEditarSection({
               <div className="relative">
                 <input
                   {...register('senha')}
-                  type="password"
                   className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
                   placeholder="Digite a senha"
+                  type="password"
                 />
                 <IconeSenha className="absolute left-2 top-2 size-7" />
               </div>
@@ -180,8 +180,8 @@ export function FuncionarioEditarSection({
               <div className="relative">
                 <input
                   {...register('data_nascimento')}
-                  type="date"
                   className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
+                  type="date"
                 />
                 <IconeData className="absolute left-2 top-2 size-7" />
               </div>
@@ -209,8 +209,8 @@ export function FuncionarioEditarSection({
             <div className="relative">
               <select
                 {...register('localidadeId', { required: true })}
-                disabled={loading}
                 className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+                disabled={loading}
               >
                 <option value="">{loading ? 'Carregando...' : 'Selecione a localidade'}</option>
 
@@ -231,7 +231,7 @@ export function FuncionarioEditarSection({
             <div className="relative">
               <input
                 {...register('rua')}
-                className="border-primary-800/50 pl-10 w-full rounded-2xl border-2 p-2 outline-none"
+                className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
                 placeholder="Digite a rua"
               />
               <IconeLocal className="absolute left-2 top-2 size-7" />
@@ -276,8 +276,8 @@ export function FuncionarioEditarSection({
             <div className="relative">
               <select
                 {...register('assistenciaId', { required: true })}
-                disabled={loadingA}
                 className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+                disabled={loadingA}
               >
                 <option value="">{loadingA ? 'Carregando...' : 'Selecione a assistência'}</option>
 
@@ -287,7 +287,7 @@ export function FuncionarioEditarSection({
                   </option>
                 ))}
               </select>
-              <IconeInstituicao className="absolute left-2 top-1 text-primary-800 size-7" />
+              <IconeInstituicao className="text-primary-800 absolute left-2 top-1 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />
           </div>

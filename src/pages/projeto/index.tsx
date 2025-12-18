@@ -11,16 +11,15 @@ import { HeaderProjeto } from './components/headerProjeto'
 import { InfoAssistencia } from './section/infoAssistencia'
 import { MapaAssistencia } from './section/mapaAssistencia'
 
-
 export function Projeto() {
   const [assistencia, setAssistencia] = useState<AssistenciaDTO>()
   const { id } = useParams()
-    
+
   async function pegarDadosAssistencia() {
     try {
       const data = await getAssistencia(id)
       setAssistencia(data)
-      console.log("Data: ", data)
+      console.log('Data: ', data)
       return data
     } catch {
       toast.error('Erro ao pegar assistencia')
@@ -44,9 +43,9 @@ export function Projeto() {
         abrange={assistencia.abrange}
         descrição={assistencia.sobre}
         icone={assistencia.icone}
+        localizacao={assistencia.localizacao}
         nome={assistencia.unidade}
         subNome={assistencia.subnome}
-        localizacao={assistencia.localizacao}
       />
 
       {/* Mapa */}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { CardProjeto } from '../components/card-projeto'
+
 import { getAssistencias } from '../../../api/assistencia/getAllAssistencia'
+import { CardProjeto } from '../components/card-projeto'
 
 export function SectionProjetosSociais() {
   const [assistencias, setAssistencias] = useState([])
@@ -17,12 +18,12 @@ export function SectionProjetosSociais() {
   useEffect(() => {
     fetchAssistencias()
   }, [])
-  
+
   if (assistencias.length === 0) {
-    return null; // Ou um indicador de carregamento, se preferir
+    return null // Ou um indicador de carregamento, se preferir
   }
 
-  console.log("assistencias:", assistencias);
+  console.log('assistencias:', assistencias)
   return (
     <section
       className="relative flex w-full items-start justify-center overflow-hidden px-8"

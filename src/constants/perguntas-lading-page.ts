@@ -18,19 +18,22 @@ export const PerguntasLadingPage: TypeComponenteFAQ[] = [
   {
     id: 3,
     pergunta: 'O que é o Sistema de Assistência Social?',
-    resposta: 'É uma plataforma digital que ajuda no cadastro, acompanhamento e atendimento de pessoas e famílias em situação de vulnerabilidade social, facilitando o acesso aos serviços oferecidos.',
-    direcao: true
+    resposta:
+      'É uma plataforma digital que ajuda no cadastro, acompanhamento e atendimento de pessoas e famílias em situação de vulnerabilidade social, facilitando o acesso aos serviços oferecidos.',
+    direcao: true,
   },
   {
     id: 4,
     pergunta: 'O sistema substitui o atendimento presencial na palma da mão?',
-    resposta: 'Não. O sistema complementa o atendimento presencial, facilitando o agendamento, o acompanhamento e o registro das informações.',
+    resposta:
+      'Não. O sistema complementa o atendimento presencial, facilitando o agendamento, o acompanhamento e o registro das informações.',
     direcao: true,
   },
   {
     id: 5,
     pergunta: 'Como sei se tenho direito a algum benefício?',
-    resposta: 'A avaliação é feita por um profissional da assistência social, com base nos dados informados e na legislação vigente.',
+    resposta:
+      'A avaliação é feita por um profissional da assistência social, com base nos dados informados e na legislação vigente.',
     direcao: true,
-  }
+  },
 ]

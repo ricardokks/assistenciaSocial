@@ -26,14 +26,14 @@ export function Step3({ section, setSection }: Step3Props) {
     async function FetchLocalidades() {
       const response = await findAllLocalidades()
 
-      console.log("dados: ", response.data)
+      console.log('dados: ', response.data)
       setLocalidades(response.data)
     }
     FetchLocalidades()
   }, [])
 
   useEffect(() => {
-    console.log("dados: ", localidades)
+    console.log('dados: ', localidades)
   }, [])
 
   const dados = watch()

@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom'
 
 export function CardProjeto(props: any) {
   const navigate = useNavigate()
-  
-  console.log("props card projeto:", props);
+
+  console.log('props card projeto:', props)
   return (
     <div data-aos={props.animation ? 'fade-right' : ''}>
-      <article className="font-outfit animate-scale-in flex flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out min-h-[280px] max-h-[280px] max-md:min-w-[380px] max-md:fmax-w-[380px]">
+      <article className="font-outfit animate-scale-in max-md:fmax-w-[380px] flex max-h-[280px] min-h-[280px] flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out max-md:min-w-[380px]">
         {/* container informações sobre projeto  */}
         <div className="flex items-center justify-center gap-4">
           {/* container foto do projeto */}
@@ -29,14 +29,18 @@ export function CardProjeto(props: any) {
         </div>
 
         {/* container botão entrar em contato  */}
-        <div className='w-full space-x-4 max-md:space-x-8 flex items-center'>
-          <button className="botao-contato font-outfit font-bold max-md:text-sm max-md:w-1/2 max-md:whitespace-nowrap max-md:px-2" onClick={() => navigate('/login')}>
+        <div className="flex w-full items-center space-x-4 max-md:space-x-8">
+          <button
+            className="botao-contato font-outfit font-bold max-md:w-1/2 max-md:whitespace-nowrap max-md:px-2 max-md:text-sm"
+            onClick={() => navigate('/login')}
+          >
             Realizar agendamento
           </button>
 
-           <button 
-           className="botao-contato font-outfit font-bold max-md:text-sm max-md:w-1/2" 
-           onClick={() => navigate(`/sepad-massape/projeto/${props.id}`)}>
+          <button
+            className="botao-contato font-outfit font-bold max-md:w-1/2 max-md:text-sm"
+            onClick={() => navigate(`/sepad-massape/projeto/${props.id}`)}
+          >
             Mais sobre
           </button>
         </div>

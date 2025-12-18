@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { getNotificacoes } from '../api/notificacao/getNotificacao'
 import { socket } from '../utils/socket'
 
@@ -36,17 +37,13 @@ export function useNotificacoes(userId?: string) {
       const doBanco = response.map((n: any) => ({
         ...n,
         timestampCriado: new Date(n.timestampCriado).getTime(),
-        timestampVisto: n.timestampVisto
-          ? new Date(n.timestampVisto).getTime()
-          : null,
+        timestampVisto: n.timestampVisto ? new Date(n.timestampVisto).getTime() : null,
       }))
 
       // Mescla com notificações globais (para quem já recebeu via socket)
       const merged = [...doBanco, ...globalNotificacoes]
 
-      const unicos = merged.filter(
-        (v, i, arr) => arr.findIndex((n) => n.id === v.id) === i
-      )
+      const unicos = merged.filter((v, i, arr) => arr.findIndex((n) => n.id === v.id) === i)
 
       atualizarTodos(unicos)
     }

@@ -13,8 +13,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   const [cpfCidadao, setCpfCidadao] = useState('')
   const [openObservacao, setOpenObservacao] = useState(false)
   const [observacaoFuncionario, setObservacaoFuncionario] = useState('')
-  const [statusSelecionado, setStatusSelecionado] =
-    useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
+  const [statusSelecionado, setStatusSelecionado] = useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
 
   // ✅ SEM VALOR DEFAULT
   const [dataAtendimento, setDataAtendimento] = useState('')
@@ -73,9 +72,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       let dataHoraISO: string | undefined
 
       if (statusSelecionado === 'CONCLUIDO') {
-        dataHoraISO = new Date(
-          `${dataAtendimento}T${horaAtendimento}:00`
-        ).toISOString()
+        dataHoraISO = new Date(`${dataAtendimento}T${horaAtendimento}:00`).toISOString()
       }
 
       await updateAgendamento(dadosInternos.id ?? '', {
@@ -112,7 +109,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   }
 
   return (
-    <div className="border-primary-800 h-full flex max-w-[350px] flex-col gap-4 rounded-[5.97px] border-2 bg-white p-3">
+    <div className="border-primary-800 flex h-full max-w-[350px] flex-col gap-4 rounded-[5.97px] border-2 bg-white p-3">
       {/* Cabeçalho */}
       <div className="flex items-center gap-4">
         <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
@@ -120,25 +117,18 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         </div>
 
         <h1 className="font-satoshi-black text-2xl">
-          {dadosInternos.data
-            ? formatarData(dadosInternos.data)
-            : 'Data não definida'}
+          {dadosInternos.data ? formatarData(dadosInternos.data) : 'Data não definida'}
           {dadosInternos.hora && ` às ${dadosInternos.hora}`}
         </h1>
       </div>
 
       {/* Dados */}
       <div className="flex flex-col">
-        <p className="text-primary-800 font-outfit py-1">
-          {dadosInternos.observacoes}
-        </p>
+        <p className="text-primary-800 font-outfit py-1">{dadosInternos.observacoes}</p>
         <p className="text-primary-800 font-outfit">Nome: {nomeCidadao}</p>
         <p className="text-primary-800 font-outfit">CPF: {cpfCidadao}</p>
         <p className="text-primary-800 font-outfit">
-          Status:{' '}
-          <span className="font-bold">
-            {dadosInternos.status?.toLowerCase()}
-          </span>
+          Status: <span className="font-bold">{dadosInternos.status?.toLowerCase()}</span>
         </p>
       </div>
 
@@ -147,8 +137,8 @@ export function CardAgendamento(props: CardAgendamentoProps) {
           {statusSelecionado === 'CONCLUIDO' && (
             <>
               <input
-                type="date"
                 className="w-full rounded border p-2"
+                type="date"
                 value={dataAtendimento}
                 onChange={(e) => setDataAtendimento(e.target.value)}
               />
@@ -175,15 +165,12 @@ export function CardAgendamento(props: CardAgendamentoProps) {
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
           />
 
-          <button
-            className="bg-green-500 text-white p-2 rounded"
-            onClick={handleAtualizar}
-          >
+          <button className="rounded bg-green-500 p-2 text-white" onClick={handleAtualizar}>
             Enviar
           </button>
 
           <button
-            className="bg-gray-300 p-2 rounded"
+            className="rounded bg-gray-300 p-2"
             onClick={() => {
               setOpenObservacao(false)
               setObservacaoFuncionario('')
@@ -199,7 +186,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         <div className="flex flex-col gap-3">
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              className="bg-primary-800 text-white p-2 rounded"
+              className="bg-primary-800 rounded p-2 text-white"
               onClick={() => handleAbrirInput('CONCLUIDO')}
             >
               Aceitar
@@ -208,7 +195,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
 
           {dadosInternos.status !== 'CONCLUIDO' && (
             <button
-              className="bg-negative text-white p-2 rounded"
+              className="bg-negative rounded p-2 text-white"
               onClick={() => handleAbrirInput('RECUSADO')}
             >
               Cancelar

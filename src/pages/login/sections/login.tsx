@@ -104,13 +104,13 @@ export function Login() {
                   name="cpf"
                   render={({ field }) => (
                     <IMaskInput
+                      className="font-outfit placeholder:text-primary-50 text-primary-800 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium outline-none"
+                      inputRef={field.ref}
                       mask="000.000.000-00"
                       placeholder="000.000.000-00"
                       unmask={true}
                       value={field.value}
                       onAccept={(value) => field.onChange(value)}
-                      inputRef={field.ref}
-                      className="font-outfit placeholder:text-primary-50 text-primary-800 w-full rounded-2xl border border-gray-300 py-2 pl-7 text-[15px] font-medium outline-none"
                     />
                   )}
                 />

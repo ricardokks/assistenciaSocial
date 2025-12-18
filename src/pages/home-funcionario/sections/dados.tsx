@@ -13,7 +13,7 @@ export function Dados(data: IHomeProps) {
   const [loading, setLoading] = useState(false)
   const [dadosInstituicao, setDadosInstituicao] = useState<AssistenciaDTOO | null>(null)
   const dadosSeparados = dadosInstituicao?.abrange.slice()
-  
+
   // Funções Chamadadoras da API do backend
   async function fetchIdInstituicao() {
     const response = await PegarInformacaoFuncionario()
@@ -100,7 +100,7 @@ export function Dados(data: IHomeProps) {
             <div className="flex w-full flex-col gap-3">
               <h1 className="text-primary-800 font-outfit-bold">Abrange a:</h1>
 
-              <div className="font-outfit text-primary-800 focus:border-primary-800 flex w-full items-start justify-start rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
+              <div className="font-outfit text-primary-800 focus:border-primary-800 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-y-2 gap-x-0 grid w-full rounded-2xl border-2 border-[#999] p-4 outline-none duration-500 ease-in-out">
                 {dadosInstituicao?.abrange.map((item) => (
                   <h1
                     key={item}

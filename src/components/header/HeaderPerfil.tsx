@@ -29,9 +29,7 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
   }, [props.data])
 
   return (
-    <div
-      className="font-outfit-bold relative z-40 flex cursor-pointer items-center justify-center gap-4"
-    >
+    <div className="font-outfit-bold relative z-40 flex cursor-pointer items-center justify-center gap-4">
       {/* container de foto */}
       {carregarInformacao ? (
         dadosUser?.avatarURL ? (
@@ -71,7 +69,6 @@ export function HeaderDashboardPerfil(props: InterfaceHeader) {
           )}
         </p>
       </div>
-
     </div>
   )
 }

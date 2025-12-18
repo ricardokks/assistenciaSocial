@@ -1,11 +1,10 @@
 import ReactDOM from 'react-dom'
 
 import { IconeClosed } from '../../../../assets/Icons/IconeClosed'
-import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
-
-import { FuncionarioEditarSection } from './sections-modal-editar/section-funcionario'
-import { CidadaoEditarSection } from './sections-modal-editar/section-cidadao'
 import type { userCadastroDTO } from '../../../../schemas/userCadastroSchema'
+import type { ModalUsuarioProps } from '../../../../types/interface-modal-usuario'
+import { CidadaoEditarSection } from './sections-modal-editar/section-cidadao'
+import { FuncionarioEditarSection } from './sections-modal-editar/section-funcionario'
 
 /* 
    Unificação das props:
@@ -20,7 +19,7 @@ export function ModalEditarUsuario({
   abrilModalUsuario,
   handleAbrirModalDelete,
   usuario,
-  refreshUsers
+  refreshUsers,
 }: ModalEditarUsuarioProps) {
   return ReactDOM.createPortal(
     <section
@@ -47,11 +46,11 @@ export function ModalEditarUsuario({
         {/* Conteúdo */}
         <div className="mt-6 flex size-full flex-col items-center justify-end py-10 pt-4">
           {usuario?.papel === 'FUNCIONARIO' && (
-            <FuncionarioEditarSection usuario={usuario} refreshUsers={refreshUsers} />
+            <FuncionarioEditarSection refreshUsers={refreshUsers} usuario={usuario} />
           )}
 
           {usuario?.papel === 'CIDADAO' && (
-            <CidadaoEditarSection usuario={usuario} refreshUsers={refreshUsers} />
+            <CidadaoEditarSection refreshUsers={refreshUsers} usuario={usuario} />
           )}
         </div>
       </article>

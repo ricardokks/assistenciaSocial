@@ -1,4 +1,3 @@
-
 export interface ModalDeleteAssistenciaProps {
   id: string
   refreshAssistencias: () => void

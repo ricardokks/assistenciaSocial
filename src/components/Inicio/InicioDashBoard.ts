@@ -7,5 +7,5 @@ export const InicioDashBoard = {
   root: InicioRoot,
   dados: InicioDados,
   notificacao: InicioNotificacao,
-  relatorio: InicioRelatorio
+  relatorio: InicioRelatorio,
 }

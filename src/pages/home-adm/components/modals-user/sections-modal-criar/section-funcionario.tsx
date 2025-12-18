@@ -1,5 +1,11 @@
+import { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { IMaskInput } from 'react-imask'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'sonner'
+
+import { createUser } from '../../../../../api/user/createUser'
 import { IconeCidadao } from '../../../../../assets/Icons/IconeCidadao'
 import { IconeCasa } from '../../../../../assets/Icons/icone-casa'
 import { IconeData } from '../../../../../assets/Icons/icone-data'
@@ -8,15 +14,9 @@ import { IconeNis } from '../../../../../assets/Icons/icone-nis'
 import { IconeEmail } from '../../../../../assets/Icons/iconeEmail'
 import { IconeInstituicao } from '../../../../../assets/Icons/iconeInstituicao'
 import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
-import { createUser } from '../../../../../api/user/createUser'
-import { useEffect, useState } from 'react'
-import { userCadastroSchema, type userCadastroDTO } from '../../../../../schemas/userCadastroSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { ErrorMessage } from '../../../../../components/ui/errorMsg'
-import { Controller, useForm } from 'react-hook-form'
 import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
-import { toast } from 'sonner'
-
+import { type userCadastroDTO, userCadastroSchema } from '../../../../../schemas/userCadastroSchema'
 
 type Localidade = {
   id: string
@@ -31,62 +31,55 @@ type Props = {
 }
 
 export function FuncionarioSection(props: Props) {
+  const [Localidades, setLocalidades] = useState<Localidade[]>([])
+  const [Assistencias, setAssistencias] = useState<AssistenciaDTOO[]>([])
+  const [loading, setLoading] = useState(true)
+  const [loadingA, setLoadingA] = useState(true)
 
-  
-    const [Localidades, setLocalidades] = useState<Localidade[]>([])
-    const [Assistencias, setAssistencias] = useState<AssistenciaDTOO[]>([])
-    const [loading, setLoading] = useState(true)
-    const [loadingA, setLoadingA] = useState(true)
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = useForm<userCadastroDTO>({
+    resolver: zodResolver(userCadastroSchema),
+    shouldUnregister: false,
+  })
 
-  
-  
-    const {
-      handleSubmit,
-      register,
-      control,
-      formState: { errors },
-    } = useForm<userCadastroDTO>({
-      resolver: zodResolver(userCadastroSchema),
-      shouldUnregister: false,
-    })
+  async function fetchLocalidades() {
+    try {
+      const response = await fetch('http://localhost:4000/localidades')
+      const json = await response.json()
 
+      setLocalidades(json.data ?? [])
+    } catch (error) {
+      console.error('Erro ao buscar localidades', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-          async function fetchLocalidades() {
-        try {
-          const response = await fetch('http://localhost:4000/localidades')
-          const json = await response.json()
-  
-          setLocalidades(json.data ?? [])
-        } catch (error) {
-          console.error('Erro ao buscar localidades', error)
-        } finally {
-          setLoading(false)
-        }
-      }
+  async function fetchAssistencias() {
+    try {
+      const response = await fetch('http://localhost:4000/assistencias')
+      const json = await response.json()
+      setAssistencias(json.data ?? [])
+    } catch (error) {
+      console.error('Erro ao buscar assistências', error)
+    } finally {
+      setLoadingA(false)
+    }
+  }
 
-      async function fetchAssistencias() {
-        try {
-          const response = await fetch('http://localhost:4000/assistencias')
-          const json = await response.json()
-          setAssistencias(json.data ?? [])
-        } catch (error) {
-          console.error('Erro ao buscar assistências', error)
-        } finally {
-          setLoadingA(false)
-      }}
-  
-      useEffect(() => {
+  useEffect(() => {
+    fetchLocalidades()
+    fetchAssistencias()
+  }, [])
 
-  
-      fetchLocalidades()
-      fetchAssistencias()
-    }, [])
-  
-  
-    async function onSubmit(data: userCadastroDTO) {
-      console.log("comeu")
-      console.log("FORM DATA:", data);
-      try{
+  async function onSubmit(data: userCadastroDTO) {
+    console.log('comeu')
+    console.log('FORM DATA:', data)
+    try {
       const res = await createUser(data, 'FUNCIONARIO')
       console.log('response:', res.data)
       props.setStage(0)
@@ -96,17 +89,16 @@ export function FuncionarioSection(props: Props) {
       props.refreshUsers()
 
       toast.success('Funcionário criado com sucesso!')
-      }catch(error){
-        toast.error('Erro ao criar funcionário. Por favor, tente novamente.')
-      }
-
+    } catch (error) {
+      toast.error('Erro ao criar funcionário. Por favor, tente novamente.')
     }
-  
+  }
+
   return (
     <div className="h-[90%] w-full">
       <form
-        onSubmit={handleSubmit(onSubmit)}
         className="flex size-full flex-col items-start justify-between gap-4"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex h-4/5 w-full flex-col gap-4 overflow-y-scroll px-10">
           {/* Nome */}
@@ -132,13 +124,13 @@ export function FuncionarioSection(props: Props) {
                 name="cpf"
                 render={({ field }) => (
                   <IMaskInput
+                    className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
+                    inputRef={field.ref}
                     mask="000.000.000-00"
                     placeholder="000.000.000-00"
                     unmask={true}
                     value={field.value}
                     onAccept={(value) => field.onChange(value)}
-                    inputRef={field.ref}
-                    className="border-primary-800/50 text-primary-800 focus:border-primary-800  w-full rounded-2xl  border-2 p-2 pl-10 outline-none"
                   />
                 )}
               />
@@ -154,9 +146,9 @@ export function FuncionarioSection(props: Props) {
               <div className="relative">
                 <input
                   {...register('senha')}
-                  type="password"
                   className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
                   placeholder="Digite a senha"
+                  type="password"
                 />
                 <IconeSenha className="absolute left-2 top-2 size-7" />
               </div>
@@ -169,8 +161,8 @@ export function FuncionarioSection(props: Props) {
               <div className="relative">
                 <input
                   {...register('data_nascimento')}
-                  type="date"
                   className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
+                  type="date"
                 />
                 <IconeData className="absolute left-2 top-2 size-7" />
               </div>
@@ -196,21 +188,23 @@ export function FuncionarioSection(props: Props) {
           <div className="flex flex-col gap-1">
             <p className="text-primary-800 font-outfit">Localidade:</p>
             <div className="relative">
-            <select
-              {...register('localidadeId', { required: true })}
-              disabled={loading}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
-            >
-              <option value="">
-                {loading ? 'Carregando...' : 'Selecione a localidade'}
-              </option>
+              <select
+                {...register('localidadeId', { required: true })}
+                className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+                disabled={loading}
+              >
+                <option value="">{loading ? 'Carregando...' : 'Selecione a localidade'}</option>
 
-              {Localidades ? Localidades?.map((localidade) => (
-                <option key={localidade.id} value={localidade.id}>
-                  {localidade.nome}
-                </option>
-              )) : <></>}
-            </select>
+                {Localidades ? (
+                  Localidades?.map((localidade) => (
+                    <option key={localidade.id} value={localidade.id}>
+                      {localidade.nome}
+                    </option>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </select>
               <IconeLocal className="absolute left-2 top-1 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />
@@ -222,7 +216,7 @@ export function FuncionarioSection(props: Props) {
             <div className="relative">
               <input
                 {...register('rua')}
-                className="border-primary-800/50 pl-10 w-full rounded-2xl border-2 p-2 outline-none"
+                className="border-primary-800/50 w-full rounded-2xl border-2 p-2 pl-10 outline-none"
                 placeholder="Digite a rua"
               />
               <IconeLocal className="absolute left-2 top-2 size-7" />
@@ -259,31 +253,30 @@ export function FuncionarioSection(props: Props) {
               </div>
               <ErrorMessage message={errors?.numero_casa?.message} />
             </div>
-
-            
           </div>
 
-
-                    {/* Assistencia */}
+          {/* Assistencia */}
           <div className="flex flex-col gap-1">
             <p className="text-primary-800 font-outfit">Assistencia:</p>
             <div className="relative">
-            <select
-              {...register('assistenciaId', { required: true })}
-              disabled={loadingA}
-              className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
-            >
-              <option value="">
-                {loadingA ? 'Carregando...' : 'Selecione a assistência'}
-              </option>
+              <select
+                {...register('assistenciaId', { required: true })}
+                className="font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-10 text-[15px] font-medium text-[#194A99] outline-none"
+                disabled={loadingA}
+              >
+                <option value="">{loadingA ? 'Carregando...' : 'Selecione a assistência'}</option>
 
-              { Assistencias ? Assistencias?.map((assistencia) => (
-                <option key={assistencia.id} value={assistencia.id}>
-                  {assistencia.unidade}
-                </option>
-              )) : <></>}
-            </select>
-              <IconeInstituicao className="absolute left-2 top-1 text-primary-800 size-7" />
+                {Assistencias ? (
+                  Assistencias?.map((assistencia) => (
+                    <option key={assistencia.id} value={assistencia.id}>
+                      {assistencia.unidade}
+                    </option>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </select>
+              <IconeInstituicao className="text-primary-800 absolute left-2 top-1 size-7" />
             </div>
             <ErrorMessage message={errors?.localidadeId?.message} />
           </div>

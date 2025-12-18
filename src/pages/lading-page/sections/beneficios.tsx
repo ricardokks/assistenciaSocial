@@ -22,7 +22,8 @@ export function SectionBeneficios() {
         <div className="z-50 flex flex-col items-center gap-12">
           {/*   texto  */}
           <h1 className="titulo-inner font-outfit-bold text-[1rem]" data-aos="fade-left">
-            Quais são os benefícios de agendar pelo <br className="max-md:hidden" /> Assistência social na palma da mão?
+            Quais são os benefícios de agendar pelo <br className="max-md:hidden" /> Assistência
+            social na palma da mão?
           </h1>
 
           {/* renderização dos cards beneficios  */}

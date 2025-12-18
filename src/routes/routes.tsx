@@ -32,7 +32,7 @@ export const routes = createBrowserRouter([
         path: '*',
         element: <NotFound />,
       },
-       {
+      {
         path: '/sepad-massape/projeto/:id',
         element: <Projeto />,
       },

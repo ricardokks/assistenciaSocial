@@ -6,7 +6,7 @@ import logoMassape from './logo-massape.svg'
 import logoMonocramaticaSEPAD from './logo-monocramatica-sepad.webp'
 import logoSEPADAzul from './logo-sepad-azul.webp'
 import ondasFundo from './ondas-fundo.png'
-import fotoPadraoInstituicao from "./sem-foto.png"
+import fotoPadraoInstituicao from './sem-foto.png'
 
 export {
   logoMonocramaticaSEPAD,
@@ -17,5 +17,5 @@ export {
   browserMobile,
   logoMassape,
   imagemAvatar,
-  fotoPadraoInstituicao
+  fotoPadraoInstituicao,
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { getAssistencia } from '../../../api/assistencia/getAssistencia'
 import { PegarInformacaoFuncionario } from '../../../api/user/pegarInformacaoFuncionario'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/Header'
 import type { AgendamentoDTO } from '../../../dto/Agendamento/AgendamentoDTO'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { CardAgendamento } from '../components/layout/card-agendamento'
@@ -89,7 +89,7 @@ export function Agendamento(data: IHomeProps) {
               ))}
             </div>
           ) : (
-            <p className="text-center text-primary-800 mt-4">Não encontramos nenhum agendamento.</p>
+            <p className="text-primary-800 mt-4 text-center">Não encontramos nenhum agendamento.</p>
           )}
         </div>
       ) : (

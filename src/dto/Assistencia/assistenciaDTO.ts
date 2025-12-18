@@ -1,11 +1,11 @@
+import z from 'zod'
+
 import type { AssistenciaSchema } from '../../schemas/assistenciaSchema'
 import type { TypeIcon } from '../../types/type-icon'
 import type { UsuarioDTO } from '../Usuario/usuarioDTO'
 import type { Denuncia } from './denuncia'
 import type { Ouvidoria } from './ouvidoria'
 import type { Servico, Solicitacoes } from './solicitacao'
-
-import z from 'zod'
 
 export type AssistenciaDTO = {
   id: string
