@@ -9,26 +9,24 @@ import { CardAgendamento } from '../components/layout/card-agendamento'
 import { SkeletonAgendamento } from '../components/skeleton/skeleton-agendamento'
 
 export function Agendamento(data: IHomeProps) {
-  // estados e estados utilizados
+  // estados utilizados
   const [idInstituicao, setIdInstituicao] = useState<string | null>(null)
   const [informacaoUsuario, setInformacaoUsuario] = useState()
   const [agendamentoss, setAgendamentoss] = useState<AgendamentoDTO[]>([])
   const [loading, setLoading] = useState(false)
 
-  // Funções Chamadadoras da API do backend
+  // buscar id da instituição
   async function fetchIdInstituicao() {
     const response = await PegarInformacaoFuncionario()
     if (response && response.data && response.data.data) {
-      {
-        setIdInstituicao(response.data.data.assistenciaId)
-      }
+      setIdInstituicao(response.data.data.assistenciaId)
     }
   }
 
+  // buscar agendamentos
   async function fetchDadosInstituicao(id: string) {
     const response = await getAssistencia(id)
     setAgendamentoss(response.solicitacoes)
-
     return response.solicitacoes
   }
 
@@ -39,8 +37,7 @@ export function Agendamento(data: IHomeProps) {
   useEffect(() => {
     if (idInstituicao) {
       setLoading(true)
-
-      fetchDadosInstituicao(idInstituicao ?? '')
+      fetchDadosInstituicao(idInstituicao)
     }
   }, [idInstituicao])
 
@@ -48,48 +45,54 @@ export function Agendamento(data: IHomeProps) {
     async function fecthDadosUsuarios() {
       const dados = await getAssistencia()
       setInformacaoUsuario(dados)
-
       return dados
     }
 
     fecthDadosUsuarios()
   }, [])
 
-  // funções de atualização de agendamentos localmente
+  // 🔧 ATUALIZAÇÃO LOCAL (lógica corrigida)
   function updateLocalAgendamento(id: string, novosDados: Partial<AgendamentoDTO>) {
     setAgendamentoss((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, ...novosDados } : item))
+      novosDados.status === 'RECUSADO'
+        ? prev.filter((item) => item.id !== id)
+        : prev.map((item) => (item.id === id ? { ...item, ...novosDados } : item))
     )
   }
 
   return (
     <main className="main overflow-y-auto">
-      {/* Header da aplicação  */}
-
+      {/* Header da aplicação */}
       <HeaderDashboards.root>
         <HeaderDashboards.perfil data={data.data} user="PROFISSIONAL" />
         <HeaderDashboards.notificacao />
       </HeaderDashboards.root>
-      {/* conteudo principal  */}
 
+      {/* conteúdo principal */}
       {loading ? (
         <div className="flex w-full flex-col gap-4">
           <div className="flex w-full items-center justify-between">
-            <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">Agendamentos</h1>
+            <h1 className="text-primary-800 font-outfit-bold text-[1.3rem]">
+              Agendamentos
+            </h1>
           </div>
 
           {agendamentoss.length > 0 ? (
             <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
-              {agendamentoss.map((card) => (
-                <CardAgendamento
-                  key={card.id}
-                  dados={card}
-                  onUpdateLocal={updateLocalAgendamento}
-                />
-              ))}
+              {agendamentoss
+                .filter((card) => card.status !== 'RECUSADO')
+                .map((card) => (
+                  <CardAgendamento
+                    key={card.id}
+                    dados={card}
+                    onUpdateLocal={updateLocalAgendamento}
+                  />
+                ))}
             </div>
           ) : (
-            <p className="text-primary-800 mt-4 text-center">Não encontramos nenhum agendamento.</p>
+            <p className="text-primary-800 mt-4 text-center">
+              Não encontramos nenhum agendamento.
+            </p>
           )}
         </div>
       ) : (

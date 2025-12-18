@@ -15,11 +15,12 @@ export function CardAgendamento(props: CardAgendamentoProps) {
   const [observacaoFuncionario, setObservacaoFuncionario] = useState('')
   const [statusSelecionado, setStatusSelecionado] = useState<'CONCLUIDO' | 'RECUSADO' | null>(null)
 
-  // ✅ SEM VALOR DEFAULT
   const [dataAtendimento, setDataAtendimento] = useState('')
   const [horaAtendimento, setHoraAtendimento] = useState('')
-
   const [dadosInternos, setDadosInternos] = useState(props.dados)
+
+  // 👉 Data mínima = hoje
+  const hoje = new Date().toISOString().split('T')[0]
 
   useEffect(() => {
     setDadosInternos(props.dados)
@@ -35,7 +36,6 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     if (props.dados.usuarioId) FetchUsuario(props.dados.usuarioId)
   }, [props.dados.usuarioId])
 
-  // ✅ GERA HORÁRIOS DE 30 EM 30 MIN (07:00 → 17:00)
   const horarios = Array.from({ length: 21 }, (_, i) => {
     const totalMinutos = 7 * 60 + i * 30
     const hora = Math.floor(totalMinutos / 60)
@@ -46,14 +46,14 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     return `${String(hora).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`
   }).filter(Boolean) as string[]
 
-  const handleAbrirInput = (status: 'CONCLUIDO' | 'RECUSADO') => {
+  function handleAbrirInput(status: 'CONCLUIDO' | 'RECUSADO') {
     setStatusSelecionado(status)
     setOpenObservacao(true)
     setDataAtendimento('')
     setHoraAtendimento('')
   }
 
-  const handleAtualizar = async () => {
+  async function handleAtualizar() {
     if (!statusSelecionado) return
 
     if (!observacaoFuncionario.trim()) {
@@ -64,6 +64,16 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     if (statusSelecionado === 'CONCLUIDO') {
       if (!dataAtendimento || !horaAtendimento) {
         toast.error('Escolha a data e a hora do atendimento.')
+        return
+      }
+
+      // 🚫 Impede data anterior a hoje
+      const dataSelecionada = new Date(`${dataAtendimento}T00:00:00`)
+      const hojeSemHora = new Date()
+      hojeSemHora.setHours(0, 0, 0, 0)
+
+      if (dataSelecionada < hojeSemHora) {
+        toast.error('Não é possível agendar para uma data anterior a hoje.')
         return
       }
     }
@@ -84,14 +94,6 @@ export function CardAgendamento(props: CardAgendamentoProps) {
 
       toast.success('Agendamento atualizado com sucesso!')
 
-      setDadosInternos((prev) => ({
-        ...prev,
-        status: statusSelecionado,
-        observacoesFuncionario: observacaoFuncionario,
-        ...(dataHoraISO && { data: dataHoraISO }),
-        ...(horaAtendimento && { hora: horaAtendimento }),
-      }))
-
       props.onUpdateLocal(dadosInternos.id!, {
         status: statusSelecionado,
         observacoesFuncionario: observacaoFuncionario,
@@ -102,17 +104,17 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       setOpenObservacao(false)
       setObservacaoFuncionario('')
       setStatusSelecionado(null)
-    } catch (err) {
-      console.error(err)
+    } catch (error) {
       toast.error('Erro ao realizar ação.')
+      console.error(error)
     }
   }
 
   return (
-    <div className="border-primary-800 flex h-full max-w-[350px] flex-col gap-4 rounded-[5.97px] border-2 bg-white p-3">
+    <div className="border-primary-800 flex max-w-[350px] flex-col gap-4 rounded border-2 bg-white p-3">
       {/* Cabeçalho */}
       <div className="flex items-center gap-4">
-        <div className="bg-primary-800 flex items-center justify-center rounded-full p-3">
+        <div className="bg-primary-800 rounded-full p-3">
           <IconeCalendario />
         </div>
 
@@ -124,10 +126,10 @@ export function CardAgendamento(props: CardAgendamentoProps) {
 
       {/* Dados */}
       <div className="flex flex-col">
-        <p className="text-primary-800 font-outfit py-1">{dadosInternos.observacoes}</p>
-        <p className="text-primary-800 font-outfit">Nome: {nomeCidadao}</p>
-        <p className="text-primary-800 font-outfit">CPF: {cpfCidadao}</p>
-        <p className="text-primary-800 font-outfit">
+        <p className="text-primary-800 py-1">{dadosInternos.observacoes}</p>
+        <p className="text-primary-800">Nome: {nomeCidadao}</p>
+        <p className="text-primary-800">CPF: {cpfCidadao}</p>
+        <p className="text-primary-800">
           Status: <span className="font-bold">{dadosInternos.status?.toLowerCase()}</span>
         </p>
       </div>
@@ -137,14 +139,15 @@ export function CardAgendamento(props: CardAgendamentoProps) {
           {statusSelecionado === 'CONCLUIDO' && (
             <>
               <input
-                className="w-full rounded border p-2"
                 type="date"
+                min={hoje}
+                className="rounded border p-2"
                 value={dataAtendimento}
                 onChange={(e) => setDataAtendimento(e.target.value)}
               />
 
               <select
-                className="w-full rounded border p-2"
+                className="rounded border p-2"
                 value={horaAtendimento}
                 onChange={(e) => setHoraAtendimento(e.target.value)}
               >
@@ -159,7 +162,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
           )}
 
           <textarea
-            className="max-h-16 w-full rounded border p-2"
+            className="max-h-16 rounded border p-2"
             placeholder="Digite a observação..."
             value={observacaoFuncionario}
             onChange={(e) => setObservacaoFuncionario(e.target.value)}
@@ -185,21 +188,21 @@ export function CardAgendamento(props: CardAgendamentoProps) {
       {!openObservacao && (
         <div className="flex flex-col gap-3">
           {dadosInternos.status !== 'CONCLUIDO' && (
-            <button
-              className="bg-primary-800 rounded p-2 text-white"
-              onClick={() => handleAbrirInput('CONCLUIDO')}
-            >
-              Aceitar
-            </button>
-          )}
+            <>
+              <button
+                className="bg-primary-800 rounded p-2 text-white"
+                onClick={() => handleAbrirInput('CONCLUIDO')}
+              >
+                Aceitar
+              </button>
 
-          {dadosInternos.status !== 'CONCLUIDO' && (
-            <button
-              className="bg-negative rounded p-2 text-white"
-              onClick={() => handleAbrirInput('RECUSADO')}
-            >
-              Cancelar
-            </button>
+              <button
+                className="rounded bg-red-500 p-2 text-white"
+                onClick={() => handleAbrirInput('RECUSADO')}
+              >
+                Cancelar
+              </button>
+            </>
           )}
         </div>
       )}
