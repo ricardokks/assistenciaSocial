@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { getAssistencias } from '../../../api/assistencia/getAllAssistencia'
+import { IconeLoading } from '../../../assets/Icons/icone-loading'
 import { CardProjeto } from '../components/card-projeto'
 
 export function SectionProjetosSociais() {
@@ -18,10 +19,6 @@ export function SectionProjetosSociais() {
   useEffect(() => {
     fetchAssistencias()
   }, [])
-
-  if (assistencias.length === 0) {
-    return null // Ou um indicador de carregamento, se preferir
-  }
 
   console.log('assistencias:', assistencias)
   return (
@@ -41,10 +38,25 @@ export function SectionProjetosSociais() {
         </h1>
 
         {/* container rederização dos cards  */}
-        <div className="gap-y-15 grid w-full grid-cols-2 gap-20 max-md:grid-cols-1 max-sm:gap-8">
-          {assistencias.map((card: any, index): any => (
-            <CardProjeto key={card.id} animation={true} {...card} />
-          ))}
+        <div className={`gap-y-15 ${assistencias ? 'grid-cols-2 gap-20 max-md:grid-cols-1' : 'grid-cols-1:'} w-full  max-sm:gap-8`}>
+          {assistencias ? (
+            assistencias?.map((card: any): any => (
+              <CardProjeto key={card.id} animation={true} {...card} />
+            ))
+          ) : (
+            <main className="text-primary-800 flex w-full my-4 flex-col items-center justify-center">
+              <div className="relative mb-6 size-40">
+                {/* Círculo girando */}
+
+                <IconeLoading />
+              </div>
+
+              {/* Texto */}
+              <p className="font-satoshi-bold text-white text-center text-lg font-medium">
+                Carregando informações, aguarde...
+              </p>
+            </main>
+          )}
         </div>
       </div>
     </section>

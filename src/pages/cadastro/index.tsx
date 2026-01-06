@@ -72,7 +72,7 @@ export default function CadastroPage() {
 
   return (
     <div className="flex h-screen w-screen items-center justify-between overflow-hidden bg-white max-lg:flex-col-reverse">
-      <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4 max-lg:w-full max-lg:justify-end max-lg:pb-14">
+      <div className="mt-5 flex h-[90%] w-[55%] flex-col items-center space-y-16 py-4 max-lg:w-full max-lg:justify-start max-lg:pt-24">
         <div className="mb-0 flex w-full flex-col items-center justify-center space-y-5">
           <img
             alt=""

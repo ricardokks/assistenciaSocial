@@ -111,7 +111,7 @@ useEffect(() => {
       toast.error('Erro ao editar funcionário. Por favor, tente novamente.')
     }
   }
-}
+
   return (
     <div className="h-[90%] w-full">
       <form
