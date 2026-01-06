@@ -20,6 +20,7 @@ import {
   type userEditarDTO,
   userEditarSchema,
 } from '../../../../../schemas/userCadastroSchema'
+import { api } from '../../../../../lib/axios.config'
 
 type Localidade = {
   id: string
@@ -49,35 +50,33 @@ export function FuncionarioEditarSection({
     shouldUnregister: false,
   })
 
-  async function fetchLocalidades() {
-    try {
-      const response = await fetch('http://localhost:4000/localidades')
-      const json = await response.json()
-
-      setLocalidades(json.data ?? [])
-    } catch (error) {
-      console.error('Erro ao buscar localidades', error)
-    } finally {
-      setLoading(false)
-    }
+async function fetchLocalidades() {
+  try {
+    const response = await api.get('/localidades')
+    setLocalidades(response.data?.data ?? [])
+  } catch (error) {
+    console.error('Erro ao buscar localidades', error)
+  } finally {
+    setLoading(false)
   }
+}
 
-  async function fetchAssistencias() {
-    try {
-      const response = await fetch('http://localhost:4000/assistencias')
-      const json = await response.json()
-      setAssistencia(json.data ?? [])
-    } catch (error) {
-      console.error('Erro ao buscar assistências', error)
-    } finally {
-      setLoadingA(false)
-    }
+async function fetchAssistencias() {
+  try {
+    const response = await api.get('/assistencias')
+    setAssistencia(response.data?.data ?? [])
+  } catch (error) {
+    console.error('Erro ao buscar assistências', error)
+  } finally {
+    setLoadingA(false)
   }
+}
 
-  useEffect(() => {
-    fetchLocalidades()
-    fetchAssistencias()
-  }, [])
+useEffect(() => {
+  fetchLocalidades()
+  fetchAssistencias()
+}, [])
+
 
   useEffect(() => {
     if (!usuario) return

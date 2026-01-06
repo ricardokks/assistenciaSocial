@@ -17,6 +17,7 @@ import { IconeSenha } from '../../../../../assets/Icons/iconeSenha'
 import { ErrorMessage } from '../../../../../components/ui/errorMsg'
 import type { AssistenciaDTOO } from '../../../../../dto/Assistencia/assistenciaDTO'
 import { type userCadastroDTO, userCadastroSchema } from '../../../../../schemas/userCadastroSchema'
+import { api } from '../../../../../lib/axios.config'
 
 type Localidade = {
   id: string
@@ -46,30 +47,28 @@ export function FuncionarioSection(props: Props) {
     shouldUnregister: false,
   })
 
-  async function fetchLocalidades() {
-    try {
-      const response = await fetch('http://localhost:4000/localidades')
-      const json = await response.json()
-
-      setLocalidades(json.data ?? [])
-    } catch (error) {
-      console.error('Erro ao buscar localidades', error)
-    } finally {
-      setLoading(false)
-    }
+async function fetchLocalidades() {
+  try {
+    const response = await api.get('/localidades')
+    setLocalidades(response.data?.data ?? [])
+  } catch (error) {
+    console.error('Erro ao buscar localidades', error)
+  } finally {
+    setLoading(false)
   }
+}
 
-  async function fetchAssistencias() {
-    try {
-      const response = await fetch('http://localhost:4000/assistencias')
-      const json = await response.json()
-      setAssistencias(json.data ?? [])
-    } catch (error) {
-      console.error('Erro ao buscar assistências', error)
-    } finally {
-      setLoadingA(false)
-    }
+async function fetchAssistencias() {
+  try {
+    const response = await api.get('/assistencias')
+    setAssistencias(response.data?.data ?? [])
+  } catch (error) {
+    console.error('Erro ao buscar assistências', error)
+  } finally {
+    setLoadingA(false)
   }
+}
+
 
   useEffect(() => {
     fetchLocalidades()
