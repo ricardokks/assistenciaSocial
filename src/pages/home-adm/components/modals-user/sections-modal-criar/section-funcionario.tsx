@@ -92,6 +92,7 @@ async function fetchAssistencias() {
       toast.error('Erro ao criar funcionário. Por favor, tente novamente.')
     }
   }
+}
 
   return (
     <div className="h-[90%] w-full">
