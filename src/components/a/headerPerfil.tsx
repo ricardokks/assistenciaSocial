@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
-
 import type { UsuarioDTO } from '../../dto/Usuario/usuarioDTO'
 import type { InterfaceHeader } from '../../types/interface-header'
 import type { TypeUsario } from '../../types/type-usuarios'
-import { Dropbox } from './components/dropbox'
 
 const userInfo: Record<TypeUsario, { cargo: string }> = {
   ADMINISTRADOR: { cargo: 'Administrador' },
@@ -13,7 +11,7 @@ const userInfo: Record<TypeUsario, { cargo: string }> = {
   FUNCIONARIO: { cargo: 'Funcionário' },
 }
 
-export function HeaderDashboardPerfil(props: InterfaceHeader) {
+export function headerDashboardPerfil(props: InterfaceHeader) {
   // estados e variaveis utilizadas no componente
   const user = userInfo[props.user]
   const [dadosUser, setDadosUser] = useState<UsuarioDTO | null>(null)

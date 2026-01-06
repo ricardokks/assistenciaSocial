@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/a'
 import { CardProjeto } from '../components/cardProjeto'
 
 export function Servicos(user: { user: any; onClick: (item: any) => void; assistencia: any }) {

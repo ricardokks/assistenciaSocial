@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
-import { HeaderDashboards } from '../../../components/header'
+import { HeaderDashboards } from '../../../components/a'
 import { Loading } from '../../../components/loading'
 import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
