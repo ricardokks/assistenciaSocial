@@ -37,7 +37,7 @@ export function SectionProjetosSociais() {
         </h1>
 
         {/* container rederização dos cards  */}
-        <div className={`gap-y-15 ${assistencias ? 'grid-cols-2 gap-20 max-md:grid-cols-1 max-md:space-y-5 space-y-5' : 'grid-cols-1:'} w-full  max-sm:gap-8`}>
+        <div className={`gap-y-15 ${assistencias ? 'grid-cols-2 grid gap-20 max-md:grid-cols-1 max-md:space-y-5 space-y-5' : 'grid-cols-1:'} w-full max-md:px-4 max-sm:gap-8`}>
           {assistencias ? (
             assistencias?.map((card: any): any => (
               <CardProjeto key={card.id} animation={true} {...card} />
