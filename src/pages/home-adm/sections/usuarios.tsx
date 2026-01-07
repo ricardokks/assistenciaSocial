@@ -54,7 +54,7 @@ export function Usuarios(data: IHomeProps) {
           </div>
 
           <button
-            className="bg-primary-800 font-outfit-bold hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out"
+            className="bg-primary-800 max-md:text-sm font-outfit-bold text-nowrap hover:bg-primary-800/90 flex cursor-pointer items-center justify-center gap-3 rounded-[5.97px]  p-2 text-white duration-500 ease-in-out"
             onClick={() => setAbrirModalCreate(true)}
           >
             <IconeMais className="size-4 text-white" /> Novo Usuário

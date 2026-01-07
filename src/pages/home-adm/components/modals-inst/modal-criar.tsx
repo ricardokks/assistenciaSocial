@@ -230,7 +230,7 @@ export function ModalCriarInst(props: ModalAssistenciaProps) {
                         addTag()
                       }
                     }}
-                  ></input>
+                  > <div onClick={(e) => { e.preventDefault(); addTag(); }} className='w-10 h-10 absolute left-2 z-40 bg-primary-800 text-white font-outfit-bold'>+</div></input>
 
                   <IconeLocal className="absolute bottom-2 left-2 size-7" />
                 </div>
