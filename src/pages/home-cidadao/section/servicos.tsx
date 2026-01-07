@@ -5,20 +5,21 @@ import { HeaderDashboards } from '../../../components/a'
 import { CardProjeto } from '../components/cardProjeto'
 
 export function Servicos(user: { user: any; onClick: (item: any) => void; assistencia: any }) {
+  if (!user.user) return null
+  if (!user.assistencia) return null
+  if (!user.assistencia.data) return null
+
   const { data } = user.assistencia
 
   const [searchTerm, setSearchTerm] = useState('')
+
   const cardsFiltrados = data.filter((item: any) => {
     const termo = searchTerm.trim().toLowerCase()
 
     if (termo === '') return true
 
-    return item.titulo.toLowerCase().includes(termo)
+    return item.unidade.toLowerCase().includes(termo)
   })
-
-  if (!user.user) return null
-  if (!data) return null
-  if (!user.assistencia) return null
 
   return (
     <main className="main flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
