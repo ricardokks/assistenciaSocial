@@ -78,7 +78,7 @@ export function Agendamento(data: IHomeProps) {
           </div>
 
           {agendamentoss.length > 0 ? (
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-6">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] max-md:mb-[10rem] items-start gap-6">
               {agendamentoss
                 .filter((card) => card.status !== 'RECUSADO')
                 .map((card) => (
