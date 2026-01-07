@@ -26,17 +26,11 @@ export function Step3({ section, setSection }: Step3Props) {
     async function FetchLocalidades() {
       const response = await findAllLocalidades()
 
-      console.log('dados: ', response.data)
       setLocalidades(response.data)
     }
     FetchLocalidades()
   }, [])
 
-  useEffect(() => {
-    console.log('dados: ', localidades)
-  }, [])
-
-  const dados = watch()
   return (
     <div className="flex size-full min-w-[500px] flex-col items-center justify-center max-lg:px-16">
       <div className="mt-5 flex w-3/4 flex-col items-center -space-y-2">
@@ -52,7 +46,7 @@ export function Step3({ section, setSection }: Step3Props) {
             Bairro ou localidade:{' '}
           </label>
           <div className="relative flex">
-            <IconeLocal className="absolute left-1 top-2.5 size-5" />
+            <IconeLocal className="absolute left-1 top-2 size-5" />
             <select
               {...register('localidadeId')}
               className={`font-outfit placeholder:text-primary-50 w-full rounded-2xl border py-2 pl-7 text-[15px] font-medium text-[#194A99] outline-none `}

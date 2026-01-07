@@ -5,17 +5,17 @@ import { fotoPadraoInstituicao } from '../../../assets/image'
 export function CardProjeto(props: any) {
   const navigate = useNavigate()
 
-  console.log('props card projeto:', props)
   return (
     <div data-aos={props.animation ? 'fade-right' : ''}>
-      <article className="font-outfit animate-scale-in flex max-h-[290px] min-h-[280px] flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out max-md:min-w-[350px] max-md:max-w-[350px]">
+      <article className="font-outfit animate-scale-in flex max-h-[290px] min-h-[290px] flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out max-md:min-w-[350px] max-md:max-w-[500px] max-lg:max-w-[720px] max-lg:min-w-[720px]">
         {/* container informações sobre projeto  */}
         <div className="flex items-center justify-center gap-4">
           {/* container foto do projeto */}
           <div>
             <img
-              alt={`Foto do projeto: ${props.unidade}`}
-              src={props.foto === null ? fotoPadraoInstituicao : props.foto}
+              className="rounded-2xl"
+              alt={`Foto do projeto: ${props.foto}`}
+              src={props.foto ? props.foto : fotoPadraoInstituicao }
               width={100}
             />
           </div>

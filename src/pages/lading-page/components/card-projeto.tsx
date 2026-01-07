@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom'
+import { fotoPadraoInstituicao } from '../../../assets/image'
 
 export function CardProjeto(props: any) {
   const navigate = useNavigate()
 
-  console.log('props card projeto:', props)
   return (
     <div data-aos={props.animation ? 'fade-right' : ''}>
       <article className="font-outfit animate-scale-in max-md:fmax-w-[380px] flex max-h-[280px] min-h-[280px] flex-col items-start justify-between gap-4 rounded-2xl bg-white p-6 transition-all duration-700 ease-in-out max-md:min-w-[380px]">
@@ -11,7 +11,11 @@ export function CardProjeto(props: any) {
         <div className="flex items-center justify-center gap-4">
           {/* container foto do projeto */}
           <div>
-            <img alt={`Foto do projeto: ${props.unidade}`} src={props.foto} width={100} />
+            <img 
+            className='rounded-2xl' 
+            alt={`Foto do projeto: ${props.unidade}`} 
+            src={props.icone ? props.icone : fotoPadraoInstituicao}
+             width={100} />
           </div>
 
           {/* container informação nome, subnome  */}

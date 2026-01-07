@@ -20,17 +20,16 @@ export function SectionProjetosSociais() {
     fetchAssistencias()
   }, [])
 
-  console.log('assistencias:', assistencias)
   return (
     <section
-      className="relative flex w-full items-start justify-center overflow-hidden px-8"
+      className="relative flex w-full items-start justify-center overflow-hidden px-8 max-md:px-0"
       id="projetos"
     >
       {/* container de informações principais  */}
       <div className="relative m-0 flex size-[100%] h-auto max-w-[1280px] flex-col items-center justify-center gap-12 py-10">
         {/* texto  */}
         <h1
-          className="font-outfit-bold text-center text-4xl text-white max-md:text-left"
+          className="font-outfit-bold text-center text-4xl text-white max-md:text-left px-4"
           data-aos="fade-right"
         >
           Descubra os projetos em que nosso sistema <br className="max-md:hidden" /> atua e podemos
@@ -38,7 +37,7 @@ export function SectionProjetosSociais() {
         </h1>
 
         {/* container rederização dos cards  */}
-        <div className={`gap-y-15 ${assistencias ? 'grid-cols-2 gap-20 max-md:grid-cols-1' : 'grid-cols-1:'} w-full  max-sm:gap-8`}>
+        <div className={`gap-y-15 ${assistencias ? 'grid-cols-2 gap-20 max-md:grid-cols-1 max-md:space-y-5 space-y-5' : 'grid-cols-1:'} w-full  max-sm:gap-8`}>
           {assistencias ? (
             assistencias?.map((card: any): any => (
               <CardProjeto key={card.id} animation={true} {...card} />
