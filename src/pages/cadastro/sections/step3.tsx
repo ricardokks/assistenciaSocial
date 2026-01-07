@@ -118,16 +118,16 @@ export function Step3({ section, setSection, IsValid }: Step3Props) {
 
 
                 <button
-          className="w-4/7 bg-primary-800 font-satoshi-bold mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900 max-lg:w-[calc(57.142857%-40px)]"
+          className="w-4/7 bg-primary-800 font-satoshi-bold mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900 max-lg:w-[calc(57.142857%-40px)]"
           type="submit"
           onClick={() =>  IsValid()}
         >
           Cadastrar
         </button>
 
-        
+
         <button
-          className="w-4/7  bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
+          className="w-4/7  bg-primary-100 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           type="button"
           onClick={() => setSection(section - 1)}
         >

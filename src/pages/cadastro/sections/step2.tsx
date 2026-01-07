@@ -74,7 +74,7 @@ export function Step2({
 
                 {/* botão de prosseguir */}
         <button
-          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
+          className="w-4/7 bg-primary-800 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
           onClick={async () => passStep()}
         >
           {' '}
@@ -83,7 +83,7 @@ export function Step2({
 
         {/* botão de retornar */}
         <button
-          className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
+          className="w-4/7 bg-primary-100 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           onClick={() => setSection(section - 1)}
         >
           {' '}
