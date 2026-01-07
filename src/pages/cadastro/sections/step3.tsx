@@ -6,9 +6,11 @@ import { set } from 'zod'
 import { findAllLocalidades } from '../../../api/localidades/findAllLocalidades'
 import { IconeCasa } from '../../../assets/Icons/icone-casa'
 import { IconeLocal } from '../../../assets/Icons/icone-local'
+import { toast } from 'sonner'
 
 interface Step3Props {
   section: number
+  IsValid: () => void;
   setSection: (section: number) => void
   passStep: () => void | Promise<void>
 }
@@ -18,7 +20,7 @@ type Localidades = {
   nome: string
 }
 
-export function Step3({ section, setSection }: Step3Props) {
+export function Step3({ section, setSection, IsValid }: Step3Props) {
   const { register, watch } = useFormContext()
   const [localidades, setLocalidades] = useState<Localidades[]>([])
 
@@ -30,6 +32,9 @@ export function Step3({ section, setSection }: Step3Props) {
     }
     FetchLocalidades()
   }, [])
+
+
+
 
   return (
     <div className="flex size-full min-w-[500px] flex-col items-center justify-center max-lg:px-16">
@@ -110,6 +115,17 @@ export function Step3({ section, setSection }: Step3Props) {
         </div>
 
         {/* Botão de retornar */}
+
+
+                <button
+          className="w-4/7 bg-primary-800 font-satoshi-bold mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900 max-lg:w-[calc(57.142857%-40px)]"
+          type="submit"
+          onClick={() =>  IsValid()}
+        >
+          Cadastrar
+        </button>
+
+        
         <button
           className="w-4/7  bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
           type="button"
@@ -117,6 +133,8 @@ export function Step3({ section, setSection }: Step3Props) {
         >
           Retornar
         </button>
+
+
       </div>
     </div>
   )

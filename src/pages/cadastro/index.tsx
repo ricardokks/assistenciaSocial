@@ -101,21 +101,13 @@ export default function CadastroPage() {
             )}
             {section === 2 && (
               <Step3
+                IsValid={async () => IsValid(['localidade', 'rua', 'numero_casa', 'complemento'])}
                 passStep={() => passStep(['localidade', 'rua', 'numero_casa', 'complemento'])}
                 section={section}
                 setSection={setSection}
               />
             )}
 
-            {section === 2 && (
-              <button
-                className="w-4/7 bg-primary-800 font-satoshi-bold mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900 max-lg:w-[calc(57.142857%-40px)]"
-                type="submit"
-                onClick={async () => IsValid(['localidade', 'rua', 'numero_casa', 'complemento'])}
-              >
-                Cadastrar
-              </button>
-            )}
           </form>
         </FormProvider>
       </div>

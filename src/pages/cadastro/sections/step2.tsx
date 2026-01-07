@@ -71,6 +71,16 @@ export function Step2({
           <input type="hidden" {...register('data_nascimento')} />
         </div>
 
+
+                {/* botão de prosseguir */}
+        <button
+          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
+          onClick={async () => passStep()}
+        >
+          {' '}
+          Prosseguir{' '}
+        </button>
+
         {/* botão de retornar */}
         <button
           className="w-4/7 bg-primary-100 font-satoshi mt-8 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-400"
@@ -79,14 +89,7 @@ export function Step2({
           {' '}
           Retornar{' '}
         </button>
-        {/* botão de prosseguir */}
-        <button
-          className="w-4/7 bg-primary-800 font-satoshi mt-3 cursor-pointer rounded-2xl px-2 py-1 text-[16px] font-bold text-white duration-500 hover:bg-blue-900"
-          onClick={async () => passStep()}
-        >
-          {' '}
-          Prosseguir{' '}
-        </button>
+
       </div>
     </div>
   )
