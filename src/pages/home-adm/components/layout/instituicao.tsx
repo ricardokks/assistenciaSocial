@@ -2,6 +2,7 @@ import { IconeEditar } from '../../../../assets/Icons/IconeEditar'
 import { IconeLixeira } from '../../../../assets/Icons/IconeLixeira'
 import { fotoPadraoInstituicao } from '../../../../assets/image'
 import type { AssistenciaDTOO } from '../../../../dto/Assistencia/assistenciaDTO'
+import { api } from '../../../../lib/axios.config'
 
 type InstituicaoProps = {
   setDelete: () => void
@@ -12,7 +13,7 @@ type InstituicaoProps = {
 }
 
 export function Instituicao(props: InstituicaoProps) {
-  const foto = props.instituicao?.icone === null ? fotoPadraoInstituicao : props.instituicao?.icone
+    const foto = props.instituicao?.icone
   return (
     <div className="border-primary-100/20 flex h-64 w-full flex-col justify-between rounded-2xl border-2 bg-white p-1 p-4 shadow-2xl shadow-neutral-700/20 ">
       <div className="flex w-full justify-start gap-4">

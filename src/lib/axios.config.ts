@@ -5,4 +5,5 @@ export const api = axios.create({
   withCredentials: true,
 })
 
-// api.assistenciasocialmassape.com.br
+// https://api.assistenciasocialmassape.com.br
+// http://localhost:4000
