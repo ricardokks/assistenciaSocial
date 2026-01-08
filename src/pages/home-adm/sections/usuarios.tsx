@@ -13,8 +13,10 @@ import { Usuario } from '../components/layout/usuario'
 import { ModalCriarUsuario } from '../components/modals-user/modal-criar-usuario'
 import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
 import { ModalEditarUsuario } from '../components/modals-user/modal-editar-usuario'
+import { normalizarTexto } from '../../../utils/normalizarTexto'
 
 export function Usuarios(data: IHomeProps) {
+  const [search, setSearch] = useState('')
   const [abrirModalDelete, setAbrirModalDelete] = useState<boolean>(false)
   const [abrirModalCreate, setAbrirModalCreate] = useState<boolean>(false)
   const [abrirModalEdit, setAbrirModalEdit] = useState<boolean>(false)
@@ -33,6 +35,21 @@ export function Usuarios(data: IHomeProps) {
     refreshUsers()
   }, [])
 
+  const usuariosFiltrados = Usuarios?.filter((u) => {
+  if (u.papel === 'ADMINISTRADOR') return false
+
+  const busca = normalizarTexto(search)
+
+  const nome = normalizarTexto(u.nome)
+  const email = normalizarTexto(u.cpf)
+
+  return (
+    nome.includes(busca) ||
+    email.includes(busca)
+  )
+})
+
+
   return (
     <main className="main flex h-full flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
       {/* Header da aplicação  */}
@@ -46,11 +63,14 @@ export function Usuarios(data: IHomeProps) {
         <div className="mt-3 flex w-full justify-between">
           <div className="relative w-2/3">
             <IconeSearch className="absolute mt-3 translate-x-3"></IconeSearch>
-            <input
-              className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 w-full rounded-2xl border-2 p-2 pl-9 outline-0"
-              placeholder="Procurar por nome..."
-              type="text"
-            />
+<input
+  className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 w-full rounded-2xl border-2 p-2 pl-9 outline-0"
+  placeholder="Procurar por nome ou email..."
+  type="text"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+/>
+
           </div>
 
           <button
@@ -64,7 +84,8 @@ export function Usuarios(data: IHomeProps) {
         <div className="bg-primary-800/20 mt-4 h-[2px] w-full"></div>
 
         <div className="mb-28 mt-2 flex size-full flex-col gap-3  overflow-y-auto overflow-x-hidden">
-          {Usuarios?.filter((u) => u.papel !== 'ADMINISTRADOR').map((user) => (
+          {usuariosFiltrados?.map((user) => (
+
             <Usuario
               key={user.id}
               setDelete={() => setAbrirModalDelete(true)}

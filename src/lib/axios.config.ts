@@ -1,8 +1,9 @@
 import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'api.assistenciasocialmassape.com.br',
+  baseURL: 'https://api.assistenciasocialmassape.com.br',
   withCredentials: true,
 })
 
-// http://localhost:4000/
+// https://api.assistenciasocialmassape.com.br
+// http://localhost:4000

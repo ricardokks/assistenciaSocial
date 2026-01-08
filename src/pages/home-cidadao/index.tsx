@@ -10,6 +10,7 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Agendamento } from './section/agendamento'
 import { Servicos } from './section/servicos'
+import { getAssistenciaLocalityUser } from '../../api/assistencia/getAssistenciaLocalityUser'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
@@ -32,7 +33,7 @@ export function HomeCidadao() {
 
   async function getAssistenciasAll() {
     try {
-      const data = await getAssistencias()
+      const data = await getAssistenciaLocalityUser()
       setAssistencias(data)
     } catch (error: any) {
       const message = error?.response?.data?.message ?? 'Erro ao buscar assistências'

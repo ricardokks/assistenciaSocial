@@ -53,7 +53,7 @@ export function SectionHero() {
           <a
             className="max-md:w-full"
             target="_blank"
-            href="https://wa.me/5588993255962?text=Olá,%20gostaria%20de%20mais%20informações!
+            href="https://wa.me/558894923323?text=Olá,%20gostaria%20de%20mais%20informações!
 "
           >
             <button
