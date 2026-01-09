@@ -33,9 +33,6 @@ export function CriarAgendamento({
   const [isAnimate, setIsAnimate] = useState(false)
   const [isAnimate2, setIsAnimate2] = useState(false)
   const [assistencia, setAssistencia] = useState<AssistenciaDTO[]>(assistencias?.data ?? [])
-  const [unidadeId, setUnidadeId] = useState(
-    assistenciaSelecionada ? assistenciaSelecionada?.id : ''
-  )
 
   const { id } = useParams()
 
@@ -123,8 +120,6 @@ export function CriarAgendamento({
             <select
               {...register('unidadeId')}
               className="border-1 border-primary-800 text-primary-800 w-full appearance-none rounded-lg py-2 pl-2 text-[14px] outline-none"
-              value={unidadeId}
-              onChange={(e) => setUnidadeId(e.target.value)}
               onClick={() => setIsAnimate((prev) => !prev)}
               onMouseDown={() => setIsAnimate((prev) => !prev)}
               onMouseLeave={() => setIsAnimate(false)}

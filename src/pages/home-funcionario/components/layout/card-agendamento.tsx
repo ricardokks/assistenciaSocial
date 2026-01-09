@@ -110,6 +110,7 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     }
   }
 
+  console.log('dadosInternos', dadosInternos)
   return (
     <div className="border-primary-800 flex max-w-[350px] flex-col gap-4 rounded border-2 bg-white p-3">
       {/* Cabeçalho */}
@@ -132,6 +133,8 @@ export function CardAgendamento(props: CardAgendamentoProps) {
         <p className="text-primary-800">
           Status: <span className="font-bold">{dadosInternos.status?.toLowerCase()}</span>
         </p>
+        <p className="text-primary-800">Protocolo: {dadosInternos.protocolo}</p>
+        <p className="text-primary-800">Serviço solicitado: {dadosInternos.servico?.nome}</p>
       </div>
 
       {openObservacao && (
