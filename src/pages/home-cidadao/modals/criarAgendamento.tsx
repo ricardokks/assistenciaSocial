@@ -40,6 +40,7 @@ export function CriarAgendamento({
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<solicitacaoSchemaDTO>({
     resolver: zodResolver(solicitacaoSchema),
@@ -48,6 +49,8 @@ export function CriarAgendamento({
       usuarioId: id,
     },
   })
+
+  
 
   // O que foi selecionado no select de assistência
   const selectedAssistenciaId = watch('unidadeId')
@@ -91,6 +94,17 @@ export function CriarAgendamento({
   if (!assistencia) {
     return ReactDOM.createPortal(<Loading />, document.body)
   }
+
+  useEffect(() => {
+  if (open && assistenciaSelecionada?.id) {
+    setValue('unidadeId', assistenciaSelecionada.id)
+  }
+}, [open, assistenciaSelecionada, setValue])
+
+  useEffect(() => {
+  setValue('servicoId', '')
+}, [watch('unidadeId')])
+
 
   return (
     <Modal close={close} open={open}>
