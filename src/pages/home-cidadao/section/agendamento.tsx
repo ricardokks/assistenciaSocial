@@ -208,7 +208,7 @@ export function Agendamento(user: {
           }
 
           setLastCreatedId(created.id)
-          setSolicitacoes((prev: any) => [...prev, novoAgendamento])
+          setSolicitacoes((prev: any) => [novoAgendamento, ...prev])
         }}
       />
 
