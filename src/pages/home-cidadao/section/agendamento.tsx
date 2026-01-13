@@ -2,7 +2,6 @@ import {
   ChevronDown,
   Menu,
   Plus,
-  X,
   Accessibility,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -73,16 +72,14 @@ export function Agendamento(user: {
 
       {/* HEADER */}
       <div
-        className={`text-primary-800 font-outfit flex w-full max-md:flex-col max-md:space-y-1 md:items-center md:justify-between ${
-          isAnimateSearch ? 'max-md:hidden' : ''
-        }`}
+        className={`text-primary-800 font-outfit flex w-full max-md:flex-col max-md:space-y-1 md:items-center md:justify-between ${isAnimateSearch ? 'max-md:hidden' : ''}`}
       >
         <h1 className="text-2xl font-medium max-md:text-xl">
           Meus Agendamentos
         </h1>
 
         <button
-          className="bg-primary-800 hover:bg-primary-800/90 flex items-center rounded-lg px-4 py-2 text-white shadow-md duration-500 hover:shadow-lg"
+          className="bg-primary-800 hover:bg-primary-800/90 flex cursor-pointer items-center rounded-lg px-4 py-2 text-white shadow-md duration-500 hover:shadow-lg max-md:w-1/2 max-md:max-w-[170px] max-md:px-2 max-md:py-1 max-md:text-sm"
           onClick={() => setVisibilidadeModalCriarAgendamento(true)}
         >
           <Plus className="mr-2 size-5" />
@@ -99,7 +96,7 @@ export function Agendamento(user: {
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
 
         <input
-          className="font-satoshi border-primary-800 text-primary-800 mt-3 size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow outline-none"
+          className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2 bg-transparent pl-3 text-[16px] shadow-md outline-none"
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -137,31 +134,59 @@ export function Agendamento(user: {
               <motion.div
                 key={item.id}
                 drag="x"
-                dragElastic={0.2}
+                dragElastic={0.15}
                 dragConstraints={{ left: 0, right: 0 }}
                 animate={controls}
                 onDragEnd={async (_, info) => {
+                  // 👉 DIREITA
                   if (info.offset.x > 120) {
+                    await controls.start({
+                      x: 400,
+                      opacity: 0,
+                      transition: { duration: 0.25 },
+                    })
+
                     setSolicitacaoDados(item)
                     item.status === 'CONCLUIDO'
                       ? setOpenVisualizar(true)
                       : setOpenVisualizarGlobal(true)
+
+                    controls.set({ x: 0, opacity: 1 })
                     return
                   }
 
+                  // 👈 ESQUERDA
                   if (info.offset.x < -120) {
                     if (item.status !== 'PENDENTE') {
-                      toast.info('Só é possível excluir se estiver pendente')
-                      controls.start({ x: 0 })
+                      toast.info(
+                        `Não é possível excluir um agendamento ${item.status.toLowerCase()}`
+                      )
+
+                      controls.start({
+                        x: 0,
+                        transition: { type: 'spring', stiffness: 300 },
+                      })
                       return
                     }
 
+                    await controls.start({
+                      x: -400,
+                      opacity: 0,
+                      transition: { duration: 0.25 },
+                    })
+
                     setIdParaDeletar(item.id)
                     setOpenDeletar(true)
+
+                    controls.set({ x: 0, opacity: 1 })
                     return
                   }
 
-                  controls.start({ x: 0 })
+                  // Volta pro centro
+                  controls.start({
+                    x: 0,
+                    transition: { type: 'spring', stiffness: 300 },
+                  })
                 }}
                 className="relative animate-scale-in flex min-h-[200px] w-full flex-col justify-between rounded-2xl bg-white p-4 shadow-lg transition-all duration-700"
               >
