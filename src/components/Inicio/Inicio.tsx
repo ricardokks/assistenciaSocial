@@ -1,4 +1,3 @@
-import { ClipboardList, DownloadCloud } from 'lucide-react'
 import { useEffect } from 'react'
 
 import type { IHomeProps } from '../../types/interface-home-props'

@@ -1,52 +1,61 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 import { getUser } from '../../api/user/getUser'
-import { Inicio } from '../../components/Inicio/Inicio'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
-import { Agendamento } from './section/agendamento'
-import { Servicos } from './section/servicos'
-import { useParams } from 'react-router-dom'
 import { logout } from '../../api/auth/logout'
+import { Loading } from '../../components/loading'
+
+// Lazy load das seções
+const Inicio = lazy(() =>
+  import('../../components/Inicio/Inicio').then((module) => ({ default: module.Inicio }))
+)
+
+const Agendamento = lazy(() =>
+  import('./section/agendamento').then((module) => ({ default: module.Agendamento }))
+)
+
+const Servicos = lazy(() =>
+  import('./section/servicos').then((module) => ({ default: module.Servicos }))
+)
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
-  const [user, setUser] = useState(null)
-  const [assistencias, setAssistencias] = useState(null)
-  const [solicitacoes, setSolicitacoes] = useState([])
+  const [user, setUser] = useState<any>(null)
+  const [assistencias, setAssistencias] = useState<any>(null)
+  const [solicitacoes, setSolicitacoes] = useState<any[]>([])
   const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
-  const [assistenciaSelecionada, setAssistenciaSelecionada] = useState(null)
+  const [assistenciaSelecionada, setAssistenciaSelecionada] = useState<any>(null)
 
   const { id } = useParams()
-
-  async function getDataUser() {
-    const data = await getUser()
-    setUser(data)
-    setSolicitacoes(data.solicitacoes)
-  }
-
-  async function getAssistenciasAll() {
-    const data = await getAssistencias()
-    setAssistencias(data)
-  }
-
-  async function verifyId(){
-    const verify = id === "undefined" ? await logout() : ''
-    return verify
-  }
+  const navigate = useNavigate()
 
   useEffect(() => {
-    getDataUser()
-    getAssistenciasAll()
-    verifyId()
+    async function loadData() {
+      const dataUser = await getUser()
+      setUser(dataUser)
+      setSolicitacoes(dataUser?.solicitacoes ?? [])
+
+      const dataAssistencias = await getAssistencias()
+      setAssistencias(dataAssistencias)
+
+      if (id === undefined) {
+        await logout()
+        navigate('/login')
+      }
+    }
+
+    loadData()
   }, [])
 
-  if (!assistencias) return null
-  
+  if (!user || !assistencias) return <Loading />
+
   return (
-    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col max-w-[1280px]">
+    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col">
+      {/* Sidebar */}
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
@@ -65,34 +74,34 @@ export function HomeCidadao() {
         />
       </SideBarMobile.root>
 
-      {/* Renderização condicional CORRETA */}
-      {selecionarSection === 'Inicio' && <Inicio data={user} user="CIDADAO" />}
+      {/* Seção com animação básica de fade */}
+        <Suspense fallback={<Loading />}>
+            {selecionarSection === 'Inicio' && <Inicio data={user} user="CIDADAO" />}
 
-      {selecionarSection === 'ContatarAtendimento' && (
-        <Agendamento
-          assistencias={assistencias}
-          assistenciaSelecionada={assistenciaSelecionada}
-          data={user}
-          setSolicitacoes={setSolicitacoes}
-          setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
-          solicitacoes={solicitacoes}
-          visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
-        />
-      )}
+            {selecionarSection === 'ContatarAtendimento' && (
+              <Agendamento
+                assistencias={assistencias}
+                assistenciaSelecionada={assistenciaSelecionada}
+                data={user}
+                setSolicitacoes={setSolicitacoes}
+                setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
+                solicitacoes={solicitacoes}
+                visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
+              />
+            )}
 
-      {selecionarSection === 'ProcurarServico' && (
-        <Servicos
-          assistencia={assistencias}
-          user={user}
-          onClick={(assistencia) => {
-            setAssistenciaSelecionada(assistencia)
-            setSelecionarSection('ContatarAtendimento')
-            setTimeout(() => {
-              setVisibilidadeModalCriarAgendamento(true)
-            }, 1000)
-          }}
-        />
-      )}
+            {selecionarSection === 'ProcurarServico' && (
+              <Servicos
+                assistencia={assistencias}
+                user={user}
+                onClick={(assistencia: any) => {
+                  setAssistenciaSelecionada(assistencia)
+                  setSelecionarSection('ContatarAtendimento')
+                  setVisibilidadeModalCriarAgendamento(true)
+                }}
+              />
+            )}
+        </Suspense>
     </main>
   )
 }
