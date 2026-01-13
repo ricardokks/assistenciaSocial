@@ -9,38 +9,45 @@ export function ButtonInfo(data: {
   onClickRecusado: () => void
   onClickVisualizarInfo: () => void
 }) {
+  const baseStyleButton =
+    'font-outfit flex items-center justify-center gap-2 rounded-lg px-3 py-1 text-[13px] text-white shadow-md duration-500 hover:shadow-lg cursor-pointer max-md:w-full'
+
+
   return (
     <>
       {data.status === 'PENDENTE' && (
         <button
-          className={`font-outfit flex cursor-pointer items-center justify-center rounded-lg bg-[#FF5353] px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 max-md:w-full hover:shadow-lg max-md:py-1 max-md:text-sm`}
+          className={`${baseStyleButton} bg-[#FF5353]`}
           onClick={data.onClickDelete}
         >
           <Trash2 className=" aspect-square w-[14px] -translate-x-1 -translate-y-[0.7px]" />
           Cancelar{' '}
         </button>
       )}
+
       {data.status === 'CONCLUIDO' && (
         <button
-          className={`font-outfit bg-primary-800 flex cursor-pointer items-center justify-center rounded-lg px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 max-md:w-full hover:shadow-lg max-2xl:mt-4`}
+          className={`${baseStyleButton} bg-primary-800`}
           onClick={data.onClickVisualizarInfo}
         >
           <Eye className=" aspect-square w-[14px] -translate-x-1 -translate-y-[0.7px]" />
           Visualizar observações{' '}
         </button>
       )}
+
       {data.status === 'ANALISE' && (
         <button
-          className={`font-outfit flex cursor-pointer  items-center justify-center rounded-lg bg-gray-600 px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 hover:shadow-lg `}
+          className={`${baseStyleButton} bg-gray-600`}
           onClick={data.onClickAguardandoAnalise}
         >
           <Book className=" aspect-square w-[14px] -translate-x-1 -translate-y-[0.7px]" />
           Aguardando análise{' '}
         </button>
       )}
+
       {data.status === 'RECUSADO' && (
         <button
-          className={`font-outfit flex cursor-pointer  items-center justify-center rounded-lg bg-gray-600 px-3 py-0.5 text-[13px] max-md:w-full text-white shadow-md duration-500 hover:shadow-lg`}
+          className={`${baseStyleButton} bg-gray-600`}
           onClick={data.onClickRecusado}
         >
           <X
