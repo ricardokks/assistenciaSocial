@@ -32,7 +32,7 @@ export function AgendamentoCard({
 
   const x = useMotionValue(0)
 
-  // Box shadow sutil
+  // Sombra do card baseada no drag
   const shadow = useTransform(
     x,
     [-150, 0, 150],
@@ -50,24 +50,24 @@ export function AgendamentoCard({
   const eyeOpacity = useTransform(x, [0, 50, 150], [0, 0.5, 1])
 
   return (
-    <div className="relative">
-      {/* Ícone Lixeira Vermelha do lado esquerdo */}
+    <div className="relative overflow-visible">
+      {/* Ícone Lixeira Vermelha - lado esquerdo */}
       <motion.div
         style={{ scale: trashScale, opacity: trashOpacity }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-0"
+        className="absolute left-[-40px] top-1/2 -translate-y-1/2 z-30"
       >
         <Trash2 className="text-red-600" size={28} />
       </motion.div>
 
-      {/* Ícone Olho Azul do lado direito */}
+      {/* Ícone Olho Azul - lado direito */}
       <motion.div
         style={{ scale: eyeScale, opacity: eyeOpacity }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-0"
+        className="absolute right-[-40px] top-1/2 -translate-y-1/2 z-30"
       >
         <Eye className="text-blue-600" size={28} />
       </motion.div>
 
-      {/* Card */}
+      {/* CARD */}
       <motion.div
         drag="x"
         style={{ x, boxShadow: shadow }}
@@ -87,6 +87,7 @@ export function AgendamentoCard({
             }
           }
 
+          // Volta para o centro
           controls.start({
             x: 0,
             transition: {
@@ -104,7 +105,7 @@ export function AgendamentoCard({
           onClick={() => setShowHint((prev) => !prev)}
         />
 
-        {/* HINT VISUAL */}
+        {/* Hint visual */}
         <AnimatePresence>
           {showHint && (
             <motion.div
@@ -119,9 +120,7 @@ export function AgendamentoCard({
                   <span className="text-green-400">→</span>
                   <span>Arraste para visualizar</span>
                 </div>
-
                 <div className="h-px w-full bg-white/20" />
-
                 <div className="flex items-center space-x-2">
                   <span className="text-red-400">←</span>
                   <span>Arraste para excluir</span>
