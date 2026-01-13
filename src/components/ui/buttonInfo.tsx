@@ -5,7 +5,7 @@ import type { statusButtonProps } from '../../types/type-status-button'
 export function ButtonInfo(data: {
   status: statusButtonProps
   onClickDelete: () => void
-  onClickAguardandoAnalise: () => void
+  onClickAguardandoAnalise?: () => void
   onClickRecusado: () => void
   onClickVisualizarInfo: () => void
 }) {

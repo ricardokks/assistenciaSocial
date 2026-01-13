@@ -15,7 +15,6 @@ type IVisualizarAgendamento = {
 export function VisualizarAgendamento({ open, close, solicitacao, user }: IVisualizarAgendamento) {
   if (!solicitacao || !solicitacao.data) return null
 
-  console.log('solicitacao: ', solicitacao)
   return (
     <Modal close={close} open={open}>
       <div
