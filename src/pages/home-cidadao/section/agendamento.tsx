@@ -5,7 +5,7 @@ import {
   Accessibility,
 } from 'lucide-react'
 import { useState } from 'react'
-import { motion, AnimatePresence, useAnimation } from 'framer-motion'
+import { motion, AnimatePresence, useAnimation, useMotionValue } from 'framer-motion'
 import { toast } from 'sonner'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
@@ -114,98 +114,88 @@ export function Agendamento(user: {
 
           <ChevronDown
             strokeWidth={3}
-            className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${
-              isAnimate ? 'rotate-180' : 'rotate-0'
-            }`}
+            className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'
+              }`}
           />
         </div>
       </div>
-      
+
       {/* CARDS */}
       <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
         <AnimatePresence>
-          {filteredAppointments.map((item: SolicitacaoDTO) => {
-            const controls = useAnimation()
+          {filteredAppointments.map((item: any) => {
+            const x = useMotionValue(0)
+            const [showHint, setShowHint] = useState(false)
 
             return (
               <motion.div
                 key={item.id}
                 drag="x"
-                dragElastic={0.15}
-                dragConstraints={{ left: 0, right: 0 }}
-                animate={controls}
-                onDragEnd={async (_, info) => {
+                dragMomentum={false}
+                style={{ x }}
+                dragConstraints={{ left: -200, right: 200 }}
+                onDragEnd={(_, info) => {
                   // 👉 DIREITA
                   if (info.offset.x > 120) {
-                    await controls.start({
-                      x: 500,
-                      transition: {
-                        type: 'spring',
-                        stiffness: 200,
-                        damping: 25,
-                      },
-                    })
-
                     setSolicitacaoDados(item)
                     item.status === 'CONCLUIDO'
                       ? setOpenVisualizar(true)
                       : setOpenVisualizarGlobal(true)
-
-                    controls.set({ x: 0 })
+                    x.set(0)
                     return
                   }
 
                   // 👈 ESQUERDA
                   if (info.offset.x < -120) {
                     if (item.status !== 'PENDENTE') {
-                      toast.info(
-                        `Não é possível excluir um agendamento ${item.status.toLowerCase()}`
-                      )
-
-                      controls.start({
-                        x: 0,
-                        transition: {
-                          type: 'spring',
-                          stiffness: 300,
-                          damping: 30,
-                        },
-                      })
+                      x.set(0)
                       return
                     }
-
-                    await controls.start({
-                      x: -500,
-                      transition: {
-                        type: 'spring',
-                        stiffness: 200,
-                        damping: 25,
-                      },
-                    })
-
                     setIdParaDeletar(item.id)
                     setOpenDeletar(true)
-
-                    controls.set({ x: 0 })
+                    x.set(0)
                     return
                   }
 
-                  // 🔙 Volta pro centro se não passou do limite
-                  controls.start({
-                    x: 0,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 30,
-                    },
-                  })
+                  // volta suave
+                  x.set(0)
                 }}
-
-                className="relative animate-scale-in flex min-h-[200px] w-full flex-col justify-between rounded-2xl bg-white p-4 shadow-lg transition-all duration-700"
+                className="relative rounded-2xl bg-white p-4 shadow-lg"
               >
                 {/* ÍCONE ACESSIBILIDADE */}
-                <Accessibility className="absolute right-3 top-3 size-5 text-primary-800" />
+                <Accessibility
+                  className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800"
+                  onClick={() => setShowHint((prev) => !prev)}
+                />
 
-                {/* FOTO, NOME, DATA */}
+                {/* HINT VISUAL */}
+                <AnimatePresence>
+                  {showHint && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-3 top-10 z-30 w-52 rounded-xl bg-neutral-800/90 px-3 py-2 text-xs text-white shadow-lg backdrop-blur"
+                    >
+                      <div className="flex flex-col space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-green-400">→</span>
+                          <span>Arraste para visualizar</span>
+                        </div>
+
+                        <div className="h-px w-full bg-white/20" />
+
+                        <div className="flex items-center space-x-2">
+                          <span className="text-red-400">←</span>
+                          <span>Arraste para excluir</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* CONTEÚDO DO CARD */}
                 <div className="flex w-full space-x-5">
                   <img className="size-12" src={item.assistencia.icone} />
                   <div className="flex flex-col">
@@ -218,21 +208,21 @@ export function Agendamento(user: {
                   </div>
                 </div>
 
-                <div className="flex max-h-20 min-h-20 w-full">
-                  <div className="mt-5 flex w-full flex-col">
+                <div className="mt-5 flex w-full">
+                  <div className="flex w-full flex-col">
                     <span className="font-outfit text-primary-800 text-[14px]">
                       Serviço solicitado
                     </span>
                     <span className="font-satoshi text-primary-800 text-[12px] font-medium">
                       {
                         item.assistencia.servicos.find(
-                          (svc) => svc.id === item.servicoId
+                          (svc: any) => svc.id === item.servicoId
                         )?.nome
                       }
                     </span>
                   </div>
 
-                  <div className="mt-5 flex w-full flex-col">
+                  <div className="flex w-full flex-col">
                     <span className="font-outfit text-primary-800 text-[14px]">
                       Status do agendamento
                     </span>
