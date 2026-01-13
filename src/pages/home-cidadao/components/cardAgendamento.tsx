@@ -32,7 +32,7 @@ export function AgendamentoCard({
 
   const x = useMotionValue(0)
 
-  // Shadow sutil
+  // Box shadow sutil
   const shadow = useTransform(
     x,
     [-150, 0, 150],
@@ -43,33 +43,31 @@ export function AgendamentoCard({
     ]
   )
 
-  // Escala dos ícones
-  const trashScale = useTransform(x, [-150, -50, 0], [1.2, 0.8, 0])
-  const eyeScale = useTransform(x, [0, 50, 150], [0, 0.8, 1.2])
-
-  // Opacidade dos ícones
+  // Escala e opacidade dos ícones
+  const trashScale = useTransform(x, [-150, -50, 0], [1, 0.8, 0])
+  const eyeScale = useTransform(x, [0, 50, 150], [0, 0.8, 1])
   const trashOpacity = useTransform(x, [-150, -50, 0], [1, 0.5, 0])
   const eyeOpacity = useTransform(x, [0, 50, 150], [0, 0.5, 1])
 
   return (
     <div className="relative">
-      {/* ÍCONE LIXEIRA VERMELHA LADO ESQUERDO */}
+      {/* Ícone Lixeira Vermelha do lado esquerdo */}
       <motion.div
         style={{ scale: trashScale, opacity: trashOpacity }}
-        className="absolute left-0 top-1/2 -translate-y-1/2 pl-4"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-0"
       >
         <Trash2 className="text-red-600" size={28} />
       </motion.div>
 
-      {/* ÍCONE OLHO AZUL LADO DIREITO */}
+      {/* Ícone Olho Azul do lado direito */}
       <motion.div
         style={{ scale: eyeScale, opacity: eyeOpacity }}
-        className="absolute right-0 top-1/2 -translate-y-1/2 pr-4"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-0"
       >
         <Eye className="text-blue-600" size={28} />
       </motion.div>
 
-      {/* CARD */}
+      {/* Card */}
       <motion.div
         drag="x"
         style={{ x, boxShadow: shadow }}
@@ -89,7 +87,6 @@ export function AgendamentoCard({
             }
           }
 
-          // Volta para o centro
           controls.start({
             x: 0,
             transition: {
@@ -101,7 +98,7 @@ export function AgendamentoCard({
         }}
         className="relative z-10 flex h-full flex-col rounded-2xl bg-white p-4"
       >
-        {/* ÍCONE DE AJUDA */}
+        {/* Ícone de Ajuda */}
         <Accessibility
           className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800"
           onClick={() => setShowHint((prev) => !prev)}
@@ -134,7 +131,7 @@ export function AgendamentoCard({
           )}
         </AnimatePresence>
 
-        {/* CONTEÚDO DO CARD */}
+        {/* Conteúdo do Card */}
         <div className="flex w-full space-x-5">
           <img className="size-12" src={item.assistencia.icone} />
           <div className="flex flex-col">
