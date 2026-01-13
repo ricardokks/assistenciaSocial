@@ -13,7 +13,7 @@ export function ButtonInfo(data: {
     <>
       {data.status === 'PENDENTE' && (
         <button
-          className={`font-outfit flex cursor-pointer items-center justify-center rounded-lg bg-[#FF5353] px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 hover:shadow-lg max-md:py-1 max-md:text-sm`}
+          className={`font-outfit flex cursor-pointer items-center justify-center rounded-lg bg-[#FF5353] px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 absolute bottom-1 right-2 hover:shadow-lg max-md:py-1 max-md:text-sm`}
           onClick={data.onClickDelete}
         >
           <Trash2 className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.5px]" />
