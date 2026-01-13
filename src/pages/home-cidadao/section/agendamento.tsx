@@ -247,7 +247,7 @@ export function Agendamento(user: {
                       }}
                       onClickRecusado={() =>
                         toast.error(
-                          item.observacoesFuncionario ??
+                          `Após análise, seu agendamento foi recusado. Observação do funcionário: ${item.observacoesFuncionario}` ||
                           'Após análise, seu agendamento foi recusado'
                         )
                       }
