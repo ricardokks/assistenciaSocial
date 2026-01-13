@@ -49,7 +49,7 @@ export function FuncionarioSection(props: Props) {
 
 async function fetchLocalidades() {
   try {
-    const response = await api.get('/localidades')
+    const response = await api.get('/localidades/all')
     setLocalidades(response.data?.data ?? [])
   } catch (error) {
     console.error('Erro ao buscar localidades', error)
