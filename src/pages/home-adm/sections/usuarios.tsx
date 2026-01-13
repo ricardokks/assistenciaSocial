@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { tr } from 'zod/v4/locales'
-
 import { GetAllUsers } from '../../../api/user/getAllUsers'
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/a'
-import type { UsuarioDTOO } from '../../../dto/Usuario/usuarioDTO'
 import type { userCadastroDTO } from '../../../schemas/userCadastroSchema'
 import type { IHomeProps } from '../../../types/interface-home-props'
 import { Usuario } from '../components/layout/usuario'
@@ -41,11 +38,11 @@ export function Usuarios(data: IHomeProps) {
   const busca = normalizarTexto(search)
 
   const nome = normalizarTexto(u.nome)
-  const email = normalizarTexto(u.cpf)
+  const cpf = normalizarTexto(u.cpf)
 
   return (
     nome.includes(busca) ||
-    email.includes(busca)
+    cpf.includes(busca)
   )
 })
 
@@ -65,7 +62,7 @@ export function Usuarios(data: IHomeProps) {
             <IconeSearch className="absolute mt-3 translate-x-3"></IconeSearch>
 <input
   className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 w-full rounded-2xl border-2 p-2 pl-9 outline-0"
-  placeholder="Procurar por nome ou email..."
+  placeholder="Procurar por nome ou cpf..."
   type="text"
   value={search}
   onChange={(e) => setSearch(e.target.value)}

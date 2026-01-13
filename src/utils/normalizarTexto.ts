@@ -5,3 +5,7 @@ export function normalizarTexto(texto: string) {
     .replace(/[\u0300-\u036f]/g, '')
     .trim()
 }
+
+export function normalizarNumero(texto: string) {
+  return texto.replace(/\D/g, '')
+}
