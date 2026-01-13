@@ -44,7 +44,7 @@ export function ButtonInfo(data: {
           onClick={data.onClickRecusado}
         >
           <X
-            className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.3px]"
+            className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1px]"
             strokeWidth={4}
           />
           Recusado{' '}
