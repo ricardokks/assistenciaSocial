@@ -16,7 +16,7 @@ export function ButtonInfo(data: {
           className={`font-outfit flex cursor-pointer items-center justify-center rounded-lg bg-[#FF5353] px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 max-md:w-full hover:shadow-lg max-md:py-1 max-md:text-sm`}
           onClick={data.onClickDelete}
         >
-          <Trash2 className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.5px]" />
+          <Trash2 className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.3px]" />
           Cancelar{' '}
         </button>
       )}
@@ -25,7 +25,7 @@ export function ButtonInfo(data: {
           className={`font-outfit bg-primary-800 flex cursor-pointer items-center justify-center rounded-lg px-3 py-0.5 text-[13px]  text-white shadow-md duration-500 max-md:w-full hover:shadow-lg max-2xl:mt-4`}
           onClick={data.onClickVisualizarInfo}
         >
-          <Eye className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.5px]" />
+          <Eye className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.3px]" />
           Visualizar observações{' '}
         </button>
       )}
@@ -44,7 +44,7 @@ export function ButtonInfo(data: {
           onClick={data.onClickRecusado}
         >
           <X
-            className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.5px]"
+            className=" aspect-square w-[14px] -translate-x-1 -translate-y-[1.3px]"
             strokeWidth={4}
           />
           Recusado{' '}
