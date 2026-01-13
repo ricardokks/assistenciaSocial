@@ -2,17 +2,13 @@ import {
   ChevronDown,
   Menu,
   Plus,
-  Accessibility,
 } from 'lucide-react'
 import { useState } from 'react'
-import { motion, AnimatePresence, useAnimation, useMotionValue } from 'framer-motion'
-import { toast } from 'sonner'
+import { AnimatePresence } from 'framer-motion'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/a'
 import { Loading } from '../../../components/loading'
-import { ButtonInfo } from '../../../components/ui/buttonInfo'
-import { ButtonStatus } from '../../../components/ui/buttonStatus'
 
 import type { AssistenciaDTO } from '../../../types/type-assistencia'
 import type { SolicitacaoDTO } from '../../../types/type-solicitacoes'
@@ -60,10 +56,6 @@ export function Agendamento(user: {
 
     return matchesText && matchesStatus
   })
-
-  function formatDate(dateString: Date) {
-    return new Date(dateString).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
-  }
 
   return (
     <main className="main relative h-screen flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
@@ -122,7 +114,7 @@ export function Agendamento(user: {
       </div>
 
       {/* CARDS */}
-      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
+      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3 max-md:pt-4">
         {filteredAppointments.length === 0 ? (
           <div className="text-primary-800/60 col-span-3 mt-4 text-center max-md:col-span-1">
             Você não possui agendamentos recentes
