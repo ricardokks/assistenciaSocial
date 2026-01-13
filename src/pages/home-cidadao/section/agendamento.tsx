@@ -5,11 +5,7 @@ import {
   Accessibility,
 } from 'lucide-react'
 import { useState } from 'react'
-import {
-  motion,
-  AnimatePresence,
-  useAnimation,
-} from 'framer-motion'
+import { motion, AnimatePresence, useAnimation, useMotionValue } from 'framer-motion'
 import { toast } from 'sonner'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
@@ -37,12 +33,8 @@ export function Agendamento(user: {
   setVisibilidadeModalCriarAgendamento: React.Dispatch<React.SetStateAction<boolean>>
   assistenciaSelecionada: any
 }) {
-  const {
-    visibilidadeModalCriarAgendamento,
-    setVisibilidadeModalCriarAgendamento,
-    solicitacoes,
-    setSolicitacoes,
-  } = user
+  const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento } = user
+  const { setSolicitacoes, solicitacoes } = user
 
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
@@ -50,34 +42,26 @@ export function Agendamento(user: {
   const [isAnimateSearch, setIsAnimateSearch] = useState(true)
 
   const [idParaDeletar, setIdParaDeletar] = useState<string | null>(null)
-  const [solicitacaoDados, setSolicitacaoDados] =
-    useState<SolicitacaoDTO>()
+  const [solicitacaoDados, setSolicitacaoDados] = useState<SolicitacaoDTO>()
 
   const [openVisualizar, setOpenVisualizar] = useState(false)
-  const [openVisualizarGlobal, setOpenVisualizarGlobal] =
-    useState(false)
+  const [openVisualizarGlobal, setOpenVisualizarGlobal] = useState(false)
   const [openDeletar, setOpenDeletar] = useState(false)
 
   if (!solicitacoes) return <Loading />
 
-  const filteredAppointments = solicitacoes.filter(
-    (apt: SolicitacaoDTO) => {
-      const matchesText = apt.assistencia?.unidade
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+  const filteredAppointments = solicitacoes.filter((apt: SolicitacaoDTO) => {
+    const matchesText = apt.assistencia?.unidade
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
 
-      const matchesStatus = selectedStatus
-        ? apt.status === selectedStatus
-        : true
+    const matchesStatus = selectedStatus ? apt.status === selectedStatus : true
 
-      return matchesText && matchesStatus
-    }
-  )
+    return matchesText && matchesStatus
+  })
 
   function formatDate(dateString: Date) {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
-      timeZone: 'UTC',
-    })
+    return new Date(dateString).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
   }
 
   return (
@@ -88,63 +72,58 @@ export function Agendamento(user: {
 
       {/* HEADER */}
       <div
-        className={`text-primary-800 font-outfit flex w-full max-md:flex-col max-md:space-y-1 md:items-center md:justify-between ${
-          isAnimateSearch ? 'max-md:hidden' : ''
-        }`}
+        className={`text-primary-800 font-outfit flex w-full max-md:flex-col max-md:space-y-1 md:items-center md:justify-between ${isAnimateSearch ? 'max-md:hidden' : ''}`}
       >
-        <h1 className="text-2xl font-medium max-md:text-xl">
-          Meus Agendamentos
-        </h1>
-
+        <h1 className="text-2xl font-medium max-md:text-xl">Meus Agendamentos</h1>
         <button
-          className="bg-primary-800 hover:bg-primary-800/90 flex items-center rounded-lg px-4 py-2 text-white shadow-md duration-300"
-          onClick={() =>
-            setVisibilidadeModalCriarAgendamento(true)
-          }
+          className="bg-primary-800 hover:bg-primary-800/90 flex cursor-pointer items-center rounded-lg px-4 py-2 text-white shadow-md duration-500 hover:shadow-lg max-md:w-1/2 max-md:max-w-[170px] max-md:px-2 max-md:py-1 max-md:text-sm"
+          onClick={() => setVisibilidadeModalCriarAgendamento(true)}
         >
           <Plus className="mr-2 size-5" />
           Novo Agendamento
         </button>
       </div>
 
-      {/* SEARCH */}
+      {/* Search */}
       <div
-        className={`relative flex w-[80%] items-center max-lg:w-full ${
-          isAnimateSearch ? 'max-md:hidden' : ''
-        }`}
+        className={`relative flex w-[80%] items-center text-center max-2xl:-translate-y-3 max-xl:w-4/5 max-xl:-translate-y-0 max-lg:w-full max-md:w-full ${isAnimateSearch ? 'max-md:hidden' : ''}`}
       >
+        {/* Icone search */}
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
         <input
-          className="mt-3 w-full rounded-2xl border-2 border-primary-800 px-10 py-1"
+          className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3  size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10 max-md:w-3/5"
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
-        <div className="relative ml-3 mt-3 w-1/4">
+        <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
           <select
-            className="w-full appearance-none rounded-2xl border-2 border-primary-800 pl-3"
+            className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2  bg-transparent pl-3 text-[16px] shadow-md outline-none"
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            onClick={() => setIsAnimate((p) => !p)}
+            onClick={() => setIsAnimate((prev) => !prev)}
+            onMouseDown={() => setIsAnimate((prev) => !prev)}
+            onMouseLeave={() => setIsAnimate(false)}
+            onMouseUp={() => setIsAnimate(false)}
           >
             <option value="">Filtrar por...</option>
             <option value="PENDENTE">Pendente</option>
-            <option value="CONCLUIDO">Concluído</option>
+            <option value="CONCLUIDO">Aprovado</option>
             <option value="RECUSADO">Recusado</option>
+            <option value="ANALISE">Análise</option>
           </select>
 
           <ChevronDown
-            className={`absolute right-2 top-3 transition ${
-              isAnimate ? 'rotate-180' : ''
-            }`}
+            strokeWidth={3}
+            className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'
+              }`}
           />
         </div>
       </div>
 
       {/* CARDS */}
-      <div className="mt-5 grid w-full grid-cols-3 gap-4 max-xl:grid-cols-2 max-md:flex max-md:flex-col">
+      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
         <AnimatePresence>
-          {filteredAppointments.map((item: SolicitacaoDTO) => {
+          {filteredAppointments.map((item: any) => {
             const controls = useAnimation()
             const [showHint, setShowHint] = useState(false)
 
@@ -156,22 +135,25 @@ export function Agendamento(user: {
                 dragConstraints={{ left: -150, right: 150 }}
                 animate={controls}
                 onDragEnd={(_, info) => {
+                  // 👉 direita
                   if (info.offset.x > 120) {
                     setSolicitacaoDados(item)
                     item.status === 'CONCLUIDO'
                       ? setOpenVisualizar(true)
                       : setOpenVisualizarGlobal(true)
-                  } else if (info.offset.x < -120) {
+                  }
+
+                  // 👈 esquerda
+                  else if (info.offset.x < -120) {
                     if (item.status !== 'PENDENTE') {
-                      toast.error(
-                        'Não é possível excluir este agendamento'
-                      )
+                      toast.error('Não é possível excluir este agendamento')
                     } else {
                       setIdParaDeletar(item.id)
                       setOpenDeletar(true)
                     }
                   }
 
+                  // volta suave
                   controls.start({
                     x: 0,
                     transition: {
@@ -183,38 +165,73 @@ export function Agendamento(user: {
                 }}
                 className="relative rounded-2xl bg-white p-4 shadow-lg"
               >
+                {/* ÍCONE ACESSIBILIDADE */}
                 <Accessibility
-                  className="absolute right-3 top-3 cursor-pointer"
-                  onClick={() => setShowHint((p) => !p)}
+                  className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800"
+                  onClick={() => setShowHint((prev) => !prev)}
                 />
 
+                {/* HINT VISUAL */}
                 <AnimatePresence>
                   {showHint && (
                     <motion.div
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -5 }}
-                      className="absolute right-3 top-10 rounded-xl bg-neutral-800 px-3 py-2 text-xs text-white"
+                      initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -5 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-3 top-10 z-30 w-52 rounded-xl bg-neutral-800/90 px-3 py-2 text-xs text-white shadow-lg backdrop-blur"
                     >
-                      Arraste → para visualizar<br />
-                      Arraste ← para excluir
+                      <div className="flex flex-col space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-green-400">→</span>
+                          <span>Arraste para visualizar</span>
+                        </div>
+
+                        <div className="h-px w-full bg-white/20" />
+
+                        <div className="flex items-center space-x-2">
+                          <span className="text-red-400">←</span>
+                          <span>Arraste para excluir</span>
+                        </div>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                <div className="flex items-center gap-3">
-                  <img src={item.assistencia.icone} className="size-12" />
-                  <div>
-                    <p className="font-bold">
+                {/* CONTEÚDO DO CARD */}
+                <div className="flex w-full space-x-5">
+                  <img className="size-12" src={item.assistencia.icone} />
+                  <div className="flex flex-col">
+                    <span className="font-outfit-bold text-primary-800 text-lg">
                       {item.assistencia.unidade}
-                    </p>
-                    <p className="text-sm">
-                      {formatDate(item.dataCriacao)}
-                    </p>
+                    </span>
+                    <span className="font-outfit text-primary-800/75 text-sm">
+                      Data de solicitacao: {formatDate(item.dataCriacao)}
+                    </span>
                   </div>
                 </div>
 
-                <ButtonStatus status={item.status} />
+                <div className="mt-5 flex w-full">
+                  <div className="flex w-full flex-col">
+                    <span className="font-outfit text-primary-800 text-[14px]">
+                      Serviço solicitado
+                    </span>
+                    <span className="font-satoshi text-primary-800 text-[12px] font-medium">
+                      {
+                        item.assistencia.servicos.find(
+                          (svc: any) => svc.id === item.servicoId
+                        )?.nome
+                      }
+                    </span>
+                  </div>
+
+                  <div className="flex w-full flex-col">
+                    <span className="font-outfit text-primary-800 text-[14px]">
+                      Status do agendamento
+                    </span>
+                    <ButtonStatus status={item.status} />
+                  </div>
+                </div>
 
                 <ButtonInfo
                   status={item.status}
@@ -225,7 +242,7 @@ export function Agendamento(user: {
                   onClickRecusado={() =>
                     toast.error(
                       item.observacoesFuncionario ??
-                        'Agendamento recusado'
+                      'Após análise, seu agendamento foi recusado'
                     )
                   }
                   onClickVisualizarInfo={() => {
@@ -287,7 +304,8 @@ export function Agendamento(user: {
       />
 
       <Menu
-        className="absolute right-7 top-5 cursor-pointer lg:hidden"
+        className="text-primary-800 absolute right-7 top-5 size-8 cursor-pointer lg:hidden"
+        strokeWidth={3}
         onClick={() => setIsAnimateSearch((p) => !p)}
       />
     </main>
