@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import { GetAllUsers } from '../../../api/user/getAllUsers'
 import { IconeMais } from '../../../assets/Icons/icone-mais'
 import { IconeSearch } from '../../../assets/Icons/icone-search'
@@ -9,7 +10,7 @@ import { Usuario } from '../components/layout/usuario'
 import { ModalCriarUsuario } from '../components/modals-user/modal-criar-usuario'
 import { ModalDeletarUsuario } from '../components/modals-user/modal-deletar-usuario'
 import { ModalEditarUsuario } from '../components/modals-user/modal-editar-usuario'
-import { matchUsuario } from '../../../utils/matchUsuario'
+import { normalizarTexto } from '../../../utils/normalizarTexto'
 
 export function Usuarios(data: IHomeProps) {
   const [search, setSearch] = useState('')
@@ -31,14 +32,20 @@ export function Usuarios(data: IHomeProps) {
     refreshUsers()
   }, [])
 
-const usuariosFiltrados = Usuarios?.filter((u) => {
-  if (u.papel === "ADMINISTRADOR") return false
+  const usuariosFiltrados = Usuarios?.filter((u) => {
+  if (u.papel === 'ADMINISTRADOR') return false
 
-  return matchUsuario(
-    { nome: u.nome, cpf: u.cpf },
-    search
+  const busca = normalizarTexto(search)
+
+  const nome = normalizarTexto(u.nome)
+  const cpf = normalizarTexto(u.cpf)
+
+  return (
+    nome.includes(busca) ||
+    cpf.includes(busca)
   )
 })
+
 
   return (
     <main className="main flex h-full flex-col items-start space-y-6 overflow-hidden pr-4 max-md:w-full max-md:px-4">
