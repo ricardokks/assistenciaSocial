@@ -2,8 +2,8 @@ import {
   ChevronDown,
   Menu,
   Plus,
-  Accessibility,
   X,
+  Accessibility,
 } from 'lucide-react'
 import { useState } from 'react'
 import { motion, AnimatePresence, useAnimation } from 'framer-motion'
@@ -53,7 +53,7 @@ export function Agendamento(user: {
 
   const filteredAppointments = solicitacoes.filter((apt: SolicitacaoDTO) => {
     const matchesText = apt.assistencia?.unidade
-      ?.toLowerCase()
+      .toLowerCase()
       .includes(searchTerm.toLowerCase())
 
     const matchesStatus = selectedStatus ? apt.status === selectedStatus : true
@@ -62,9 +62,7 @@ export function Agendamento(user: {
   })
 
   function formatDate(dateString: Date) {
-    return new Date(dateString).toLocaleDateString('pt-BR', {
-      timeZone: 'UTC',
-    })
+    return new Date(dateString).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
   }
 
   return (
@@ -83,34 +81,30 @@ export function Agendamento(user: {
           Meus Agendamentos
         </h1>
 
-        <div className="flex items-center gap-3">
-          <Accessibility className="size-6 text-primary-800" />
-
-          <button
-            className="bg-primary-800 flex items-center rounded-lg px-4 py-2 text-white shadow-md duration-300 hover:bg-primary-800/90"
-            onClick={() => setVisibilidadeModalCriarAgendamento(true)}
-          >
-            <Plus className="mr-2 size-5" />
-            Novo Agendamento
-          </button>
-        </div>
+        <button
+          className="bg-primary-800 hover:bg-primary-800/90 flex items-center rounded-lg px-4 py-2 text-white shadow-md duration-500 hover:shadow-lg"
+          onClick={() => setVisibilidadeModalCriarAgendamento(true)}
+        >
+          <Plus className="mr-2 size-5" />
+          Novo Agendamento
+        </button>
       </div>
 
       {/* SEARCH */}
       <div
-        className={`relative flex w-[80%] items-center text-center
-        max-xl:w-4/5 max-lg:w-full max-md:w-full
-        ${isAnimateSearch ? 'max-md:hidden' : ''}`}
+        className={`relative flex w-[80%] items-center text-center max-xl:w-4/5 max-lg:w-full max-md:w-full ${
+          isAnimateSearch ? 'max-md:hidden' : ''
+        }`}
       >
         <IconeSearch className="absolute left-3 top-[1.25rem]" />
 
         <input
-          className="border-primary-800 text-primary-800 mt-3 w-full rounded-2xl border-2 px-2 py-1 pl-10 shadow outline-none"
+          className="font-satoshi border-primary-800 text-primary-800 mt-3 size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow outline-none"
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <div className="relative ml-3 mt-3 w-1/4 max-md:w-2/5">
+        <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
           <select
             className="border-primary-800 text-primary-800 size-full appearance-none rounded-2xl border-2 bg-transparent pl-3 shadow outline-none"
             value={selectedStatus}
@@ -134,7 +128,7 @@ export function Agendamento(user: {
       </div>
 
       {/* CARDS */}
-      <div className="mt-5 grid w-full grid-cols-3 gap-4 max-xl:grid-cols-2 max-md:flex max-md:flex-col max-md:pb-32">
+      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
         <AnimatePresence>
           {filteredAppointments.map((item: SolicitacaoDTO) => {
             const controls = useAnimation()
@@ -147,105 +141,78 @@ export function Agendamento(user: {
                 dragConstraints={{ left: 0, right: 0 }}
                 animate={controls}
                 onDragEnd={async (_, info) => {
-                  // 👉 DIREITA
                   if (info.offset.x > 120) {
-                    await controls.start({
-                      x: 300,
-                      opacity: 0,
-                      transition: { duration: 0.3 },
-                    })
-
                     setSolicitacaoDados(item)
-
-                    if (item.status === 'CONCLUIDO') {
-                      setOpenVisualizar(true)
-                    } else {
-                      setOpenVisualizarGlobal(true)
-                    }
-
-                    controls.set({ x: 0, opacity: 1 })
+                    item.status === 'CONCLUIDO'
+                      ? setOpenVisualizar(true)
+                      : setOpenVisualizarGlobal(true)
                     return
                   }
 
-                  // 👈 ESQUERDA
                   if (info.offset.x < -120) {
                     if (item.status !== 'PENDENTE') {
-                      toast.info(
-                        `Não é possível excluir um agendamento ${item.status.toLowerCase()}`
-                      )
-
-                      controls.start({
-                        x: 0,
-                        transition: { type: 'spring', stiffness: 300 },
-                      })
+                      toast.info('Só é possível excluir se estiver pendente')
+                      controls.start({ x: 0 })
                       return
                     }
 
-                    await controls.start({
-                      x: -300,
-                      opacity: 0,
-                      transition: { duration: 0.3 },
-                    })
-
                     setIdParaDeletar(item.id)
                     setOpenDeletar(true)
-
-                    controls.set({ x: 0, opacity: 1 })
                     return
                   }
 
-                  // Volta
-                  controls.start({
-                    x: 0,
-                    transition: { type: 'spring', stiffness: 300 },
-                  })
+                  controls.start({ x: 0 })
                 }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex min-h-[200px] flex-col justify-between rounded-2xl bg-white p-4 shadow-lg"
+                className="relative animate-scale-in flex min-h-[200px] w-full flex-col justify-between rounded-2xl bg-white p-4 shadow-lg transition-all duration-700"
               >
-                <div className="flex gap-4">
+                {/* ÍCONE ACESSIBILIDADE */}
+                <Accessibility className="absolute right-3 top-3 size-5 text-primary-800" />
+
+                {/* FOTO, NOME, DATA */}
+                <div className="flex w-full space-x-5">
                   <img className="size-12" src={item.assistencia.icone} />
-                  <div>
-                    <span className="text-lg font-bold">
+                  <div className="flex flex-col">
+                    <span className="font-outfit-bold text-primary-800 text-lg">
                       {item.assistencia.unidade}
                     </span>
-                    <p className="text-sm opacity-70">
-                      Data: {formatDate(item.dataCriacao)}
-                    </p>
+                    <span className="font-outfit text-primary-800/75 text-sm">
+                      Data de solicitacao: {formatDate(item.dataCriacao)}
+                    </span>
                   </div>
                 </div>
 
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <span className="text-sm">Serviço</span>
-                    <p className="text-xs font-medium">
+                <div className="flex max-h-20 min-h-20 w-full">
+                  <div className="mt-5 flex w-full flex-col">
+                    <span className="font-outfit text-primary-800 text-[14px]">
+                      Serviço solicitado
+                    </span>
+                    <span className="font-satoshi text-primary-800 text-[12px] font-medium">
                       {
                         item.assistencia.servicos.find(
-                          (s) => s.id === item.servicoId
+                          (svc) => svc.id === item.servicoId
                         )?.nome
                       }
-                    </p>
+                    </span>
                   </div>
 
-                  <ButtonStatus status={item.status} />
+                  <div className="mt-5 flex w-full flex-col">
+                    <span className="font-outfit text-primary-800 text-[14px]">
+                      Status do agendamento
+                    </span>
+                    <ButtonStatus status={item.status} />
+                  </div>
                 </div>
 
                 <ButtonInfo
                   status={item.status}
                   onClickDelete={() => {
-                    if (item.status !== 'PENDENTE') {
-                      toast.info('Só é possível excluir se estiver pendente')
-                      return
-                    }
                     setIdParaDeletar(item.id)
                     setOpenDeletar(true)
                   }}
                   onClickRecusado={() =>
                     toast.error(
                       item.observacoesFuncionario ??
-                        'Seu agendamento foi recusado'
+                        'Após análise, seu agendamento foi recusado'
                     )
                   }
                   onClickVisualizarInfo={() => {
@@ -273,7 +240,6 @@ export function Agendamento(user: {
           const assistencia = user.assistencias.data.find(
             (a: any) => a.id === created.unidadeId
           )
-
           setSolicitacoes((prev: any) => [
             { ...created, assistencia },
             ...prev,
@@ -307,17 +273,11 @@ export function Agendamento(user: {
         user={user.data}
       />
 
-      {/* BOTÃO MOBILE */}
-      <button
-        className="absolute right-7 top-5 z-50 lg:hidden"
+      <Menu
+        className="text-primary-800 absolute right-7 top-5 size-8 cursor-pointer lg:hidden"
+        strokeWidth={3}
         onClick={() => setIsAnimateSearch((p) => !p)}
-      >
-        {isAnimateSearch ? (
-          <Menu className="size-8" />
-        ) : (
-          <X className="size-8 rotate-90" />
-        )}
-      </button>
+      />
     </main>
   )
 }
