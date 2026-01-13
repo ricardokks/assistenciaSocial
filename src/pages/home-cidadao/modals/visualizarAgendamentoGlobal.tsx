@@ -15,6 +15,7 @@ type Props = {
   open: boolean
   close: () => void
   solicitacao?: SolicitacaoDTO
+  user: any
 }
 
 export function VisualizarAgendamentoGlobal({
