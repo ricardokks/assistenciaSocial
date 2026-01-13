@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
 import { toast } from 'sonner'
 
 import { logout } from '../../api/auth/logout'
@@ -13,7 +12,7 @@ import {
 import type { HeaderLinksProps } from '../../types/interface-header-dashboard'
 import type { TypeDashboardFuncionario } from '../../types/type-dashboard-funcionario'
 import type { TypeUsario } from '../../types/type-usuarios'
-import { Loading } from '../loading'
+import { LogoutModal } from '../../pages/home-cidadao/modals/confirmarLogout'
 
 const userLinks: Record<
   TypeUsario,
@@ -32,6 +31,8 @@ export function SideBarMobileLinks(props: HeaderLinksProps) {
   const linksUsers = userLinks[props.typeUser]
   const navigate = useNavigate()
 
+  const [openLogout, setOpenLogout] = useState(false)
+
   async function handleLogout() {
     try {
       navigate('/')
@@ -43,25 +44,43 @@ export function SideBarMobileLinks(props: HeaderLinksProps) {
   }
 
   return (
-    <div className="flex items-center justify-center gap-6 px-4">
-      {linksUsers.map((link, index) => (
-        <button
-          key={index}
-          className={`p-3 ${props.sectionSelecionada === link.id ? 'bg-white ' : 'bg-transparent'} group rounded-2xl hover:bg-white`}
-          onClick={() => props.selecionarSection(link.id as TypeDashboardFuncionario)}
-        >
-          <link.icone
-            className={` group-hover:text-primary-800 ${props.sectionSelecionada === link.id ? 'text-primary-800' : 'text-white'} size-7`}
-          />
-        </button>
-      ))}
+    <>
+      <div className="flex items-center justify-center gap-6 px-4">
+        {linksUsers.map((link, index) => (
+          <button
+            key={index}
+            className={`group rounded-2xl p-3 hover:bg-white ${
+              props.sectionSelecionada === link.id ? 'bg-white' : 'bg-transparent'
+            }`}
+            onClick={() =>
+              props.selecionarSection(link.id as TypeDashboardFuncionario)
+            }
+          >
+            <link.icone
+              className={`size-7 ${
+                props.sectionSelecionada === link.id
+                  ? 'text-primary-800'
+                  : 'text-white'
+              } group-hover:text-primary-800`}
+            />
+          </button>
+        ))}
 
-      <button
-        className={'group rounded-2xl p-2 text-white  hover:bg-white'}
-        onClick={async () => await handleLogout()}
-      >
-        <IconeSair className="group-hover:text-primary-800 size-8 text-white" />
-      </button>
-    </div>
+        {/* BOTÃO DE SAIR */}
+        <button
+          className="group rounded-2xl p-2 hover:bg-white"
+          onClick={() => setOpenLogout(true)}
+        >
+          <IconeSair className="size-8 text-white group-hover:text-primary-800" />
+        </button>
+      </div>
+
+      {/* MODAL DE CONFIRMAÇÃO */}
+      <LogoutModal
+        open={openLogout}
+        close={() => setOpenLogout(false)}
+        onConfirm={handleLogout}
+      />
+    </>
   )
 }

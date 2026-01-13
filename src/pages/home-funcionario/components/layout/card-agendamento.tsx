@@ -110,7 +110,6 @@ export function CardAgendamento(props: CardAgendamentoProps) {
     }
   }
 
-  console.log('dadosInternos', dadosInternos)
   return (
     <div className="border-primary-800 flex max-w-[350px] flex-col gap-4 rounded border-2 bg-white p-3">
       {/* Cabeçalho */}
