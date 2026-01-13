@@ -1,5 +1,5 @@
 import { Accessibility, Trash2, Eye } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   motion,
   AnimatePresence,
@@ -11,6 +11,8 @@ import { toast } from 'sonner'
 
 import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
+import { AnimatedEye, AnimatedEyeControlled } from '../../../components/ui/eye'
+import { AnimatedTrashControlled } from '../../../components/ui/trashAnimate'
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
@@ -29,8 +31,18 @@ export function AgendamentoCard({
 }) {
   const controls = useAnimation()
   const [showHint, setShowHint] = useState(false)
+  const [isEyeOpen, setIsEyeOpen] = useState(false)
+  const [isTrashOpen, setIsTrashOpen] = useState(false)
 
   const x = useMotionValue(0)
+
+  useEffect(() => {
+    const unsubscribe = x.onChange((value) => {
+      setIsEyeOpen(value > 0)      // abre olho se arrastar pra direita
+      setIsTrashOpen(value < 0)    // abre lixo se arrastar pra esquerda
+    })
+    return () => unsubscribe()
+  }, [x])
 
   // Sombra do card baseada no drag
   const shadow = useTransform(
@@ -51,21 +63,28 @@ export function AgendamentoCard({
 
   return (
     <div className="relative overflow-visible">
-      {/* Ícone Lixeira Vermelha - lado esquerdo */}
-      <motion.div
-        style={{ scale: trashScale, opacity: trashOpacity }}
-        className="absolute left-[-40px] top-1/2 -translate-y-1/2 z-30"
-      >
-        <Trash2 className="text-red-600" size={28} />
-      </motion.div>
+     {/* Ícone Lixeira - com fundo elegante */}
+<motion.div
+ style={{ scale: trashScale, opacity: trashOpacity }}
+  className="absolute right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col space-y-2 items-center justify-center md:hidden"
+>
+  <div className="rounded-full bg-red-100/80 p-4 backdrop-blur-sm shadow-lg ring-2 ring-red-200/50 flex space-y-2">
+    <AnimatedTrashControlled size={32} color="#dc2626" isOpen={isTrashOpen} strokeWidth={1.5} />
+  </div>
+  <span className="text-[18px]  font-satoshi font-bold text-red-500">Deletar</span>
+</motion.div>
 
-      {/* Ícone Olho Azul - lado direito */}
-      <motion.div
-        style={{ scale: eyeScale, opacity: eyeOpacity }}
-        className="absolute right-[-40px] top-1/2 -translate-y-1/2 z-30"
-      >
-        <Eye className="text-blue-600" size={28} />
-      </motion.div>
+{/* Ícone Olho - com fundo elegante */}
+<motion.div
+  style={{ scale: eyeScale, opacity: eyeOpacity }}
+  className="absolute left-5 top-1/2 -translate-y-1/2 z-30 flex flex-col space-y-2 items-center justify-center md:hidden"
+>
+  <div className="rounded-full bg-blue-100/80 p-4 backdrop-blur-sm shadow-lg ring-2 ring-blue-200/50 space-y-2 flex-col flex">
+    <AnimatedEyeControlled size={32} color="#194a99" isOpen={isEyeOpen} strokeWidth={1.5} />
+  </div>
+  <span className="text-[18px]  font-satoshi font-bold text-primary-800">Visualizar</span>
+</motion.div>
+
 
       {/* CARD */}
       <motion.div
@@ -101,7 +120,7 @@ export function AgendamentoCard({
       >
         {/* Ícone de Ajuda */}
         <Accessibility
-          className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800"
+          className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800 md:hidden"
           onClick={() => setShowHint((prev) => !prev)}
         />
 
