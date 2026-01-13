@@ -23,6 +23,7 @@ import { CriarAgendamento } from '../modals/criarAgendamento'
 import { DeletarAgendamento } from '../modals/deletarAgendamento'
 import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
 import { VisualizarAgendamentoGlobal } from '../modals/visualizarAgendamentoGlobal'
+import { AgendamentoCard } from '../components/cardAgendamento'
 
 export function Agendamento(user: {
   data: any
@@ -128,142 +129,26 @@ export function Agendamento(user: {
           </div>
         ) : (
           <AnimatePresence>
-            {filteredAppointments.map((item: any) => {
-              const controls = useAnimation()
-              const [showHint, setShowHint] = useState(false)
-
-              return (
-                <motion.div
-                  key={item.id}
-                  drag="x"
-                  dragElastic={0.15}
-                  dragConstraints={{ left: -150, right: 150 }}
-                  animate={controls}
-                  onDragEnd={(_, info) => {
-                    // 👉 direita
-                    if (info.offset.x > 120) {
-                      setSolicitacaoDados(item)
-                      item.status === 'CONCLUIDO'
-                        ? setOpenVisualizar(true)
-                        : setOpenVisualizarGlobal(true)
-                    }
-
-                    // 👈 esquerda
-                    else if (info.offset.x < -120) {
-                      if (item.status !== 'PENDENTE') {
-                        toast.error('Não é possível excluir este agendamento')
-                      } else {
-                        setIdParaDeletar(item.id)
-                        setOpenDeletar(true)
-                      }
-                    }
-
-                    // volta suave
-                    controls.start({
-                      x: 0,
-                      transition: {
-                        type: 'spring',
-                        stiffness: 300,
-                        damping: 25,
-                      },
-                    })
-                  }}
-                  className="relative flex h-full flex-col rounded-2xl bg-white p-4 shadow-lg"
-                >
-                  {/* ÍCONE ACESSIBILIDADE */}
-                  <Accessibility
-                    className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800"
-                    onClick={() => setShowHint((prev) => !prev)}
-                  />
-
-                  {/* HINT VISUAL */}
-                  <AnimatePresence>
-                    {showHint && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -5 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -5 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute right-3 top-10 z-30 w-52 rounded-xl bg-neutral-800/90 px-3 py-2 text-xs text-white shadow-lg backdrop-blur"
-                      >
-                        <div className="flex flex-col space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-green-400">→</span>
-                            <span>Arraste para visualizar</span>
-                          </div>
-
-                          <div className="h-px w-full bg-white/20" />
-
-                          <div className="flex items-center space-x-2">
-                            <span className="text-red-400">←</span>
-                            <span>Arraste para excluir</span>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* CONTEÚDO DO CARD */}
-                  <div className="flex w-full space-x-5">
-                    <img className="size-12" src={item.assistencia.icone} />
-                    <div className="flex flex-col">
-                      <span className="font-outfit-bold text-primary-800 text-lg">
-                        {item.assistencia.unidade}
-                      </span>
-                      <span className="font-outfit text-primary-800/75 text-sm">
-                        Data de solicitacao: {formatDate(item.dataCriacao)}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 flex w-full">
-                    <div className="flex w-full flex-col">
-                      <span className="font-outfit text-primary-800 text-[14px]">
-                        Serviço solicitado
-                      </span>
-                      <span className="font-satoshi text-primary-800 text-[12px] font-medium">
-                        {
-                          item.assistencia.servicos.find(
-                            (svc: any) => svc.id === item.servicoId
-                          )?.nome
-                        }
-                      </span>
-                    </div>
-
-                    <div className="flex w-full flex-col">
-                      <span className="font-outfit text-primary-800 text-[14px]">
-                        Status do agendamento
-                      </span>
-                      <ButtonStatus status={item.status} />
-                    </div>
-                  </div>
-
-                  <div className="mt-auto pt-4">
-                    <ButtonInfo
-                      status={item.status}
-                      onClickDelete={() => {
-                        setIdParaDeletar(item.id)
-                        setOpenDeletar(true)
-                      }}
-                      onClickRecusado={() =>
-                        toast.error(
-                          `Após análise, seu agendamento foi recusado. Observação do funcionário: ${item.observacoesFuncionario}` ||
-                          'Após análise, seu agendamento foi recusado'
-                        )
-                      }
-                      onClickVisualizarInfo={() => {
-                        setSolicitacaoDados(item)
-                        item.status === 'CONCLUIDO'
-                          ? setOpenVisualizar(true)
-                          : setOpenVisualizarGlobal(true)
-                      }}
-                    />
-                  </div>
-
-                </motion.div>
-              )
-            })}
+            {filteredAppointments.map((item: any) => (
+              <AgendamentoCard
+                key={item.id}
+                item={item}
+                onVisualizar={() => {
+                  setSolicitacaoDados(item)
+                  setOpenVisualizar(true)
+                }}
+                onVisualizarGlobal={() => {
+                  setSolicitacaoDados(item)
+                  setOpenVisualizarGlobal(true)
+                }}
+                onDelete={() => {
+                  setIdParaDeletar(item.id)
+                  setOpenDeletar(true)
+                }}
+              />
+            ))}
           </AnimatePresence>)}
+
       </div>
 
       {/* MODAIS */}
