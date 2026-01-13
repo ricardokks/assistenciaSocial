@@ -89,19 +89,18 @@ export function Agendamento(user: {
 
       {/* SEARCH */}
       <div
-        className={`relative flex w-[80%] items-center text-center max-xl:w-4/5 max-lg:w-full max-md:w-full ${
-          isAnimateSearch ? 'max-md:hidden' : ''
-        }`}
+        className={`relative flex w-[80%] items-center text-center max-xl:w-4/5 max-lg:w-full max-md:w-full ${isAnimateSearch ? 'max-md:hidden' : ''
+          }`}
       >
-        <IconeSearch className="absolute left-3 top-[1.25rem]" />
+        <IconeSearch className="absolute left-3 top-[1rem]" />
 
         <input
-          className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2 bg-transparent pl-3 text-[16px] shadow-md outline-none"
+          className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2 bg-transparent pl-5 text-[16px] shadow-md outline-none"
           placeholder="Procure pelo nome..."
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
+        <div className="relative ml-3 mt-2 h-full w-1/4 max-md:w-3/5">
           <select
             className="border-primary-800 text-primary-800 size-full appearance-none rounded-2xl border-2 bg-transparent pl-3 shadow outline-none"
             value={selectedStatus}
@@ -117,9 +116,8 @@ export function Agendamento(user: {
 
           <ChevronDown
             strokeWidth={3}
-            className={`absolute right-2 top-3 size-5 transition ${
-              isAnimate ? 'rotate-180' : ''
-            }`}
+            className={`absolute right-2 top-3 size-5 transition ${isAnimate ? 'rotate-180' : ''
+              }`}
           />
         </div>
       </div>
@@ -141,9 +139,12 @@ export function Agendamento(user: {
                   // 👉 DIREITA
                   if (info.offset.x > 120) {
                     await controls.start({
-                      x: 400,
-                      opacity: 0,
-                      transition: { duration: 0.25 },
+                      x: 500,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 200,
+                        damping: 25,
+                      },
                     })
 
                     setSolicitacaoDados(item)
@@ -151,7 +152,7 @@ export function Agendamento(user: {
                       ? setOpenVisualizar(true)
                       : setOpenVisualizarGlobal(true)
 
-                    controls.set({ x: 0, opacity: 1 })
+                    controls.set({ x: 0 })
                     return
                   }
 
@@ -164,30 +165,42 @@ export function Agendamento(user: {
 
                       controls.start({
                         x: 0,
-                        transition: { type: 'spring', stiffness: 300 },
+                        transition: {
+                          type: 'spring',
+                          stiffness: 300,
+                          damping: 30,
+                        },
                       })
                       return
                     }
 
                     await controls.start({
-                      x: -400,
-                      opacity: 0,
-                      transition: { duration: 0.25 },
+                      x: -500,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 200,
+                        damping: 25,
+                      },
                     })
 
                     setIdParaDeletar(item.id)
                     setOpenDeletar(true)
 
-                    controls.set({ x: 0, opacity: 1 })
+                    controls.set({ x: 0 })
                     return
                   }
 
-                  // Volta pro centro
+                  // 🔙 Volta pro centro se não passou do limite
                   controls.start({
                     x: 0,
-                    transition: { type: 'spring', stiffness: 300 },
+                    transition: {
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 30,
+                    },
                   })
                 }}
+
                 className="relative animate-scale-in flex min-h-[200px] w-full flex-col justify-between rounded-2xl bg-white p-4 shadow-lg transition-all duration-700"
               >
                 {/* ÍCONE ACESSIBILIDADE */}
@@ -237,7 +250,7 @@ export function Agendamento(user: {
                   onClickRecusado={() =>
                     toast.error(
                       item.observacoesFuncionario ??
-                        'Após análise, seu agendamento foi recusado'
+                      'Após análise, seu agendamento foi recusado'
                     )
                   }
                   onClickVisualizarInfo={() => {
