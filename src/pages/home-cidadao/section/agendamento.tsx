@@ -122,6 +122,11 @@ export function Agendamento(user: {
 
       {/* CARDS */}
       <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3">
+       {filteredAppointments.length === 0 ? (
+          <div className="text-primary-800/60 col-span-3 mt-4 text-center max-md:col-span-1">
+            Você não possui agendamentos recentes
+          </div>
+        ) : (
         <AnimatePresence>
           {filteredAppointments.map((item: any) => {
             const controls = useAnimation()
@@ -255,7 +260,7 @@ export function Agendamento(user: {
               </motion.div>
             )
           })}
-        </AnimatePresence>
+        </AnimatePresence>)}
       </div>
 
       {/* MODAIS */}
