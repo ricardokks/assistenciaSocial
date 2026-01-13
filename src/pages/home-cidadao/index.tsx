@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { toast } from 'sonner'
-
 import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 import { getUser } from '../../api/user/getUser'
 import { Inicio } from '../../components/Inicio/Inicio'
@@ -10,7 +8,8 @@ import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { Agendamento } from './section/agendamento'
 import { Servicos } from './section/servicos'
-import { getAssistenciaLocalityUser } from '../../api/assistencia/getAssistenciaLocalityUser'
+import { useParams } from 'react-router-dom'
+import { logout } from '../../api/auth/logout'
 
 export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
@@ -20,35 +19,34 @@ export function HomeCidadao() {
   const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
   const [assistenciaSelecionada, setAssistenciaSelecionada] = useState(null)
 
+  const { id } = useParams()
+
   async function getDataUser() {
-    try {
-      const data = await getUser()
-      setUser(data)
-      setSolicitacoes(data.solicitacoes)
-    } catch (error: any) {
-      const message = error?.response?.data?.message ?? 'Erro ao buscar dados do usuário'
-      toast.error(message)
-    }
+    const data = await getUser()
+    setUser(data)
+    setSolicitacoes(data.solicitacoes)
   }
 
   async function getAssistenciasAll() {
-    try {
-      const data = await getAssistenciaLocalityUser()
-      setAssistencias(data)
-    } catch (error: any) {
-      const message = error?.response?.data?.message ?? 'Erro ao buscar assistências'
-      toast.error(message)
-    }
+    const data = await getAssistencias()
+    setAssistencias(data)
+  }
+
+  async function verifyId(){
+    const verify = id === "undefined" ? await logout() : ''
+    return verify
   }
 
   useEffect(() => {
     getDataUser()
     getAssistenciasAll()
+    verifyId()
   }, [])
 
   if (!assistencias) return null
+  
   return (
-    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col">
+    <main className="flex h-screen w-full justify-between gap-6 bg-[#f5f7fa] max-md:flex-col max-w-[1280px]">
       <SideBarDashboard.root>
         <SideBarDashboard.logo />
         <SideBarDashboard.Links
