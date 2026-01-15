@@ -76,7 +76,7 @@ export function CriarAgendamento({
     }
 
     if (!values.servicoId) {
-      toast.error("Por favor, selecione uma assistência adequada")
+      toast.error("Por favor, selecione um serviço adequado")
       return
     }
 
