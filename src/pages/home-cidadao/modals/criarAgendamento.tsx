@@ -22,7 +22,7 @@ type ICriarAgendamento = {
   assistenciaSelecionada: any
 }
 
-export  function CriarAgendamento({
+export function CriarAgendamento({
   open,
   close,
   create,
@@ -50,7 +50,7 @@ export  function CriarAgendamento({
     },
   })
 
-  
+
 
   // O que foi selecionado no select de assistência
   const selectedAssistenciaId = watch('unidadeId')
@@ -72,12 +72,28 @@ export  function CriarAgendamento({
       return
     }
 
+
     try {
       close()
       const response = await createSolicitacoes(data)
       toast.success('Agendamento criado com sucesso! Espere alguns segundos')
       create(response)
     } catch (error: any) {
+      if (error?.formErrors?.fieldErrors) {
+        const unidadeError = error.formErrors.fieldErrors.unidadeId?.[0]
+        const servicoError = error.formErrors.fieldErrors.servicoId?.[0]
+
+        if (unidadeError) {
+          toast.error(unidadeError)
+          return
+        }
+
+        if (servicoError) {
+          toast.error(servicoError)
+          return
+        }
+      }
+
       const messagem = error?.response?.data?.message ?? 'Erro ao criar um agendamento'
       toast.error(messagem)
     }
@@ -96,14 +112,14 @@ export  function CriarAgendamento({
   }
 
   useEffect(() => {
-  if (open && assistenciaSelecionada?.id) {
-    setValue('unidadeId', assistenciaSelecionada.id)
-  }
-}, [open, assistenciaSelecionada, setValue])
+    if (open && assistenciaSelecionada?.id) {
+      setValue('unidadeId', assistenciaSelecionada.id)
+    }
+  }, [open, assistenciaSelecionada, setValue])
 
   useEffect(() => {
-  setValue('servicoId', '')
-}, [watch('unidadeId')])
+    setValue('servicoId', '')
+  }, [watch('unidadeId')])
 
 
   return (
@@ -139,7 +155,7 @@ export  function CriarAgendamento({
               onMouseLeave={() => setIsAnimate(false)}
               onMouseUp={() => setIsAnimate(false)}
             >
-              <option value="">Selecionar</option>
+              <option value="Selecionar">Selecionar</option>
               {assistencia.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.unidade}
@@ -149,9 +165,8 @@ export  function CriarAgendamento({
 
             <ChevronDown
               strokeWidth={3}
-              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${
-                isAnimate ? 'rotate-180' : 'rotate-0'
-              }`}
+              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'
+                }`}
             />
           </div>
 
@@ -181,9 +196,8 @@ export  function CriarAgendamento({
 
             <ChevronDown
               strokeWidth={3}
-              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${
-                isAnimate2 ? 'rotate-180' : 'rotate-0'
-              }`}
+              className={`text-primary-800 absolute right-1.5 top-9 size-5 transition-all duration-500 ${isAnimate2 ? 'rotate-180' : 'rotate-0'
+                }`}
             />
 
             {errors.servicoId && (
