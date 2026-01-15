@@ -72,7 +72,7 @@ export function CriarAgendamento({
       return
     }
 
-     if (!data.unidadeId || data.unidadeId === "Selecionar") {
+     if (!data.unidadeId) {
     toast.error("Por favor, selecione uma assistência adequada")
     return
   }
@@ -144,7 +144,7 @@ export function CriarAgendamento({
               onMouseLeave={() => setIsAnimate(false)}
               onMouseUp={() => setIsAnimate(false)}
             >
-              <option value="Selecionar">Selecionar</option>
+              <option value="">Selecionar</option>
               {assistencia.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.unidade}
