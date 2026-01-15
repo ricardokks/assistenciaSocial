@@ -72,6 +72,10 @@ export function CriarAgendamento({
       return
     }
 
+    if (!selectedAssistenciaId || selectedAssistenciaId === "Selecionar") {
+      toast.error("Por favor, selecione uma assistência adequada")
+      return
+    }
 
     try {
       close()
@@ -79,21 +83,6 @@ export function CriarAgendamento({
       toast.success('Agendamento criado com sucesso! Espere alguns segundos')
       create(response)
     } catch (error: any) {
-      if (error?.formErrors?.fieldErrors) {
-        const unidadeError = error.formErrors.fieldErrors.unidadeId?.[0]
-        const servicoError = error.formErrors.fieldErrors.servicoId?.[0]
-
-        if (unidadeError) {
-          toast.error(unidadeError)
-          return
-        }
-
-        if (servicoError) {
-          toast.error(servicoError)
-          return
-        }
-      }
-
       const messagem = error?.response?.data?.message ?? 'Erro ao criar um agendamento'
       toast.error(messagem)
     }
