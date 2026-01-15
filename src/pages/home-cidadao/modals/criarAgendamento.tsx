@@ -72,10 +72,10 @@ export function CriarAgendamento({
       return
     }
 
-    if (!selectedAssistenciaId || selectedAssistenciaId === "Selecionar") {
-      toast.error("Por favor, selecione uma assistência adequada")
-      return
-    }
+     if (!data.unidadeId || data.unidadeId === "Selecionar") {
+    toast.error("Por favor, selecione uma assistência adequada")
+    return
+  }
 
     try {
       close()
