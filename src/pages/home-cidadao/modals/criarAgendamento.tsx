@@ -42,6 +42,7 @@ export function CriarAgendamento({
     watch,
     setValue,
     formState: { errors },
+    getValues
   } = useForm<solicitacaoSchemaDTO>({
     resolver: zodResolver(solicitacaoSchema),
     defaultValues: {
@@ -61,6 +62,8 @@ export function CriarAgendamento({
     : []
 
   const onSubmit = async (data: solicitacaoSchemaDTO) => {
+    const values = getValues()
+
     // Verificar duplicidade
     const existe = solicitacoes?.some(
       (s) =>
@@ -72,10 +75,10 @@ export function CriarAgendamento({
       return
     }
 
-     if (!data.unidadeId) {
-    toast.error("Por favor, selecione uma assistência adequada")
-    return
-  }
+    if (!values.servicoId) {
+      toast.error("Por favor, selecione uma assistência adequada")
+      return
+    }
 
     try {
       close()
