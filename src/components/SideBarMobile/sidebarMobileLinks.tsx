@@ -57,7 +57,7 @@ export function SideBarMobileLinks(props: HeaderLinksProps) {
             }
           >
             <link.icone
-              className={`size-7 ${
+              className={`size-5 ${
                 props.sectionSelecionada === link.id
                   ? 'text-primary-800'
                   : 'text-white'
@@ -71,7 +71,7 @@ export function SideBarMobileLinks(props: HeaderLinksProps) {
           className="group rounded-2xl p-2 hover:bg-white"
           onClick={() => setOpenLogout(true)}
         >
-          <IconeSair className="size-8 text-white group-hover:text-primary-800" />
+          <IconeSair className="size-6 text-white group-hover:text-primary-800" />
         </button>
       </div>
 

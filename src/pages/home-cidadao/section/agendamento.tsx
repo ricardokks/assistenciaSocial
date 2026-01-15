@@ -3,12 +3,11 @@ import {
   Menu,
   Plus,
 } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { IconeSearch } from '../../../assets/Icons/icone-search'
 import { HeaderDashboards } from '../../../components/a'
-import { Loading } from '../../../components/loading'
 
 import type { AssistenciaDTO } from '../../../types/type-assistencia'
 import type { SolicitacaoDTO } from '../../../types/type-solicitacoes'
@@ -20,19 +19,19 @@ import { DeletarAgendamento } from '../modals/deletarAgendamento'
 import { VisualizarAgendamento } from '../modals/visualizarAgendamento'
 import { VisualizarAgendamentoGlobal } from '../modals/visualizarAgendamentoGlobal'
 import { AgendamentoCard } from '../components/cardAgendamento'
+import { useInfiniteSolicitacoes } from '../../../hooks/useInfiniteSolicitacoes'
+import { AgendamentoSkeleton } from '../components/agendamentoSkeleton'
+import AOS from 'aos'
 
 
 export function Agendamento(user: {
   data: any
   assistencias: AssistenciaDTO[]
-  setSolicitacoes: any
-  solicitacoes: any
   visibilidadeModalCriarAgendamento: boolean
   setVisibilidadeModalCriarAgendamento: React.Dispatch<React.SetStateAction<boolean>>
   assistenciaSelecionada: any
 }) {
   const { visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento } = user
-  const { setSolicitacoes, solicitacoes } = user
 
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('')
@@ -46,7 +45,16 @@ export function Agendamento(user: {
   const [openVisualizarGlobal, setOpenVisualizarGlobal] = useState(false)
   const [openDeletar, setOpenDeletar] = useState(false)
 
-  if (!solicitacoes) return <Loading />
+  const {
+    solicitacoes,
+    loading,
+    observe,
+    prepend,
+    remove,
+    setScrollRoot
+  } = useInfiniteSolicitacoes()
+
+
 
   const filteredAppointments = solicitacoes.filter((apt: SolicitacaoDTO) => {
     const matchesText = apt.assistencia?.unidade
@@ -57,6 +65,30 @@ export function Agendamento(user: {
 
     return matchesText && matchesStatus
   })
+
+  const handleVisualizar = useCallback((item: any) => {
+    setSolicitacaoDados(item)
+    setOpenVisualizar(true)
+    console.log("openVisualizar", openVisualizar)
+  }, [])
+
+   const handleVisualizarGlobal = useCallback((item: any) => {
+    setSolicitacaoDados(item)
+    setOpenVisualizarGlobal(true)
+  }, [])
+
+  const handleDelete = useCallback((id: any) => {
+    setIdParaDeletar(id)
+    setOpenDeletar(true)
+  }, [])
+
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      once: true,
+      easing: 'ease-out-cubic'
+    })
+  }, [])
 
   return (
     <main className="main relative h-screen flex-col items-center overflow-y-auto px-4 max-lg:w-full max-lg:px-0">
@@ -82,74 +114,85 @@ export function Agendamento(user: {
                 <Plus className="mr-2 size-5" />
                 Novo Agendamento
               </button>
-               </div>
+            </div>
 
-              <div className="relative flex w-[80%] items-center text-center max-2xl:-translate-y-3 max-xl:w-4/5 max-xl:-translate-y-0 max-lg:w-full max-md:w-full mt-8">
-                {/* Ícone Search */}
-                <IconeSearch className="absolute left-3 top-[1.25rem]" />
-                <input
-                  className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3  size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10 max-md:w-3/5"
-                  placeholder="Procure pelo nome..."
-                  onChange={(e) => setSearchTerm(e.target.value)}
+            <div className="relative flex w-[80%] items-center text-center max-2xl:-translate-y-3 max-xl:w-4/5 max-xl:-translate-y-0 max-lg:w-full max-md:w-full mt-8">
+              {/* Ícone Search */}
+              <IconeSearch className="absolute left-3 top-[1.25rem]" />
+              <input
+                className="font-satoshi border-primary-800 text-primary-800 placeholder:text-primary-800/65 placeholder:font-satoshi mt-3  size-full rounded-2xl border-2 px-2 py-1 pl-10 shadow shadow-black/10 outline-none outline-0 max-xl:pl-10 max-md:w-3/5"
+                placeholder="Procure pelo nome..."
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
+                <select
+                  className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2  bg-transparent pl-3 text-[16px] shadow-md outline-none"
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
+                  onClick={() => setIsAnimate((prev) => !prev)}
+                  onMouseDown={() => setIsAnimate((prev) => !prev)}
+                  onMouseLeave={() => setIsAnimate(false)}
+                  onMouseUp={() => setIsAnimate(false)}
+                >
+                  <option value="">Filtrar por...</option>
+                  <option value="PENDENTE">Pendente</option>
+                  <option value="CONCLUIDO">Aprovado</option>
+                  <option value="RECUSADO">Recusado</option>
+                  <option value="ANALISE">Análise</option>
+                </select>
+
+                <ChevronDown
+                  strokeWidth={3}
+                  className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'
+                    }`}
                 />
-                <div className="relative ml-3 mt-3 h-full w-1/4 max-md:w-2/5">
-                  <select
-                    className="text-primary-800 border-primary-800 font-outfit ml-1 size-full appearance-none rounded-2xl border-2  bg-transparent pl-3 text-[16px] shadow-md outline-none"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
-                    onClick={() => setIsAnimate((prev) => !prev)}
-                    onMouseDown={() => setIsAnimate((prev) => !prev)}
-                    onMouseLeave={() => setIsAnimate(false)}
-                    onMouseUp={() => setIsAnimate(false)}
-                  >
-                    <option value="">Filtrar por...</option>
-                    <option value="PENDENTE">Pendente</option>
-                    <option value="CONCLUIDO">Aprovado</option>
-                    <option value="RECUSADO">Recusado</option>
-                    <option value="ANALISE">Análise</option>
-                  </select>
-
-                  <ChevronDown
-                    strokeWidth={3}
-                    className={`text-primary-800 absolute right-1.5 top-3.5 size-5 transition-all duration-500 ${isAnimate ? 'rotate-180' : 'rotate-0'
-                      }`}
-                  />
-                </div>
               </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+        
       {/* CARDS */}
-      <div className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 max-md:overflow-y-auto max-md:pb-32 md:gap-x-3 ">
-        {filteredAppointments.length === 0 ? (
-          <div className="text-primary-800/60 col-span-3 mt-4 text-center max-md:col-span-1">
-            Você não possui agendamentos recentes
-          </div>
+      <div
+        ref={setScrollRoot}
+        className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 overflow-y-auto max-lg:pb-32 md:gap-x-3 scrollbar-thin-personalizada">
+        {filteredAppointments.length === 0 && !loading ? (
+          solicitacoes.length === 0 ? (
+            <div className="text-primary-800/60 col-span-3 mt-4 text-center">
+              Você não possui agendamentos recentes
+            </div>
+          ) : (
+            <div className="text-primary-800/60 col-span-3 mt-4 text-center">
+              Nenhum agendamento encontrado para o filtro aplicado
+            </div>
+          )
         ) : (
           <AnimatePresence>
             {filteredAppointments.map((item: any) => (
               <AgendamentoCard
                 key={item.id}
                 item={item}
-                onVisualizar={() => {
-                  setSolicitacaoDados(item)
-                  setOpenVisualizar(true)
-                }}
-                onVisualizarGlobal={() => {
-                  setSolicitacaoDados(item)
-                  setOpenVisualizarGlobal(true)
-                }}
-                onDelete={() => {
-                  setIdParaDeletar(item.id)
-                  setOpenDeletar(true)
-                }}
+                onVisualizar={() => handleVisualizar(item)}
+                onDelete={() => handleDelete(item.id)}
+                onVisualizarGlobal={() => handleVisualizarGlobal(item)}
+                
                 animation={false}
               />
             ))}
-          </AnimatePresence>)}
+          </AnimatePresence>
+        )}
+
+        {loading &&
+          Array.from({ length: 3 }).map((_, i) => (
+            <AgendamentoSkeleton key={i} />
+          ))
+        }
+
+        <div ref={observe} className="h-10" />
 
       </div>
+
 
       {/* MODAIS */}
       <CriarAgendamento
@@ -163,10 +206,7 @@ export function Agendamento(user: {
           const assistencia = user.assistencias.data.find(
             (a: any) => a.id === created.unidadeId
           )
-          setSolicitacoes((prev: any) => [
-            { ...created, assistencia },
-            ...prev,
-          ])
+          prepend({ ...created, assistencia })
         }}
       />
 
@@ -176,7 +216,7 @@ export function Agendamento(user: {
         onDelete={() =>
           deleteSolicitacaoFunc(
             idParaDeletar,
-            setSolicitacoes,
+            remove,
             setOpenDeletar
           )
         }

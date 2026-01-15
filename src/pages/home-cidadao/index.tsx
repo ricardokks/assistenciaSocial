@@ -26,7 +26,6 @@ export function HomeCidadao() {
   const [selecionarSection, setSelecionarSection] = useState<TypeDashboardCidadao>('Inicio')
   const [user, setUser] = useState<any>(null)
   const [assistencias, setAssistencias] = useState<any>(null)
-  const [solicitacoes, setSolicitacoes] = useState<any[]>([])
   const [visibilidadeModalCriarAgendamento, setVisibilidadeModalCriarAgendamento] = useState(false)
   const [assistenciaSelecionada, setAssistenciaSelecionada] = useState<any>(null)
 
@@ -37,7 +36,6 @@ export function HomeCidadao() {
     async function loadData() {
       const dataUser = await getUser()
       setUser(dataUser)
-      setSolicitacoes(dataUser?.solicitacoes ?? [])
 
       const dataAssistencias = await getAssistencias()
       setAssistencias(dataAssistencias)
@@ -75,7 +73,9 @@ export function HomeCidadao() {
       </SideBarMobile.root>
 
       {/* Seção com animação básica de fade */}
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={ <div className="flex h-screen w-full items-center justify-center bg-[#f5f7fa]">
+      <Loading />
+    </div>}>
             {selecionarSection === 'Inicio' && <Inicio data={user} user="CIDADAO" />}
 
             {selecionarSection === 'ContatarAtendimento' && (
@@ -83,9 +83,7 @@ export function HomeCidadao() {
                 assistencias={assistencias}
                 assistenciaSelecionada={assistenciaSelecionada}
                 data={user}
-                setSolicitacoes={setSolicitacoes}
                 setVisibilidadeModalCriarAgendamento={setVisibilidadeModalCriarAgendamento}
-                solicitacoes={solicitacoes}
                 visibilidadeModalCriarAgendamento={visibilidadeModalCriarAgendamento}
               />
             )}

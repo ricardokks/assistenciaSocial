@@ -29,6 +29,7 @@ export function VisualizarAgendamentoGlobal({
     (s) => s.id === solicitacao.servicoId,
   )
 
+  console.log("openn", open)
   return (
     <Modal open={open} close={close}>
       <div

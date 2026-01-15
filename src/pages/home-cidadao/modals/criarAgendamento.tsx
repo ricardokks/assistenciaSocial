@@ -22,7 +22,7 @@ type ICriarAgendamento = {
   assistenciaSelecionada: any
 }
 
-export function CriarAgendamento({
+export  function CriarAgendamento({
   open,
   close,
   create,

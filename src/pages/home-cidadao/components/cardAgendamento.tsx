@@ -1,5 +1,5 @@
 import { Accessibility } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import {
   motion,
   AnimatePresence,
@@ -13,13 +13,12 @@ import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
 import { AnimatedEyeControlled } from '../../../components/ui/eye'
 import { AnimatedTrashControlled } from '../../../components/ui/trashAnimate'
-import AOS from 'aos'
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 }
 
-export function AgendamentoCard({
+export const AgendamentoCard = memo(function AgendamentoCard({
   item,
   onVisualizar,
   onVisualizarGlobal,
@@ -69,10 +68,6 @@ export function AgendamentoCard({
   const eyeScale = useTransform(x, [0, 50, 150], [0, 0.8, 1])
   const eyeOpacity = useTransform(x, [0, 50, 150], [0, 0.5, 1])
 
-  useEffect(() => {
-  AOS.init({ duration: 800, once: true })
-}, [])
-
   return (
     <div data-aos={animation ? 'fade-right' : ''} className="relative overflow-visible animate-scale-in ">
       {/* Ícone Lixeira */}
@@ -117,7 +112,7 @@ export function AgendamentoCard({
             if (item.status !== 'PENDENTE') {
               toast.error('Não é possível excluir este agendamento')
             } else {
-              onDelete()
+              setTimeout(() => onDelete(), 100)
             }
           }
 
@@ -133,7 +128,7 @@ export function AgendamentoCard({
       >
         {/* Ícone de Ajuda */}
         <Accessibility
-          className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800 md:hidden"
+          className="absolute right-3 top-3 z-20 cursor-pointer text-primary-800 "
           onClick={() => setShowHint((prev) => !prev)}
         />
 
@@ -202,11 +197,12 @@ export function AgendamentoCard({
               )
             }
             onClickVisualizarInfo={() =>
-              item.status === 'CONCLUIDO' ? onVisualizar() : onVisualizarGlobal()
+              {console.log('visualizar', item)
+              item.status === 'CONCLUIDO' ? onVisualizar() : onVisualizarGlobal()}
             }
           />
         </div>
       </motion.div>
     </div>
   )
-}
+})
