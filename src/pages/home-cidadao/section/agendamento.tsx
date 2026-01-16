@@ -156,7 +156,7 @@ export function Agendamento(user: {
       {/* CARDS */}
       <div
         ref={setScrollRoot}
-        className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 overflow-y-auto max-lg:pb-32 md:gap-x-3 scrollbar-thin-personalizada">
+        className="max-md:min-h-2/5 mt-5 grid w-full grid-cols-3 gap-y-2 max-xl:grid-cols-2 max-md:flex max-md:h-[90%] max-md:flex-col max-md:space-y-4 overflow-y-auto max-lg:pb-32 md:gap-x-3">
         {filteredAppointments.length === 0 && !loading ? (
           solicitacoes.length === 0 ? (
             <div className="text-primary-800/60 col-span-3 mt-4 text-center">

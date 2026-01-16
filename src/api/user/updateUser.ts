@@ -1,5 +1,5 @@
 import { api } from '../../lib/axios.config'
-import type { userEditarDTO } from '../../schemas/userCadastroSchema'
+import type { userEditarDTO, userEditarFotoDTO } from '../../schemas/userCadastroSchema'
 
 export async function updateUser(data: userEditarDTO, id: string) {
   const formData = new FormData()
@@ -16,6 +16,7 @@ export async function updateUser(data: userEditarDTO, id: string) {
   if (data.cpf) formData.append('cpf', data.cpf)
   if (data.senha) formData.append('senha', data.senha)
   if (data.papel) formData.append('papel', data.papel)
+  if (data.avatarURL) formData.append('avatarURL', data.avatarURL)
 
   if (data.assistenciaId) {
     formData.append('assistenciaId', data.assistenciaId)
@@ -32,5 +33,25 @@ export async function updateUser(data: userEditarDTO, id: string) {
   } catch (error) {
     console.log('Falha ao editar um usuário', error)
     throw error
+  }
+}
+
+
+
+
+export async function updateFotoUser(data: userEditarFotoDTO, id: string) {
+  const formData = new FormData()
+  if (data.avatarURL) formData.append('avatarURL', data.avatarURL)
+
+  try {
+    const response = await api.put(`/users/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
+    return response
+  } catch (error) {
+    // mensagem
   }
 }

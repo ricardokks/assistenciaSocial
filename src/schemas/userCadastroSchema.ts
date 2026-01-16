@@ -105,6 +105,7 @@ export const userEditarSchema = z.object({
   papel: z.string().optional(),
   cpf: z.string().min(11, 'O CPF deve conter pelo menos 11 caracteres'),
   senha: z.string().min(8, 'A senha deve ter pelo menos 8 caracteres').or(z.literal('')).optional(),
+  avatarURL: z.any().optional(),
   // relacionamentos
   assistenciaId: z.any().optional(),
   solicitacoes: z.array(z.any()).optional(),
@@ -113,4 +114,10 @@ export const userEditarSchema = z.object({
   ouvidorias: z.array(z.any()).optional(),
 })
 
+export const userEditarFotoSchema = z.object({
+  avatarURL: z.any().nullable().optional(),
+  removeAvatar: z.coerce.boolean().optional(),
+})
+
 export type userEditarDTO = z.infer<typeof userEditarSchema>
+export type userEditarFotoDTO = z.infer<typeof userEditarFotoSchema>

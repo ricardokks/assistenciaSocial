@@ -1,3 +1,4 @@
+import { fotoPadraoInstituicao } from '../../../assets/image'
 import type { dataInfoAssistencia } from '../../../types/interface-info-assistencia'
 
 export function InfoAssistencia(data: dataInfoAssistencia) {
@@ -6,7 +7,7 @@ export function InfoAssistencia(data: dataInfoAssistencia) {
       {/* Div foto e botão */}
       <div className="m-0 flex h-full items-center justify-center space-x-6 pt-10 max-2xl:min-w-[76rem] max-xl:min-w-[60rem] max-lg:min-w-[40rem] max-lg:max-w-[60rem] max-md:min-w-[24rem] max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-4 max-md:space-x-0">
         <div className="rounded-4xl shadow-inner-[#194A99] shadow-inner-xl flex h-2/3 w-1/4 flex-col items-center justify-evenly bg-white p-4 drop-shadow-[#70A6FF] drop-shadow-xl max-md:w-full">
-          <img className="size-48 rounded-2xl max-md:mb-4" src={data.icone} />
+          <img className="size-48 rounded-2xl max-md:mb-4" src={data.icone ? data.icone : fotoPadraoInstituicao} />
           <a 
             target="_blank"
             href="https://wa.me/558894923323?text=Olá,%20gostaria%20de%20mais%20informações!"

@@ -13,6 +13,7 @@ import { ButtonInfo } from '../../../components/ui/buttonInfo'
 import { ButtonStatus } from '../../../components/ui/buttonStatus'
 import { AnimatedEyeControlled } from '../../../components/ui/eye'
 import { AnimatedTrashControlled } from '../../../components/ui/trashAnimate'
+import { fotoPadraoInstituicao } from '../../../assets/image'
 
 function formatDate(date: Date) {
   return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
@@ -144,12 +145,12 @@ export const AgendamentoCard = memo(function AgendamentoCard({
             >
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center space-x-2">
-                  <span className="text-green-400">←</span>
+                  <span className="text-green-400">→</span>
                   <span>Arraste para visualizar</span>
                 </div>
                 <div className="h-px w-full bg-white/20" />
                 <div className="flex items-center space-x-2">
-                  <span className="text-red-400">→</span>
+                  <span className="text-red-400">←</span>
                   <span>Arraste para excluir</span>
                 </div>
               </div>
@@ -159,7 +160,7 @@ export const AgendamentoCard = memo(function AgendamentoCard({
 
         {/* Conteúdo do Card */}
         <div className="flex w-full space-x-5">
-          <img className="size-12" src={item.assistencia.icone} />
+          <img className="size-12" src={item.assistencia.icone ? item.assistencia.icone : fotoPadraoInstituicao } />
           <div className="flex flex-col">
             <span className="font-outfit-bold text-primary-800 text-lg">{item.assistencia?.unidade}</span>
             <span className="font-outfit text-primary-800/75 text-sm">
