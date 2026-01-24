@@ -3,6 +3,8 @@ import { IconeInstagram } from '../../../assets/Icons/icone-instagram'
 import { logoSEPADAzul } from '../../../assets/image'
 import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
 import { scrollParaIrSecao } from '../../../utils/function-scroll'
+import  logomassappsemsocial  from '../../../assets/image/logomassapp-semsocial.png'
+
 
 export function Footer() {
   return (
@@ -12,7 +14,7 @@ export function Footer() {
         <div className="flex items-center justify-center gap-10">
           {/* logo */}
           <div>
-            <img alt="logo do SEPAD" className="max-md:w-[200px]" src={logoSEPADAzul} />
+            <img alt="logo do SEPAD" className="max-md:w-[70px]"  width="70" height="70" src={logomassappsemsocial} />
           </div>
           <h1 className="text-primary-800">|</h1>
           {/* redes socias */}

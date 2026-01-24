@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
 import { autoLogin } from '../../../api/auth/autologin'
-import { logoMonocramaticaSEPAD } from '../../../assets/image'
 import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
 import { scrollParaIrSecao } from '../../../utils/function-scroll'
 import { verifyRole } from '../../../utils/verify-role'
+import  logomassapp  from '../../../assets/image/logomassapp.png'
+import isotipo from '../../../assets/image/isotipo.png'
 
 export function Header() {
   const navigate = useNavigate()
@@ -25,9 +26,9 @@ export function Header() {
   return (
     <header className="font-outfit relative flex items-center justify-between bg-transparent max-md:hidden">
       {/* logo SEPAD  */}
-      <div className="cursor-pointer">
-        <img alt="logo SEPAD" src={logoMonocramaticaSEPAD} />
-      </div>
+    
+        <img alt="logo SEPAD" className='pt-1' width="90" height="70" src={logomassapp} />
+ 
 
       {/* Links de navegação  */}
       <div className="flex content-between gap-10">

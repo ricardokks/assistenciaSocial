@@ -1,13 +1,12 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-
-import { getAssistencias } from '../../api/assistencia/getAllAssistencia'
 import { getUser } from '../../api/user/getUser'
 import { SideBarDashboard } from '../../components/SideBar'
 import { SideBarMobile } from '../../components/SideBarMobile'
 import type { TypeDashboardCidadao } from '../../types/type-dashboard-cidadao'
 import { logout } from '../../api/auth/logout'
 import { Loading } from '../../components/loading'
+import { getAssistenciaLocalityUser } from '../../api/assistencia/getAssistenciaLocalityUser'
 
 // Lazy load das seções
 const Inicio = lazy(() =>
@@ -37,7 +36,7 @@ export function HomeCidadao() {
       const dataUser = await getUser()
       setUser(dataUser)
 
-      const dataAssistencias = await getAssistencias()
+      const dataAssistencias = await getAssistenciaLocalityUser()
       setAssistencias(dataAssistencias)
 
       if (id === undefined) {

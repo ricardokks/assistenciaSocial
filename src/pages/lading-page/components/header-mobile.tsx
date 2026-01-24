@@ -2,8 +2,9 @@ import { useState } from 'react'
 
 import { IconeBars } from '../../../assets/Icons/IconeBars'
 import { IconeClosed } from '../../../assets/Icons/IconeClosed'
-import { logoMonocramaticaSEPAD } from '../../../assets/image'
 import { LinksNavBarHomePage } from '../../../constants/links-header-home-page'
+import  logomassapp  from '../../../assets/image/logomassapp.png'
+
 
 export function HeaderMobile() {
   // estados e variaveis utilizados no componente
@@ -28,7 +29,7 @@ export function HeaderMobile() {
     <header className="relative z-[10000] hidden h-auto w-full items-center justify-between bg-transparent max-md:flex">
       {/* logo SEPAD  */}
       <div className="cursor-pointer">
-        <img alt="logo SEPAD" src={logoMonocramaticaSEPAD} />
+        <img alt="logo SEPAD" className='pt-1' width="90" height="70" src={logomassapp} />
       </div>
 
       {/* Icone de Bars  */}

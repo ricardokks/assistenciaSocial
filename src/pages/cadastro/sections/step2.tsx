@@ -42,7 +42,7 @@ export function Step2({
         {/* data de nascimento */}
         <div className="w-3/5 flex-col items-center rounded-2xl p-2">
           <label className="text-primary-800 font-outfit text-[16px] font-medium">
-            Data de Nascimento:
+            Sua data de nascimento:
           </label>
 
           <div className="relative flex">
